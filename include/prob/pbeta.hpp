@@ -23,14 +23,14 @@
  * 06/15/2017
  *
  * This version:
- * 06/17/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_pbeta_HPP
 #define _stats_pbeta_HPP
 
 // single input
-double pbeta_int(double x, double* par_1_inp, double* par_2_inp, bool log_form);
+double pbeta_int(double x, const double* par_1_inp, const double* par_2_inp, bool log_form);
 
 double pbeta(double x);
 double pbeta(double x, bool log_form);
@@ -38,7 +38,7 @@ double pbeta(double x, double par_1, double par_2);
 double pbeta(double x, double par_1, double par_2, bool log_form);
 
 // vector input
-arma::vec pbeta_int(const arma::vec& x, double* par_1_inp, double* par_2_inp, bool log_form);
+arma::vec pbeta_int(const arma::vec& x, const double* par_1_inp, const double* par_2_inp, bool log_form);
 
 arma::vec pbeta(const arma::vec& x);
 arma::vec pbeta(const arma::vec& x, bool log_form);

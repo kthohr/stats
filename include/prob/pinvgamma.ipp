@@ -23,7 +23,7 @@
  * 06/17/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 //
@@ -31,15 +31,21 @@
 
 inline
 double
-pinvgamma_int(double x, double* shape_inp, double* rate_inp, bool log_form)
+pinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form)
 {
-    double shape = (shape_inp) ? *shape_inp : 1;
-    double rate = (rate_inp) ? *rate_inp : 1;
+    const double shape = (shape_inp) ? *shape_inp : 1;
+    const double rate = (rate_inp) ? *rate_inp : 1;
     //
     double ret;
     incomplete_gamma(shape,rate/x,ret);
+
+    ret = 1.0 - ret;
+
+    if (log_form) {
+        ret = std::log(ret);
+    }
     //
-    return 1.0 - ret;
+    return ret;
 }
 
 inline
@@ -75,9 +81,9 @@ pinvgamma(double x, double shape, double rate, bool log_form)
 
 inline
 arma::vec
-pinvgamma_int(const arma::vec& x, double* shape_inp, double* rate_inp, bool log_form)
+pinvgamma_int(const arma::vec& x, const double* shape_inp, const double* rate_inp, bool log_form)
 {
-    int n = x.n_elem;
+    const int n = x.n_elem;
     arma::vec ret(n);
 
     for (int i=0; i < n; i++) {

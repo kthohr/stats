@@ -23,14 +23,14 @@
  * 01/03/2016
  *
  * This version:
- * 06/15/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_pnorm_HPP
 #define _stats_pnorm_HPP
 
 // single input
-double pnorm_int(double x, double* mu_inp, double* sigma_inp, bool log_form);
+double pnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 double pnorm(double x);
 double pnorm(double x, bool log_form);
@@ -38,7 +38,7 @@ double pnorm(double x, double mu, double sigma);
 double pnorm(double x, double mu, double sigma, bool log_form);
 
 // vector input
-arma::vec pnorm_int(const arma::vec& x, double* mu_inp, double* sigma_inp, bool log_form);
+arma::vec pnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 arma::vec pnorm(const arma::vec& x);
 arma::vec pnorm(const arma::vec& x, bool log_form);

@@ -23,14 +23,14 @@
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_punif_HPP
 #define _stats_punif_HPP
 
 // single input
-double punif_int(double x, double* a_inp, double* b_inp, bool log_form);
+double punif_int(double x, const double* a_inp, const double* b_inp, bool log_form);
 
 double punif(double x);
 double punif(double x, bool log_form);
@@ -38,7 +38,7 @@ double punif(double x, double a, double b);
 double punif(double x, double a, double b, bool log_form);
 
 // vector input
-arma::vec punif_int(const arma::vec& x, double* a_inp, double* b_inp, bool log_form);
+arma::vec punif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log_form);
 
 arma::vec punif(const arma::vec& x);
 arma::vec punif(const arma::vec& x, bool log_form);

@@ -23,7 +23,7 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,10 +31,10 @@
 
 inline
 double
-punif_int(double x, double* a_inp, double* b_inp, bool log_form)
+punif_int(double x, const double* a_inp, const double* b_inp, bool log_form)
 {
-    double a = (a_inp) ? *a_inp : 0;
-    double b = (b_inp) ? *b_inp : 1;
+    const double a = (a_inp) ? *a_inp : 0;
+    const double b = (b_inp) ? *b_inp : 1;
     //
     if (x <= a) {
         return 0;
@@ -86,10 +86,10 @@ punif(double x, double a, double b, bool log_form)
 
 inline
 arma::vec
-punif_int(const arma::vec& x, double* a_inp, double* b_inp, bool log_form)
+punif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log_form)
 {
-    double a = (a_inp) ? *a_inp : 0;
-    double b = (b_inp) ? *b_inp : 1;
+    const double a = (a_inp) ? *a_inp : 0;
+    const double b = (b_inp) ? *b_inp : 1;
     //
     arma::vec ret = (x-a) / (b-a);
 

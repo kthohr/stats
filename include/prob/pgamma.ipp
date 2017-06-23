@@ -23,7 +23,7 @@
  * 06/15/2017
  *
  * This version:
- * 06/17/2017
+ * 06/23/2017
  */
 
 //
@@ -31,13 +31,17 @@
 
 inline
 double
-pgamma_int(double x, double* shape_inp, double* scale_inp, bool log_form)
+pgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form)
 {
-    double shape = (shape_inp) ? *shape_inp : 1;
-    double scale = (scale_inp) ? *scale_inp : 1;
+    const double shape = (shape_inp) ? *shape_inp : 1;
+    const double scale = (scale_inp) ? *scale_inp : 1;
     //
     double ret;
     incomplete_gamma(shape,x/scale,ret);
+
+    if (log_form) {
+        ret = std::log(ret);
+    }
     //
     return ret;
 }
@@ -75,9 +79,9 @@ pgamma(double x, double shape, double scale, bool log_form)
 
 inline
 arma::vec
-pgamma_int(const arma::vec& x, double* shape_inp, double* scale_inp, bool log_form)
+pgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp, bool log_form)
 {
-    int n = x.n_elem;
+    const int n = x.n_elem;
     arma::vec ret(n);
 
     for (int i=0; i < n; i++) {

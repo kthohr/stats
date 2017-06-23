@@ -23,14 +23,14 @@
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_plogis_HPP
 #define _stats_plogis_HPP
 
 // single input
-double plogis_int(double x, double* mu_inp, double* sigma_inp, bool log_form);
+double plogis_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 double plogis(double x);
 double plogis(double x, bool log_form);
@@ -38,7 +38,7 @@ double plogis(double x, double mu, double sigma);
 double plogis(double x, double mu, double sigma, bool log_form);
 
 // vector input
-arma::vec plogis_int(const arma::vec& x, double* mu_inp, double* sigma_inp, bool log_form);
+arma::vec plogis_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 arma::vec plogis(const arma::vec& x);
 arma::vec plogis(const arma::vec& x, bool log_form);

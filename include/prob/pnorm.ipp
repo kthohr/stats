@@ -23,7 +23,7 @@
  * 01/03/2016
  *
  * This version:
- * 06/15/2017
+ * 06/23/2017
  */
 
 //
@@ -31,12 +31,12 @@
 
 inline
 double
-pnorm_int(double x, double* mu_inp, double* sigma_inp, bool log_form)
+pnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double erf_term = std::erf( (x-mu) / (sigma * std::sqrt(2)) );
+    const double erf_term = std::erf( (x-mu) / (sigma * std::sqrt(2)) );
     double ret = 0.5 * (1 + erf_term);
 
     if (log_form) {
@@ -79,9 +79,9 @@ pnorm(double x, double mu, double sigma, bool log_form)
 
 inline
 arma::vec
-pnorm_int(const arma::vec& x, double* mu_inp, double* sigma_inp, bool log_form)
+pnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    int n = x.n_elem;
+    const int n = x.n_elem;
     arma::vec ret(n);
 
     for (int i=0; i < n; i++) {

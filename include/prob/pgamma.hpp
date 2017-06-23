@@ -23,14 +23,14 @@
  * 06/15/2017
  *
  * This version:
- * 06/17/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_pgamma_HPP
 #define _stats_pgamma_HPP
 
 // single input
-double pgamma_int(double x, double* shape_inp, double* scale_inp, bool log_form);
+double pgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form);
 
 double pgamma(double x);
 double pgamma(double x, bool log_form);
@@ -38,7 +38,7 @@ double pgamma(double x, double shape, double scale);
 double pgamma(double x, double shape, double scale, bool log_form);
 
 // vector input
-arma::vec pgamma_int(const arma::vec& x, double* shape_inp, double* scale_inp, bool log_form);
+arma::vec pgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp, bool log_form);
 
 arma::vec pgamma(const arma::vec& x);
 arma::vec pgamma(const arma::vec& x, bool log_form);

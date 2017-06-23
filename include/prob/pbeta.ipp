@@ -23,7 +23,7 @@
  * 06/15/2017
  *
  * This version:
- * 06/17/2017
+ * 06/23/2017
  */
 
 //
@@ -31,13 +31,17 @@
 
 inline
 double
-pbeta_int(double x, double* par_1_inp, double* par_2_inp, bool log_form)
+pbeta_int(double x, const double* par_1_inp, const double* par_2_inp, bool log_form)
 {
-    double par_1 = (par_1_inp) ? *par_1_inp : 1;
-    double par_2 = (par_2_inp) ? *par_2_inp : 1;
+    const double par_1 = (par_1_inp) ? *par_1_inp : 1;
+    const double par_2 = (par_2_inp) ? *par_2_inp : 1;
     //
     double ret;
     incomplete_beta(par_1,par_2,x,ret);
+
+    if (log_form) {
+        ret = std::log(ret);
+    }
     //
     return ret;
 }
@@ -75,9 +79,9 @@ pbeta(double x, double par_1, double par_2, bool log_form)
 
 inline
 arma::vec
-pbeta_int(const arma::vec& x, double* par_1_inp, double* par_2_inp, bool log_form)
+pbeta_int(const arma::vec& x, const double* par_1_inp, const double* par_2_inp, bool log_form)
 {
-    int n = x.n_elem;
+    const int n = x.n_elem;
     arma::vec ret(n);
 
     for (int i=0; i < n; i++) {
