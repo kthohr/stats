@@ -23,14 +23,14 @@
  * 06/15/2017
  *
  * This version:
- * 06/17/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_qgamma_HPP
 #define _stats_qgamma_HPP
 
 // single input
-double qgamma_int(double p, double* shape_inp, double* scale_inp, bool log_form);
+double qgamma_int(double p, const double* shape_inp, const double* scale_inp, bool log_form);
 
 double qgamma(double p);
 double qgamma(double p, bool log_form);
@@ -38,7 +38,7 @@ double qgamma(double p, double shape, double scale);
 double qgamma(double p, double shape, double scale, bool log_form);
 
 // vector input
-arma::vec qgamma_int(const arma::vec& p, double* shape_inp, double* scale_inp, bool log_form);
+arma::vec qgamma_int(const arma::vec& p, const double* shape_inp, const double* scale_inp, bool log_form);
 
 arma::vec qgamma(const arma::vec& p);
 arma::vec qgamma(const arma::vec& p, bool log_form);

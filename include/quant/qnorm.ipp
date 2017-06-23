@@ -23,7 +23,7 @@
  * 06/15/2017
  *
  * This version:
- * 06/15/2017
+ * 06/23/2017
  */
 
 //
@@ -31,12 +31,12 @@
 
 inline
 double
-qnorm_int(double p, double* mu_inp, double* sigma_inp, bool log_form)
+qnorm_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double erf_term = std::sqrt(2)*erfinv( 2.0*p - 1.0 );
+    const double erf_term = std::sqrt(2)*erfinv( 2.0*p - 1.0 );
     double ret = mu + sigma*erf_term;
 
     if (log_form) {
@@ -79,9 +79,9 @@ qnorm(double p, double mu, double sigma, bool log_form)
 
 inline
 arma::vec
-qnorm_int(const arma::vec& p, double* mu_inp, double* sigma_inp, bool log_form)
+qnorm_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    int n = p.n_elem;
+    const int n = p.n_elem;
     arma::vec ret(n);
 
     for (int i=0; i < n; i++) {

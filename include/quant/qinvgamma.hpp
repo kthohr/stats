@@ -23,14 +23,14 @@
  * 06/17/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_qinvgamma_HPP
 #define _stats_qinvgamma_HPP
 
 // single input
-double qinvgamma_int(double p, double* shape_inp, double* rate_inp, bool log_form);
+double qinvgamma_int(double p, const double* shape_inp, const double* rate_inp, bool log_form);
 
 double qinvgamma(double p);
 double qinvgamma(double p, bool log_form);
@@ -38,7 +38,7 @@ double qinvgamma(double p, double shape, double rate);
 double qinvgamma(double p, double shape, double rate, bool log_form);
 
 // vector input
-arma::vec qinvgamma_int(const arma::vec& p, double* shape_inp, double* rate_inp, bool log_form);
+arma::vec qinvgamma_int(const arma::vec& p, const double* shape_inp, const double* rate_inp, bool log_form);
 
 arma::vec qinvgamma(const arma::vec& p);
 arma::vec qinvgamma(const arma::vec& p, bool log_form);

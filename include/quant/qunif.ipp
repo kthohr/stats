@@ -23,7 +23,7 @@
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 //
@@ -31,10 +31,10 @@
 
 inline
 double
-qunif_int(double p, double* a_inp, double* b_inp, bool log_form)
+qunif_int(double p, const double* a_inp, const double* b_inp, bool log_form)
 {
-    double a = (a_inp) ? *a_inp : 0;
-    double b = (b_inp) ? *b_inp : 1;
+    const double a = (a_inp) ? *a_inp : 0;
+    const double b = (b_inp) ? *b_inp : 1;
     //
     double ret = a + p*(b-a);
 
@@ -78,10 +78,10 @@ qunif(double p, double a, double b, bool log_form)
 
 inline
 arma::vec
-qunif_int(const arma::vec& p, double* a_inp, double* b_inp, bool log_form)
+qunif_int(const arma::vec& p, const double* a_inp, const double* b_inp, bool log_form)
 {
-    double a = (a_inp) ? *a_inp : 0;
-    double b = (b_inp) ? *b_inp : 1;
+    const double a = (a_inp) ? *a_inp : 0;
+    const double b = (b_inp) ? *b_inp : 1;
     //
     arma::vec ret = a + p*(b-a);
 

@@ -23,14 +23,14 @@
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_qunif_HPP
 #define _stats_qunif_HPP
 
 // single input
-double qunif_int(double p, double* a_inp, double* b_inp, bool log_form);
+double qunif_int(double p, const double* a_inp, const double* b_inp, bool log_form);
 
 double qunif(double p);
 double qunif(double p, bool log_form);
@@ -38,7 +38,7 @@ double qunif(double p, double a, double b);
 double qunif(double p, double a, double b, bool log_form);
 
 // vector input
-arma::vec qunif_int(const arma::vec& p, double* a_inp, double* b_inp, bool log_form);
+arma::vec qunif_int(const arma::vec& p, const double* a_inp, const double* b_inp, bool log_form);
 
 arma::vec qunif(const arma::vec& p);
 arma::vec qunif(const arma::vec& p, bool log_form);

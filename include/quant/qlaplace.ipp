@@ -23,7 +23,7 @@
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 //
@@ -31,10 +31,10 @@
 
 inline
 double
-qlaplace_int(double p, double* mu_inp, double* sigma_inp, bool log_form)
+qlaplace_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
     double ret = mu - sigma*sign_dbl(p - 0.5)*std::log(1.0 - 2.0*std::abs(p - 0.5));
 
@@ -78,10 +78,10 @@ qlaplace(double p, double mu, double sigma, bool log_form)
 
 inline
 arma::vec
-qlaplace_int(const arma::vec& p, double* mu_inp, double* sigma_inp, bool log_form)
+qlaplace_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
     arma::vec ret = mu - sigma*arma::sign(p - 0.5)%arma::log(1.0 - 2.0*arma::abs(p - 0.5));
 

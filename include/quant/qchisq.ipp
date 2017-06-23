@@ -23,7 +23,7 @@
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 //
@@ -31,14 +31,20 @@
 
 inline
 double
-qchisq_int(double p, double* dof_inp, bool log_form)
+qchisq_int(double p, const double* dof_inp, bool log_form)
 {
-    double dof = (dof_inp) ? *dof_inp : 1;
+    const double dof = (dof_inp) ? *dof_inp : 1;
     //
-    double ret_val;
-    incomplete_gamma_inv(dof/2.0,p,ret_val);
+    double ret = 0.5;
+    incomplete_gamma_inv(dof/2.0,p,ret);
+
+    ret *= 2.0;
+
+    if (log_form) {
+        ret = std::log(ret);
+    }
     //
-    return 2.0*ret_val;
+    return ret;
 }
 
 inline
@@ -74,9 +80,9 @@ qchisq(double p, double dof, bool log_form)
 
 inline
 arma::vec
-qchisq_int(const arma::vec& p, double* dof_inp, bool log_form)
+qchisq_int(const arma::vec& p, const double* dof_inp, bool log_form)
 {
-    int n = p.n_elem;
+    const int n = p.n_elem;
     arma::vec ret(n);
 
     for (int i=0; i < n; i++) {
