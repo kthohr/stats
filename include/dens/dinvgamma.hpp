@@ -23,14 +23,14 @@
  * 01/02/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_dinvgamma_HPP
 #define _stats_dinvgamma_HPP
 
 // single input
-double dinvgamma_int(double x, double* shape_inp, double* rate_inp, bool log_form);
+double dinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form);
 
 double dinvgamma(double x);
 double dinvgamma(double x, bool log_form);
@@ -38,7 +38,7 @@ double dinvgamma(double x, double shape, double rate);
 double dinvgamma(double x, double shape, double rate, bool log_form);
 
 // vector input
-arma::vec dinvgamma_int(const arma::vec& x, double* shape_inp, double* rate_inp, bool log_form);
+arma::vec dinvgamma_int(const arma::vec& x, const double* shape_inp, const double* rate_inp, bool log_form);
 
 arma::vec dinvgamma(const arma::vec& x);
 arma::vec dinvgamma(const arma::vec& x, bool log_form);

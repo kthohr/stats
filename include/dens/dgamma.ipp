@@ -23,7 +23,7 @@
  * 04/12/2017
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,17 +31,18 @@
 
 inline
 double
-dgamma_int(double x, double* shape_inp, double* scale_inp, bool log_form)
+dgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form)
 {
-    double shape = (shape_inp) ? *shape_inp : 1;
-    double scale = (scale_inp) ? *scale_inp : 1;
+    const double shape = (shape_inp) ? *shape_inp : 1;
+    const double scale = (scale_inp) ? *scale_inp : 1;
     //
-    double norm_term = - std::lgamma(shape) - shape*std::log(scale);
+    const double norm_term = - std::lgamma(shape) - shape*std::log(scale);
 
-    double term_1 = (shape - 1) * std::log(x);
-    double term_2 = - x / scale;
+    double ret = norm_term + (shape - 1) * std::log(x) - x / scale;
 
-    double ret = (log_form) ? norm_term + term_1 + term_2 : std::exp(norm_term + term_1 + term_2);
+    if (!log_form) {
+        ret = std::exp(ret);
+    }
     //
     return ret;
 }
@@ -79,17 +80,15 @@ dgamma(double x, double shape, double scale, bool log_form)
 
 inline
 arma::vec
-dgamma_int(const arma::vec& x, double* shape_inp, double* scale_inp, bool log_form)
+dgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp, bool log_form)
 {
-    double shape = (shape_inp) ? *shape_inp : 1;
-    double scale = (scale_inp) ? *scale_inp : 1;
+    const double shape = (shape_inp) ? *shape_inp : 1;
+    const double scale = (scale_inp) ? *scale_inp : 1;
     //
-    double norm_term = - std::lgamma(shape) - shape*std::log(scale);
+    const double norm_term = - std::lgamma(shape) - shape*std::log(scale);
 
-    arma::vec term_1 = (shape - 1) * arma::log(x);
-    arma::vec term_2 = - x / scale;
+    arma::vec ret = norm_term + (shape - 1) * arma::log(x) - x / scale;
 
-    arma::vec ret = norm_term + term_1 + term_2;
     if (!log_form) {
         ret = arma::exp(ret);
     }

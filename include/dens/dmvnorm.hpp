@@ -23,7 +23,7 @@
  * 04/12/2017
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_dmvnorm_HPP

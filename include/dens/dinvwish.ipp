@@ -23,28 +23,28 @@
  * 04/12/2017
   *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 inline
 double
 dinvwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, bool log_form)
 {
-    int K = X.n_rows;
+    const int K = X.n_rows;
 
-    arma::mat Psi = (Psi_inp) ? *Psi_inp : arma::eye(K,K);
-    int nu = (nu_inp) ? *nu_inp : K;
+    const arma::mat Psi = (Psi_inp) ? *Psi_inp : arma::eye(K,K);
+    const int nu = (nu_inp) ? *nu_inp : K;
 
-    double nu_2 = ((double) nu) / 2.0;
+    const double nu_2 = ((double) nu) / 2.0;
     //
-    double lmg_term = log_multi_gamma(nu_2, K);
-    double term_1 = nu_2*std::log(arma::det(Psi)) - nu_2*K*std::log(2.0) - lmg_term;
+    const double lmg_term = log_multi_gamma(nu_2, K);
+    const double norm_term = nu_2*std::log(arma::det(Psi)) - nu_2*K*std::log(2.0) - lmg_term;
 
-    double term_2 = - (nu+K+1) * std::log(arma::det(X)) / 2.0;
-
-    double term_3 = - 0.5 * arma::trace(Psi*arma::inv(X));
-    //
-    double ret = (log_form) ? term_1 + term_2 + term_3 : std::exp(term_1 + term_2 + term_3);
+    double ret = norm_term - 0.5*( (nu+K+1) * std::log(arma::det(X)) + arma::trace(Psi*arma::inv(X)) );
+    
+    if (!log_form) {
+        ret = std::exp(ret);
+    }
 	//
 	return ret;
 }

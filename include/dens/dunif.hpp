@@ -23,14 +23,14 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_dunif_HPP
 #define _stats_dunif_HPP
 
 // single input
-double dunif_int(double x, double* a_inp, double* b_inp, bool log_form);
+double dunif_int(double x, const double* a_inp, const double* b_inp, bool log_form);
 
 double dunif(double x);
 double dunif(double x, bool log_form);
@@ -38,7 +38,7 @@ double dunif(double x, double a, double b);
 double dunif(double x, double a, double b, bool log_form);
 
 // vector input
-arma::vec dunif_int(const arma::vec& x, double* a_inp, double* b_inp, bool log_form);
+arma::vec dunif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log_form);
 
 arma::vec dunif(const arma::vec& x);
 arma::vec dunif(const arma::vec& x, bool log_form);

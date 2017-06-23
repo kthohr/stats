@@ -23,7 +23,7 @@
  * 01/03/2016
  *
  * This version:
- * 04/12/2017
+ * 06/23/2017
  */
 
 //
@@ -31,9 +31,9 @@
 
 inline
 double
-dbern_int(int x, double* p_inp, bool log_form)
+dbern_int(int x, const double* p_inp, bool log_form)
 {
-    double p = (p_inp) ? *p_inp : 0.5;
+    const double p = (p_inp) ? *p_inp : 0.5;
     double ret = (x==1) ? p : 1 - p;
 
     if (log_form) {
@@ -45,28 +45,28 @@ dbern_int(int x, double* p_inp, bool log_form)
 
 inline
 double
-dbern(double x)
+dbern(int x)
 {
     return dbern_int(x,NULL,false);
 }
 
 inline
 double
-dbern(double x, bool log_form)
+dbern(int x, bool log_form)
 {
     return dbern_int(x,NULL,log_form);
 }
 
 inline
 double
-dbern(double x, double p)
+dbern(int x, double p)
 {
     return dbern_int(x,&p,false);
 }
 
 inline
 double
-dbern(double x, double p, bool log_form)
+dbern(int x, double p, bool log_form)
 {
     return dbern_int(x,&p,log_form);
 }
@@ -76,9 +76,9 @@ dbern(double x, double p, bool log_form)
 
 inline
 arma::vec
-dbern_int(const arma::vec& x, double* p_inp, bool log_form)
+dbern_int(const arma::vec& x, const double* p_inp, bool log_form)
 {
-    double p = (p_inp) ? *p_inp : 0.5;
+    const double p = (p_inp) ? *p_inp : 0.5;
 
     arma::vec ret(x.n_elem);
     

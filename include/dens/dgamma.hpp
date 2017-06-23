@@ -23,14 +23,14 @@
  * 04/12/2017
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_dgamma_HPP
 #define _stats_dgamma_HPP
 
 // single input
-double dgamma_int(double x, double* shape_inp, double* scale_inp, bool log_form);
+double dgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form);
 
 double dgamma(double x);
 double dgamma(double x, bool log_form);
@@ -38,7 +38,7 @@ double dgamma(double x, double shape, double scale);
 double dgamma(double x, double shape, double scale, bool log_form);
 
 // vector input
-arma::vec dgamma_int(const arma::vec& x, double* shape_inp, double* scale_inp, bool log_form);
+arma::vec dgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp, bool log_form);
 
 arma::vec dgamma(const arma::vec& x);
 arma::vec dgamma(const arma::vec& x, bool log_form);

@@ -23,7 +23,7 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,15 +31,16 @@
 
 inline
 double
-dlaplace_int(double x, double* mu_inp, double* sigma_inp, bool log_form)
+dlaplace_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double term_1 = - std::log(2*sigma);
-    double term_2 = - std::abs(x - mu) / sigma;
+    double ret = - std::log(2*sigma) - std::abs(x - mu) / sigma;
 
-    double ret = (log_form) ? term_1 + term_2 : std::exp(term_1 + term_2);
+    if (!log_form) {
+        ret = std::exp(ret);
+    }
     //
     return ret;
 }
@@ -77,15 +78,13 @@ dlaplace(double x, double mu, double sigma, bool log_form)
 
 inline
 arma::vec
-dlaplace_int(const arma::vec& x, double* mu_inp, double* sigma_inp, bool log_form)
+dlaplace_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double term_1 = - std::log(2*sigma);
-    arma::vec term_2 = - arma::abs(x - mu) / sigma;
+    arma::vec ret = - std::log(2*sigma) - arma::abs(x - mu) / sigma;
 
-    arma::vec ret = term_1 + term_2;
     if (!log_form) {
         ret = arma::exp(ret);
     }

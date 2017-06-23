@@ -23,7 +23,7 @@
  * 04/12/2015
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_dinvwish_HPP

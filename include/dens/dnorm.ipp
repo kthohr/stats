@@ -23,7 +23,7 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,13 +31,13 @@
 
 inline
 double
-dnorm_int(double x, double* mu_inp, double* sigma_inp, bool log_form)
+dnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double norm_term = - 0.5 * std::log(2.0 * arma::datum::pi * std::pow(sigma,2));
-    double exp_term = - std::pow(x - mu,2) / (2 * sigma*sigma);
+    const double norm_term = - 0.5 * std::log( 2 * arma::datum::pi * sigma*sigma );
+    const double exp_term = - (x - mu)*(x - mu) / (2 * sigma*sigma);
 
     double ret = (log_form) ? norm_term + exp_term : std::exp(norm_term + exp_term);
     //
@@ -77,15 +77,14 @@ dnorm(double x, double mu, double sigma, bool log_form)
 
 inline
 arma::vec
-dnorm_int(const arma::vec& x, double* mu_inp, double* sigma_inp, bool log_form)
+dnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double norm_term = - 0.5 * std::log(2.0 * arma::datum::pi * std::pow(sigma,2));
-    arma::vec exp_term = - arma::pow(x - mu,2) / (2 * sigma*sigma);
+    const double norm_term = - 0.5 * std::log(2.0 * arma::datum::pi * sigma*sigma);
+    arma::vec ret = norm_term - (x - mu)%(x - mu)  / (2 * sigma*sigma);
 
-    arma::vec ret = norm_term + exp_term;
     if (!log_form) {
         ret = arma::exp(ret);
     }

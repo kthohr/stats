@@ -23,14 +23,14 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_dlogis_HPP
 #define _stats_dlogis_HPP
 
 // single input
-double dlogis_int(double x, double* mu_inp, double* sigma_inp, bool log_form);
+double dlogis_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 double dlogis(double x);
 double dlogis(double x, bool log_form);
@@ -38,7 +38,7 @@ double dlogis(double x, double mu, double sigma);
 double dlogis(double x, double mu, double sigma, bool log_form);
 
 // vector input
-arma::vec dlogis_int(const arma::vec& x, double* mu_inp, double* sigma_inp, bool log_form);
+arma::vec dlogis_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 arma::vec dlogis(const arma::vec& x);
 arma::vec dlogis(const arma::vec& x, bool log_form);

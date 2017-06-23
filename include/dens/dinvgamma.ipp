@@ -23,7 +23,7 @@
  * 01/02/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,17 +31,18 @@
 
 inline
 double
-dinvgamma_int(double x, double* shape_inp, double* rate_inp, bool log_form)
+dinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form)
 {
-    double shape = (shape_inp) ? *shape_inp : 1;
-    double rate = (rate_inp) ? *rate_inp : 1;
+    const double shape = (shape_inp) ? *shape_inp : 1;
+    const double rate = (rate_inp) ? *rate_inp : 1;
     //
-    double norm_term = - std::lgamma(shape) + shape*std::log(rate);
+    const double norm_term = - std::lgamma(shape) + shape*std::log(rate);
 
-    double term_1 = (- shape - 1) * std::log(x);
-    double term_2 = - rate / x;
+    double ret = norm_term + (- shape - 1) * std::log(x) - rate / x;
 
-    double ret = (log_form) ? norm_term + term_1 + term_2 : std::exp(norm_term + term_1 + term_2);
+    if (!log_form) {
+        ret = std::exp(ret);
+    }
     //
     return ret;
 }
@@ -79,17 +80,15 @@ dinvgamma(double x, double shape, double rate, bool log_form)
 
 inline
 arma::vec
-dinvgamma_int(const arma::vec& x, double* shape_inp, double* rate_inp, bool log_form)
+dinvgamma_int(const arma::vec& x, const double* shape_inp, const double* rate_inp, bool log_form)
 {
-    double shape = (shape_inp) ? *shape_inp : 1;
-    double rate = (rate_inp) ? *rate_inp : 1;
+    const double shape = (shape_inp) ? *shape_inp : 1;
+    const double rate = (rate_inp) ? *rate_inp : 1;
     //
-    double norm_term = - std::lgamma(shape) + shape*std::log(rate);
+    const double norm_term = - std::lgamma(shape) + shape*std::log(rate);
 
-    arma::vec term_1 = (- shape - 1) * arma::log(x);
-    arma::vec term_2 = - rate / x;
+    arma::vec ret = norm_term + (- shape - 1) * arma::log(x) - rate / x;
 
-    arma::vec ret = norm_term + term_1 + term_2;
     if (!log_form) {
         ret = arma::exp(ret);
     }

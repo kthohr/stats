@@ -23,14 +23,14 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2016
+ * 06/23/2016
  */
 
 #ifndef _stats_dbern_HPP
 #define _stats_dbern_HPP
 
 // single input
-double dbern_int(int x, double* p_inp, bool log_form);
+double dbern_int(int x, const double* p_inp, bool log_form);
 
 double dbern(int x);
 double dbern(int x, bool log_form);
@@ -38,7 +38,7 @@ double dbern(int x, double p);
 double dbern(int x, double p, bool log_form);
 
 // vector input
-arma::vec dbern_int(const arma::vec& x, double* p_inp, bool log_form);
+arma::vec dbern_int(const arma::vec& x, const double* p_inp, bool log_form);
 
 arma::vec dbern(const arma::vec& x);
 arma::vec dbern(const arma::vec& x, bool log_form);

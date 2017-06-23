@@ -23,25 +23,25 @@
  * 04/12/2017
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 inline
 double
 dmvnorm_int(const arma::vec& x, const arma::vec* mu_inp, const arma::mat* Sigma_inp, bool log_form)
 {
-    int K = x.n_rows;
+    const int K = x.n_rows;
 
-    arma::vec mu = (mu_inp) ? *mu_inp : arma::zeros(K,1);
-    arma::mat Sigma = (Sigma_inp) ? *Sigma_inp : arma::eye(K,K);
+    const arma::vec mu = (mu_inp) ? *mu_inp : arma::zeros(K,1);
+    const arma::mat Sigma = (Sigma_inp) ? *Sigma_inp : arma::eye(K,K);
     //
-    double cons_term = -0.5*K*std::log(2*arma::datum::pi);
+    const double cons_term = -0.5*K*std::log(2*arma::datum::pi);
 
-    double term_1 = -0.5*std::log(arma::det(Sigma));
+    double ret = cons_term - 0.5 * ( std::log(arma::det(Sigma)) + arma::as_scalar((x - mu).t() * arma::inv(Sigma) * (x - mu)) );
 
-    double term_2 = -0.5 * arma::as_scalar((x - mu).t() * arma::inv(Sigma) * (x - mu));
-    //
-    double ret = (log_form) ? cons_term + term_1 + term_2 : std::exp(cons_term + term_1 + term_2);
+    if (!log_form) {
+        ret = std::exp(ret);
+    }
     //
     return ret;
 }

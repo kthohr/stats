@@ -23,7 +23,7 @@
  * 01/02/16
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,18 +31,16 @@
 
 inline
 double
-dbeta_int(int x, double* par_1_inp, double* par_2_inp, bool log_form)
+dbeta_int(double x, const double* par_1_inp, const double* par_2_inp, bool log_form)
 {
-    double par_1 = (par_1_inp) ? *par_1_inp : 2; // shape parameter 'alpha'
-    double par_2 = (par_2_inp) ? *par_2_inp : 2; // shape parameter 'beta'
+    const double par_1 = (par_1_inp) ? *par_1_inp : 2; // shape parameter 'alpha'
+    const double par_2 = (par_2_inp) ? *par_2_inp : 2; // shape parameter 'beta'
 
-    double term_1 = std::tgamma(par_1 + par_2) / ( std::tgamma(par_1) * std::tgamma(par_2) ); // beta function
-    double term_2 = std::pow(x,par_1-1.0) * std::pow(1-x,par_2-1.0);
+    const double lbeta_term = std::lgamma(par_1 + par_2) - std::lgamma(par_1) - std::lgamma(par_2); // log beta function
+    double ret = lbeta_term + (par_1 - 1.0)*std::log(x) + (par_2 - 1.0)*std::log(1.0 - x);
 
-    double ret = term_1 * term_2;
-
-    if (log_form) {
-        ret = std::log(ret);
+    if (!log_form) {
+        ret = std::exp(ret);
     }
     //
     return ret;
@@ -81,18 +79,16 @@ dbeta(double x, double par_1_inp, double par_2_inp, bool log_form)
 
 inline
 arma::vec
-dbeta_int(const arma::vec& x, double* par_1_inp, double* par_2_inp, bool log_form)
+dbeta_int(const arma::vec& x, const double* par_1_inp, const double* par_2_inp, bool log_form)
 {
-    double par_1 = (par_1_inp) ? *par_1_inp : 2; // shape parameter 'alpha'
-    double par_2 = (par_2_inp) ? *par_2_inp : 2; // shape parameter 'beta'
+    const double par_1 = (par_1_inp) ? *par_1_inp : 2; // shape parameter 'alpha'
+    const double par_2 = (par_2_inp) ? *par_2_inp : 2; // shape parameter 'beta'
 
-    double term_1 = std::tgamma(par_1 + par_2) / ( std::tgamma(par_1) * std::tgamma(par_2) ); // beta function
-    arma::vec term_2 = arma::pow(x,par_1-1.0) % arma::pow(1-x,par_2-1.0);
+    const double lbeta_term = std::lgamma(par_1 + par_2) - std::lgamma(par_1) - std::lgamma(par_2); // log beta function
+    arma::vec ret = lbeta_term + (par_1 - 1.0)*arma::log(x) + (par_2 - 1.0)*arma::log(1.0 - x);
 
-    arma::vec ret = term_1 * term_2;
-
-    if (log_form) {
-        ret = arma::log(ret);
+    if (!log_form) {
+        ret = arma::exp(ret);
     }
     //
     return ret;

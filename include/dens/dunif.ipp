@@ -23,7 +23,7 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,10 +31,10 @@
 
 inline
 double
-dunif_int(double x, double* a_inp, double* b_inp, bool log_form)
+dunif_int(double x, const double* a_inp, const double* b_inp, bool log_form)
 {
-    double a = (a_inp) ? *a_inp : 0;
-    double b = (b_inp) ? *b_inp : 1;
+    const double a = (a_inp) ? *a_inp : 0;
+    const double b = (b_inp) ? *b_inp : 1;
     //
     double ret = (log_form) ? - std::log(b-a) : 1/(b-a);
     //
@@ -74,10 +74,10 @@ dunif(double x, double a, double b, bool log_form)
 
 inline
 arma::vec
-dunif_int(const arma::vec& x, double* a_inp, double* b_inp, bool log_form)
+dunif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log_form)
 {
-    double a = (a_inp) ? *a_inp : 0;
-    double b = (b_inp) ? *b_inp : 1;
+    const double a = (a_inp) ? *a_inp : 0;
+    const double b = (b_inp) ? *b_inp : 1;
     //
     arma::vec ret(x.n_elem);
 

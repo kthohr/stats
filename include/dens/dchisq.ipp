@@ -23,7 +23,7 @@
  * 04/12/2017
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,17 +31,17 @@
 
 inline
 double
-dchisq_int(double x, double* dof_inp, bool log_form)
+dchisq_int(double x, const double* dof_inp, bool log_form)
 {
-    double dof = (dof_inp) ? *dof_inp : 1;
-    double dof_2 = dof / 2.0;
+    const double dof_2 = (dof_inp) ? *dof_inp / 2.0 : 0.5; // dof / 2
     //
-    double norm_term = - std::lgamma(dof_2) - dof_2*std::log(2);
+    const double norm_term = - std::lgamma(dof_2) - dof_2*std::log(2);
 
-    double term_1 = (dof_2 - 1) * std::log(x);
-    double term_2 = - x / 2.0;
+    double ret = norm_term + (dof_2 - 1) * std::log(x) - x / 2.0;
 
-    double ret = (log_form) ? norm_term + term_1 + term_2 : std::exp(norm_term + term_1 + term_2);
+    if (!log_form) {
+        ret = std::exp(ret);
+    }
     //
     return ret;
 }
@@ -79,17 +79,14 @@ dchisq(double x, double dof, bool log_form)
 
 inline
 arma::vec
-dchisq_int(const arma::vec& x, double* dof_inp, bool log_form)
+dchisq_int(const arma::vec& x, const double* dof_inp, bool log_form)
 {
-    double dof = (dof_inp) ? *dof_inp : 1;
-    double dof_2 = dof / 2.0;
+    const double dof_2 = (dof_inp) ? *dof_inp / 2.0 : 0.5; // dof / 2
     //
-    double norm_term = - std::lgamma(dof_2) - dof_2*std::log(2);
+    const double norm_term = - std::lgamma(dof_2) - dof_2*std::log(2);
 
-    arma::vec term_1 = (dof_2 - 1) * arma::log(x);
-    arma::vec term_2 = - x / 2.0;
+    arma::vec ret = norm_term + (dof_2 - 1) * arma::log(x) - x / 2.0;
 
-    arma::vec ret = norm_term + term_1 + term_2;
     if (!log_form) {
         ret = arma::exp(ret);
     }

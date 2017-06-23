@@ -23,14 +23,14 @@
  * 04/12/2017
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 #ifndef _stats_dchisq_HPP
 #define _stats_dchisq_HPP
 
 // single input
-double dchisq_int(double x, double* dof_inp, bool log_form);
+double dchisq_int(double x, const double* dof_inp, bool log_form);
 
 double dchisq(double x);
 double dchisq(double x, bool log_form);
@@ -38,7 +38,7 @@ double dchisq(double x, double dof);
 double dchisq(double x, double dof, bool log_form);
 
 // vector input
-arma::vec dchisq_int(const arma::vec& x, double* dof_inp, bool log_form);
+arma::vec dchisq_int(const arma::vec& x, const double* dof_inp, bool log_form);
 
 arma::vec dchisq(const arma::vec& x);
 arma::vec dchisq(const arma::vec& x, bool log_form);

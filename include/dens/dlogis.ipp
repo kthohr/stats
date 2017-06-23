@@ -23,7 +23,7 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2017
+ * 06/23/2017
  */
 
 //
@@ -31,13 +31,13 @@
 
 inline
 double
-dlogis_int(double x, double* mu_inp, double* sigma_inp, bool log_form)
+dlogis_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double numer_term = std::exp(- (x - mu) / sigma);
-    double denom_term = sigma * std::pow(1.0 + numer_term,2);
+    const double numer_term = std::exp(- (x - mu) / sigma);
+    const double denom_term = sigma * std::pow(1.0 + numer_term,2);
 
     double ret = (log_form) ? std::log(numer_term / denom_term) : numer_term / denom_term;
     //
@@ -77,13 +77,13 @@ dlogis(double x, double mu, double sigma, bool log_form)
 
 inline
 arma::vec
-dlogis_int(const arma::vec& x, double* mu_inp, double* sigma_inp, bool log_form)
+dlogis_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    arma::vec numer_term = arma::exp(- (x - mu) / sigma);
-    arma::vec denom_term = sigma * arma::pow(1.0 + numer_term,2);
+    const arma::vec numer_term = arma::exp(- (x - mu) / sigma);
+    const arma::vec denom_term = sigma * arma::pow(1.0 + numer_term,2);
 
     arma::vec ret = numer_term / denom_term;
     
