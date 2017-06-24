@@ -31,11 +31,11 @@ rchisq(int k)
 	double ret = 0;
 	//
 	if (k < 50) { // sum of squared (standard) normals
-		arma::colvec X = arma::randn(k,1);
+		arma::colvec X = rnorm(k);
 
 		ret = arma::as_scalar(X.t() * X);
 	} else { // Fisher's asymptotic approximation
-		ret = 0.5 * arma::as_scalar(arma::pow(arma::randn(1) + std::sqrt(2*k - 1), 2));
+		ret = 0.5 * std::pow(rnorm() + std::sqrt(2*k - 1), 2);
 	}
     //
 	return ret;
@@ -52,11 +52,11 @@ rchisq(int n, int k)
 		arma::colvec X(k);
 
 		for (int j=0; j < n; j++) {
-			X = arma::randn(k);
+			X = rnorm(k);
 			ret.row(j) = X.t() * X;
 		}
 	} else { // Fisher's asymptotic approximation
-		ret = 0.5 * arma::pow(arma::randn(n,1) + std::sqrt(2*k - 1), 2);
+		ret = 0.5 * arma::pow(rnorm(n) + std::sqrt(2*k - 1), 2);
 	}
     //
 	return ret;

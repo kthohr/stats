@@ -21,13 +21,16 @@
  *
  * Keith O'Hara
  * 06/01/2015
+ *
+ * This version:
+ * 06/23/2017
  */
 
 inline
 int 
 rbern(double p)
 {
-	double u = arma::as_scalar(arma::randu(1));
+	const double u = runif();
 	//
     int ret = (u <= p) ? 1 : 0;
 	//
@@ -39,14 +42,10 @@ arma::colvec
 rbern(int n, double p)
 {
     arma::colvec ret(n);
-	arma::colvec u = arma::randu(n);
+	arma::colvec u = runif(n);
 	//
 	for (int j=0; j < n; j++) {
-		if (u(j) <= p) {
-			ret(j) = 1;
-		} else {
-			ret(j) = 0;
-		}
+        ret(j) = (u(j) <= p) ? 1 : 0;
 	}
 	//
 	return ret;

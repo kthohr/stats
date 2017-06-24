@@ -32,11 +32,11 @@ rgamma(double shape, double scale)
 	double ret = 0;
     //
     if (shape < 1.0) {
-        double U = runif();
+        const double U = runif();
         ret = rgamma(1.0 + shape, scale) * std::pow(U,1/shape);
     } else {
-        double d = shape - 1.0/3.0;
-        double c = 1.0 / 3.0 / std::sqrt(d);
+        const double d = shape - 1.0/3.0;
+        const double c = 1.0 / 3.0 / std::sqrt(d);
         double V = 1.0;
 
         bool keep_running = true;

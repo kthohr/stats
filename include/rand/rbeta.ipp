@@ -23,7 +23,7 @@
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 06/23/2017
  */
 
 // 1 draw
@@ -32,8 +32,8 @@ double
 rbeta(double par_1, double par_2)
 {
 	//
-    double X = rgamma(par_1,1.0);
-    double Y = rgamma(par_2,1.0);
+    const double X = rgamma(par_1,1.0);
+    const double Y = rgamma(par_2,1.0);
 
     double ret = X / (X + Y);
     //

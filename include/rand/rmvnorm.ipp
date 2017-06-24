@@ -34,7 +34,7 @@ rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol)
         return ret;
     }
     //
-    arma::vec mu = (mu_inp) ? *mu_inp : arma::zeros(K,1);
+    const arma::vec mu = (mu_inp) ? *mu_inp : arma::zeros(K,1);
 
     arma::vec ret;
     if (Sigma_inp) {
@@ -109,7 +109,7 @@ rmvnorm_int(int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre
     arma::mat ret;
 
     if (Sigma_inp) {
-        arma::mat A = (pre_chol) ? *Sigma_inp : arma::chol(*Sigma_inp);
+        const arma::mat A = (pre_chol) ? *Sigma_inp : arma::chol(*Sigma_inp);
         ret = arma::randn(n,K) * A;
     } else {
         ret = arma::randn(n,K); // A = eye(K,K)

@@ -31,7 +31,7 @@ inline
 double
 rlaplace(double mu, double sigma)
 {
-    double U = runif();
+    const double U = runif();
     double ret = qlaplace(U,mu,sigma);
     //
     return ret;

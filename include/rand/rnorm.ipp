@@ -31,10 +31,10 @@
 
 inline
 double
-rnorm_int(double* mu_inp, double* sigma_inp)
+rnorm_int(const double* mu_inp, const double* sigma_inp)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
 	double ret = mu + sigma*arma::as_scalar(arma::randn(1));
     //
@@ -60,10 +60,10 @@ rnorm(double mu, double sigma)
 
 inline
 arma::colvec
-rnorm_int(int n, double* mu_inp, double* sigma_inp)
+rnorm_int(int n, const double* mu_inp, const double* sigma_inp)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu = (mu_inp) ? *mu_inp : 0;
+    const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
 	arma::vec ret = mu + sigma*arma::randn(n);
     //

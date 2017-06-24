@@ -23,7 +23,7 @@
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 06/24/2017
  */
 
 //
@@ -31,10 +31,10 @@
 
 inline
 double
-runif_int(double* a_inp, double* b_inp)
+runif_int(const double* a_inp, const double* b_inp)
 {
-    double a = (a_inp) ? *a_inp : 0;
-    double b = (b_inp) ? *b_inp : 1;
+    const double a = (a_inp) ? *a_inp : 0;
+    const double b = (b_inp) ? *b_inp : 1;
     //
 	double ret = a + (b-a)*arma::as_scalar(arma::randu(1));
     //
@@ -60,10 +60,10 @@ runif(double a, double b)
 
 inline
 arma::colvec
-runif_int(int n, double* a_inp, double* b_inp)
+runif_int(int n, const double* a_inp, const double* b_inp)
 {
-    double a = (a_inp) ? *a_inp : 0;
-    double b = (b_inp) ? *b_inp : 1;
+    const double a = (a_inp) ? *a_inp : 0;
+    const double b = (b_inp) ? *b_inp : 1;
     //
 	arma::vec ret = a + (b-a)*arma::randu(n);
     //

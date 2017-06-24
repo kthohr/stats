@@ -21,26 +21,29 @@
  *
  * Keith O'Hara
  * 06/01/2015
+ *
+ * This version:
+ * 06/15/2017
  */
 
 inline
 int
 rbinom(int k, double p)
 {
-	int ret = arma::accu(rbern(k,p));
-	//
-	return ret;
+    int ret = arma::accu(rbern(k,p));
+    //
+    return ret;
 }
 
 inline
 arma::colvec
 rbinom(int n, int k, double p)
 {
-	arma::colvec ret(n);
-	//
-	for (int j = 0; j < n; j++) {
-		ret(j) = arma::accu(rbern(k,p));
-	}
-	//
-	return ret;
+    arma::colvec ret(n);
+    //
+    for (int j = 0; j < n; j++) {
+        ret(j) = arma::accu(rbern(k,p));
+    }
+    //
+    return ret;
 }

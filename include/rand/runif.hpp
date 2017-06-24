@@ -23,20 +23,20 @@
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 06/24/2017
  */
 
 #ifndef _stats_runif_HPP
 #define _stats_runif_HPP
 
 // single draw
-double runif_int(double* a_inp, double* b_inp);
+double runif_int(const double* a_inp, const double* b_inp);
 
 double runif();
 double runif(double a, double b);
 
 // n draws
-arma::colvec runif_int(int n, double* a_inp, double* b_inp);
+arma::colvec runif_int(int n, const double* a_inp, const double* b_inp);
 
 arma::colvec runif(int n);
 arma::colvec runif(int n, double a, double b);

@@ -23,20 +23,20 @@
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 06/24/2017
  */
 
 #ifndef _stats_rnorm_HPP
 #define _stats_rnorm_HPP
 
 // single draw
-double rnorm_int(double* mu_inp, double* sigma_inp);
+double rnorm_int(const double* mu_inp, const double* sigma_inp);
 
 double rnorm();
 double rnorm(double mu, double sigma);
 
 // n draws
-arma::colvec rnorm_int(int n, double* mu_inp, double* sigma_inp);
+arma::colvec rnorm_int(int n, const double* mu_inp, const double* sigma_inp);
 
 arma::colvec rnorm(int n);
 arma::colvec rnorm(int n, double mu, double sigma);

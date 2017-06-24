@@ -31,7 +31,7 @@ inline
 double
 rlogis(double mu, double sigma)
 {
-    double U = runif();
+    const double U = runif();
     double ret = qlogis(U,mu,sigma);
     //
     return ret;
