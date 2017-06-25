@@ -50,14 +50,14 @@ inline
 double
 dchisq(double x)
 {
-    return dchisq_int(x,NULL,false);
+    return dchisq_int(x,nullptr,false);
 }
 
 inline
 double
 dchisq(double x, bool log_form)
 {
-    return dchisq_int(x,NULL,log_form);
+    return dchisq_int(x,nullptr,log_form);
 }
 
 inline
@@ -98,14 +98,14 @@ inline
 arma::vec
 dchisq(const arma::vec& x)
 {
-    return dchisq_int(x,NULL,false);
+    return dchisq_int(x,nullptr,false);
 }
 
 inline
 arma::vec
 dchisq(const arma::vec& x, bool log_form)
 {
-    return dchisq_int(x,NULL,log_form);
+    return dchisq_int(x,nullptr,log_form);
 }
 
 inline

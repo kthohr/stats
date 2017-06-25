@@ -50,14 +50,14 @@ inline
 double
 dmvnorm(const arma::vec& x)
 {
-    return dmvnorm_int(x,NULL,NULL,false);
+    return dmvnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dmvnorm(const arma::vec& x, bool log_form)
 {
-    return dmvnorm_int(x,NULL,NULL,log_form);
+    return dmvnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline

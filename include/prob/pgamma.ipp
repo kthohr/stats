@@ -50,14 +50,14 @@ inline
 double
 pgamma(double x)
 {
-    return pgamma_int(x,NULL,NULL,false);
+    return pgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 pgamma(double x, bool log_form)
 {
-    return pgamma_int(x,NULL,NULL,log_form);
+    return pgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -95,14 +95,14 @@ inline
 arma::vec
 pgamma(const arma::vec& x)
 {
-    return pgamma_int(x,NULL,NULL,false);
+    return pgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 pgamma(const arma::vec& x, bool log_form)
 {
-    return pgamma_int(x,NULL,NULL,log_form);
+    return pgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline

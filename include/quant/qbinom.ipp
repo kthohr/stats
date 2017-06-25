@@ -56,14 +56,14 @@ inline
 int
 qbinom(double p)
 {
-    return qbinom_int(p,NULL,NULL,false);
+    return qbinom_int(p,nullptr,nullptr,false);
 }
 
 inline
 int
 qbinom(double p, bool log_form)
 {
-    return qbinom_int(p,NULL,NULL,log_form);
+    return qbinom_int(p,nullptr,nullptr,log_form);
 }
 
 inline
@@ -101,14 +101,14 @@ inline
 arma::vec
 qbinom(const arma::vec& p)
 {
-    return qbinom_int(p,NULL,NULL,false);
+    return qbinom_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 qbinom(const arma::vec& p, bool log_form)
 {
-    return qbinom_int(p,NULL,NULL,log_form);
+    return qbinom_int(p,nullptr,nullptr,log_form);
 }
 
 inline

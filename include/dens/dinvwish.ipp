@@ -53,14 +53,14 @@ inline
 double
 dinvwish(const arma::mat& X)
 {
-	return dinvwish_int(X,NULL,NULL,false);
+	return dinvwish_int(X,nullptr,nullptr,false);
 }
 
 inline
 double
 dinvwish(const arma::mat& X, bool log_form)
 {
-	return dinvwish_int(X,NULL,NULL,log_form);
+	return dinvwish_int(X,nullptr,nullptr,log_form);
 }
 
 inline

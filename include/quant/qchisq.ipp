@@ -51,14 +51,14 @@ inline
 double
 qchisq(double p)
 {
-    return qchisq_int(p,NULL,false);
+    return qchisq_int(p,nullptr,false);
 }
 
 inline
 double
 qchisq(double p, bool log_form)
 {
-    return qchisq_int(p,NULL,log_form);
+    return qchisq_int(p,nullptr,log_form);
 }
 
 inline
@@ -96,14 +96,14 @@ inline
 arma::vec
 qchisq(const arma::vec& p)
 {
-    return qchisq_int(p,NULL,false);
+    return qchisq_int(p,nullptr,false);
 }
 
 inline
 arma::vec
 qchisq(const arma::vec& p, bool log_form)
 {
-    return qchisq_int(p,NULL,log_form);
+    return qchisq_int(p,nullptr,log_form);
 }
 
 inline

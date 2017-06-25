@@ -49,14 +49,14 @@ inline
 double
 dlaplace(double x)
 {
-    return dlaplace_int(x,NULL,NULL,false);
+    return dlaplace_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dlaplace(double x, bool log_form)
 {
-    return dlaplace_int(x,NULL,NULL,log_form);
+    return dlaplace_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -96,14 +96,14 @@ inline
 arma::vec
 dlaplace(const arma::vec& x)
 {
-    return dlaplace_int(x,NULL,NULL,false);
+    return dlaplace_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 dlaplace(const arma::vec& x, bool log_form)
 {
-    return dlaplace_int(x,NULL,NULL,log_form);
+    return dlaplace_int(x,nullptr,nullptr,log_form);
 }
 
 inline

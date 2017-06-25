@@ -52,14 +52,14 @@ inline
 double
 qinvgamma(double p)
 {
-    return qinvgamma_int(p,NULL,NULL,false);
+    return qinvgamma_int(p,nullptr,nullptr,false);
 }
 
 inline
 double
 qinvgamma(double p, bool log_form)
 {
-    return qinvgamma_int(p,NULL,NULL,log_form);
+    return qinvgamma_int(p,nullptr,nullptr,log_form);
 }
 
 inline
@@ -97,14 +97,14 @@ inline
 arma::vec
 qinvgamma(const arma::vec& p)
 {
-    return qinvgamma_int(p,NULL,NULL,false);
+    return qinvgamma_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 qinvgamma(const arma::vec& p, bool log_form)
 {
-    return qinvgamma_int(p,NULL,NULL,log_form);
+    return qinvgamma_int(p,nullptr,nullptr,log_form);
 }
 
 inline

@@ -53,14 +53,14 @@ inline
 double
 pbinom(int x)
 {
-    return pbinom_int(x,NULL,NULL,false);
+    return pbinom_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 pbinom(int x, bool log_form)
 {
-    return pbinom_int(x,NULL,NULL,log_form);
+    return pbinom_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -98,14 +98,14 @@ inline
 arma::vec
 pbinom(const arma::vec& x)
 {
-    return pbinom_int(x,NULL,NULL,false);
+    return pbinom_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 pbinom(const arma::vec& x, bool log_form)
 {
-    return pbinom_int(x,NULL,NULL,log_form);
+    return pbinom_int(x,nullptr,nullptr,log_form);
 }
 
 inline

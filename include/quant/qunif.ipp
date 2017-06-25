@@ -49,14 +49,14 @@ inline
 double
 qunif(double p)
 {
-    return qunif_int(p,NULL,NULL,false);
+    return qunif_int(p,nullptr,nullptr,false);
 }
 
 inline
 double
 qunif(double p, bool log_form)
 {
-    return qunif_int(p,NULL,NULL,log_form);
+    return qunif_int(p,nullptr,nullptr,log_form);
 }
 
 inline
@@ -96,14 +96,14 @@ inline
 arma::vec
 qunif(const arma::vec& p)
 {
-    return qunif_int(p,NULL,NULL,false);
+    return qunif_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 qunif(const arma::vec& p, bool log_form)
 {
-    return qunif_int(p,NULL,NULL,log_form);
+    return qunif_int(p,nullptr,nullptr,log_form);
 }
 
 inline

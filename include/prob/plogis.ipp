@@ -47,14 +47,14 @@ inline
 double
 plogis(double x)
 {
-    return plogis_int(x,NULL,NULL,false);
+    return plogis_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 plogis(double x, bool log_form)
 {
-    return plogis_int(x,NULL,NULL,log_form);
+    return plogis_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -94,14 +94,14 @@ inline
 arma::vec
 plogis(const arma::vec& x)
 {
-    return plogis_int(x,NULL,NULL,false);
+    return plogis_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 plogis(const arma::vec& x, bool log_form)
 {
-    return plogis_int(x,NULL,NULL,log_form);
+    return plogis_int(x,nullptr,nullptr,log_form);
 }
 
 inline

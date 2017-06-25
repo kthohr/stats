@@ -48,14 +48,14 @@ inline
 double
 dlogis(double x)
 {
-    return dlogis_int(x,NULL,NULL,false);
+    return dlogis_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dlogis(double x, bool log_form)
 {
-    return dlogis_int(x,NULL,NULL,log_form);
+    return dlogis_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -98,14 +98,14 @@ inline
 arma::vec
 dlogis(const arma::vec& x)
 {
-    return dlogis_int(x,NULL,NULL,false);
+    return dlogis_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 dlogis(const arma::vec& x, bool log_form)
 {
-    return dlogis_int(x,NULL,NULL,log_form);
+    return dlogis_int(x,nullptr,nullptr,log_form);
 }
 
 inline

@@ -61,14 +61,14 @@ inline
 double
 dbinom(int x)
 {
-    return dbinom_int(x,NULL,NULL,false);
+    return dbinom_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dbinom(int x, bool log_form)
 {
-    return dbinom_int(x,NULL,NULL,log_form);
+    return dbinom_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -106,14 +106,14 @@ inline
 arma::vec
 dbinom(const arma::vec& x)
 {
-    return dbinom_int(x,NULL,NULL,false);
+    return dbinom_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 dbinom(const arma::vec& x, bool log_form)
 {
-    return dbinom_int(x,NULL,NULL,log_form);
+    return dbinom_int(x,nullptr,nullptr,log_form);
 }
 
 inline

@@ -45,7 +45,7 @@ inline
 double
 runif()
 {
-    return runif_int(NULL,NULL);
+    return runif_int(nullptr,nullptr);
 }
 
 inline
@@ -74,7 +74,7 @@ inline
 arma::colvec
 runif(int n)
 {
-    return runif_int(n,NULL,NULL);
+    return runif_int(n,nullptr,nullptr);
 }
 
 inline

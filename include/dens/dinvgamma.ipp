@@ -51,14 +51,14 @@ inline
 double
 dinvgamma(double x)
 {
-    return dinvgamma_int(x,NULL,NULL,false);
+    return dinvgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dinvgamma(double x, bool log_form)
 {
-    return dinvgamma_int(x,NULL,NULL,log_form);
+    return dinvgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -100,14 +100,14 @@ inline
 arma::vec
 dinvgamma(const arma::vec& x)
 {
-    return dinvgamma_int(x,NULL,NULL,false);
+    return dinvgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 dinvgamma(const arma::vec& x, bool log_form)
 {
-    return dinvgamma_int(x,NULL,NULL,log_form);
+    return dinvgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline

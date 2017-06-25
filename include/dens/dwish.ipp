@@ -53,14 +53,14 @@ inline
 double
 dwish(const arma::mat& X)
 {
-	return dwish_int(X,NULL,NULL,false);
+	return dwish_int(X,nullptr,nullptr,false);
 }
 
 inline
 double
 dwish(const arma::mat& X, bool log_form)
 {
-	return dwish_int(X,NULL,NULL,log_form);
+	return dwish_int(X,nullptr,nullptr,log_form);
 }
 
 inline

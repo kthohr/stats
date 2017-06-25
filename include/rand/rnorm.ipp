@@ -45,7 +45,7 @@ inline
 double
 rnorm()
 {
-    return rnorm_int(NULL,NULL);
+    return rnorm_int(nullptr,nullptr);
 }
 
 inline
@@ -74,7 +74,7 @@ inline
 arma::colvec
 rnorm(int n)
 {
-    return rnorm_int(n,NULL,NULL);
+    return rnorm_int(n,nullptr,nullptr);
 }
 
 inline

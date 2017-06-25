@@ -57,14 +57,14 @@ inline
 double
 punif(double x)
 {
-    return punif_int(x,NULL,NULL,false);
+    return punif_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 punif(double x, bool log_form)
 {
-    return punif_int(x,NULL,NULL,log_form);
+    return punif_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -107,14 +107,14 @@ inline
 arma::vec
 punif(const arma::vec& x)
 {
-    return punif_int(x,NULL,NULL,false);
+    return punif_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 punif(const arma::vec& x, bool log_form)
 {
-    return punif_int(x,NULL,NULL,log_form);
+    return punif_int(x,nullptr,nullptr,log_form);
 }
 
 inline

@@ -45,14 +45,14 @@ inline
 double
 dunif(double x)
 {
-    return dunif_int(x,NULL,NULL,false);
+    return dunif_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dunif(double x, bool log_form)
 {
-    return dunif_int(x,NULL,NULL,log_form);
+    return dunif_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -94,14 +94,14 @@ inline
 arma::vec
 dunif(const arma::vec& x)
 {
-    return dunif_int(x,NULL,NULL,false);
+    return dunif_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 dunif(const arma::vec& x, bool log_form)
 {
-    return dunif_int(x,NULL,NULL,log_form);
+    return dunif_int(x,nullptr,nullptr,log_form);
 }
 
 inline

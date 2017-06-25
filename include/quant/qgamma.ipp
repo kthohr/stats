@@ -52,14 +52,14 @@ inline
 double
 qgamma(double p)
 {
-    return qgamma_int(p,NULL,NULL,false);
+    return qgamma_int(p,nullptr,nullptr,false);
 }
 
 inline
 double
 qgamma(double p, bool log_form)
 {
-    return qgamma_int(p,NULL,NULL,log_form);
+    return qgamma_int(p,nullptr,nullptr,log_form);
 }
 
 inline
@@ -97,14 +97,14 @@ inline
 arma::vec
 qgamma(const arma::vec& p)
 {
-    return qgamma_int(p,NULL,NULL,false);
+    return qgamma_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 qgamma(const arma::vec& p, bool log_form)
 {
-    return qgamma_int(p,NULL,NULL,log_form);
+    return qgamma_int(p,nullptr,nullptr,log_form);
 }
 
 inline

@@ -50,14 +50,14 @@ inline
 double
 pnorm(double x)
 {
-    return pnorm_int(x,NULL,NULL,false);
+    return pnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 pnorm(double x, bool log_form)
 {
-    return pnorm_int(x,NULL,NULL,log_form);
+    return pnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -95,14 +95,14 @@ inline
 arma::vec
 pnorm(const arma::vec& x)
 {
-    return pnorm_int(x,NULL,NULL,false);
+    return pnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 pnorm(const arma::vec& x, bool log_form)
 {
-    return pnorm_int(x,NULL,NULL,log_form);
+    return pnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline

@@ -50,14 +50,14 @@ inline
 double
 qbeta(double p)
 {
-    return qbeta_int(p,NULL,NULL,false);
+    return qbeta_int(p,nullptr,nullptr,false);
 }
 
 inline
 double
 qbeta(double p, bool log_form)
 {
-    return qbeta_int(p,NULL,NULL,log_form);
+    return qbeta_int(p,nullptr,nullptr,log_form);
 }
 
 inline
@@ -95,14 +95,14 @@ inline
 arma::vec
 qbeta(const arma::vec& p)
 {
-    return qbeta_int(p,NULL,NULL,false);
+    return qbeta_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 qbeta(const arma::vec& p, bool log_form)
 {
-    return qbeta_int(p,NULL,NULL,log_form);
+    return qbeta_int(p,nullptr,nullptr,log_form);
 }
 
 inline

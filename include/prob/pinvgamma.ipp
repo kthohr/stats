@@ -52,14 +52,14 @@ inline
 double
 pinvgamma(double x)
 {
-    return pinvgamma_int(x,NULL,NULL,false);
+    return pinvgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 pinvgamma(double x, bool log_form)
 {
-    return pinvgamma_int(x,NULL,NULL,log_form);
+    return pinvgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -97,14 +97,14 @@ inline
 arma::vec
 pinvgamma(const arma::vec& x)
 {
-    return pinvgamma_int(x,NULL,NULL,false);
+    return pinvgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 pinvgamma(const arma::vec& x, bool log_form)
 {
-    return pinvgamma_int(x,NULL,NULL,log_form);
+    return pinvgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline

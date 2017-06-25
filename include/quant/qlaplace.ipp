@@ -49,14 +49,14 @@ inline
 double
 qlaplace(double p)
 {
-    return qlaplace_int(p,NULL,NULL,false);
+    return qlaplace_int(p,nullptr,nullptr,false);
 }
 
 inline
 double
 qlaplace(double p, bool log_form)
 {
-    return qlaplace_int(p,NULL,NULL,log_form);
+    return qlaplace_int(p,nullptr,nullptr,log_form);
 }
 
 inline
@@ -96,14 +96,14 @@ inline
 arma::vec
 qlaplace(const arma::vec& p)
 {
-    return qlaplace_int(p,NULL,NULL,false);
+    return qlaplace_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 qlaplace(const arma::vec& p, bool log_form)
 {
-    return qlaplace_int(p,NULL,NULL,log_form);
+    return qlaplace_int(p,nullptr,nullptr,log_form);
 }
 
 inline

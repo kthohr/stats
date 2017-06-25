@@ -50,14 +50,14 @@ inline
 double
 qnorm(double p)
 {
-    return qnorm_int(p,NULL,NULL,false);
+    return qnorm_int(p,nullptr,nullptr,false);
 }
 
 inline
 double
 qnorm(double p, bool log_form)
 {
-    return qnorm_int(p,NULL,NULL,log_form);
+    return qnorm_int(p,nullptr,nullptr,log_form);
 }
 
 inline
@@ -95,14 +95,14 @@ inline
 arma::vec
 qnorm(const arma::vec& p)
 {
-    return qnorm_int(p,NULL,NULL,false);
+    return qnorm_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 qnorm(const arma::vec& p, bool log_form)
 {
-    return qnorm_int(p,NULL,NULL,log_form);
+    return qnorm_int(p,nullptr,nullptr,log_form);
 }
 
 inline

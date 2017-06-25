@@ -47,14 +47,14 @@ inline
 double
 pbern(int x)
 {
-    return pbern_int(x,NULL,false);
+    return pbern_int(x,nullptr,false);
 }
 
 inline
 double
 pbern(int x, bool log_form)
 {
-    return pbern_int(x,NULL,log_form);
+    return pbern_int(x,nullptr,log_form);
 }
 
 inline
@@ -92,14 +92,14 @@ inline
 arma::vec
 pbern(const arma::vec& x)
 {
-    return pbern_int(x,NULL,false);
+    return pbern_int(x,nullptr,false);
 }
 
 inline
 arma::vec
 pbern(const arma::vec& x, bool log_form)
 {
-    return pbern_int(x,NULL,log_form);
+    return pbern_int(x,nullptr,log_form);
 }
 
 inline

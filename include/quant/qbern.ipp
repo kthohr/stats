@@ -47,14 +47,14 @@ inline
 double
 qbern(int p)
 {
-    return qbern_int(p,NULL,false);
+    return qbern_int(p,nullptr,false);
 }
 
 inline
 double
 qbern(int p, bool log_form)
 {
-    return qbern_int(p,NULL,log_form);
+    return qbern_int(p,nullptr,log_form);
 }
 
 inline
@@ -92,14 +92,14 @@ inline
 arma::vec
 qbern(const arma::vec& p)
 {
-    return qbern_int(p,NULL,false);
+    return qbern_int(p,nullptr,false);
 }
 
 inline
 arma::vec
 qbern(const arma::vec& p, bool log_form)
 {
-    return qbern_int(p,NULL,log_form);
+    return qbern_int(p,nullptr,log_form);
 }
 
 inline

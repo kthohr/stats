@@ -49,14 +49,14 @@ inline
 double
 plaplace(double x)
 {
-    return plaplace_int(x,NULL,NULL,false);
+    return plaplace_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 plaplace(double x, bool log_form)
 {
-    return plaplace_int(x,NULL,NULL,log_form);
+    return plaplace_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -96,14 +96,14 @@ inline
 arma::vec
 plaplace(const arma::vec& x)
 {
-    return plaplace_int(x,NULL,NULL,false);
+    return plaplace_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 plaplace(const arma::vec& x, bool log_form)
 {
-    return plaplace_int(x,NULL,NULL,log_form);
+    return plaplace_int(x,nullptr,nullptr,log_form);
 }
 
 inline

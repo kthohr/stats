@@ -48,14 +48,14 @@ inline
 double
 dnorm(double x)
 {
-    return dnorm_int(x,NULL,NULL,false);
+    return dnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dnorm(double x, bool log_form)
 {
-    return dnorm_int(x,NULL,NULL,log_form);
+    return dnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -96,14 +96,14 @@ inline
 arma::vec
 dnorm(const arma::vec& x)
 {
-    return dnorm_int(x,NULL,NULL,false);
+    return dnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 dnorm(const arma::vec& x, bool log_form)
 {
-    return dnorm_int(x,NULL,NULL,log_form);
+    return dnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline

@@ -47,14 +47,14 @@ inline
 double
 dbern(int x)
 {
-    return dbern_int(x,NULL,false);
+    return dbern_int(x,nullptr,false);
 }
 
 inline
 double
 dbern(int x, bool log_form)
 {
-    return dbern_int(x,NULL,log_form);
+    return dbern_int(x,nullptr,log_form);
 }
 
 inline
@@ -92,14 +92,14 @@ inline
 arma::vec
 dbern(const arma::vec& x)
 {
-    return dbern_int(x,NULL,false);
+    return dbern_int(x,nullptr,false);
 }
 
 inline
 arma::vec
 dbern(const arma::vec& x, bool log_form)
 {
-    return dbern_int(x,NULL,log_form);
+    return dbern_int(x,nullptr,log_form);
 }
 
 inline

@@ -50,14 +50,14 @@ inline
 double
 dbeta(double x)
 {
-    return dbeta_int(x,NULL,NULL,false);
+    return dbeta_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dbeta(double x, bool log_form)
 {
-    return dbeta_int(x,NULL,NULL,log_form);
+    return dbeta_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -98,14 +98,14 @@ inline
 arma::vec
 dbeta(const arma::vec& x)
 {
-    return dbeta_int(x,NULL,NULL,false);
+    return dbeta_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 dbeta(const arma::vec& x, bool log_form)
 {
-    return dbeta_int(x,NULL,NULL,log_form);
+    return dbeta_int(x,nullptr,nullptr,log_form);
 }
 
 inline

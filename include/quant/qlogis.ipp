@@ -49,14 +49,14 @@ inline
 double
 qlogis(double p)
 {
-    return qlogis_int(p,NULL,NULL,false);
+    return qlogis_int(p,nullptr,nullptr,false);
 }
 
 inline
 double
 qlogis(double p, bool log_form)
 {
-    return qlogis_int(p,NULL,NULL,log_form);
+    return qlogis_int(p,nullptr,nullptr,log_form);
 }
 
 inline
@@ -96,14 +96,14 @@ inline
 arma::vec
 qlogis(const arma::vec& p)
 {
-    return qlogis_int(p,NULL,NULL,false);
+    return qlogis_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 qlogis(const arma::vec& p, bool log_form)
 {
-    return qlogis_int(p,NULL,NULL,log_form);
+    return qlogis_int(p,nullptr,nullptr,log_form);
 }
 
 inline

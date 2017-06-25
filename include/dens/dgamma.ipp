@@ -51,14 +51,14 @@ inline
 double
 dgamma(double x)
 {
-    return dgamma_int(x,NULL,NULL,false);
+    return dgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
 double
 dgamma(double x, bool log_form)
 {
-    return dgamma_int(x,NULL,NULL,log_form);
+    return dgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
@@ -100,14 +100,14 @@ inline
 arma::vec
 dgamma(const arma::vec& x)
 {
-    return dgamma_int(x,NULL,NULL,false);
+    return dgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::vec
 dgamma(const arma::vec& x, bool log_form)
 {
-    return dgamma_int(x,NULL,NULL,log_form);
+    return dgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
