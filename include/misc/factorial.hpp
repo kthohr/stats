@@ -1,3 +1,4 @@
+
 /*################################################################################
   ##
   ##   Copyright (C) 2011-2017 Keith O'Hara
@@ -16,19 +17,24 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_misc_HPP
-#define _statslib_misc_HPP
+/* 
+ * factorial function
+ *
+ * Keith O'Hara
+ * 06/23/2016
+ *
+ * This version:
+ * 06/25/2017
+ */
 
-#include "round_dbl.hpp"
-#include "sign_dbl.hpp"
-#include "factorial.hpp"
-#include "log_multi_gamma.hpp"
+#ifndef _stats_factorial_HPP
+#define _stats_factorial_HPP
 
-#include "binomial_coef.hpp"
-#include "erfinv.hpp"
-#include "incomplete_beta.hpp"
-#include "incomplete_beta_inv.hpp"
-#include "incomplete_gamma.hpp"
-#include "incomplete_gamma_inv.hpp"
+template<typename T>
+inline
+T
+factorial(T x) {
+    return (x==1 ? x : x*factorial(x-1));
+}
 
 #endif

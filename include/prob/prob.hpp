@@ -20,6 +20,7 @@
 #define _statslib_prob_HPP
 
 #include "pbeta.hpp"
+#include "pbinom.hpp"
 #include "pchisq.hpp"
 #include "pgamma.hpp"
 #include "pinvgamma.hpp"

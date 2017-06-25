@@ -1,3 +1,4 @@
+
 /*################################################################################
   ##
   ##   Copyright (C) 2011-2017 Keith O'Hara
@@ -16,19 +17,31 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_misc_HPP
-#define _statslib_misc_HPP
+/* 
+ * binomial coefficient
+ *
+ * Keith O'Hara
+ * 06/23/2016
+ *
+ * This version:
+ * 06/25/2017
+ */
 
-#include "round_dbl.hpp"
-#include "sign_dbl.hpp"
-#include "factorial.hpp"
-#include "log_multi_gamma.hpp"
+#ifndef _stats_binomial_coef_HPP
+#define _stats_binomial_coef_HPP
 
-#include "binomial_coef.hpp"
-#include "erfinv.hpp"
-#include "incomplete_beta.hpp"
-#include "incomplete_beta_inv.hpp"
-#include "incomplete_gamma.hpp"
-#include "incomplete_gamma_inv.hpp"
+inline
+double
+binomial_coef(int n, int k) {
+    const int k_run = (k > n - k) ? n - k : k;
+
+    double ret = 1.0;
+
+    for (int i=1; i <= k_run; i++) {
+        ret *= (double) (n - k_run + i) / i;
+    }
+
+    return ret;
+}
 
 #endif

@@ -16,19 +16,35 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_misc_HPP
-#define _statslib_misc_HPP
+/*
+ * cdf of the univariate Bernoulli distribution
+ *
+ * Keith O'Hara
+ * 06/23/2017
+ *
+ * This version:
+ * 06/24/2017
+ */
 
-#include "round_dbl.hpp"
-#include "sign_dbl.hpp"
-#include "factorial.hpp"
-#include "log_multi_gamma.hpp"
+#ifndef _stats_pbeta_HPP
+#define _stats_pbeta_HPP
 
-#include "binomial_coef.hpp"
-#include "erfinv.hpp"
-#include "incomplete_beta.hpp"
-#include "incomplete_beta_inv.hpp"
-#include "incomplete_gamma.hpp"
-#include "incomplete_gamma_inv.hpp"
+// single input
+double pbern_int(int x, const double* p_inp, bool log_form);
+
+double pbern(int x);
+double pbern(int x, bool log_form);
+double pbern(int x, double p);
+double pbern(int x, double p, bool log_form);
+
+// vector input
+arma::vec pbern_int(const arma::vec& x, const double* p_inp, bool log_form);
+
+arma::vec pbern(const arma::vec& x);
+arma::vec pbern(const arma::vec& x, bool log_form);
+arma::vec pbern(const arma::vec& x, double p);
+arma::vec pbern(const arma::vec& x, double p, bool log_form);
+
+#include "pbern.ipp"
 
 #endif

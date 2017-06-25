@@ -16,19 +16,35 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_misc_HPP
-#define _statslib_misc_HPP
+/*
+ * quantile function of the univariate Bernoulli distribution
+ *
+ * Keith O'Hara
+ * 06/23/2017
+ *
+ * This version:
+ * 06/24/2017
+ */
 
-#include "round_dbl.hpp"
-#include "sign_dbl.hpp"
-#include "factorial.hpp"
-#include "log_multi_gamma.hpp"
+#ifndef _stats_qbern_HPP
+#define _stats_qbern_HPP
 
-#include "binomial_coef.hpp"
-#include "erfinv.hpp"
-#include "incomplete_beta.hpp"
-#include "incomplete_beta_inv.hpp"
-#include "incomplete_gamma.hpp"
-#include "incomplete_gamma_inv.hpp"
+// single input
+double qbern_int(int p, const double* par_inp, bool log_form);
+
+double qbern(int p);
+double qbern(int p, bool log_form);
+double qbern(int p, double par);
+double qbern(int p, double par, bool log_form);
+
+// vector input
+arma::vec qbern_int(const arma::vec& p, const double* par_inp, bool log_form);
+
+arma::vec qbern(const arma::vec& p);
+arma::vec qbern(const arma::vec& p, bool log_form);
+arma::vec qbern(const arma::vec& p, double par);
+arma::vec qbern(const arma::vec& p, double par, bool log_form);
+
+#include "qbern.ipp"
 
 #endif

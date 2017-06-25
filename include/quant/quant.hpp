@@ -20,6 +20,7 @@
 #define _statslib_quant_HPP
 
 #include "qbeta.hpp"
+#include "qbinom.hpp"
 #include "qchisq.hpp"
 #include "qgamma.hpp"
 #include "qinvgamma.hpp"

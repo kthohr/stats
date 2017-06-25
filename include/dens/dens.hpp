@@ -21,6 +21,7 @@
 
 #include "dbern.hpp"
 #include "dbeta.hpp"
+#include "dbinom.hpp"
 #include "dchisq.hpp"
 #include "dgamma.hpp"
 #include "dinvgamma.hpp"
