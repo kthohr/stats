@@ -26,8 +26,8 @@
  * 06/15/2017
  */
 
-#ifndef _stats_rbinom_HPP
-#define _stats_rbinom_HPP
+#ifndef _statslib_rbinom_HPP
+#define _statslib_rbinom_HPP
 
 int rbinom(int k, double p);
 arma::colvec rbinom(int n, int k, double p);

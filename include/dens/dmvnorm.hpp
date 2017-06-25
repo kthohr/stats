@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_dmvnorm_HPP
-#define _stats_dmvnorm_HPP
+#ifndef _statslib_dmvnorm_HPP
+#define _statslib_dmvnorm_HPP
 
 double dmvnorm_int(const arma::vec& x, const arma::vec* mu_inp, const arma::mat* Sigma_inp, bool log_form);
 

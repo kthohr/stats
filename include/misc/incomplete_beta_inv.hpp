@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_incomplete_beta_inv_HPP
-#define _stats_incomplete_beta_inv_HPP
+#ifndef _statslib_incomplete_beta_inv_HPP
+#define _statslib_incomplete_beta_inv_HPP
 
 inline
 bool

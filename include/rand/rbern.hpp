@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_rbern_HPP
-#define _stats_rbern_HPP
+#ifndef _statslib_rbern_HPP
+#define _statslib_rbern_HPP
 
 int rbern(double p);
 arma::colvec rbern(int n, double p);

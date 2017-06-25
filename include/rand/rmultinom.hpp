@@ -26,8 +26,8 @@
  * 06/15/2017
  */
 
-#ifndef _stats_rmultinom_HPP
-#define _stats_rmultinom_HPP
+#ifndef _statslib_rmultinom_HPP
+#define _statslib_rmultinom_HPP
 
 arma::colvec rmultinom(const arma::vec& prob);
 

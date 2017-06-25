@@ -26,8 +26,8 @@
  * 06/24/2017
  */
 
-#ifndef _stats_qbern_HPP
-#define _stats_qbern_HPP
+#ifndef _statslib_qbern_HPP
+#define _statslib_qbern_HPP
 
 // single input
 double qbern_int(int p, const double* par_inp, bool log_form);

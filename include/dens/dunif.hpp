@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_dunif_HPP
-#define _stats_dunif_HPP
+#ifndef _statslib_dunif_HPP
+#define _statslib_dunif_HPP
 
 // single input
 double dunif_int(double x, const double* a_inp, const double* b_inp, bool log_form);

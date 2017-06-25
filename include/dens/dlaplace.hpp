@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_dlaplace_HPP
-#define _stats_dlaplace_HPP
+#ifndef _statslib_dlaplace_HPP
+#define _statslib_dlaplace_HPP
 
 // single input
 double dlaplace_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);

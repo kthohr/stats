@@ -26,8 +26,8 @@
  * 06/25/2017
  */
 
-#ifndef _stats_pbinom_HPP
-#define _stats_pbinom_HPP
+#ifndef _statslib_pbinom_HPP
+#define _statslib_pbinom_HPP
 
 // single input
 double pbinom_int(int x, const int* n_trials_inp, const double* prob_par_inp, bool log_form);

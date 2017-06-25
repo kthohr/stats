@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_dinvgamma_HPP
-#define _stats_dinvgamma_HPP
+#ifndef _statslib_dinvgamma_HPP
+#define _statslib_dinvgamma_HPP
 
 // single input
 double dinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form);

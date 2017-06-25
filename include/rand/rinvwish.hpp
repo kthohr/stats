@@ -26,8 +26,8 @@
  * 06/15/2017
  */
 
-#ifndef _stats_rinvwish_HPP
-#define _stats_rinvwish_HPP
+#ifndef _statslib_rinvwish_HPP
+#define _statslib_rinvwish_HPP
 
 arma::mat rinvwish(const arma::mat& Psi, int nu);
 

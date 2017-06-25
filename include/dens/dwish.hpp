@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_dwish_HPP
-#define _stats_dwish_HPP
+#ifndef _statslib_dwish_HPP
+#define _statslib_dwish_HPP
 
 double dwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, bool log_form);
 

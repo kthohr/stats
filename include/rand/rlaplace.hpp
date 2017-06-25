@@ -26,8 +26,8 @@
  * 06/18/2017
  */
 
-#ifndef _stats_rlaplace_HPP
-#define _stats_rlaplace_HPP
+#ifndef _statslib_rlaplace_HPP
+#define _statslib_rlaplace_HPP
 
 double rlaplace(double mu, double sigma);
 arma::colvec rlaplace(int n, double mu, double sigma);

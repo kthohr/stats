@@ -27,8 +27,8 @@
  * 06/25/2017
  */
 
-#ifndef _stats_factorial_HPP
-#define _stats_factorial_HPP
+#ifndef _statslib_factorial_HPP
+#define _statslib_factorial_HPP
 
 template<typename T>
 inline

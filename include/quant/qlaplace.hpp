@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_qlaplace_HPP
-#define _stats_qlaplace_HPP
+#ifndef _statslib_qlaplace_HPP
+#define _statslib_qlaplace_HPP
 
 // single input
 double qlaplace_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form);

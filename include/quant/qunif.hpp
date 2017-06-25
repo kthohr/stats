@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_qunif_HPP
-#define _stats_qunif_HPP
+#ifndef _statslib_qunif_HPP
+#define _statslib_qunif_HPP
 
 // single input
 double qunif_int(double p, const double* a_inp, const double* b_inp, bool log_form);

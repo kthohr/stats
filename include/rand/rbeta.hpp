@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_rbeta_HPP
-#define _stats_rbeta_HPP
+#ifndef _statslib_rbeta_HPP
+#define _statslib_rbeta_HPP
 
 double rbeta(double par_1, double par_2);
 arma::colvec rbeta(int n, double par_1, double par_2);

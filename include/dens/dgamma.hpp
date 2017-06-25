@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_dgamma_HPP
-#define _stats_dgamma_HPP
+#ifndef _statslib_dgamma_HPP
+#define _statslib_dgamma_HPP
 
 // single input
 double dgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form);

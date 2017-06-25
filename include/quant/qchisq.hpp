@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_qchisq_HPP
-#define _stats_qchisq_HPP
+#ifndef _statslib_qchisq_HPP
+#define _statslib_qchisq_HPP
 
 // single input
 double qchisq_int(double p, const double* dof_inp, bool log_form);

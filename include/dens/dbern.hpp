@@ -26,8 +26,8 @@
  * 06/23/2016
  */
 
-#ifndef _stats_dbern_HPP
-#define _stats_dbern_HPP
+#ifndef _statslib_dbern_HPP
+#define _statslib_dbern_HPP
 
 // single input
 double dbern_int(int x, const double* p_inp, bool log_form);

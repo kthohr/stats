@@ -26,8 +26,8 @@
  * 06/15/2017
  */
 
-#ifndef _stats_rgamma_HPP
-#define _stats_rgamma_HPP
+#ifndef _statslib_rgamma_HPP
+#define _statslib_rgamma_HPP
 
 double rgamma(double shape, double scale);
 arma::colvec rgamma(int n, double shape, double scale);

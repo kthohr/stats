@@ -16,22 +16,11 @@
   ##
   ################################################################################*/
 
-/* 
- * n draws from a Chi-Squared distribution with parameter k
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 06/15/2017
- */
-
-#ifndef _statslib_rchisq_HPP
-#define _statslib_rchisq_HPP
-
-double rchisq(int k);
-arma::colvec rchisq(int n, int k);
-
-#include "rchisq.ipp"
-
+// check if c++14 is available, then swap inline for constexpr in some functions
+#ifndef STATSLIB_CONSTEXPR
+    #if __cplusplus >= 201300
+        #define STATSLIB_CONSTEXPR constexpr
+    #else 
+        #define STATSLIB_CONSTEXPR inline
+    #endif
 #endif

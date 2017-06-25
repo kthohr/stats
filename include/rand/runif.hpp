@@ -26,8 +26,8 @@
  * 06/24/2017
  */
 
-#ifndef _stats_runif_HPP
-#define _stats_runif_HPP
+#ifndef _statslib_runif_HPP
+#define _statslib_runif_HPP
 
 // single draw
 double runif_int(const double* a_inp, const double* b_inp);

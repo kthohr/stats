@@ -23,8 +23,8 @@
  * 06/01/2015
  */
 
-#ifndef _stats_log_multi_gamma_HPP
-#define _stats_log_multi_gamma_HPP
+#ifndef _statslib_log_multi_gamma_HPP
+#define _statslib_log_multi_gamma_HPP
 
 inline
 double

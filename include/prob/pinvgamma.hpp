@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_pinvgamma_HPP
-#define _stats_pinvgamma_HPP
+#ifndef _statslib_pinvgamma_HPP
+#define _statslib_pinvgamma_HPP
 
 // single input
 double pinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form);

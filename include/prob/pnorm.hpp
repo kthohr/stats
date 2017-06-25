@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_pnorm_HPP
-#define _stats_pnorm_HPP
+#ifndef _statslib_pnorm_HPP
+#define _statslib_pnorm_HPP
 
 // single input
 double pnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);

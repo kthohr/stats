@@ -27,10 +27,10 @@
  * 06/25/2017
  */
 
-#ifndef _stats_binomial_coef_HPP
-#define _stats_binomial_coef_HPP
+#ifndef _statslib_binomial_coef_HPP
+#define _statslib_binomial_coef_HPP
 
-inline
+STATSLIB_CONSTEXPR
 double
 binomial_coef(int n, int k) {
     const int k_run = (k > n - k) ? n - k : k;

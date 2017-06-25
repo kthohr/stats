@@ -26,8 +26,8 @@
  * 06/24/2017
  */
 
-#ifndef _stats_rnorm_HPP
-#define _stats_rnorm_HPP
+#ifndef _statslib_rnorm_HPP
+#define _statslib_rnorm_HPP
 
 // single draw
 double rnorm_int(const double* mu_inp, const double* sigma_inp);

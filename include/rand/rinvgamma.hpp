@@ -26,8 +26,8 @@
  * 06/18/2017
  */
 
-#ifndef _stats_rinvgamma_HPP
-#define _stats_rinvgamma_HPP
+#ifndef _statslib_rinvgamma_HPP
+#define _statslib_rinvgamma_HPP
 
 double rinvgamma(double shape, double rate);
 arma::colvec rinvgamma(int n, double shape, double rate);

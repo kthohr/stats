@@ -26,8 +26,8 @@
  * 06/15/2016
  */
 
-#ifndef _stats_erfinv_HPP
-#define _stats_erfinv_HPP
+#ifndef _statslib_erfinv_HPP
+#define _statslib_erfinv_HPP
 
 inline
 double

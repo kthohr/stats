@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_qnorm_HPP
-#define _stats_qnorm_HPP
+#ifndef _statslib_qnorm_HPP
+#define _statslib_qnorm_HPP
 
 // single input
 double qnorm_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form);

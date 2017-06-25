@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_qlogis_HPP
-#define _stats_qlogis_HPP
+#ifndef _statslib_qlogis_HPP
+#define _statslib_qlogis_HPP
 
 // single input
 double qlogis_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form);

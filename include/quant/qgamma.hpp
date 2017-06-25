@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_qgamma_HPP
-#define _stats_qgamma_HPP
+#ifndef _statslib_qgamma_HPP
+#define _statslib_qgamma_HPP
 
 // single input
 double qgamma_int(double p, const double* shape_inp, const double* scale_inp, bool log_form);

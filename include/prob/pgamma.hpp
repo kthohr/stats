@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_pgamma_HPP
-#define _stats_pgamma_HPP
+#ifndef _statslib_pgamma_HPP
+#define _statslib_pgamma_HPP
 
 // single input
 double pgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form);

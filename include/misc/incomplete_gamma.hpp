@@ -25,8 +25,8 @@
  * 06/15/2016
  */
 
-#ifndef _stats_incomplete_gamma_HPP
-#define _stats_incomplete_gamma_HPP
+#ifndef _statslib_incomplete_gamma_HPP
+#define _statslib_incomplete_gamma_HPP
 
 inline
 bool

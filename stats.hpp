@@ -19,6 +19,8 @@
 #ifndef _statslib_HPP
 #define _statslib_HPP
 
+#include "include/misc/statslib_options.hpp"
+
 namespace stats {
 
     #include "include/misc/misc.hpp"

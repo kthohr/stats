@@ -26,8 +26,8 @@
  * 06/15/2017
  */
 
-#ifndef _stats_rmvnorm_HPP
-#define _stats_rmvnorm_HPP
+#ifndef _statslib_rmvnorm_HPP
+#define _statslib_rmvnorm_HPP
 
 arma::vec rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol);
 

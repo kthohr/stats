@@ -26,8 +26,8 @@
  * 06/25/2017
  */
 
-#ifndef _stats_dbinom_HPP
-#define _stats_dbinom_HPP
+#ifndef _statslib_dbinom_HPP
+#define _statslib_dbinom_HPP
 
 // single input
 double dbinom_int(int x, const int* n_trials_inp, const double* prob_par_inp, bool log_form);

@@ -26,8 +26,8 @@
  * 06/24/2017
  */
 
-#ifndef _stats_pbeta_HPP
-#define _stats_pbeta_HPP
+#ifndef _statslib_pbeta_HPP
+#define _statslib_pbeta_HPP
 
 // single input
 double pbern_int(int x, const double* p_inp, bool log_form);

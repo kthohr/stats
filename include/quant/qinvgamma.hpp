@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_qinvgamma_HPP
-#define _stats_qinvgamma_HPP
+#ifndef _statslib_qinvgamma_HPP
+#define _statslib_qinvgamma_HPP
 
 // single input
 double qinvgamma_int(double p, const double* shape_inp, const double* rate_inp, bool log_form);

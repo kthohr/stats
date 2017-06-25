@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_punif_HPP
-#define _stats_punif_HPP
+#ifndef _statslib_punif_HPP
+#define _statslib_punif_HPP
 
 // single input
 double punif_int(double x, const double* a_inp, const double* b_inp, bool log_form);

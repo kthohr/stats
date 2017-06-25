@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_qbeta_HPP
-#define _stats_qbeta_HPP
+#ifndef _statslib_qbeta_HPP
+#define _statslib_qbeta_HPP
 
 // single input
 double qbeta_int(double p, const double* shape_inp, const double* par_2_inp, bool log_form);

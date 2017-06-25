@@ -40,8 +40,8 @@
 //     return true;
 // }
 
-#ifndef _stats_incomplete_gamma_inv_HPP
-#define _stats_incomplete_gamma_inv_HPP
+#ifndef _statslib_incomplete_gamma_inv_HPP
+#define _statslib_incomplete_gamma_inv_HPP
 
 inline
 bool

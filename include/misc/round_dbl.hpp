@@ -26,8 +26,8 @@
  * 06/18/2017
  */
 
-#ifndef _stats_round_dbl_HPP
-#define _stats_round_dbl_HPP
+#ifndef _statslib_round_dbl_HPP
+#define _statslib_round_dbl_HPP
 
 inline
 double

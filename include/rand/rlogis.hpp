@@ -26,8 +26,8 @@
  * 06/18/2017
  */
 
-#ifndef _stats_rlogis_HPP
-#define _stats_rlogis_HPP
+#ifndef _statslib_rlogis_HPP
+#define _statslib_rlogis_HPP
 
 double rlogis(double mu, double sigma);
 arma::colvec rlogis(int n, double mu, double sigma);

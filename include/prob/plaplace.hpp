@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_plaplace_HPP
-#define _stats_plaplace_HPP
+#ifndef _statslib_plaplace_HPP
+#define _statslib_plaplace_HPP
 
 // single input
 double plaplace_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);

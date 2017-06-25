@@ -26,8 +26,8 @@
  * 06/23/2017
  */
 
-#ifndef _stats_dlogis_HPP
-#define _stats_dlogis_HPP
+#ifndef _statslib_dlogis_HPP
+#define _statslib_dlogis_HPP
 
 // single input
 double dlogis_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);
