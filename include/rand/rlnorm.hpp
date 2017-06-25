@@ -16,24 +16,31 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_rand_HPP
-#define _statslib_rand_HPP
+/* 
+ * n draws from a log-normal distribution with parameters (mu,sigma)
+ *
+ * Keith O'Hara
+ * 06/24/2017
+ *
+ * This version:
+ * 06/26/2017
+ */
 
-#include "runif.hpp"
-#include "rnorm.hpp"
+#ifndef _statslib_rlnorm_HPP
+#define _statslib_rlnorm_HPP
 
-#include "rgamma.hpp"
+// single draw
+double rlnorm_int(const double* mu_inp, const double* sigma_inp);
 
-#include "rbern.hpp"
-#include "rbeta.hpp"
-#include "rbinom.hpp"
-#include "rchisq.hpp"
-#include "rinvgamma.hpp"
-#include "rinvwish.hpp"
-#include "rlaplace.hpp"
-#include "rlnorm.hpp"
-#include "rlogis.hpp"
-#include "rmultinom.hpp"
-#include "rmvnorm.hpp"
+double rlnorm();
+double rlnorm(double mu, double sigma);
+
+// n draws
+arma::colvec rlnorm_int(int n, const double* mu_inp, const double* sigma_inp);
+
+arma::colvec rlnorm(int n);
+arma::colvec rlnorm(int n, double mu, double sigma);
+
+#include "rlnorm.ipp"
 
 #endif

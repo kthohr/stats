@@ -29,4 +29,7 @@
 #include "qnorm.hpp"
 #include "qunif.hpp"
 
+// these depend on one of the above
+#include "qlnorm.hpp"
+
 #endif

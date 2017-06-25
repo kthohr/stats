@@ -36,8 +36,8 @@ qnorm_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form
     const double mu = (mu_inp) ? *mu_inp : 0;
     const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    const double erf_term = std::sqrt(2)*erfinv( 2.0*p - 1.0 );
-    double ret = mu + sigma*erf_term;
+    const double erf_term = erfinv( 2.0*p - 1.0 );
+    double ret = mu + std::sqrt(2)*sigma*erf_term;
 
     if (log_form) {
         ret = std::log(ret);

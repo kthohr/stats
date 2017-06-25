@@ -19,6 +19,7 @@
 #ifndef _statslib_prob_HPP
 #define _statslib_prob_HPP
 
+#include "pbern.hpp"
 #include "pbeta.hpp"
 #include "pbinom.hpp"
 #include "pchisq.hpp"
@@ -28,5 +29,9 @@
 #include "plogis.hpp"
 #include "pnorm.hpp"
 #include "punif.hpp"
+
+// these depend on one of the above
+#include "plnorm.hpp"
+
 
 #endif

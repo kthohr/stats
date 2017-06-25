@@ -21,7 +21,6 @@
 
 #include "dbern.hpp"
 #include "dbeta.hpp"
-#include "dbinom.hpp"
 #include "dchisq.hpp"
 #include "dgamma.hpp"
 #include "dinvgamma.hpp"
@@ -32,5 +31,9 @@
 #include "dnorm.hpp"
 #include "dunif.hpp"
 #include "dwish.hpp"
+
+// these depend on one of the above
+#include "dbinom.hpp"
+#include "dlnorm.hpp"
 
 #endif

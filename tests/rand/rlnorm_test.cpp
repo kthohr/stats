@@ -16,24 +16,26 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_rand_HPP
-#define _statslib_rand_HPP
+// g++-mp-7 -O2 -Wall -std=c++14 -I./../../ -I/opt/local/include rlnorm_test.cpp -o rlnorm.test -framework Accelerate
 
-#include "runif.hpp"
-#include "rnorm.hpp"
+#include "armadillo"
+#include "stats.hpp"
 
-#include "rgamma.hpp"
+int main()
+{
+    double mu = 0.1;
+    double sigma = 1;
+    double lnorm_mean = std::exp(mu + sigma*sigma / 2.0);
+    double lnorm_var = (std::exp(sigma*sigma) - 1.0) * std::exp(mu*2 + sigma*sigma);
+    double lnorm_rand = stats::rlnorm(mu,sigma);
 
-#include "rbern.hpp"
-#include "rbeta.hpp"
-#include "rbinom.hpp"
-#include "rchisq.hpp"
-#include "rinvgamma.hpp"
-#include "rinvwish.hpp"
-#include "rlaplace.hpp"
-#include "rlnorm.hpp"
-#include "rlogis.hpp"
-#include "rmultinom.hpp"
-#include "rmvnorm.hpp"
+    std::cout << "lnorm rv: " << lnorm_rand << std::endl;
 
-#endif
+    int n = 10000;
+    arma::vec lnorm_vec = stats::rlnorm(n,mu,sigma);
+
+    std::cout << "lnorm rv mean: " << arma::mean(lnorm_vec) << ". Should be close to: " << lnorm_mean << std::endl;
+    std::cout << "lnorm rv variance: " << arma::var(lnorm_vec) << ". Should be close to: " << lnorm_var << std::endl;
+    
+    return 0;
+}
