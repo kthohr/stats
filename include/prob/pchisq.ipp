@@ -35,7 +35,7 @@ pchisq_int(double x, const double* dof_inp, bool log_form)
 {
     const double dof = (dof_inp) ? *dof_inp : 1;
     //
-    double ret = incomplete_gamma(dof/2.0,x/2.0);
+    double ret = gcem::incomplete_gamma(dof/2.0,x/2.0);
 
     if (log_form) {
         ret = std::log(ret);

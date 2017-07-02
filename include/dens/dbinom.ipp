@@ -47,7 +47,7 @@ dbinom_int(int x, const int* n_trials_inp, const double* prob_par_inp, bool log_
     } else if (x==n_trials) {
         ret = x * std::log(prob_par);   
     } else {
-        ret = std::log(binomial_coef(n_trials,x)) + x*std::log(prob_par) + (n_trials - x)*std::log(1 - prob_par);
+        ret = std::log(gcem::binomial_coef(n_trials,x)) + x*std::log(prob_par) + (n_trials - x)*std::log(1 - prob_par);
     }
 
     if (!log_form) {

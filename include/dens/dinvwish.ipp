@@ -37,7 +37,7 @@ dinvwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, bo
 
     const double nu_2 = ((double) nu) / 2.0;
     //
-    const double lmg_term = log_multi_gamma(nu_2, K);
+    const double lmg_term = gcem::log_multi_gamma(nu_2, K);
     const double norm_term = nu_2*std::log(arma::det(Psi)) - nu_2*K*std::log(2.0) - lmg_term;
 
     double ret = norm_term - 0.5*( (nu+K+1) * std::log(arma::det(X)) + arma::trace(Psi*arma::inv(X)) );

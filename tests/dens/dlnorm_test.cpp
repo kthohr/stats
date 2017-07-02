@@ -16,11 +16,10 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include dlnorm_test.cpp -o dlnorm.test -framework Accelerate
+// g++-mp-7 -O2 -Wall -std=c++11 -I./../../include -I/opt/local/include dlnorm_test.cpp -o dlnorm.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
-#include "armadillo"
 #include "stats.hpp"
 
 int main()

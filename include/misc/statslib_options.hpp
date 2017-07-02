@@ -24,15 +24,3 @@
         #define STATSLIB_CONSTEXPR inline
     #endif
 #endif
-
-#ifndef STATSLIB_PI
-    #define STATSLIB_PI 3.141592653589793
-#endif
-
-#ifndef STATSLIB_SQRT_PI
-    #define STATSLIB_SQRT_PI 1.77245385090551588
-#endif
-
-#ifndef STATSLIB_E
-    #define STATSLIB_E 2.7182818284590450908
-#endif

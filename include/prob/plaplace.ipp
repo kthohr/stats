@@ -36,7 +36,7 @@ plaplace_int(double x, const double* mu_inp, const double* sigma_inp, bool log_f
     const double mu = (mu_inp) ? *mu_inp : 0;
     const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double ret = 0.5 + 0.5*sign_dbl(x-mu)*(1.0 - std::exp(-std::abs(x - mu) / sigma));
+    double ret = 0.5 + 0.5*gcem::sign_dbl(x-mu)*(1.0 - std::exp(-std::abs(x - mu) / sigma));
 
     if (log_form) {
         ret = std::log(ret);

@@ -37,7 +37,7 @@ qgamma_int(double p, const double* shape_inp, const double* scale_inp, bool log_
     const double scale = (scale_inp) ? *scale_inp : 1;
     //
     double ret = 0.5;
-    incomplete_gamma_inv(shape,p,ret);
+    gcem::incomplete_gamma_inv(shape,p,ret);
 
     ret *= scale;
 

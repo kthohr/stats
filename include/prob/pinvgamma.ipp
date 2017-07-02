@@ -36,7 +36,7 @@ pinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool lo
     const double shape = (shape_inp) ? *shape_inp : 1;
     const double rate = (rate_inp) ? *rate_inp : 1;
     //
-    double ret = incomplete_gamma(shape,rate/x);
+    double ret = gcem::incomplete_gamma(shape,rate/x);
 
     ret = 1.0 - ret;
 

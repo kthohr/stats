@@ -37,7 +37,7 @@ qinvgamma_int(double p, const double* shape_inp, const double* rate_inp, bool lo
     const double rate = (rate_inp) ? *rate_inp : 1;
     //
     double ret = 0.5;
-    incomplete_gamma_inv(shape,1-p,ret);
+    gcem::incomplete_gamma_inv(shape,1-p,ret);
 
     ret = rate / ret;
 

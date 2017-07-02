@@ -36,7 +36,7 @@ qlaplace_int(double p, const double* mu_inp, const double* sigma_inp, bool log_f
     const double mu = (mu_inp) ? *mu_inp : 0;
     const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    double ret = mu - sigma*sign_dbl(p - 0.5)*std::log(1.0 - 2.0*std::abs(p - 0.5));
+    double ret = mu - sigma*gcem::sign_dbl(p - 0.5)*std::log(1.0 - 2.0*std::abs(p - 0.5));
 
     if (log_form) {
         ret = std::log(ret);

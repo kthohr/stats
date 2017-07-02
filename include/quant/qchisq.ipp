@@ -36,7 +36,7 @@ qchisq_int(double p, const double* dof_inp, bool log_form)
     const double dof = (dof_inp) ? *dof_inp : 1;
     //
     double ret = 0.5;
-    incomplete_gamma_inv(dof/2.0,p,ret);
+    gcem::incomplete_gamma_inv(dof/2.0,p,ret);
 
     ret *= 2.0;
 
