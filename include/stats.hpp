@@ -16,21 +16,22 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include incomplete_beta_inv_test.cpp -o incomplete_beta_inv.test -framework Accelerate
+#ifndef _statslib_HPP
+#define _statslib_HPP
 
-#include <math.h>
 #include "armadillo"
-#include "stats.hpp"
+#include "math/gcem.hpp"
+#include "misc/statslib_options.hpp"
 
-int main()
-{
-    double ret_val;
-    double x = 0.8;
-    double p = 0.9;
-    double q = 0.9;
-    stats::incomplete_beta_inv(p,q,x,ret_val);
+namespace stats {
 
-    std::cout << "incomplete_beta_inv: " << ret_val << std::endl;
+    #include "dens/dens.hpp"
 
-    return 0;
+    #include "prob/prob.hpp"
+
+    #include "quant/quant.hpp"
+
+    #include "rand/rand.hpp"
 }
+
+#endif

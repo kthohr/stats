@@ -36,8 +36,7 @@ pgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_
     const double shape = (shape_inp) ? *shape_inp : 1;
     const double scale = (scale_inp) ? *scale_inp : 1;
     //
-    double ret;
-    incomplete_gamma(shape,x/scale,ret);
+    double ret = incomplete_gamma(shape,x/scale);
 
     if (log_form) {
         ret = std::log(ret);

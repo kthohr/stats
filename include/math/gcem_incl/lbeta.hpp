@@ -1,47 +1,39 @@
-
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2017 Keith O'Hara
+  ##   Copyright (C) 2016-2017 Keith O'Hara
   ##
-  ##   This file is part of the StatsLib C++ library.
+  ##   This file is part of the GCE-Math C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
+  ##   GCE-Math is free software: you can redistribute it and/or modify
   ##   it under the terms of the GNU General Public License as published by
   ##   the Free Software Foundation, either version 2 of the License, or
   ##   (at your option) any later version.
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
+  ##   GCE-Math is distributed in the hope that it will be useful,
   ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
   ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ##   GNU General Public License for more details.
   ##
   ################################################################################*/
 
-/* 
- * binomial coefficient
+/*
+ * compile-time log-beta function
  *
  * Keith O'Hara
- * 06/23/2016
+ * 06/28/2017
  *
  * This version:
- * 06/25/2017
+ * 07/01/2017
  */
 
-#ifndef _statslib_binomial_coef_HPP
-#define _statslib_binomial_coef_HPP
+#ifndef _gcem_lbeta_HPP
+#define _gcem_lbeta_HPP
 
-STATSLIB_CONSTEXPR
-double
-binomial_coef(int n, int k) {
-    const int k_run = (k > n - k) ? n - k : k;
-
-    double ret = 1.0;
-
-    for (int i=1; i <= k_run; i++) {
-        ret *= (double) (n - k_run + i) / i;
-    }
-
-    return ret;
+constexpr
+long double
+lbeta(const long double a, const long double b)
+{
+    return ( lgamma(a) + lgamma(b) - lgamma(a+b) );
 }
 
 #endif

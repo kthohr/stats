@@ -1,15 +1,15 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2017 Keith O'Hara
+  ##   Copyright (C) 2016-2017 Keith O'Hara
   ##
-  ##   This file is part of the StatsLib C++ library.
+  ##   This file is part of the GCE-Math C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
+  ##   GCE-Math is free software: you can redistribute it and/or modify
   ##   it under the terms of the GNU General Public License as published by
   ##   the Free Software Foundation, either version 2 of the License, or
   ##   (at your option) any later version.
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
+  ##   GCE-Math is distributed in the hope that it will be useful,
   ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
   ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ##   GNU General Public License for more details.
@@ -17,28 +17,22 @@
   ################################################################################*/
 
 /* 
- * log multivariate gamma function
+ * compile-time factorial function
  *
  * Keith O'Hara
- * 06/01/2015
+ * 06/23/2016
+ *
+ * This version:
+ * 07/01/2017
  */
 
-#ifndef _statslib_log_multi_gamma_HPP
-#define _statslib_log_multi_gamma_HPP
+#ifndef _gcem_factorial_HPP
+#define _gcem_factorial_HPP
 
-inline
-double
-log_multi_gamma(double a, int p)
-{
-    double ret;
-
-    if (p==1) {
-        ret = std::lgamma(a);
-    } else {
-        ret = ((p-1)/2) * std::log(arma::datum::pi) + std::lgamma(a) + log_multi_gamma(a-0.5,p-1);
-    }
-    //
-    return ret;
+constexpr
+int
+factorial(const int x) {
+    return (x==1 ? x : x*factorial(x-1));
 }
 
 #endif
