@@ -35,15 +35,15 @@ statslib_inline T dbeta(const T x, const T a_par, const T b_par, const bool log_
 
 statslib_inline double dbeta(const double x);
 statslib_inline double dbeta(const double x, const bool log_form);
-statslib_inline double dbeta(const double x, const double par_1_inp, const double par_2_inp);
+statslib_inline double dbeta(const double x, const double a_par, const double b_par);
 
 // matrix/vector input
-arma::mat dbeta_int(const arma::mat& x, const double* par_1_inp, const double* par_2_inp, const bool log_form);
+arma::mat dbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form);
 
 arma::mat dbeta(const arma::mat& x);
 arma::mat dbeta(const arma::mat& x, const bool log_form);
-arma::mat dbeta(const arma::mat& x, const double par_1_inp, const double par_2_inp);
-arma::mat dbeta(const arma::mat& x, const double par_1_inp, const double par_2_inp, const bool log_form);
+arma::mat dbeta(const arma::mat& x, const double a_par, const double b_par);
+arma::mat dbeta(const arma::mat& x, const double a_par, const double b_par, const bool log_form);
 
 #include "dbeta.ipp"
 

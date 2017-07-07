@@ -61,9 +61,9 @@ dbeta(const double x, const bool log_form)
 
 statslib_inline
 double
-dbeta(const double x, const double par_1_inp, const double par_2_inp)
+dbeta(const double x, const double a_par, const double b_par)
 {
-    return dbeta(x,par_1_inp,par_2_inp,false);
+    return dbeta(x,a_par,b_par,false);
 }
 
 
@@ -71,13 +71,13 @@ dbeta(const double x, const double par_1_inp, const double par_2_inp)
 
 inline
 arma::mat
-dbeta_int(const arma::mat& x, const double* par_1_inp, const double* par_2_inp, bool log_form)
+dbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
 {
-    const double par_1 = (par_1_inp) ? *par_1_inp : 2; // shape parameter 'alpha'
-    const double par_2 = (par_2_inp) ? *par_2_inp : 2; // shape parameter 'beta'
+    const double a_par = (a_par_inp) ? *a_par_inp : 2; // shape parameter 'alpha'
+    const double b_par = (b_par_inp) ? *b_par_inp : 2; // scale parameter 'beta'
 
-    const double lbeta_term = std::lgamma(par_1 + par_2) - std::lgamma(par_1) - std::lgamma(par_2); // log beta function
-    arma::mat ret = lbeta_term + (par_1 - 1.0)*arma::log(x) + (par_2 - 1.0)*arma::log(1.0 - x);
+    const double lbeta_term = std::lgamma(a_par + b_par) - std::lgamma(a_par) - std::lgamma(b_par); // log beta function
+    arma::mat ret = lbeta_term + (a_par - 1.0)*arma::log(x) + (b_par - 1.0)*arma::log(1.0 - x);
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -102,14 +102,14 @@ dbeta(const arma::mat& x, const bool log_form)
 
 inline
 arma::mat
-dbeta(const arma::mat& x, const double par_1_inp, const double par_2_inp)
+dbeta(const arma::mat& x, const double a_par, const double b_par)
 {
-    return dbeta_int(x,&par_1_inp,&par_2_inp,false);
+    return dbeta_int(x,&a_par,&b_par,false);
 }
 
 inline
 arma::mat
-dbeta(const arma::mat& x, const double par_1_inp, const double par_2_inp, const bool log_form)
+dbeta(const arma::mat& x, const double a_par, const double b_par, const bool log_form)
 {
-    return dbeta_int(x,&par_1_inp,&par_2_inp,log_form);
+    return dbeta_int(x,&a_par,&b_par,log_form);
 }
