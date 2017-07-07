@@ -23,109 +23,99 @@
  * 06/23/2017
  *
  * This version:
- * 06/25/2017
+ * 07/06/2017
  */
 
 //
 // single input
 
-inline
-double
-dbinom_int(int x, const int* n_trials_inp, const double* prob_par_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dbinom_int(const int x, const int n_trials, const T prob_par)
 {
-    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
-    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
-    //
-    if (n_trials==1) {
-        return dbern(x,prob_par,log_form);
-    }
-    //
-    double ret = 0;
-
-    if (x==0) {
-        ret = n_trials * std::log(1 - prob_par);    
-    } else if (x==n_trials) {
-        ret = x * std::log(prob_par);   
-    } else {
-        ret = std::log(gcem::binomial_coef(n_trials,x)) + x*std::log(prob_par) + (n_trials - x)*std::log(1 - prob_par);
-    }
-
-    if (!log_form) {
-        ret = std::exp(ret);
-    }
-    //
-    return ret;
+    return (x == 0 ? n_trials * stats_math::log(1.0 - prob_par) : x == n_trials ? x * stats_math::log(prob_par) : 
+            stats_math::log(gcem::binomial_coef(n_trials,x)) + x*stats_math::log(prob_par) + (n_trials - x)*stats_math::log(1.0 - prob_par) );
 }
 
-inline
-double
-dbinom(int x)
+
+template<typename T>
+statslib_inline
+T
+dbinom(const int x, const int n_trials, const T prob_par, const bool log_form)
 {
-    return dbinom_int(x,nullptr,nullptr,false);
+    return (n_trials == 1 ? dbern(x,prob_par,log_form) : ( log_form == true ? dbinom_int(x,n_trials,prob_par) : stats_math::exp(dbinom_int(x,n_trials,prob_par)) ));
 }
 
-inline
+statslib_inline
 double
-dbinom(int x, bool log_form)
+dbinom(const int x)
 {
-    return dbinom_int(x,nullptr,nullptr,log_form);
+    return dbinom(x,1,0.5,false);
 }
 
-inline
+statslib_inline
 double
-dbinom(int x, int n_trials, double prob_par)
+dbinom(const int x, const bool log_form)
 {
-    return dbinom_int(x,&n_trials,&prob_par,false);
+    return dbinom(x,1,0.5,log_form);
 }
 
-inline
+statslib_inline
 double
-dbinom(int x, int n_trials, double prob_par, bool log_form)
+dbinom(const int x, const int n_trials, const double prob_par)
 {
-    return dbinom_int(x,&n_trials,&prob_par,log_form);
+    return dbinom(x,n_trials,prob_par,false);
 }
 
 //
-// vector input
+// mattor input
 
 inline
-arma::vec
-dbinom_int(const arma::vec& x, const int* n_trials_inp, const double* prob_par_inp, bool log_form)
+arma::mat
+dbinom_int(const arma::mat& x, const int* n_trials_inp, const double* prob_par_inp, const bool log_form)
 {
-    const int n = x.n_elem;
-    arma::vec ret(n);
+    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
+    const int prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    for (int i=0; i < n; i++) {
-        ret(i) = dbinom_int(x(i),n_trials_inp,prob_par_inp,log_form);
+    const int n = x.n_rows;
+    const int k = x.n_rows;
+
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = dbinom(x(i,j),n_trials,prob_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-dbinom(const arma::vec& x)
+arma::mat
+dbinom(const arma::mat& x)
 {
     return dbinom_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dbinom(const arma::vec& x, bool log_form)
+arma::mat
+dbinom(const arma::mat& x, bool log_form)
 {
     return dbinom_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dbinom(const arma::vec& x, int n_trials, double prob_par)
+arma::mat
+dbinom(const arma::mat& x, int n_trials, double prob_par)
 {
     return dbinom_int(x,&n_trials,&prob_par,false);
 }
 
 inline
-arma::vec
-dbinom(const arma::vec& x, int n_trials, double prob_par, bool log_form)
+arma::mat
+dbinom(const arma::mat& x, int n_trials, double prob_par, bool log_form)
 {
     return dbinom_int(x,&n_trials,&prob_par,log_form);
 }

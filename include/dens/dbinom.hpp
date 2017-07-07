@@ -23,19 +23,19 @@
  * 06/23/2017
  *
  * This version:
- * 06/25/2017
+ * 07/06/2017
  */
 
 #ifndef _statslib_dbinom_HPP
 #define _statslib_dbinom_HPP
 
 // single input
-double dbinom_int(int x, const int* n_trials_inp, const double* prob_par_inp, bool log_form);
+template<typename T>
+statslib_inline T dbinom(const int x, const int n_trials_inp, const T prob_par_inp, const bool log_form);
 
-double dbinom(int x);
-double dbinom(int x, bool log_form);
-double dbinom(int x, int n_trials, double prob_par);
-double dbinom(int x, int n_trials, double prob_par, bool log_form);
+statslib_inline double dbinom(int x);
+statslib_inline double dbinom(int x, bool log_form);
+statslib_inline double dbinom(int x, int n_trials, double prob_par);
 
 // vector input
 arma::vec dbinom_int(const arma::vec& x, const int* n_trials, const double* prob_par_inp, bool log_form);

@@ -23,27 +23,27 @@
  * 04/12/2017
  *
  * This version:
- * 06/23/2017
+ * 07/07/2017
  */
 
 #ifndef _statslib_dgamma_HPP
 #define _statslib_dgamma_HPP
 
 // single input
-double dgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form);
+template<typename T>
+statslib_inline T dgamma(const T x, const T shape_inp, const T scale_inp, const bool log_form);
 
-double dgamma(double x);
-double dgamma(double x, bool log_form);
-double dgamma(double x, double shape, double scale);
-double dgamma(double x, double shape, double scale, bool log_form);
+statslib_inline double dgamma(const double x);
+statslib_inline double dgamma(const double x, const bool log_form);
+statslib_inline double dgamma(const double x, const double shape, const double scale);
 
-// vector input
-arma::vec dgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp, bool log_form);
+// matrix/mattor input
+arma::mat dgamma_int(const arma::mat& x, const double* shape_inp, const double* scale_inp, const bool log_form);
 
-arma::vec dgamma(const arma::vec& x);
-arma::vec dgamma(const arma::vec& x, bool log_form);
-arma::vec dgamma(const arma::vec& x, double shape, double scale);
-arma::vec dgamma(const arma::vec& x, double shape, double scale, bool log_form);
+arma::mat dgamma(const arma::mat& x);
+arma::mat dgamma(const arma::mat& x, const bool log_form);
+arma::mat dgamma(const arma::mat& x, const double shape, const double scale);
+arma::mat dgamma(const arma::mat& x, const double shape, const double scale, const bool log_form);
 
 #include "dgamma.ipp"
 

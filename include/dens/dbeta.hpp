@@ -23,27 +23,27 @@
  * 01/02/16
  *
  * This version:
- * 06/23/2017
+ * 07/06/2017
  */
 
 #ifndef _statslib_dbeta_HPP
 #define _statslib_dbeta_HPP
 
 // single input
-double dbeta_int(double x, const double* par_1_inp, const double* par_2_inp, bool log_form);
+template<typename T>
+statslib_inline T dbeta(const T x, const T a_par, const T b_par, const bool log_form);
 
-double dbeta(double x);
-double dbeta(double x, bool log_form);
-double dbeta(double x, double par_1_inp, double par_2_inp);
-double dbeta(double x, double par_1_inp, double par_2_inp, bool log_form);
+statslib_inline double dbeta(const double x);
+statslib_inline double dbeta(const double x, const bool log_form);
+statslib_inline double dbeta(const double x, const double par_1_inp, const double par_2_inp);
 
-// vector input
-arma::vec dbeta_int(const arma::vec& x, const double* par_1_inp, const double* par_2_inp, bool log_form);
+// matrix/vector input
+arma::mat dbeta_int(const arma::mat& x, const double* par_1_inp, const double* par_2_inp, const bool log_form);
 
-arma::vec dbeta(const arma::vec& x);
-arma::vec dbeta(const arma::vec& x, bool log_form);
-arma::vec dbeta(const arma::vec& x, double par_1_inp, double par_2_inp);
-arma::vec dbeta(const arma::vec& x, double par_1_inp, double par_2_inp, bool log_form);
+arma::mat dbeta(const arma::mat& x);
+arma::mat dbeta(const arma::mat& x, const bool log_form);
+arma::mat dbeta(const arma::mat& x, const double par_1_inp, const double par_2_inp);
+arma::mat dbeta(const arma::mat& x, const double par_1_inp, const double par_2_inp, const bool log_form);
 
 #include "dbeta.ipp"
 

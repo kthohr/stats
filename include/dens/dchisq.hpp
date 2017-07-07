@@ -30,20 +30,20 @@
 #define _statslib_dchisq_HPP
 
 // single input
-double dchisq_int(double x, const double* dof_inp, bool log_form);
+template<typename T>
+statslib_inline T dchisq(const T x, const T dof_par, const bool log_form);
 
-double dchisq(double x);
-double dchisq(double x, bool log_form);
-double dchisq(double x, double dof);
-double dchisq(double x, double dof, bool log_form);
+statslib_inline double dchisq(const double x);
+statslib_inline double dchisq(const double x, const bool log_form);
+statslib_inline double dchisq(const double x, const double dof);
 
-// vector input
-arma::vec dchisq_int(const arma::vec& x, const double* dof_inp, bool log_form);
+// mattor input
+arma::mat dchisq_int(const arma::mat& x, const double* dof_inp, bool log_form);
 
-arma::vec dchisq(const arma::vec& x);
-arma::vec dchisq(const arma::vec& x, bool log_form);
-arma::vec dchisq(const arma::vec& x, double dof);
-arma::vec dchisq(const arma::vec& x, double dof, bool log_form);
+arma::mat dchisq(const arma::mat& x);
+arma::mat dchisq(const arma::mat& x, const bool log_form);
+arma::mat dchisq(const arma::mat& x, const double dof);
+arma::mat dchisq(const arma::mat& x, const double dof, const bool log_form);
 
 #include "dchisq.ipp"
 

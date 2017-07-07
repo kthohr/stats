@@ -23,27 +23,27 @@
  * 01/03/2016
  *
  * This version:
- * 06/23/2016
+ * 07/06/2017
  */
 
 #ifndef _statslib_dbern_HPP
 #define _statslib_dbern_HPP
 
 // single input
-double dbern_int(int x, const double* p_inp, bool log_form);
+template<typename T>
+statslib_inline T dbern(const int x, const T prob_par, const bool log_form);
 
-double dbern(int x);
-double dbern(int x, bool log_form);
-double dbern(int x, double p);
-double dbern(int x, double p, bool log_form);
+statslib_inline double dbern(const int x);
+statslib_inline double dbern(const int x, const bool log_form);
+statslib_inline double dbern(const int x, const double prob_par);
 
-// vector input
-arma::vec dbern_int(const arma::vec& x, const double* p_inp, bool log_form);
+// matrix/vector input
+arma::mat dbern_int(const arma::mat& x, const double* p_inp, bool log_form);
 
-arma::vec dbern(const arma::vec& x);
-arma::vec dbern(const arma::vec& x, bool log_form);
-arma::vec dbern(const arma::vec& x, double p);
-arma::vec dbern(const arma::vec& x, double p, bool log_form);
+arma::mat dbern(const arma::mat& x);
+arma::mat dbern(const arma::mat& x, const bool log_form);
+arma::mat dbern(const arma::mat& x, const double p);
+arma::mat dbern(const arma::mat& x, const double p, const bool log_form);
 
 #include "dbern.ipp"
 

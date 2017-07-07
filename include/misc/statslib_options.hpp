@@ -17,10 +17,29 @@
   ################################################################################*/
 
 // check if c++14 is available, then swap inline for constexpr in some functions
-#ifndef STATSLIB_CONSTEXPR
+#ifdef STATSLIB_GO_INLINE
+    #define statslib_inline inline
+#endif
+
+#ifdef STATSLIB_GO_CONST
+    #define statslib_inline constexpr
+    #define stats_math gcem
+#endif
+
+#ifndef statslib_inline
     #if __cplusplus >= 201300
-        #define STATSLIB_CONSTEXPR constexpr
+        #define statslib_inline constexpr
     #else 
-        #define STATSLIB_CONSTEXPR inline
+        #define statslib_inline inline
     #endif
 #endif
+
+#ifndef stats_math
+    #if __cplusplus >= 201300
+        #define stats_math gcem
+    #else
+        #include <cmath>
+        #define stats_math std
+    #endif
+#endif
+

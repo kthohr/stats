@@ -23,69 +23,61 @@
  * 04/12/2017
  *
  * This version:
- * 06/23/2017
+ * 07/07/2017
  */
 
 //
 // single input
 
-inline
-double
-dchisq_int(double x, const double* dof_inp, bool log_form)
-{
-    const double dof_2 = (dof_inp) ? *dof_inp / 2.0 : 0.5; // dof / 2
-    //
-    const double norm_term = - std::lgamma(dof_2) - dof_2*std::log(2);
-
-    double ret = norm_term + (dof_2 - 1) * std::log(x) - x / 2.0;
-
-    if (!log_form) {
-        ret = std::exp(ret);
-    }
-    //
-    return ret;
+template<typename T>
+statslib_inline
+T
+dchisq_int(const T x, const T dof_par)
+{ //log(2) = 0.69314718055994528623
+    return (- stats_math::lgamma(0.5*dof_par) - 0.5*dof_par*0.69314718055994528623L + (0.5*dof_par - 1.0)*stats_math::log(x) - x / 2.0);
 }
 
-inline
-double
-dchisq(double x)
+template<typename T>
+statslib_inline
+T
+dchisq_int(const T x, const T dof_par, const bool log_form)
 {
-    return dchisq_int(x,nullptr,false);
+    return ( log_form == true ? dchisq_int(x,dof_par) : stats_math::exp(dchisq_int(x,dof_par)) );
 }
 
-inline
+statslib_inline
 double
-dchisq(double x, bool log_form)
+dchisq(const double x)
 {
-    return dchisq_int(x,nullptr,log_form);
+    return dchisq(x,1.0,false);
 }
 
-inline
+statslib_inline
 double
-dchisq(double x, double dof, double scale)
+dchisq(const double x, const bool log_form)
 {
-    return dchisq_int(x,&dof,false);
+    return dchisq(x,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-dchisq(double x, double dof, bool log_form)
+dchisq(const double x, const double dof_par, const double scale)
 {
-    return dchisq_int(x,&dof,log_form);
+    return dchisq(x,dof_par,false);
 }
 
 //
-// vector input
+// mattor input
 
 inline
-arma::vec
-dchisq_int(const arma::vec& x, const double* dof_inp, bool log_form)
+arma::mat
+dchisq_int(const arma::mat& x, const double* dof_inp, bool log_form)
 {
     const double dof_2 = (dof_inp) ? *dof_inp / 2.0 : 0.5; // dof / 2
     //
     const double norm_term = - std::lgamma(dof_2) - dof_2*std::log(2);
 
-    arma::vec ret = norm_term + (dof_2 - 1) * arma::log(x) - x / 2.0;
+    arma::mat ret = norm_term + (dof_2 - 1) * arma::log(x) - x / 2.0;
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -95,29 +87,29 @@ dchisq_int(const arma::vec& x, const double* dof_inp, bool log_form)
 }
 
 inline
-arma::vec
-dchisq(const arma::vec& x)
+arma::mat
+dchisq(const arma::mat& x)
 {
     return dchisq_int(x,nullptr,false);
 }
 
 inline
-arma::vec
-dchisq(const arma::vec& x, bool log_form)
+arma::mat
+dchisq(const arma::mat& x, bool log_form)
 {
     return dchisq_int(x,nullptr,log_form);
 }
 
 inline
-arma::vec
-dchisq(const arma::vec& x, double dof, double scale)
+arma::mat
+dchisq(const arma::mat& x, double dof, double scale)
 {
     return dchisq_int(x,&dof,false);
 }
 
 inline
-arma::vec
-dchisq(const arma::vec& x, double dof, double scale, bool log_form)
+arma::mat
+dchisq(const arma::mat& x, double dof, double scale, bool log_form)
 {
     return dchisq_int(x,&dof,log_form);
 }

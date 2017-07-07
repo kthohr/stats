@@ -23,69 +23,61 @@
  * 01/02/16
  *
  * This version:
- * 06/23/2017
+ * 07/02/2017
  */
 
 //
 // single input
 
-inline
+template<typename T>
+statslib_inline
+T
+dbeta_int(const T x, const T a_par, const T b_par)
+{
+    return ( - (stats_math::lgamma(a_par) + stats_math::lgamma(b_par) - stats_math::lgamma(a_par+b_par)) + (a_par - 1.0)*stats_math::log(x) + (b_par - 1.0)*stats_math::log(1.0 - x) );
+}
+
+template<typename T>
+statslib_inline
+T
+dbeta(const T x, const T a_par, const T b_par, const bool log_form)
+{
+    return ( log_form == true ? dbeta_int(x,a_par,b_par) : stats_math::exp(dbeta_int(x,a_par,b_par)) );
+}
+
+statslib_inline
 double
-dbeta_int(double x, const double* par_1_inp, const double* par_2_inp, bool log_form)
+dbeta(const double x)
+{
+    return dbeta(x,2.0,2.0,false);
+}
+
+statslib_inline
+double
+dbeta(const double x, const bool log_form)
+{
+    return dbeta(x,2.0,2.0,log_form);
+}
+
+statslib_inline
+double
+dbeta(const double x, const double par_1_inp, const double par_2_inp)
+{
+    return dbeta(x,par_1_inp,par_2_inp,false);
+}
+
+
+// matrix/vector input
+
+inline
+arma::mat
+dbeta_int(const arma::mat& x, const double* par_1_inp, const double* par_2_inp, bool log_form)
 {
     const double par_1 = (par_1_inp) ? *par_1_inp : 2; // shape parameter 'alpha'
     const double par_2 = (par_2_inp) ? *par_2_inp : 2; // shape parameter 'beta'
 
     const double lbeta_term = std::lgamma(par_1 + par_2) - std::lgamma(par_1) - std::lgamma(par_2); // log beta function
-    double ret = lbeta_term + (par_1 - 1.0)*std::log(x) + (par_2 - 1.0)*std::log(1.0 - x);
-
-    if (!log_form) {
-        ret = std::exp(ret);
-    }
-    //
-    return ret;
-}
-
-inline
-double
-dbeta(double x)
-{
-    return dbeta_int(x,nullptr,nullptr,false);
-}
-
-inline
-double
-dbeta(double x, bool log_form)
-{
-    return dbeta_int(x,nullptr,nullptr,log_form);
-}
-
-inline
-double
-dbeta(double x, double par_1_inp, double par_2_inp)
-{
-    return dbeta_int(x,&par_1_inp,&par_2_inp,false);
-}
-
-inline
-double
-dbeta(double x, double par_1_inp, double par_2_inp, bool log_form)
-{
-    return dbeta_int(x,&par_1_inp,&par_2_inp,log_form);
-}
-
-//
-// vector input
-
-inline
-arma::vec
-dbeta_int(const arma::vec& x, const double* par_1_inp, const double* par_2_inp, bool log_form)
-{
-    const double par_1 = (par_1_inp) ? *par_1_inp : 2; // shape parameter 'alpha'
-    const double par_2 = (par_2_inp) ? *par_2_inp : 2; // shape parameter 'beta'
-
-    const double lbeta_term = std::lgamma(par_1 + par_2) - std::lgamma(par_1) - std::lgamma(par_2); // log beta function
-    arma::vec ret = lbeta_term + (par_1 - 1.0)*arma::log(x) + (par_2 - 1.0)*arma::log(1.0 - x);
+    arma::mat ret = lbeta_term + (par_1 - 1.0)*arma::log(x) + (par_2 - 1.0)*arma::log(1.0 - x);
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -95,29 +87,29 @@ dbeta_int(const arma::vec& x, const double* par_1_inp, const double* par_2_inp, 
 }
 
 inline
-arma::vec
-dbeta(const arma::vec& x)
+arma::mat
+dbeta(const arma::mat& x)
 {
     return dbeta_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dbeta(const arma::vec& x, bool log_form)
+arma::mat
+dbeta(const arma::mat& x, const bool log_form)
 {
     return dbeta_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dbeta(const arma::vec& x, double par_1_inp, double par_2_inp)
+arma::mat
+dbeta(const arma::mat& x, const double par_1_inp, const double par_2_inp)
 {
     return dbeta_int(x,&par_1_inp,&par_2_inp,false);
 }
 
 inline
-arma::vec
-dbeta(const arma::vec& x, double par_1_inp, double par_2_inp, bool log_form)
+arma::mat
+dbeta(const arma::mat& x, const double par_1_inp, const double par_2_inp, const bool log_form)
 {
     return dbeta_int(x,&par_1_inp,&par_2_inp,log_form);
 }

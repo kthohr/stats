@@ -16,6 +16,9 @@
   ##
   ################################################################################*/
 
+//
+// constants
+
 #ifndef GCEM_PI
     #define GCEM_PI 3.141592653589793
 #endif
@@ -33,8 +36,52 @@
 #endif
 
 //
-// tolerances
+// convergence settings
+
+#ifndef GCEM_ATAN_MAX_ITER
+    #define GCEM_ATAN_MAX_ITER 35
+#endif
+
+#ifndef GCEM_ERF_MAX_ITER
+    #define GCEM_ERF_MAX_ITER 35
+#endif
+
+#ifndef GCEM_EXP_MAX_ITER_SMALL
+    #define GCEM_EXP_MAX_ITER_SMALL 35
+#endif
+
+// #ifndef GCEM_LOG_TOL
+//     #define GCEM_LOG_TOL 1E-14
+// #endif
+
+#ifndef GCEM_LOG_MAX_ITER_SMALL
+    #define GCEM_LOG_MAX_ITER_SMALL 25
+#endif
+
+#ifndef GCEM_LOG_MAX_ITER_BIG
+    #define GCEM_LOG_MAX_ITER_BIG 255
+#endif
+
+#ifndef GCEM_INCML_BETA_TOL
+    #define GCEM_INCML_BETA_TOL 1E-15
+#endif
+
+#ifndef GCEM_INCML_BETA_MAX_ITER
+    #define GCEM_INCML_BETA_MAX_ITER 205
+#endif
+
+#ifndef GCEM_INCML_GAMMA_MAX_ITER
+    #define GCEM_INCML_GAMMA_MAX_ITER 55
+#endif
 
 #ifndef GCEM_SQRT_TOL
-    #define GCEM_SQRT_TOL 1E-12
+    #define GCEM_SQRT_TOL 1E-15
+#endif
+
+#ifndef GCEM_TAN_MAX_ITER
+    #define GCEM_TAN_MAX_ITER 35
+#endif
+
+#ifndef GCEM_TANH_MAX_ITER
+    #define GCEM_TANH_MAX_ITER 35
 #endif

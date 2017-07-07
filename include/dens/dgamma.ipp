@@ -23,71 +23,62 @@
  * 04/12/2017
  *
  * This version:
- * 06/23/2017
+ * 07/07/2017
  */
 
 //
 // single input
 
-inline
-double
-dgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dgamma_int(const T x, const T shape_par, const T scale_par)
 {
-    const double shape = (shape_inp) ? *shape_inp : 1;
-    const double scale = (scale_inp) ? *scale_inp : 1;
-    //
-    const double norm_term = - std::lgamma(shape) - shape*std::log(scale);
-
-    double ret = norm_term + (shape - 1) * std::log(x) - x / scale;
-
-    if (!log_form) {
-        ret = std::exp(ret);
-    }
-    //
-    return ret;
+    return ( - stats_math::lgamma(shape_par) - shape_par*stats_math::log(scale_par) + (shape_par-1)*stats_math::log(x) - x/scale_par );
 }
 
-inline
-double
-dgamma(double x)
+template<typename T>
+statslib_inline
+T
+dgamma(const T x, const T shape_par, const T scale_par, const bool log_form)
 {
-    return dgamma_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? dgamma_int(x,shape_par,scale_par) : stats_math::exp(dgamma_int(x,shape_par,scale_par)) );
 }
 
-inline
+statslib_inline
 double
-dgamma(double x, bool log_form)
+dgamma(const double x)
 {
-    return dgamma_int(x,nullptr,nullptr,log_form);
+    return dgamma(x,1.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-dgamma(double x, double shape, double scale)
+dgamma(const double x, const bool log_form)
 {
-    return dgamma_int(x,&shape,&scale,false);
+    return dgamma(x,1.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-dgamma(double x, double shape, double scale, bool log_form)
+dgamma(const double x, const double shape_par, const double scale_par)
 {
-    return dgamma_int(x,&shape,&scale,log_form);
+    return dgamma(x,shape_par,scale_par,false);
 }
 
 //
-// vector input
+// mattor input
 
 inline
-arma::vec
-dgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp, bool log_form)
+arma::mat
+dgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, bool log_form)
 {
-    const double shape = (shape_inp) ? *shape_inp : 1;
-    const double scale = (scale_inp) ? *scale_inp : 1;
+    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
+    const double scale_par = (scale_par_inp) ? *scale_par_inp : 1.0;
     //
-    const double norm_term = - std::lgamma(shape) - shape*std::log(scale);
+    const double norm_term = - std::lgamma(shape_par) - shape_par*std::log(scale_par);
 
-    arma::vec ret = norm_term + (shape - 1) * arma::log(x) - x / scale;
+    arma::mat ret = norm_term + (shape_par - 1) * arma::log(x) - x / scale_par;
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -97,29 +88,29 @@ dgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp,
 }
 
 inline
-arma::vec
-dgamma(const arma::vec& x)
+arma::mat
+dgamma(const arma::mat& x)
 {
     return dgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dgamma(const arma::vec& x, bool log_form)
+arma::mat
+dgamma(const arma::mat& x, const bool log_form)
 {
     return dgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dgamma(const arma::vec& x, double shape, double scale)
+arma::mat
+dgamma(const arma::mat& x, const double shape_par, const double scale_par)
 {
-    return dgamma_int(x,&shape,&scale,false);
+    return dgamma_int(x,&shape_par,&scale_par,false);
 }
 
 inline
-arma::vec
-dgamma(const arma::vec& x, double shape, double scale, bool log_form)
+arma::mat
+dgamma(const arma::mat& x, const double shape_par, const double scale_par, const bool log_form)
 {
-    return dgamma_int(x,&shape,&scale,log_form);
+    return dgamma_int(x,&shape_par,&scale_par,log_form);
 }

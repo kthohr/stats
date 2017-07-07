@@ -24,39 +24,24 @@
  * 06/23/2016
  *
  * This version:
- * 07/01/2017
+ * 07/02/2017
  */
 
 #ifndef _gcem_binomial_coef_HPP
 #define _gcem_binomial_coef_HPP
 
-// inline
-// double
-// binomial_coef(int n, int k)
-// {
-//     const int k_run = (k > n - k) ? n - k : k;
-
-//     double ret = 1.0;
-
-//     for (int i=1; i <= k_run; i++) {
-//         ret *= (double) (n - k_run + i) / i;
-//     }
-
-//     return ret;
-// }
-
 constexpr
 long double
 binomial_coef_int(const int n, const int k, const int count)
 {
-    return ( count < k ? binomial_coef_int(n,k,count+1) * (n - k + count) / count : (long double)(n/count) );
+    return ( count < k ? binomial_coef_int(n,k,count+1) * (long double)(n - k + count) / count : (long double)(n) / count );
 }
 
 constexpr
 long double
 binomial_coef(const int n, const int k)
 {
-    return ( k > n - k ? binomial_coef_int(n,n-k,1) : binomial_coef_int(n,k,1.0) );
+    return ( k > n - k ? binomial_coef_int(n,n-k,1) : binomial_coef_int(n,k,1) );
 }
 
 #endif

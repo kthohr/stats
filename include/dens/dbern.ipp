@@ -23,95 +23,90 @@
  * 01/03/2016
  *
  * This version:
- * 06/23/2017
+ * 07/06/2017
  */
 
 //
 // single input
 
-inline
-double
-dbern_int(int x, const double* p_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dbern_int(const int x, const T prob_par)
 {
-    const double p = (p_inp) ? *p_inp : 0.5;
-    double ret = (x==1) ? p : 1 - p;
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( x == 1 ? prob_par : 1.0 - prob_par );
 }
 
-inline
-double
-dbern(int x)
+template<typename T>
+statslib_inline
+T
+dbern(const int x, const T prob_par, const bool log_form)
 {
-    return dbern_int(x,nullptr,false);
+    return ( log_form == true ? stats_math::log(dbern_int(x,prob_par)) : dbern_int(x,prob_par) );
 }
 
-inline
+statslib_inline
 double
-dbern(int x, bool log_form)
+dbern(const int x)
 {
-    return dbern_int(x,nullptr,log_form);
+    return dbern(x,0.5,false);
 }
 
-inline
+statslib_inline
 double
-dbern(int x, double p)
+dbern(const int x, const bool log_form)
 {
-    return dbern_int(x,&p,false);
+    return dbern(x,0.5,log_form);
 }
 
-inline
+statslib_inline
 double
-dbern(int x, double p, bool log_form)
+dbern(const int x, const double prob_par)
 {
-    return dbern_int(x,&p,log_form);
+    return dbern(x,prob_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-dbern_int(const arma::vec& x, const double* p_inp, bool log_form)
+arma::mat
+dbern_int(const arma::mat& x, const double* prob_par_inp, const bool log_form)
 {
-    const double p = (p_inp) ? *p_inp : 0.5;
+    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    arma::vec ret(x.n_elem);
+    arma::mat ret(x.n_rows,x.n_cols);
     
-    (log_form) ? ret.fill(std::log(1.0 - p)) : ret.fill(1.0 - p);
-    (log_form) ? ret.elem(arma::find(x)).fill(std::log(p)) : ret.elem(arma::find(x)).fill(p);
+    (log_form) ? ret.fill(std::log(1.0 - prob_par)) : ret.fill(1.0 - prob_par);
+    (log_form) ? ret.elem(arma::find(x)).fill(std::log(prob_par)) : ret.elem(arma::find(x)).fill(prob_par);
     //
     return ret;
 }
 
 inline
-arma::vec
-dbern(const arma::vec& x)
+arma::mat
+dbern(const arma::mat& x)
 {
     return dbern_int(x,nullptr,false);
 }
 
 inline
-arma::vec
-dbern(const arma::vec& x, bool log_form)
+arma::mat
+dbern(const arma::mat& x, const bool log_form)
 {
     return dbern_int(x,nullptr,log_form);
 }
 
 inline
-arma::vec
-dbern(const arma::vec& x, double p)
+arma::mat
+dbern(const arma::mat& x, const double prob_par)
 {
-    return dbern_int(x,&p,false);
+    return dbern_int(x,&prob_par,false);
 }
 
 inline
-arma::vec
-dbern(const arma::vec& x, double p, bool log_form)
+arma::mat
+dbern(const arma::mat& x, const double prob_par, const bool log_form)
 {
-    return dbern_int(x,&p,log_form);
+    return dbern_int(x,&prob_par,log_form);
 }
