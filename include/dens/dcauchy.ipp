@@ -23,71 +23,62 @@
  * 07/01/2017
  *
  * This version:
- * 07/02/2017
+ * 07/07/2017
  */
 
 //
 // single input
 
-inline
-double
-dcauchy_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dcauchy_int(const T z, const T sigma_par)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-    const double z = (x - mu) / sigma;
-
-    double ret = 1.0 / ( sigma*GCEM_PI*(1.0 + z*z) );
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( 1.0 / ( sigma_par*GCEM_PI*(1.0 + z*z) ) );
 }
 
-inline
-double
-dcauchy(double x)
+template<typename T>
+statslib_inline
+T
+dcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return dcauchy_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(dcauchy_int((x-mu_par)/sigma_par,sigma_par)) : dcauchy_int((x-mu_par)/sigma_par,sigma_par) );
 }
 
-inline
+statslib_inline
 double
-dcauchy(double x, bool log_form)
+dcauchy(const double x)
 {
-    return dcauchy_int(x,nullptr,nullptr,log_form);
+    return dcauchy(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-dcauchy(double x, double mu, double sigma)
+dcauchy(const double x, const bool log_form)
 {
-    return dcauchy_int(x,&mu,&sigma,false);
+    return dcauchy(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-dcauchy(double x, double mu, double sigma, bool log_form)
+dcauchy(const double x, const double mu_par, const double sigma_par)
 {
-    return dcauchy_int(x,&mu,&sigma,log_form);
+    return dcauchy(x,mu_par,sigma_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-dcauchy_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+dcauchy_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
     //
-    const arma::vec z = (x - mu) / sigma;;
+    const arma::mat z = (x - mu_par) / sigma_par;
 
-    arma::vec ret = 1.0 / ( sigma*GCEM_PI*(1.0 + z%z) );
+    arma::mat ret = 1.0 / ( sigma_par*GCEM_PI*(1.0 + z%z) );
 
     if (log_form) {
         ret = arma::log(ret);
@@ -97,29 +88,29 @@ dcauchy_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, b
 }
 
 inline
-arma::vec
-dcauchy(const arma::vec& x)
+arma::mat
+dcauchy(const arma::mat& x)
 {
     return dcauchy_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dcauchy(const arma::vec& x, bool log_form)
+arma::mat
+dcauchy(const arma::mat& x, const bool log_form)
 {
     return dcauchy_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dcauchy(const arma::vec& x, double mu, double sigma)
+arma::mat
+dcauchy(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return dcauchy_int(x,&mu,&sigma,false);
+    return dcauchy_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-dcauchy(const arma::vec& x, double mu, double sigma, bool log_form)
+arma::mat
+dcauchy(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return dcauchy_int(x,&mu,&sigma,log_form);
+    return dcauchy_int(x,&mu_par,&sigma_par,log_form);
 }

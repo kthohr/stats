@@ -23,27 +23,27 @@
  * 07/01/2017
  *
  * This version:
- * 07/02/2017
+ * 07/07/2017
  */
 
 #ifndef _statslib_dcauchy_HPP
 #define _statslib_dcauchy_HPP
 
 // single input
-double dcauchy_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);
+template<typename T>
+statslib_inline T dcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-double dcauchy(double x);
-double dcauchy(double x, bool log_form);
-double dcauchy(double x, double mu, double sigma);
-double dcauchy(double x, double mu, double sigma, bool log_form);
+statslib_inline double dcauchy(double x);
+statslib_inline double dcauchy(double x, const bool log_form);
+statslib_inline double dcauchy(double x, const double mu_par, const double sigma_par);
 
-// vector input
-arma::vec dcauchy_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
+// matrix/vector input
+arma::mat dcauchy_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, bool log_form);
 
-arma::vec dcauchy(const arma::vec& x);
-arma::vec dcauchy(const arma::vec& x, bool log_form);
-arma::vec dcauchy(const arma::vec& x, double mu, double sigma);
-arma::vec dcauchy(const arma::vec& x, double mu, double sigma, bool log_form);
+arma::mat dcauchy(const arma::mat& x);
+arma::mat dcauchy(const arma::mat& x, const bool log_form);
+arma::mat dcauchy(const arma::mat& x, const double mu_par, const double sigma_par);
+arma::mat dcauchy(const arma::mat& x, const double mu_par, const double sigma_par, bool log_form);
 
 #include "dcauchy.ipp"
 
