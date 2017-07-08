@@ -54,5 +54,21 @@ int main()
         printf("\ndbeta: all tests passed.\n");
     }
 
+    //
+    // coverage tests
+
+    stats::dbeta(x_1);
+    stats::dbeta(x_1,true);
+    stats::dbeta(x_1,a_par,b_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0.4;
+    x_mat(1,0) = 0.5;
+
+    stats::dbeta(x_mat);
+    stats::dbeta(x_mat,true);
+    stats::dbeta(x_mat,a_par,b_par);
+    stats::dbeta(x_mat,a_par,b_par,true);
+
     return 0;
 }

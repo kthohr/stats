@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -I./../../include -I/opt/local/include dlnorm_test.cpp -o dlnorm.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dlaplace.cpp -o dlaplace.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
@@ -28,30 +28,46 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    double mu = 1;
-    double sigma = 2;
+    constexpr double mu = 1;
+    constexpr double sigma = 2;
 
-    // x = 2
-    double x_1 = 2;
-    double val_1 = 0.09856858;
-    double dens_1 = stats::dlnorm(x_1,mu,sigma);
+    // x = 1
+    constexpr double x_1 = 1;
+    double val_1 = 0.25;
+    constexpr double dens_1 = stats::dlaplace(x_1,mu,sigma);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlnorm(" << x_1 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlaplace(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
-    // x = 1, return log
-    double x_2 = 1;
-    double val_2 = -1.737086;
-    double dens_2 = stats::dlnorm(x_2,mu,sigma,true);
+    // x = 1.5, return log
+    constexpr double x_2 = 1.5;
+    double val_2 = -1.636294;
+    constexpr double dens_2 = stats::dlaplace(x_2,mu,sigma,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlnorm(" << x_2 << ",log=true): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlaplace(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndlnorm: all tests passed.\n");
+        printf("\ndlaplace: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::dlaplace(x_1);
+    stats::dlaplace(x_1,true);
+    stats::dlaplace(x_1,mu,sigma);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 1;
+    x_mat(1,0) = 1.5;
+
+    stats::dlaplace(x_mat);
+    stats::dlaplace(x_mat,true);
+    stats::dlaplace(x_mat,mu,sigma);
+    stats::dlaplace(x_mat,mu,sigma,true);
 
     return 0;
 }

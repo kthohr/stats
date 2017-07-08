@@ -17,7 +17,7 @@
   ################################################################################*/
 
 // g++-mp-7 -O2 -Wall -std=c++11 -fconstexpr-depth=2000 -I./../../include -I/opt/local/include dchisq.cpp -o dchisq.test -framework Accelerate
-// g++-mp-7 -O2 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dchisq.cpp -o dchisq.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dchisq.cpp -o dchisq.test -framework Accelerate
 
 #include <cmath>
 #include <iomanip>
@@ -42,7 +42,7 @@ int main()
 
     // x = 2, return log
     constexpr double x_2 = 2;
-    double val_2 = std::log(val_1);
+    double val_2 = -1.572365;
     constexpr double dens_2 = stats::dchisq(x_2,dof_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
@@ -52,6 +52,22 @@ int main()
     if (success_1 && success_2) {
         printf("\ndchisq: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::dchisq(x_1);
+    stats::dchisq(x_1,true);
+    stats::dchisq(x_1,dof_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 1;
+    x_mat(1,0) = 1.5;
+
+    stats::dchisq(x_mat);
+    stats::dchisq(x_mat,true);
+    stats::dchisq(x_mat,dof_par);
+    stats::dchisq(x_mat,dof_par,true);
 
     return 0;
 }

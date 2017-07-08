@@ -55,15 +55,32 @@ int main()
     constexpr double dens_3 = stats::dbinom(x_3,5,prob_par,false);
 
     bool success_3 = (std::abs(dens_3 - val_3) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(4) << "binom_coef(5," << x_3 << ") = " << gcem::binomial_coef(5,x_3) << std::endl;
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(4) << "log_binom_coef(5," << x_3 << ") = " << gcem::log(gcem::binomial_coef(5,x_3)) << std::endl;
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(4) << "find_exponent(11) = " << gcem::find_exponent(11,0) << std::endl;
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbinom(" << x_3 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_3 << ". Success = " << success_3 << std::endl;
 
-    if (success_1 && success_2) {
+    if (success_1 && success_2 && success_3) {
         printf("\ndbinom: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::dbinom(x_1);
+    stats::dbinom(x_1,true);
+    stats::dbinom(x_1,n_trials,prob_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0;
+    x_mat(1,0) = 1;
+
+    arma::mat x_mat_2(2,1);
+    x_mat_2(0,0) = 3;
+    x_mat_2(1,0) = 4;
+
+    stats::dbinom(x_mat);
+    stats::dbinom(x_mat,true);
+    stats::dbinom(x_mat_2,5,prob_par);
+    stats::dbinom(x_mat_2,5,prob_par,true);
 
     return 0;
 }

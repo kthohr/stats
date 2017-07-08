@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I../ -I/usr/local/include/trame dmvnorm_test.cpp -o dmvnorm.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dmvnorm.cpp -o dmvnorm.test -framework Accelerate
 
 #include "armadillo"
 #include "stats.hpp"

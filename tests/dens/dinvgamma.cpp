@@ -16,8 +16,8 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -fconstexpr-depth=2000 -I./../../include -I/opt/local/include dgamma.cpp -o dgamma.test -framework Accelerate
-// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dgamma.cpp -o dgamma.test -framework Accelerate
+// g++-mp-7 -O2 -Wall -std=c++11 -fconstexpr-depth=2000 -I./../../include -I/opt/local/include dinvgamma.cpp -o dinvgamma.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dinvgamma.cpp -o dinvgamma.test -framework Accelerate
 
 #include <cmath>
 #include <iomanip>
@@ -30,45 +30,45 @@ int main()
     int round_digits_2 = 5;
 
     constexpr double shape_par = 2.0;
-    constexpr double scale_par = 3.0;
+    constexpr double rate_par = 1.0;
 
     // x = 1
-    constexpr double x_1 = 1;
-    double val_1 = 0.07961459;
-    double dens_1 = stats::dgamma(x_1,shape_par,scale_par,false);
+    constexpr double x_1 = 0.5;
+    double val_1 = stats::dgamma(1.0/x_1,shape_par,1.0/rate_par,false) /(x_1*x_1);
+    constexpr double dens_1 = stats::dinvgamma(x_1,shape_par,rate_par,false);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dgamma(" << x_1 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dinvgamma(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
     // x = 2, return log
-    constexpr double x_2 = 2;
-    double val_2 = -2.170744;
-    constexpr double dens_2 = stats::dgamma(x_2,shape_par,scale_par,true);
+    constexpr double x_2 = 1.5;
+    double val_2 = stats::dgamma(1.0/x_2,shape_par,1/rate_par,true) - 2*gcem::log(x_2);
+    constexpr double dens_2 = stats::dinvgamma(x_2,shape_par,rate_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dgamma(" << x_2 << ",log=true): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dinvgamma(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndgamma: all tests passed.\n");
+        printf("\ndinvgamma: all tests passed.\n");
     }
 
     //
     // coverage tests
 
-    stats::dgamma(x_1);
-    stats::dgamma(x_1,true);
-    stats::dgamma(x_1,shape_par,scale_par);
+    stats::dinvgamma(x_1);
+    stats::dinvgamma(x_1,true);
+    stats::dinvgamma(x_1,shape_par,rate_par);
 
     arma::mat x_mat(2,1);
     x_mat(0,0) = 1;
     x_mat(1,0) = 2;
 
-    stats::dgamma(x_mat);
-    stats::dgamma(x_mat,true);
-    stats::dgamma(x_mat,shape_par,scale_par);
-    stats::dgamma(x_mat,shape_par,scale_par,true);
+    stats::dinvgamma(x_mat);
+    stats::dinvgamma(x_mat,true);
+    stats::dinvgamma(x_mat,shape_par,rate_par);
+    stats::dinvgamma(x_mat,shape_par,rate_par,true);
 
     return 0;
 }

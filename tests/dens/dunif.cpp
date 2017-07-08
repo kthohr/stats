@@ -16,8 +16,8 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -fconstexpr-depth=2000 -I./../../include -I/opt/local/include dgamma.cpp -o dgamma.test -framework Accelerate
-// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dgamma.cpp -o dgamma.test -framework Accelerate
+// g++-mp-7 -O2 -Wall -std=c++11 -fconstexpr-depth=2000 -I./../../include -I/opt/local/include dunif.cpp -o dunif.test -framework Accelerate
+// g++-mp-7 -O2 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dunif.cpp -o dunif.test -framework Accelerate
 
 #include <cmath>
 #include <iomanip>
@@ -29,46 +29,50 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double shape_par = 2.0;
-    constexpr double scale_par = 3.0;
+    constexpr double a_par = 0.0;
+    constexpr double b_par = 2.5;
 
     // x = 1
-    constexpr double x_1 = 1;
-    double val_1 = 0.07961459;
-    double dens_1 = stats::dgamma(x_1,shape_par,scale_par,false);
+    constexpr double x_1 = 0.5;
+    double val_1 = 0.40;
+    double dens_1 = stats::dunif(x_1,a_par,b_par,false);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dgamma(" << x_1 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dunif(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
-    // x = 2, return log
-    constexpr double x_2 = 2;
-    double val_2 = -2.170744;
-    constexpr double dens_2 = stats::dgamma(x_2,shape_par,scale_par,true);
+    // x = 1, return log
+    constexpr double x_2 = 0.5;
+    double val_2 = std::log(val_1);
+    constexpr double dens_2 = stats::dunif(x_2,a_par,b_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dgamma(" << x_2 << ",log=true): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dunif(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
+\
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(20) << std::log(2) << std::endl;
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(20) << std::atan(1)*4 << std::endl;
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(20) << std::exp(1) << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndgamma: all tests passed.\n");
+        printf("\ndunif: all tests passed.\n");
     }
 
     //
     // coverage tests
 
-    stats::dgamma(x_1);
-    stats::dgamma(x_1,true);
-    stats::dgamma(x_1,shape_par,scale_par);
+    stats::dunif(x_1);
+    stats::dunif(x_1,true);
+    stats::dunif(x_1,a_par,b_par);
 
     arma::mat x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 2;
+    x_mat(0,0) = 0.4;
+    x_mat(1,0) = 0.5;
 
-    stats::dgamma(x_mat);
-    stats::dgamma(x_mat,true);
-    stats::dgamma(x_mat,shape_par,scale_par);
-    stats::dgamma(x_mat,shape_par,scale_par,true);
+    stats::dunif(x_mat);
+    stats::dunif(x_mat,true);
+    stats::dunif(x_mat,a_par,b_par);
+    stats::dunif(x_mat,a_par,b_par,true);
 
     return 0;
 }

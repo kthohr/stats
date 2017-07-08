@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -I./../../include -I/opt/local/include dbern.cpp -o dbern.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dbern.cpp -o dbern.test -framework Accelerate
 
 #include <cmath>
 #include <iomanip>
@@ -51,6 +51,22 @@ int main()
     if (success_1 && success_2) {
         printf("\ndbern: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::dbern(x_1);
+    stats::dbern(x_1,true);
+    stats::dbern(x_1,prob_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0;
+    x_mat(1,0) = 1;
+
+    stats::dbern(x_mat);
+    stats::dbern(x_mat,true);
+    stats::dbern(x_mat,prob_par);
+    stats::dbern(x_mat,prob_par,true);
 
     return 0;
 }
