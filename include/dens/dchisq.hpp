@@ -23,7 +23,7 @@
  * 04/12/2017
  *
  * This version:
- * 06/23/2017
+ * 07/07/2017
  */
 
 #ifndef _statslib_dchisq_HPP
@@ -35,15 +35,15 @@ statslib_inline T dchisq(const T x, const T dof_par, const bool log_form);
 
 statslib_inline double dchisq(const double x);
 statslib_inline double dchisq(const double x, const bool log_form);
-statslib_inline double dchisq(const double x, const double dof);
+statslib_inline double dchisq(const double x, const double dof_par);
 
 // mattor input
-arma::mat dchisq_int(const arma::mat& x, const double* dof_inp, bool log_form);
+arma::mat dchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form);
 
 arma::mat dchisq(const arma::mat& x);
 arma::mat dchisq(const arma::mat& x, const bool log_form);
-arma::mat dchisq(const arma::mat& x, const double dof);
-arma::mat dchisq(const arma::mat& x, const double dof, const bool log_form);
+arma::mat dchisq(const arma::mat& x, const double dof_par);
+arma::mat dchisq(const arma::mat& x, const double dof_par, const bool log_form);
 
 #include "dchisq.ipp"
 

@@ -23,67 +23,60 @@
  * 01/03/2016
  *
  * This version:
- * 06/23/2017
+ * 07/07/2017
  */
 
 //
 // single input
 
-inline
-double
-dlaplace_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dlaplace_int(const T x, const T mu_par, const T sigma_par)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-    double ret = - std::log(2*sigma) - std::abs(x - mu) / sigma;
-
-    if (!log_form) {
-        ret = std::exp(ret);
-    }
-    //
-    return ret;
+    return ( - stats_math::log(2*sigma_par) - stats_math::abs(x - mu_par) / sigma_par );
 }
 
-inline
-double
-dlaplace(double x)
+template<typename T>
+statslib_inline
+T
+dlaplace(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return dlaplace_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? dlaplace_int(x,mu_par,sigma_par) : stats_math::exp(dlaplace_int(x,mu_par,sigma_par)) );
 }
 
-inline
+statslib_inline
 double
-dlaplace(double x, bool log_form)
+dlaplace(const double x)
 {
-    return dlaplace_int(x,nullptr,nullptr,log_form);
+    return dlaplace(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-dlaplace(double x, double mu, double sigma)
+dlaplace(const double x, const bool log_form)
 {
-    return dlaplace_int(x,&mu,&sigma,false);
+    return dlaplace(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-dlaplace(double x, double mu, double sigma, bool log_form)
+dlaplace(const double x, const double mu_par, const double sigma_par)
 {
-    return dlaplace_int(x,&mu,&sigma,log_form);
+    return dlaplace(x,mu_par,sigma_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-dlaplace_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+dlaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
     //
-    arma::vec ret = - std::log(2*sigma) - arma::abs(x - mu) / sigma;
+    arma::mat ret = - std::log(2*sigma_par) - arma::abs(x - mu_par) / sigma_par;
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -93,29 +86,29 @@ dlaplace_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, 
 }
 
 inline
-arma::vec
-dlaplace(const arma::vec& x)
+arma::mat
+dlaplace(const arma::mat& x)
 {
     return dlaplace_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dlaplace(const arma::vec& x, bool log_form)
+arma::mat
+dlaplace(const arma::mat& x, const bool log_form)
 {
     return dlaplace_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dlaplace(const arma::vec& x, double mu, double sigma)
+arma::mat
+dlaplace(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return dlaplace_int(x,&mu,&sigma,false);
+    return dlaplace_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-dlaplace(const arma::vec& x, double mu, double sigma, bool log_form)
+arma::mat
+dlaplace(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return dlaplace_int(x,&mu,&sigma,log_form);
+    return dlaplace_int(x,&mu_par,&sigma_par,log_form);
 }

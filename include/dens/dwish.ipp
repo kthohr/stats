@@ -23,12 +23,12 @@
  * 04/12/2017
   *
  * This version:
- * 06/23/2017
+ * 07/08/2017
  */
 
 inline
 double
-dwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, bool log_form)
+dwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, const bool log_form)
 {
     const int K = X.n_rows;
 
@@ -38,9 +38,9 @@ dwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, bool 
     const double nu_2 = ((double) nu) / 2.0;
     //
     const double lmg_term = gcem::log_multi_gamma(nu_2, K);
-    const double norm_term = - nu_2*std::log(arma::det(Psi)) - nu_2*K*std::log(2.0) - lmg_term;
+    const double norm_term = - nu_2*std::log(arma::det(Psi)) - nu_2*K*GCEM_LOG_2 - lmg_term;
 
-    double ret = norm_term + 0.5 * ( (nu+K+1) * std::log(arma::det(X)) - arma::trace(arma::inv(Psi)*X) );
+    double ret = norm_term + 0.5 * ( (nu-K-1) * std::log(arma::det(X)) - arma::trace(arma::inv(Psi)*X) );
 	
     if (!log_form) {
         ret = std::exp(ret);
@@ -58,21 +58,21 @@ dwish(const arma::mat& X)
 
 inline
 double
-dwish(const arma::mat& X, bool log_form)
+dwish(const arma::mat& X, const bool log_form)
 {
 	return dwish_int(X,nullptr,nullptr,log_form);
 }
 
 inline
 double
-dwish(const arma::mat& X, const arma::mat& Psi, int nu)
+dwish(const arma::mat& X, const arma::mat& Psi, const int nu)
 {
 	return dwish_int(X,&Psi,&nu,false);
 }
 
 inline
 double
-dwish(const arma::mat& X, const arma::mat& Psi, int nu, bool log_form)
+dwish(const arma::mat& X, const arma::mat& Psi, const int nu, const bool log_form)
 {
 	return dwish_int(X,&Psi,&nu,log_form);
 }

@@ -23,19 +23,19 @@
  * 04/12/2017
  *
  * This version:
- * 06/23/2017
+ * 07/08/2017
  */
 
 inline
 double
-dmvnorm_int(const arma::vec& x, const arma::vec* mu_inp, const arma::mat* Sigma_inp, bool log_form)
+dmvnorm_int(const arma::vec& x, const arma::vec* mu_inp, const arma::mat* Sigma_inp, const bool log_form)
 {
     const int K = x.n_rows;
 
     const arma::vec mu = (mu_inp) ? *mu_inp : arma::zeros(K,1);
     const arma::mat Sigma = (Sigma_inp) ? *Sigma_inp : arma::eye(K,K);
     //
-    const double cons_term = -0.5*K*std::log(2*arma::datum::pi);
+    const double cons_term = -0.5*K*GCEM_LOG_2PI;
 
     double ret = cons_term - 0.5 * ( std::log(arma::det(Sigma)) + arma::as_scalar((x - mu).t() * arma::inv(Sigma) * (x - mu)) );
 
@@ -55,7 +55,7 @@ dmvnorm(const arma::vec& x)
 
 inline
 double
-dmvnorm(const arma::vec& x, bool log_form)
+dmvnorm(const arma::vec& x, const bool log_form)
 {
     return dmvnorm_int(x,nullptr,nullptr,log_form);
 }
@@ -69,7 +69,7 @@ dmvnorm(const arma::vec& x, const arma::vec& mu_inp, const arma::mat& Sigma_inp)
 
 inline
 double
-dmvnorm(const arma::vec& x, const arma::vec& mu_inp, const arma::mat& Sigma_inp, bool log_form)
+dmvnorm(const arma::vec& x, const arma::vec& mu_inp, const arma::mat& Sigma_inp, const bool log_form)
 {
     return dmvnorm_int(x,&mu_inp,&Sigma_inp,log_form);
 }

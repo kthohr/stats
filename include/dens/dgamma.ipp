@@ -67,7 +67,7 @@ dgamma(const double x, const double shape_par, const double scale_par)
 }
 
 //
-// mattor input
+// matrix/vector input
 
 inline
 arma::mat

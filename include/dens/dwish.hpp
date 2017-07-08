@@ -23,18 +23,18 @@
  * 04/12/2015
  *
  * This version:
- * 06/23/2017
+ * 07/08/2017
  */
 
 #ifndef _statslib_dwish_HPP
 #define _statslib_dwish_HPP
 
-double dwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, bool log_form);
+double dwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, const bool log_form);
 
 double dwish(const arma::mat& X);
-double dwish(const arma::mat& X, bool log_form);
-double dwish(const arma::mat& X, const arma::mat& Psi, int nu);
-double dwish(const arma::mat& X, const arma::mat& Psi, int nu, bool log_form);
+double dwish(const arma::mat& X, const bool log_form);
+double dwish(const arma::mat& X, const arma::mat& Psi, const int nu);
+double dwish(const arma::mat& X, const arma::mat& Psi, const int nu, const bool log_form);
 
 #include "dwish.ipp"
 

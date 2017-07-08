@@ -17,103 +17,92 @@
   ################################################################################*/
 
 /*
- * pdf of the univariate normal distribution
+ * pdf of the uniform distribution
  *
  * Keith O'Hara
  * 01/03/2016
  *
  * This version:
- * 06/23/2017
+ * 07/08/2017
  */
 
 //
 // single input
 
-inline
-double
-dunif_int(double x, const double* a_inp, const double* b_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dunif(const T x, const T a_par, const T b_par, const bool log_form)
 {
-    const double a = (a_inp) ? *a_inp : 0;
-    const double b = (b_inp) ? *b_inp : 1;
-    //
-    double ret = (log_form) ? - std::log(b-a) : 1/(b-a);
-    //
-    return ret;
+    return ( log_form == true ? - stats_math::log(b_par-a_par) : 1.0 / (b_par-a_par) );
 }
 
-inline
+statslib_inline
 double
-dunif(double x)
+dunif(const double x)
 {
-    return dunif_int(x,nullptr,nullptr,false);
+    return dunif(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-dunif(double x, bool log_form)
+dunif(const double x, const bool log_form)
 {
-    return dunif_int(x,nullptr,nullptr,log_form);
+    return dunif(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-dunif(double x, double a, double b)
+dunif(const double x, const double a_par, const double b_par)
 {
-    return dunif_int(x,&a,&b,false);
-}
-
-inline
-double
-dunif(double x, double a, double b, bool log_form)
-{
-    return dunif_int(x,&a,&b,log_form);
+    return dunif(x,a_par,b_par,false);
 }
 
 //
 // vector input
 
 inline
-arma::vec
-dunif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log_form)
+arma::mat
+dunif_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
 {
-    const double a = (a_inp) ? *a_inp : 0;
-    const double b = (b_inp) ? *b_inp : 1;
+    const double a_par = (a_par_inp) ? *a_par_inp : 0;
+    const double b_par = (b_par_inp) ? *b_par_inp : 1;
     //
-    arma::vec ret(x.n_elem);
+    arma::mat ret(x.n_rows,x.n_cols);
 
     if (log_form) {
-        ret.fill(- std::log(b-a));
+        ret.fill(- std::log(b_par-a_par));
     } else {
-        ret.fill(1/(b-a));
+        ret.fill(1.0/(b_par-a_par));
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-dunif(const arma::vec& x)
+arma::mat
+dunif(const arma::mat& x)
 {
     return dunif_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dunif(const arma::vec& x, bool log_form)
+arma::mat
+dunif(const arma::mat& x, const bool log_form)
 {
     return dunif_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dunif(const arma::vec& x, double a, double b)
+arma::mat
+dunif(const arma::mat& x, const double a_par, const double b_par)
 {
-    return dunif_int(x,&a,&b,false);
+    return dunif_int(x,&a_par,&b_par,false);
 }
 
 inline
-arma::vec
-dunif(const arma::vec& x, double a, double b, bool log_form)
+arma::mat
+dunif(const arma::mat& x, const double a_par, const double b_par, const bool log_form)
 {
-    return dunif_int(x,&a,&b,log_form);
+    return dunif_int(x,&a_par,&b_par,log_form);
 }

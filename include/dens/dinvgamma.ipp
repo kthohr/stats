@@ -23,71 +23,62 @@
  * 01/02/2016
  *
  * This version:
- * 06/23/2017
+ * 07/07/2017
  */
 
 //
 // single input
 
-inline
-double
-dinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dinvgamma_int(const T x, const T shape_par, const T rate_par)
 {
-    const double shape = (shape_inp) ? *shape_inp : 1;
-    const double rate = (rate_inp) ? *rate_inp : 1;
-    //
-    const double norm_term = - std::lgamma(shape) + shape*std::log(rate);
-
-    double ret = norm_term + (- shape - 1) * std::log(x) - rate / x;
-
-    if (!log_form) {
-        ret = std::exp(ret);
-    }
-    //
-    return ret;
+    return ( - stats_math::lgamma(shape_par) + shape_par*stats_math::log(rate_par) + (-shape_par-1)*stats_math::log(x) - rate_par/x );
 }
 
-inline
-double
-dinvgamma(double x)
+template<typename T>
+statslib_inline
+T
+dinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form)
 {
-    return dinvgamma_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? dinvgamma_int(x,shape_par,rate_par) : stats_math::exp(dinvgamma_int(x,shape_par,rate_par)) );
 }
 
-inline
+statslib_inline
 double
-dinvgamma(double x, bool log_form)
+dinvgamma(const double x)
 {
-    return dinvgamma_int(x,nullptr,nullptr,log_form);
+    return dinvgamma(x,1.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-dinvgamma(double x, double shape, double rate)
+dinvgamma(const double x, const bool log_form)
 {
-    return dinvgamma_int(x,&shape,&rate,false);
+    return dinvgamma(x,1.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-dinvgamma(double x, double shape, double rate, bool log_form)
+dinvgamma(const double x, const double shape_par, const double rate_par)
 {
-    return dinvgamma_int(x,&shape,&rate,log_form);
+    return dinvgamma(x,shape_par,rate_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-dinvgamma_int(const arma::vec& x, const double* shape_inp, const double* rate_inp, bool log_form)
+arma::mat
+dinvgamma_int(const arma::mat& x, const double* shape_par_inp, const double* rate_par_inp, const bool log_form)
 {
-    const double shape = (shape_inp) ? *shape_inp : 1;
-    const double rate = (rate_inp) ? *rate_inp : 1;
+    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1;
+    const double rate_par = (rate_par_inp) ? *rate_par_inp : 1;
     //
-    const double norm_term = - std::lgamma(shape) + shape*std::log(rate);
+    const double norm_term = - std::lgamma(shape_par) + shape_par*std::log(rate_par);
 
-    arma::vec ret = norm_term + (- shape - 1) * arma::log(x) - rate / x;
+    arma::mat ret = norm_term + (- shape_par - 1) * arma::log(x) - rate_par / x;
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -97,29 +88,29 @@ dinvgamma_int(const arma::vec& x, const double* shape_inp, const double* rate_in
 }
 
 inline
-arma::vec
-dinvgamma(const arma::vec& x)
+arma::mat
+dinvgamma(const arma::mat& x)
 {
     return dinvgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dinvgamma(const arma::vec& x, bool log_form)
+arma::mat
+dinvgamma(const arma::mat& x, const bool log_form)
 {
     return dinvgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dinvgamma(const arma::vec& x, double shape, double rate)
+arma::mat
+dinvgamma(const arma::mat& x, const double shape_par, const double rate_par)
 {
-    return dinvgamma_int(x,&shape,&rate,false);
+    return dinvgamma_int(x,&shape_par,&rate_par,false);
 }
 
 inline
-arma::vec
-dinvgamma(const arma::vec& x, double shape, double rate, bool log_form)
+arma::mat
+dinvgamma(const arma::mat& x, const double shape_par, const double rate_par, const bool log_form)
 {
-    return dinvgamma_int(x,&shape,&rate,log_form);
+    return dinvgamma_int(x,&shape_par,&rate_par,log_form);
 }

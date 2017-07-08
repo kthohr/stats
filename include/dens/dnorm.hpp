@@ -23,27 +23,27 @@
  * 01/03/2016
  *
  * This version:
- * 06/14/2017
+ * 07/08/2017
  */
 
 #ifndef _statslib_dnorm_HPP
 #define _statslib_dnorm_HPP
 
 // single input
-double dnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);
+template<typename T>
+statslib_inline T dnorm(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-double dnorm(double x);
-double dnorm(double x, bool log_form);
-double dnorm(double x, double mu, double sigma);
-double dnorm(double x, double mu, double sigma, bool log_form);
+statslib_inline double dnorm(double x);
+statslib_inline double dnorm(double x, const bool log_form);
+statslib_inline double dnorm(double x, const double mu_par, const double sigma_par);
 
-// vector input
-arma::vec dnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
+// matrix/vector input
+arma::mat dnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::vec dnorm(const arma::vec& x);
-arma::vec dnorm(const arma::vec& x, bool log_form);
-arma::vec dnorm(const arma::vec& x, double mu, double sigma);
-arma::vec dnorm(const arma::vec& x, double mu, double sigma, bool log_form);
+arma::mat dnorm(const arma::mat& x);
+arma::mat dnorm(const arma::mat& x, const bool log_form);
+arma::mat dnorm(const arma::mat& x, const double mu_par, const double sigma_par);
+arma::mat dnorm(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form);
 
 #include "dnorm.ipp"
 

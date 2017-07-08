@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-/* 
+/*
  * pdf of the inverse-Wishart distribution
  *
  * Keith O'Hara
@@ -32,9 +32,9 @@
 double dinvwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, bool log_form);
 
 double dinvwish(const arma::mat& X);
-double dinvwish(const arma::mat& X, bool log_form);
-double dinvwish(const arma::mat& X, const arma::mat& Psi, int nu);
-double dinvwish(const arma::mat& X, const arma::mat& Psi, int nu, bool log_form);
+double dinvwish(const arma::mat& X, const bool log_form);
+double dinvwish(const arma::mat& X, const arma::mat& Psi, const int nu);
+double dinvwish(const arma::mat& X, const arma::mat& Psi, const int nu, const bool log_form);
 
 #include "dinvwish.ipp"
 

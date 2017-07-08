@@ -23,63 +23,49 @@
  * 06/25/2017
  *
  * This version:
- * 06/25/2017
+ * 07/07/2017
  */
 
 //
 // single input
 
-inline
-double
-dlnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dlnorm(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    double ret = dnorm_int(std::log(x),mu_inp,sigma_inp,log_form);
-
-    if (log_form) {
-        ret -= std::log(x);
-    } else {
-        ret /= x;
-    }
-    //
-    return ret;
+    return ( log_form == true ? dnorm(stats_math::log(x),mu_par,sigma_par,true) - stats_math::log(x) : dnorm(stats_math::log(x),mu_par,sigma_par,false) / x );
 }
 
-inline
+statslib_inline
 double
-dlnorm(double x)
+dlnorm(const double x)
 {
-    return dlnorm_int(x,nullptr,nullptr,false);
+    return dlnorm(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-dlnorm(double x, bool log_form)
+dlnorm(const double x, const bool log_form)
 {
-    return dlnorm_int(x,nullptr,nullptr,log_form);
+    return dlnorm(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-dlnorm(double x, double mu, double sigma)
+dlnorm(const double x, const double mu_par, const double sigma_par)
 {
-    return dlnorm_int(x,&mu,&sigma,false);
-}
-
-inline
-double
-dlnorm(double x, double mu, double sigma, bool log_form)
-{
-    return dlnorm_int(x,&mu,&sigma,log_form);
+    return dlnorm(x,mu_par,sigma_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-dlnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+dlnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    arma::vec ret = dnorm_int(arma::log(x),mu_inp,sigma_inp,log_form);
+    arma::mat ret = dnorm_int(arma::log(x),mu_par_inp,sigma_par_inp,log_form);
 
     if (log_form) {
         ret -= arma::log(x);
@@ -91,29 +77,29 @@ dlnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bo
 }
 
 inline
-arma::vec
-dlnorm(const arma::vec& x)
+arma::mat
+dlnorm(const arma::mat& x)
 {
     return dlnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dlnorm(const arma::vec& x, bool log_form)
+arma::mat
+dlnorm(const arma::mat& x, const bool log_form)
 {
     return dlnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dlnorm(const arma::vec& x, double mu, double sigma)
+arma::mat
+dlnorm(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return dlnorm_int(x,&mu,&sigma,false);
+    return dlnorm_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-dlnorm(const arma::vec& x, double mu, double sigma, bool log_form)
+arma::mat
+dlnorm(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return dlnorm_int(x,&mu,&sigma,log_form);
+    return dlnorm_int(x,&mu_par,&sigma_par,log_form);
 }

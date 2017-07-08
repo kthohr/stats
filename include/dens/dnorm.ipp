@@ -23,67 +23,61 @@
  * 01/03/2016
  *
  * This version:
- * 06/23/2017
+ * 07/08/2017
  */
 
 //
 // single input
 
-inline
-double
-dnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+dnorm_int(const T z, const T sigma_par)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-    const double norm_term = - 0.5 * std::log( 2 * arma::datum::pi * sigma*sigma );
-    const double exp_term = - (x - mu)*(x - mu) / (2 * sigma*sigma);
-
-    double ret = (log_form) ? norm_term + exp_term : std::exp(norm_term + exp_term);
-    //
-    return ret;
+    return ( - 0.5*GCEM_LOG_2PI - stats_math::log(sigma_par) - z*z/2.0 );
 }
 
-inline
-double
-dnorm(double x)
+template<typename T>
+statslib_inline
+T
+dnorm(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return dnorm_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? dnorm_int((x-mu_par)/sigma_par,sigma_par) : stats_math::exp(dnorm_int((x-mu_par)/sigma_par,sigma_par)) );
 }
 
-inline
+statslib_inline
 double
-dnorm(double x, bool log_form)
+dnorm(const double x)
 {
-    return dnorm_int(x,nullptr,nullptr,log_form);
+    return dnorm(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-dnorm(double x, double mu, double sigma)
+dnorm(const double x, const bool log_form)
 {
-    return dnorm_int(x,&mu,&sigma,false);
+    return dnorm(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-dnorm(double x, double mu, double sigma, bool log_form)
+dnorm(const double x, const double mu_par, const double sigma_par)
 {
-    return dnorm_int(x,&mu,&sigma,log_form);
+    return dnorm(x,mu_par,sigma_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-dnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+dnorm_int(const arma::mat& x, const double* mu_inp, const double* sigma_inp, const bool log_form)
 {
     const double mu = (mu_inp) ? *mu_inp : 0;
     const double sigma = (sigma_inp) ? *sigma_inp : 1;
     //
-    const double norm_term = - 0.5 * std::log(2.0 * arma::datum::pi * sigma*sigma);
-    arma::vec ret = norm_term - (x - mu)%(x - mu)  / (2 * sigma*sigma);
+    const double norm_term = - 0.5*GCEM_LOG_2PI - stats_math::log(sigma);
+    arma::mat ret = norm_term - (x - mu)%(x - mu)  / (2 * sigma*sigma);
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -93,29 +87,29 @@ dnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, boo
 }
 
 inline
-arma::vec
-dnorm(const arma::vec& x)
+arma::mat
+dnorm(const arma::mat& x)
 {
     return dnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-dnorm(const arma::vec& x, bool log_form)
+arma::mat
+dnorm(const arma::mat& x, bool log_form)
 {
     return dnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-dnorm(const arma::vec& x, double mu, double sigma)
+arma::mat
+dnorm(const arma::mat& x, double mu, double sigma)
 {
     return dnorm_int(x,&mu,&sigma,false);
 }
 
 inline
-arma::vec
-dnorm(const arma::vec& x, double mu, double sigma, bool log_form)
+arma::mat
+dnorm(const arma::mat& x, double mu, double sigma, bool log_form)
 {
     return dnorm_int(x,&mu,&sigma,log_form);
 }

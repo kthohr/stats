@@ -23,27 +23,27 @@
  * 01/03/2016
  *
  * This version:
- * 06/23/2017
+ * 07/08/2017
  */
 
 #ifndef _statslib_dunif_HPP
 #define _statslib_dunif_HPP
 
 // single input
-double dunif_int(double x, const double* a_inp, const double* b_inp, bool log_form);
+template<typename T>
+statslib_inline T dnorm(const T x, const T a_par, const T b_par, const bool log_form);
 
-double dunif(double x);
-double dunif(double x, bool log_form);
-double dunif(double x, double a, double b);
-double dunif(double x, double a, double b, bool log_form);
+statslib_inline double dnorm(double x);
+statslib_inline double dnorm(double x, const bool log_form);
+statslib_inline double dnorm(double x, const double a_par, const double b_par);
 
-// vector input
-arma::vec dunif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log_form);
+// matrix/vector input
+arma::mat dnorm_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form);
 
-arma::vec dunif(const arma::vec& x);
-arma::vec dunif(const arma::vec& x, bool log_form);
-arma::vec dunif(const arma::vec& x, double mu, double sigma);
-arma::vec dunif(const arma::vec& x, double mu, double sigma, bool log_form);
+arma::mat dnorm(const arma::mat& x);
+arma::mat dnorm(const arma::mat& x, const bool log_form);
+arma::mat dnorm(const arma::mat& x, const double a_par, const double b_par);
+arma::mat dnorm(const arma::mat& x, const double a_par, const double b_par, const bool log_form);
 
 #include "dunif.ipp"
 

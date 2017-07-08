@@ -23,27 +23,27 @@
  * 01/02/2016
  *
  * This version:
- * 06/23/2017
+ * 07/07/2017
  */
 
 #ifndef _statslib_dinvgamma_HPP
 #define _statslib_dinvgamma_HPP
 
 // single input
-double dinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form);
+template<typename T>
+statslib_inline T dinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form);
 
-double dinvgamma(double x);
-double dinvgamma(double x, bool log_form);
-double dinvgamma(double x, double shape, double rate);
-double dinvgamma(double x, double shape, double rate, bool log_form);
+statslib_inline double dinvgamma(const double x);
+statslib_inline double dinvgamma(const double x, const bool log_form);
+statslib_inline double dinvgamma(const double x, const double shape_par, const double rate_par);
 
-// vector input
-arma::vec dinvgamma_int(const arma::vec& x, const double* shape_inp, const double* rate_inp, bool log_form);
+// matrix/vector input
+arma::mat dinvgamma_int(const arma::mat& x, const double* shape_inp, const double* rate_par_inp, const bool log_form);
 
-arma::vec dinvgamma(const arma::vec& x);
-arma::vec dinvgamma(const arma::vec& x, bool log_form);
-arma::vec dinvgamma(const arma::vec& x, double shape, double rate);
-arma::vec dinvgamma(const arma::vec& x, double shape, double rate, bool log_form);
+arma::mat dinvgamma(const arma::mat& x);
+arma::mat dinvgamma(const arma::mat& x, const bool log_form);
+arma::mat dinvgamma(const arma::mat& x, const double shape_par, const double rate_par);
+arma::mat dinvgamma(const arma::mat& x, const double shape_par, const double rate_par, const bool log_form);
 
 #include "dinvgamma.ipp"
 
