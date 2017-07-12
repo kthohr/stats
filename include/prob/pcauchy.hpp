@@ -17,34 +17,34 @@
   ################################################################################*/
 
 /*
- * pdf of the uniform distribution
+ * cdf of the Cauchy distribution
  *
  * Keith O'Hara
- * 01/03/2016
+ * 07/01/2017
  *
  * This version:
- * 07/08/2017
+ * 07/12/2017
  */
 
-#ifndef _statslib_dunif_HPP
-#define _statslib_dunif_HPP
+#ifndef _statslib_pcauchy_HPP
+#define _statslib_pcauchy_HPP
 
 // single input
 template<typename T>
-statslib_inline T dunif(const T x, const T a_par, const T b_par, const bool log_form);
+statslib_inline T pcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-statslib_inline double dunif(double x);
-statslib_inline double dunif(double x, const bool log_form);
-statslib_inline double dunif(double x, const double a_par, const double b_par);
+statslib_inline double pcauchy(const double x);
+statslib_inline double pcauchy(const double x, const bool log_form);
+statslib_inline double pcauchy(const double x, const double mu_par, const double sigma_par);
 
 // matrix/vector input
-arma::mat dunif_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form);
+arma::mat pcauchy_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::mat dunif(const arma::mat& x);
-arma::mat dunif(const arma::mat& x, const bool log_form);
-arma::mat dunif(const arma::mat& x, const double a_par, const double b_par);
-arma::mat dunif(const arma::mat& x, const double a_par, const double b_par, const bool log_form);
+arma::mat pcauchy(const arma::mat& x);
+arma::mat pcauchy(const arma::mat& x, const bool log_form);
+arma::mat pcauchy(const arma::mat& x, const double mu_par, const double sigma_par);
+arma::mat pcauchy(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form);
 
-#include "dunif.ipp"
+#include "pcauchy.ipp"
 
 #endif

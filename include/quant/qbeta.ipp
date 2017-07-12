@@ -74,7 +74,7 @@ qbeta(double p, double par_1, double par_2, bool log_form)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec

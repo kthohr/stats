@@ -23,75 +23,60 @@
  * 01/03/2016
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 //
 // single input
 
-inline
-double
-punif_int(double x, const double* a_inp, const double* b_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+punif_int(const T x, const T a_par, const T b_par)
 {
-    const double a = (a_inp) ? *a_inp : 0;
-    const double b = (b_inp) ? *b_inp : 1;
-    //
-    if (x <= a) {
-        return 0;
-    }
-
-    if (x >= b) {
-        return 1;
-    }
-    //
-    double ret = (x-a) / (b-a);
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( x <= a_par ? 0.0 : ( x >= b_par ? 1.0 : (x-a_par) / (b_par-a_par) ) );
 }
 
-inline
-double
-punif(double x)
+template<typename T>
+statslib_inline
+T
+punif(const T x, const T a_par, const T b_par, const bool log_form)
 {
-    return punif_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(punif_int(x,a_par,b_par)) : punif_int(x,a_par,b_par) );
 }
 
-inline
+statslib_inline
 double
-punif(double x, bool log_form)
+punif(const double x)
 {
-    return punif_int(x,nullptr,nullptr,log_form);
+    return punif(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-punif(double x, double a, double b)
+punif(const double x, const bool log_form)
 {
-    return punif_int(x,&a,&b,false);
+    return punif(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-punif(double x, double a, double b, bool log_form)
+punif(const double x, const double a_par, const double b_par)
 {
-    return punif_int(x,&a,&b,log_form);
+    return punif(x,a_par,b_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec
-punif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log_form)
+punif_int(const arma::vec& x, const double* a_par_inp, const double* b_par_inp, bool log_form)
 {
-    const double a = (a_inp) ? *a_inp : 0;
-    const double b = (b_inp) ? *b_inp : 1;
+    const double a_par = (a_par_inp) ? *a_par_inp : 0;
+    const double b_par = (b_par_inp) ? *b_par_inp : 1;
     //
-    arma::vec ret = (x-a) / (b-a);
+    arma::mat ret = (x-a_par) / (b_par-a_par);
 
     ret.elem(arma::find( ret < 0 )).zeros();
     ret.elem(arma::find( ret > 1 )).ones();
@@ -104,29 +89,29 @@ punif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log
 }
 
 inline
-arma::vec
-punif(const arma::vec& x)
+arma::mat
+punif(const arma::mat& x)
 {
     return punif_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-punif(const arma::vec& x, bool log_form)
+arma::mat
+punif(const arma::mat& x, const bool log_form)
 {
     return punif_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-punif(const arma::vec& x, double a, double b)
+arma::mat
+punif(const arma::mat& x, const double a_par, const double b_par)
 {
-    return punif_int(x,&a,&b,false);
+    return punif_int(x,&a_par,&b_par,false);
 }
 
 inline
-arma::vec
-punif(const arma::vec& x, double a, double b, bool log_form)
+arma::mat
+punif(const arma::mat& x, const double a_par, const double b_par, const bool log_form)
 {
-    return punif_int(x,&a,&b,log_form);
+    return punif_int(x,&a_par,&b_par,log_form);
 }

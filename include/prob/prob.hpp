@@ -22,6 +22,7 @@
 #include "pbern.hpp"
 #include "pbeta.hpp"
 #include "pbinom.hpp"
+#include "pcauchy.hpp"
 #include "pchisq.hpp"
 #include "pgamma.hpp"
 #include "pinvgamma.hpp"

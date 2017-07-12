@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include pbeta_test.cpp -o pbeta.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include pbeta.cpp -o pbeta.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
@@ -79,7 +79,7 @@ int main()
 
     // x = +0.65
     double x_6 = 0.65;
-    double val_6 = 0.5629813;
+    double val_6 = 0.56298125;
     double prob_6 = stats::pbeta(x_6,alpha_par,beta_par);
 
     bool success_6 = (std::abs(prob_6 - val_6) < err_tol);
@@ -116,6 +116,22 @@ int main()
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
         printf("\npbeta: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::pbeta(x_1);
+    stats::pbeta(x_1,true);
+    stats::pbeta(x_1,alpha_par,beta_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0.4;
+    x_mat(1,0) = 0.5;
+
+    stats::pbeta(x_mat);
+    stats::pbeta(x_mat,true);
+    stats::pbeta(x_mat,alpha_par,beta_par);
+    stats::pbeta(x_mat,alpha_par,beta_par,true);
 
     return 0;
 }

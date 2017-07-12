@@ -23,7 +23,7 @@
  * 01/03/2016
  *
  * This version:
- * 07/08/2017
+ * 07/12/2017
  */
 
 //
@@ -59,7 +59,7 @@ dunif(const double x, const double a_par, const double b_par)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::mat

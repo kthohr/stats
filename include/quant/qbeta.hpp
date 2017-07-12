@@ -37,7 +37,7 @@ double qbeta(double p, bool log_form);
 double qbeta(double p, double shape, double par_2);
 double qbeta(double p, double shape, double par_2, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qbeta_int(const arma::vec& p, const double* shape_inp, const double* par_2_inp, bool log_form);
 
 arma::vec qbeta(const arma::vec& p);

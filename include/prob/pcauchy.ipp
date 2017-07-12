@@ -17,10 +17,10 @@
   ################################################################################*/
 
 /*
- * cdf of the beta distribution
+ * cdf of the Cauchy distribution
  *
  * Keith O'Hara
- * 06/15/2017
+ * 07/01/2017
  *
  * This version:
  * 07/12/2017
@@ -32,38 +32,38 @@
 template<typename T>
 statslib_inline
 T
-pbeta_int(const T x, const T a_par, const T b_par)
+pcauchy_int(const T z)
 {
-    return ( gcem::incomplete_beta(a_par,b_par,x) );
+    return ( 0.5 + stats_math::atan(z) / GCEM_PI );
 }
 
 template<typename T>
 statslib_inline
 T
-pbeta(const T x, const T a_par, const T b_par, const bool log_form)
+pcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pbeta_int(x,a_par,b_par)) : pbeta_int(x,a_par,b_par) );
+    return ( log_form == true ? stats_math::log(pcauchy_int((x-mu_par)/sigma_par)) : pcauchy_int((x-mu_par)/sigma_par) );
 }
 
 statslib_inline
 double
-pbeta(const double x)
+pcauchy(const double x)
 {
-    return pbeta(x,2.0,2.0,false);
+    return pcauchy(x,0.0,1.0,false);
 }
 
 statslib_inline
 double
-pbeta(const double x, const bool log_form)
+pcauchy(const double x, const bool log_form)
 {
-    return pbeta(x,2.0,2.0,log_form);
+    return pcauchy(x,0.0,1.0,log_form);
 }
 
 statslib_inline
 double
-pbeta(const double x, const double a_par, const double b_par)
+pcauchy(const double x, const double mu_par, const double sigma_par)
 {
-    return pbeta(x,a_par,b_par,false);
+    return pcauchy(x,mu_par,sigma_par,false);
 }
 
 //
@@ -71,11 +71,11 @@ pbeta(const double x, const double a_par, const double b_par)
 
 inline
 arma::mat
-pbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
+pcauchy_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const double a_par = (a_par_inp) ? *a_par_inp : 2; // shape parameter 'alpha'
-    const double b_par = (b_par_inp) ? *b_par_inp : 2; // scale parameter 'beta'
-
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
+    //
     const int n = x.n_rows;
     const int k = x.n_cols;
 
@@ -83,7 +83,7 @@ pbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, 
 
     for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
-            ret(i,j) = pbeta(x(i,j),a_par,b_par,log_form);
+            ret(i,j) = pcauchy(x(i,j),mu_par,sigma_par,log_form);
         }
     }
     //
@@ -92,28 +92,28 @@ pbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, 
 
 inline
 arma::mat
-pbeta(const arma::mat& x)
+pcauchy(const arma::mat& x)
 {
-    return pbeta_int(x,nullptr,nullptr,false);
+    return pcauchy_int(x,nullptr,nullptr,false);
 }
 
 inline
 arma::mat
-pbeta(const arma::mat& x, const bool log_form)
+pcauchy(const arma::mat& x, const bool log_form)
 {
-    return pbeta_int(x,nullptr,nullptr,log_form);
+    return pcauchy_int(x,nullptr,nullptr,log_form);
 }
 
 inline
 arma::mat
-pbeta(const arma::mat& x, const double a_par, const double b_par)
+pcauchy(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return pbeta_int(x,&a_par,&b_par,false);
+    return pcauchy_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
 arma::mat
-pbeta(const arma::mat& x, const double a_par, const double b_par, const bool log_form)
+pcauchy(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return pbeta_int(x,&a_par,&b_par,log_form);
+    return pcauchy_int(x,&mu_par,&sigma_par,log_form);
 }

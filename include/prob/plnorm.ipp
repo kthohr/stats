@@ -23,85 +23,76 @@
  * 06/25/2017
  *
  * This version:
- * 06/25/2017
+ * 07/12/2017
  */
 
 //
 // single input
 
-inline
-double
-plnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+plnorm(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    double ret = pnorm_int(std::log(x),mu_inp,sigma_inp,log_form);
-    //
-    return ret;
+    return ( dnorm(stats_math::log(x),mu_par,sigma_par,log_form) );
 }
 
-inline
+statslib_inline
 double
-plnorm(double x)
+plnorm(const double x)
 {
-    return plnorm_int(x,nullptr,nullptr,false);
+    return plnorm(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-plnorm(double x, bool log_form)
+plnorm(const double x, const bool log_form)
 {
-    return plnorm_int(x,nullptr,nullptr,log_form);
+    return plnorm(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-plnorm(double x, double mu, double sigma)
+plnorm(const double x, const double mu_par, const double sigma_par)
 {
-    return plnorm_int(x,&mu,&sigma,false);
-}
-
-inline
-double
-plnorm(double x, double mu, double sigma, bool log_form)
-{
-    return plnorm_int(x,&mu,&sigma,log_form);
+    return plnorm(x,mu_par,sigma_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-plnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+plnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    arma::vec ret = pnorm_int(arma::log(x),mu_inp,sigma_inp,log_form);
-    //
-    return ret;
+
+    return pnorm_int(arma::log(x),mu_par_inp,sigma_par_inp,log_form);
 }
 
 inline
-arma::vec
-plnorm(const arma::vec& x)
+arma::mat
+plnorm(const arma::mat& x)
 {
     return plnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-plnorm(const arma::vec& x, bool log_form)
+arma::mat
+plnorm(const arma::mat& x, const bool log_form)
 {
     return plnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-plnorm(const arma::vec& x, double mu, double sigma)
+arma::mat
+plnorm(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return plnorm_int(x,&mu,&sigma,false);
+    return plnorm_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-plnorm(const arma::vec& x, double mu, double sigma, bool log_form)
+arma::mat
+plnorm(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return plnorm_int(x,&mu,&sigma,log_form);
+    return plnorm_int(x,&mu_par,&sigma_par,log_form);
 }

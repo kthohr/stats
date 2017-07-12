@@ -71,16 +71,16 @@ dlogis(const double x, const double mu_par, const double sigma_par)
 
 inline
 arma::mat
-dlogis_int(const arma::mat& x, const double* mu_inp, const double* sigma_inp, const bool log_form)
+dlogis_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
     //
-    const arma::mat numer_term = arma::exp(- (x - mu) / sigma);
-    const arma::mat denom_term = sigma * arma::pow(1.0 + numer_term,2);
+    const arma::mat numer_term = arma::exp(- (x - mu_par) / sigma_par);
+    const arma::mat denom_term = sigma_par * arma::pow(1.0 + numer_term,2);
 
     arma::mat ret = numer_term / denom_term;
-    
+
     if (log_form) {
         ret = arma::log(ret);
     }
@@ -104,14 +104,14 @@ dlogis(const arma::mat& x, const bool log_form)
 
 inline
 arma::mat
-dlogis(const arma::mat& x, const double mu, const double sigma)
+dlogis(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return dlogis_int(x,&mu,&sigma,false);
+    return dlogis_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
 arma::mat
-dlogis(const arma::mat& x, const double mu, const double sigma, const bool log_form)
+dlogis(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return dlogis_int(x,&mu,&sigma,log_form);
+    return dlogis_int(x,&mu_par,&sigma_par,log_form);
 }

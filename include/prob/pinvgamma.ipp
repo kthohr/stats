@@ -23,99 +23,97 @@
  * 06/17/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 //
 // single input
 
-inline
-double
-pinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+pinvgamma_int(const T x, const T shape_par, const T rate_par)
 {
-    const double shape = (shape_inp) ? *shape_inp : 1;
-    const double rate = (rate_inp) ? *rate_inp : 1;
-    //
-    double ret = gcem::incomplete_gamma(shape,rate/x);
-
-    ret = 1.0 - ret;
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( 1.0 - gcem::incomplete_gamma(shape_par,rate_par/x) );
 }
 
-inline
-double
-pinvgamma(double x)
+template<typename T>
+statslib_inline
+T
+pinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form)
 {
-    return pinvgamma_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(pinvgamma_int(x,shape_par,rate_par)) : pinvgamma_int(x,shape_par,rate_par) );
 }
 
-inline
+statslib_inline
 double
-pinvgamma(double x, bool log_form)
+pinvgamma(const double x)
 {
-    return pinvgamma_int(x,nullptr,nullptr,log_form);
+    return pinvgamma(x,1.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-pinvgamma(double x, double shape, double rate)
+pinvgamma(const double x, const bool log_form)
 {
-    return pinvgamma_int(x,&shape,&rate,false);
+    return pinvgamma(x,1.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-pinvgamma(double x, double shape, double rate, bool log_form)
+pinvgamma(const double x, const double shape_par, const double rate_par)
 {
-    return pinvgamma_int(x,&shape,&rate,log_form);
+    return pinvgamma(x,shape_par,rate_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-pinvgamma_int(const arma::vec& x, const double* shape_inp, const double* rate_inp, bool log_form)
+arma::mat
+pinvgamma_int(const arma::mat& x, const double* shape_par_inp, const double* rate_par_inp, const bool log_form)
 {
-    const int n = x.n_elem;
-    arma::vec ret(n);
+    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
+    const double rate_par = (rate_par_inp) ? *rate_par_inp : 1.0;
+    //
+    const int n = x.n_rows;
+    const int k = x.n_cols;
 
-    for (int i=0; i < n; i++) {
-        ret(i) = pinvgamma_int(x(i),shape_inp,rate_inp,log_form);
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = pinvgamma(x(i,j),shape_par,rate_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-pinvgamma(const arma::vec& x)
+arma::mat
+pinvgamma(const arma::mat& x)
 {
     return pinvgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-pinvgamma(const arma::vec& x, bool log_form)
+arma::mat
+pinvgamma(const arma::mat& x, const bool log_form)
 {
     return pinvgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-pinvgamma(const arma::vec& x, double shape, double rate)
+arma::mat
+pinvgamma(const arma::mat& x, const double shape_par, const double rate_par)
 {
-    return pinvgamma_int(x,&shape,&rate,false);
+    return pinvgamma_int(x,&shape_par,&rate_par,false);
 }
 
 inline
-arma::vec
-pinvgamma(const arma::vec& x, double shape, double rate, bool log_form)
+arma::mat
+pinvgamma(const arma::mat& x, const double shape_par, const double rate_par, const bool log_form)
 {
-    return pinvgamma_int(x,&shape,&rate,log_form);
+    return pinvgamma_int(x,&shape_par,&rate_par,log_form);
 }

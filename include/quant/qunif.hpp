@@ -37,7 +37,7 @@ double qunif(double p, bool log_form);
 double qunif(double p, double a, double b);
 double qunif(double p, double a, double b, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qunif_int(const arma::vec& p, const double* a_inp, const double* b_inp, bool log_form);
 
 arma::vec qunif(const arma::vec& p);

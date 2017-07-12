@@ -76,7 +76,7 @@ qgamma(double p, double shape, double scale, bool log_form)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec

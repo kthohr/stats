@@ -23,97 +23,97 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 //
 // single input
 
-inline
-double
-pgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+pgamma_int(const T x, const T shape_par, const T scale_par)
 {
-    const double shape = (shape_inp) ? *shape_inp : 1;
-    const double scale = (scale_inp) ? *scale_inp : 1;
-    //
-    double ret = gcem::incomplete_gamma(shape,x/scale);
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( gcem::incomplete_gamma(shape_par,x/scale_par) );
 }
 
-inline
-double
-pgamma(double x)
+template<typename T>
+statslib_inline
+T
+pgamma(const T x, const T shape_par, const T scale_par, const bool log_form)
 {
-    return pgamma_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(pgamma_int(x,shape_par,scale_par)) : pgamma_int(x,shape_par,scale_par) );
 }
 
-inline
+statslib_inline
 double
-pgamma(double x, bool log_form)
+pgamma(const double x)
 {
-    return pgamma_int(x,nullptr,nullptr,log_form);
+    return pgamma(x,1.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-pgamma(double x, double shape, double scale)
+pgamma(const double x, const bool log_form)
 {
-    return pgamma_int(x,&shape,&scale,false);
+    return pgamma(x,1.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-pgamma(double x, double shape, double scale, bool log_form)
+pgamma(const double x, const double shape_par, const double scale_par)
 {
-    return pgamma_int(x,&shape,&scale,log_form);
+    return pgamma(x,shape_par,scale_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-pgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp, bool log_form)
+arma::mat
+pgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, const bool log_form)
 {
-    const int n = x.n_elem;
-    arma::vec ret(n);
+    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
+    const double scale_par = (scale_par_inp) ? *scale_par_inp : 1.0;
+    //
+    const int n = x.n_rows;
+    const int k = x.n_cols;
 
-    for (int i=0; i < n; i++) {
-        ret(i) = pgamma_int(x(i),shape_inp,scale_inp,log_form);
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = pgamma(x(i,j),shape_par,scale_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-pgamma(const arma::vec& x)
+arma::mat
+pgamma(const arma::mat& x)
 {
     return pgamma_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-pgamma(const arma::vec& x, bool log_form)
+arma::mat
+pgamma(const arma::mat& x, const bool log_form)
 {
     return pgamma_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-pgamma(const arma::vec& x, double shape, double scale)
+arma::mat
+pgamma(const arma::mat& x, const double shape_par, const double scale_par)
 {
-    return pgamma_int(x,&shape,&scale,false);
+    return pgamma_int(x,&shape_par,&scale_par,false);
 }
 
 inline
-arma::vec
-pgamma(const arma::vec& x, double shape, double scale, bool log_form)
+arma::mat
+pgamma(const arma::mat& x, const double shape_par, const double scale_par, const bool log_form)
 {
-    return pgamma_int(x,&shape,&scale,log_form);
+    return pgamma_int(x,&shape_par,&scale_par,log_form);
 }

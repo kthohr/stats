@@ -23,96 +23,96 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 //
 // single input
 
-inline
-double
-pchisq_int(double x, const double* dof_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+pchisq_int(const T x, const T dof_par)
 {
-    const double dof = (dof_inp) ? *dof_inp : 1;
-    //
-    double ret = gcem::incomplete_gamma(dof/2.0,x/2.0);
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( gcem::incomplete_gamma(dof_par/2.0,x/2.0) );
 }
 
-inline
-double
-pchisq(double x)
+template<typename T>
+statslib_inline
+T
+pchisq(const T x, const T dof_par, const bool log_form)
 {
-    return pchisq_int(x,nullptr,false);
+    return ( log_form == true ? stats_math::log(pchisq_int(x,dof_par)) : pchisq_int(x,dof_par) );
 }
 
-inline
+statslib_inline
 double
-pchisq(double x, bool log_form)
+pchisq(const double x)
 {
-    return pchisq_int(x,nullptr,log_form);
+    return pchisq(x,1.0,false);
 }
 
-inline
+statslib_inline
 double
-pchisq(double x, double dof)
+pchisq(const double x, const bool log_form)
 {
-    return pchisq_int(x,&dof,false);
+    return pchisq(x,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-pchisq(double x, double dof, bool log_form)
+pchisq(const double x, const double dof_par)
 {
-    return pchisq_int(x,&dof,log_form);
+    return pchisq(x,dof_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-pchisq_int(const arma::vec& x, const double* dof_inp, bool log_form)
+arma::mat
+pchisq_int(const arma::mat& x, const double* dof_par_inp, bool log_form)
 {
-    int n = x.n_elem;
-    arma::vec ret(n);
+    const double dof_par = (dof_par_inp) ? *dof_par_inp : 1;
+    //
+    const int n = x.n_rows;
+    const int k = x.n_cols;
 
-    for (int i=0; i < n; i++) {
-        ret(i) = pchisq_int(x(i),dof_inp,log_form);
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = pchisq(x(i,j),dof_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-pchisq(const arma::vec& x)
+arma::mat
+pchisq(const arma::mat& x)
 {
     return pchisq_int(x,nullptr,false);
 }
 
 inline
-arma::vec
-pchisq(const arma::vec& x, bool log_form)
+arma::mat
+pchisq(const arma::mat& x, const bool log_form)
 {
     return pchisq_int(x,nullptr,log_form);
 }
 
 inline
-arma::vec
-pchisq(const arma::vec& x, double dof)
+arma::mat
+pchisq(const arma::mat& x, const double dof_par)
 {
-    return pchisq_int(x,&dof,false);
+    return pchisq_int(x,&dof_par,false);
 }
 
 inline
-arma::vec
-pchisq(const arma::vec& x, double dof, bool log_form)
+arma::mat
+pchisq(const arma::mat& x, const double dof_par, const bool log_form)
 {
-    return pchisq_int(x,&dof,log_form);
+    return pchisq_int(x,&dof_par,log_form);
 }

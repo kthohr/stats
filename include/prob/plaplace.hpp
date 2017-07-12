@@ -23,27 +23,27 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 #ifndef _statslib_plaplace_HPP
 #define _statslib_plaplace_HPP
 
 // single input
-double plaplace_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);
+template<typename T>
+statslib_inline T plaplace(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-double plaplace(double x);
-double plaplace(double x, bool log_form);
-double plaplace(double x, double mu, double sigma);
-double plaplace(double x, double mu, double sigma, bool log_form);
+statslib_inline double plaplace(const double x);
+statslib_inline double plaplace(const double x, const bool log_form);
+statslib_inline double plaplace(const double x, const double mu_par, const double sigma_par);
 
-// vector input
-arma::vec plaplace_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
+// matrix/vector input
+arma::mat plaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::vec plaplace(const arma::vec& x);
-arma::vec plaplace(const arma::vec& x, bool log_form);
-arma::vec plaplace(const arma::vec& x, double mu, double sigma);
-arma::vec plaplace(const arma::vec& x, double mu, double sigma, bool log_form);
+arma::mat plaplace(const arma::mat& x);
+arma::mat plaplace(const arma::mat& x, const bool log_form);
+arma::mat plaplace(const arma::mat& x, const double mu_par, const double sigma_par);
+arma::mat plaplace(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form);
 
 #include "plaplace.ipp"
 

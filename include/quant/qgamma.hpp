@@ -37,7 +37,7 @@ double qgamma(double p, bool log_form);
 double qgamma(double p, double shape, double scale);
 double qgamma(double p, double shape, double scale, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qgamma_int(const arma::vec& p, const double* shape_inp, const double* scale_inp, bool log_form);
 
 arma::vec qgamma(const arma::vec& p);

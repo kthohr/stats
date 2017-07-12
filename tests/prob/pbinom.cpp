@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include pbinom_test.cpp -o pbinom.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include pbinom.cpp -o pbinom.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
@@ -53,6 +53,26 @@ int main()
     if (success_1 && success_2) {
         printf("\npbinom: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::pbinom(x_1);
+    stats::pbinom(x_1,true);
+    stats::pbinom(x_1,n_trials,prob_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0;
+    x_mat(1,0) = 1;
+
+    arma::mat x_mat_2(2,1);
+    x_mat_2(0,0) = 3;
+    x_mat_2(1,0) = 4;
+
+    stats::pbinom(x_mat);
+    stats::pbinom(x_mat,true);
+    stats::pbinom(x_mat_2,5,prob_par);
+    stats::pbinom(x_mat_2,5,prob_par,true);
 
     return 0;
 }

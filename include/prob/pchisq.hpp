@@ -23,27 +23,27 @@
  * 06/17/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 #ifndef _statslib_pchisq_HPP
 #define _statslib_pchisq_HPP
 
 // single input
-double pchisq_int(double x, const double* dof_inp, bool log_form);
+template<typename T>
+statslib_inline T pchisq(const T x, const T dof_par, const bool log_form);
 
-double pchisq(double x);
-double pchisq(double x, bool log_form);
-double pchisq(double x, double dof);
-double pchisq(double x, double dof, bool log_form);
+statslib_inline double pchisq(const double x);
+statslib_inline double pchisq(const double x, const bool log_form);
+statslib_inline double pchisq(const double x, const double dof_par);
 
-// vector input
-arma::vec pchisq_int(const arma::vec& x, const double* dof_inp, bool log_form);
+// matrix/vector input
+arma::mat pchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form);
 
-arma::vec pchisq(const arma::vec& x);
-arma::vec pchisq(const arma::vec& x, bool log_form);
-arma::vec pchisq(const arma::vec& x, double dof);
-arma::vec pchisq(const arma::vec& x, double dof, bool log_form);
+arma::mat pchisq(const arma::mat& x);
+arma::mat pchisq(const arma::mat& x, const bool log_form);
+arma::mat pchisq(const arma::mat& x, const double dof_par);
+arma::mat pchisq(const arma::mat& x, const double dof_par, const bool log_form);
 
 #include "pchisq.ipp"
 

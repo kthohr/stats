@@ -37,7 +37,7 @@ int qbinom(double p, bool log_form);
 int qbinom(double p, int n_trials, double prob_par);
 int qbinom(double p, int n_trials, double prob_par, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qbinom_int(const arma::vec& p, const int* n_trials, const double* prob_par_inp, bool log_form);
 
 arma::vec qbinom(const arma::vec& p);

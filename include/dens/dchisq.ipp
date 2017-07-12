@@ -67,7 +67,7 @@ dchisq(const double x, const double dof_par)
 }
 
 //
-// mattor input
+// matrix/vector input
 
 inline
 arma::mat

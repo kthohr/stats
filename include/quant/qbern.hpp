@@ -37,7 +37,7 @@ double qbern(int p, bool log_form);
 double qbern(int p, double par);
 double qbern(int p, double par, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qbern_int(const arma::vec& p, const double* par_inp, bool log_form);
 
 arma::vec qbern(const arma::vec& p);

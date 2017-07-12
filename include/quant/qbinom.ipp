@@ -81,7 +81,7 @@ qbinom(double p, int n_trials, double prob_par, bool log_form)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec

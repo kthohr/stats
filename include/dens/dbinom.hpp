@@ -31,19 +31,19 @@
 
 // single input
 template<typename T>
-statslib_inline T dbinom(const int x, const int n_trials_inp, const T prob_par_inp, const bool log_form);
+statslib_inline T dbinom(const int x, const int n_trials, const T prob_par, const bool log_form);
 
 statslib_inline double dbinom(int x);
-statslib_inline double dbinom(int x, bool log_form);
-statslib_inline double dbinom(int x, int n_trials, double prob_par);
+statslib_inline double dbinom(int x, const bool log_form);
+statslib_inline double dbinom(int x, const int n_trials, const double prob_par);
 
-// vector input
-arma::vec dbinom_int(const arma::vec& x, const int* n_trials, const double* prob_par_inp, bool log_form);
+// matrix/vector input
+arma::mat dbinom_int(const arma::mat& x, const int* n_trials, const double* prob_par_inp, bool log_form);
 
-arma::vec dbinom(const arma::vec& x);
-arma::vec dbinom(const arma::vec& x, bool log_form);
-arma::vec dbinom(const arma::vec& x, int n_trials, double prob_par);
-arma::vec dbinom(const arma::vec& x, int n_trials, double prob_par, bool log_form);
+arma::mat dbinom(const arma::mat& x);
+arma::mat dbinom(const arma::mat& x, const bool log_form);
+arma::mat dbinom(const arma::mat& x, const int n_trials, const double prob_par);
+arma::mat dbinom(const arma::mat& x, const int n_trials, const double prob_par, const bool log_form);
 
 #include "dbinom.ipp"
 

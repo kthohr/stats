@@ -37,7 +37,7 @@ double qlaplace(double p, bool log_form);
 double qlaplace(double p, double mu, double sigma);
 double qlaplace(double p, double mu, double sigma, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qlaplace_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 arma::vec qlaplace(const arma::vec& p);

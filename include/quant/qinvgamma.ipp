@@ -76,7 +76,7 @@ qinvgamma(double p, double shape, double rate, bool log_form)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec

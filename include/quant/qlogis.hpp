@@ -37,7 +37,7 @@ double qlogis(double p, bool log_form);
 double qlogis(double p, double mu, double sigma);
 double qlogis(double p, double mu, double sigma, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qlogis_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 arma::vec qlogis(const arma::vec& p);

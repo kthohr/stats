@@ -23,27 +23,27 @@
  * 01/03/2016
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 #ifndef _statslib_pnorm_HPP
 #define _statslib_pnorm_HPP
 
 // single input
-double pnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form);
+template<typename T>
+statslib_inline T pnorm(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-double pnorm(double x);
-double pnorm(double x, bool log_form);
-double pnorm(double x, double mu, double sigma);
-double pnorm(double x, double mu, double sigma, bool log_form);
+statslib_inline double pnorm(const double x);
+statslib_inline double pnorm(const double x, const bool log_form);
+statslib_inline double pnorm(const double x, const double mu_par, const double sigma_par);
 
-// vector input
-arma::vec pnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
+// matrix/vector input
+arma::mat pnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::vec pnorm(const arma::vec& x);
-arma::vec pnorm(const arma::vec& x, bool log_form);
-arma::vec pnorm(const arma::vec& x, double mu, double sigma);
-arma::vec pnorm(const arma::vec& x, double mu, double sigma, bool log_form);
+arma::mat pnorm(const arma::mat& x);
+arma::mat pnorm(const arma::mat& x, const bool log_form);
+arma::mat pnorm(const arma::mat& x, const double mu_par, const double sigma_par);
+arma::mat pnorm(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form);
 
 #include "pnorm.ipp"
 

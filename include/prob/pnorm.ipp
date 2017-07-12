@@ -23,98 +23,97 @@
  * 01/03/2016
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 //
 // single input
 
-inline
-double
-pnorm_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+pnorm_int(const T x, const T mu_par, const T sigma_par)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-    const double erf_term = std::erf( (x-mu) / (sigma * std::sqrt(2)) );
-    double ret = 0.5 * (1 + erf_term);
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( 0.5 * ( 1.0 + stats_math::erf((x-mu_par) / (sigma_par * GCEM_SQRT_2)) ) );
 }
 
-inline
-double
-pnorm(double x)
+template<typename T>
+statslib_inline
+T
+pnorm(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return pnorm_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(pnorm_int(x,mu_par,sigma_par)) : pnorm_int(x,mu_par,sigma_par) );
 }
 
-inline
+statslib_inline
 double
-pnorm(double x, bool log_form)
+pnorm(const double x)
 {
-    return pnorm_int(x,nullptr,nullptr,log_form);
+    return pnorm(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-pnorm(double x, double mu, double sigma)
+pnorm(const double x, const bool log_form)
 {
-    return pnorm_int(x,&mu,&sigma,false);
+    return pnorm(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-pnorm(double x, double mu, double sigma, bool log_form)
+pnorm(const double x, const double mu_par, const double sigma_par)
 {
-    return pnorm_int(x,&mu,&sigma,log_form);
+    return pnorm(x,mu_par,sigma_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-pnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+pnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const int n = x.n_elem;
-    arma::vec ret(n);
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
+    //
+    const int n = x.n_rows;
+    const int k = x.n_cols;
 
-    for (int i=0; i < n; i++) {
-        ret(i) = pnorm_int(x(i),mu_inp,sigma_inp,log_form);
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = pnorm(x(i,j),mu_par,sigma_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-pnorm(const arma::vec& x)
+arma::mat
+pnorm(const arma::mat& x)
 {
     return pnorm_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-pnorm(const arma::vec& x, bool log_form)
+arma::mat
+pnorm(const arma::mat& x, const bool log_form)
 {
     return pnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-pnorm(const arma::vec& x, double mu, double sigma)
+arma::mat
+pnorm(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return pnorm_int(x,&mu,&sigma,false);
+    return pnorm_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-pnorm(const arma::vec& x, double mu, double sigma, bool log_form)
+arma::mat
+pnorm(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return pnorm_int(x,&mu,&sigma,log_form);
+    return pnorm_int(x,&mu_par,&sigma_par,log_form);
 }

@@ -37,7 +37,7 @@ double qlnorm(double p, bool log_form);
 double qlnorm(double p, double mu, double sigma);
 double qlnorm(double p, double mu, double sigma, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qlnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
 
 arma::vec qlnorm(const arma::vec& x);

@@ -37,7 +37,7 @@ statslib_inline double dchisq(const double x);
 statslib_inline double dchisq(const double x, const bool log_form);
 statslib_inline double dchisq(const double x, const double dof_par);
 
-// mattor input
+// matrix/vector input
 arma::mat dchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form);
 
 arma::mat dchisq(const arma::mat& x);

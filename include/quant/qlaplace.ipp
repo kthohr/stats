@@ -74,7 +74,7 @@ qlaplace(double p, double mu, double sigma, bool log_form)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec

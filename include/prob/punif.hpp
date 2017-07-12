@@ -23,27 +23,27 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 #ifndef _statslib_punif_HPP
 #define _statslib_punif_HPP
 
 // single input
-double punif_int(double x, const double* a_inp, const double* b_inp, bool log_form);
+template<typename T>
+statslib_inline T dunif(const T x, const T a_par, const T b_par, const bool log_form);
 
-double punif(double x);
-double punif(double x, bool log_form);
-double punif(double x, double a, double b);
-double punif(double x, double a, double b, bool log_form);
+statslib_inline double dunif(const double x);
+statslib_inline double dunif(const double x, const bool log_form);
+statslib_inline double dunif(const double x, const double a_par, const double b_par);
 
-// vector input
-arma::vec punif_int(const arma::vec& x, const double* a_inp, const double* b_inp, bool log_form);
+// matrix/vector input
+arma::mat dunif_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form);
 
-arma::vec punif(const arma::vec& x);
-arma::vec punif(const arma::vec& x, bool log_form);
-arma::vec punif(const arma::vec& x, double mu, double sigma);
-arma::vec punif(const arma::vec& x, double mu, double sigma, bool log_form);
+arma::mat dunif(const arma::mat& x);
+arma::mat dunif(const arma::mat& x, const bool log_form);
+arma::mat dunif(const arma::mat& x, const double a_par, const double b_par);
+arma::mat dunif(const arma::mat& x, const double a_par, const double b_par, const bool log_form);
 
 #include "punif.ipp"
 

@@ -66,7 +66,7 @@ dbeta(const double x, const double a_par, const double b_par)
     return dbeta(x,a_par,b_par,false);
 }
 
-
+//
 // matrix/vector input
 
 inline

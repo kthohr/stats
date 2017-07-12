@@ -74,7 +74,7 @@ qunif(double p, double a, double b, bool log_form)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec

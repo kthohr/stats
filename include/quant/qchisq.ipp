@@ -75,7 +75,7 @@ qchisq(double p, double dof, bool log_form)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec

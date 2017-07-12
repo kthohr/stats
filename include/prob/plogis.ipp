@@ -23,66 +23,61 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 //
 // single input
 
-inline
-double
-plogis_int(double x, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+plogis_int(const T z)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-    const double exp_term = std::exp(- (x - mu) / sigma);
-
-    double ret = (log_form) ? - std::log(1.0 + exp_term) : 1.0/(1.0 + exp_term);
-    //
-    return ret;
+    return ( 1.0/(1.0 + stats_math::exp(-z)) );
 }
 
-inline
-double
-plogis(double x)
+template<typename T>
+statslib_inline
+T
+plogis(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return plogis_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(plogis_int((x-mu_par)/sigma_par)) : plogis_int((x-mu_par)/sigma_par) );
 }
 
-inline
+statslib_inline
 double
-plogis(double x, bool log_form)
+plogis(const double x)
 {
-    return plogis_int(x,nullptr,nullptr,log_form);
+    return plogis(x,0.0,1.0,false);
 }
 
-inline
+statslib_inline
 double
-plogis(double x, double mu, double sigma)
+plogis(const double x, const bool log_form)
 {
-    return plogis_int(x,&mu,&sigma,false);
+    return plogis(x,0.0,1.0,log_form);
 }
 
-inline
+statslib_inline
 double
-plogis(double x, double mu, double sigma, bool log_form)
+plogis(const double x, const double mu_par, const double sigma_par)
 {
-    return plogis_int(x,&mu,&sigma,log_form);
+    return plogis(x,mu_par,sigma_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-plogis_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+plogis_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, bool log_form)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
     //
-    arma::vec ret = 1.0/(1.0 + arma::exp(- (x - mu) / sigma));
-    
+    arma::mat ret = 1.0/(1.0 + arma::exp(- (x - mu_par) / sigma_par));
+
     if (log_form) {
         ret = arma::log(ret);
     }
@@ -91,29 +86,29 @@ plogis_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bo
 }
 
 inline
-arma::vec
-plogis(const arma::vec& x)
+arma::mat
+plogis(const arma::mat& x)
 {
     return plogis_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-plogis(const arma::vec& x, bool log_form)
+arma::mat
+plogis(const arma::mat& x, const bool log_form)
 {
     return plogis_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-plogis(const arma::vec& x, double mu, double sigma)
+arma::mat
+plogis(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return plogis_int(x,&mu,&sigma,false);
+    return plogis_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-plogis(const arma::vec& x, double mu, double sigma, bool log_form)
+arma::mat
+plogis(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return plogis_int(x,&mu,&sigma,log_form);
+    return plogis_int(x,&mu_par,&sigma_par,log_form);
 }

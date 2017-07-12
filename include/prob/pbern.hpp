@@ -23,27 +23,27 @@
  * 06/23/2017
  *
  * This version:
- * 06/24/2017
+ * 07/12/2017
  */
 
-#ifndef _statslib_pbeta_HPP
-#define _statslib_pbeta_HPP
+#ifndef _statslib_pbern_HPP
+#define _statslib_pbern_HPP
 
 // single input
-double pbern_int(int x, const double* p_inp, bool log_form);
+template<typename T>
+statslib_inline T pbern(const int x, const T prob_par, const bool log_form);
 
-double pbern(int x);
-double pbern(int x, bool log_form);
-double pbern(int x, double p);
-double pbern(int x, double p, bool log_form);
+statslib_inline double pbern(const int x);
+statslib_inline double pbern(const int x, const bool log_form);
+statslib_inline double pbern(const int x, const double prob_par);
 
-// vector input
-arma::vec pbern_int(const arma::vec& x, const double* p_inp, bool log_form);
+// matrix/vector input
+arma::mat pbern_int(const arma::mat& x, const double* prob_par_inp, bool log_form);
 
-arma::vec pbern(const arma::vec& x);
-arma::vec pbern(const arma::vec& x, bool log_form);
-arma::vec pbern(const arma::vec& x, double p);
-arma::vec pbern(const arma::vec& x, double p, bool log_form);
+arma::mat pbern(const arma::mat& x);
+arma::mat pbern(const arma::mat& x, const bool log_form);
+arma::mat pbern(const arma::mat& x, const double prob_par);
+arma::mat pbern(const arma::mat& x, const double prob_par, const bool log_form);
 
 #include "pbern.ipp"
 

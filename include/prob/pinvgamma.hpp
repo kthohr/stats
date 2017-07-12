@@ -23,27 +23,27 @@
  * 06/17/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 #ifndef _statslib_pinvgamma_HPP
 #define _statslib_pinvgamma_HPP
 
 // single input
-double pinvgamma_int(double x, const double* shape_inp, const double* rate_inp, bool log_form);
+template<typename T>
+statslib_inline T pinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form);
 
-double pinvgamma(double x);
-double pinvgamma(double x, bool log_form);
-double pinvgamma(double x, double shape, double rate);
-double pinvgamma(double x, double shape, double rate, bool log_form);
+statslib_inline double pinvgamma(const double x);
+statslib_inline double pinvgamma(const double x, const bool log_form);
+statslib_inline double pinvgamma(const double x, const double shape_par, const double rate_par);
 
-// vector input
-arma::vec pinvgamma_int(const arma::vec& x, const double* shape_inp, const double* rate_inp, bool log_form);
+// matrix/vector input
+arma::mat pinvgamma_int(const arma::mat& x, const double* shape_inp, const double* rate_par_inp, const bool log_form);
 
-arma::vec pinvgamma(const arma::vec& x);
-arma::vec pinvgamma(const arma::vec& x, bool log_form);
-arma::vec pinvgamma(const arma::vec& x, double shape, double rate);
-arma::vec pinvgamma(const arma::vec& x, double shape, double rate, bool log_form);
+arma::mat pinvgamma(const arma::mat& x);
+arma::mat pinvgamma(const arma::mat& x, const bool log_form);
+arma::mat pinvgamma(const arma::mat& x, const double shape_par, const double rate_par);
+arma::mat pinvgamma(const arma::mat& x, const double shape_par, const double rate_par, const bool log_form);
 
 #include "pinvgamma.ipp"
 

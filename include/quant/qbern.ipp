@@ -72,7 +72,7 @@ qbern(int p, double par, bool log_form)
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
 arma::vec

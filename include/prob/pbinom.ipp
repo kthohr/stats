@@ -23,101 +23,97 @@
  * 06/23/2017
  *
  * This version:
- * 06/25/2017
+ * 07/12/2017
  */
 
 //
 // single input
 
-inline
-double
-pbinom_int(int x, const int* n_trials_inp, const double* prob_par_inp, bool log_form)
+template<typename T>
+statslib_inline
+T
+pbinom_int(const int x, const int n_trials, const T prob_par, const int count)
 {
-    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
-    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
-    //
-    double ret = 0;
-
-    for (int i=0; i<=x; i++) {
-        ret += dbinom(i,n_trials,prob_par,false);
-    }
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( count == x ? dbinom(count,n_trials,prob_par,false) : dbinom(count,n_trials,prob_par,false) + pbinom_int(x,n_trials,prob_par,count+1) );
 }
 
-inline
-double
-pbinom(int x)
+template<typename T>
+statslib_inline
+T
+pbinom(const int x, const int n_trials, const T prob_par, const bool log_form)
 {
-    return pbinom_int(x,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(pbinom_int(x,n_trials,prob_par,0)) : pbinom_int(x,n_trials,prob_par,0) );
 }
 
-inline
+statslib_inline
 double
-pbinom(int x, bool log_form)
+pbinom(const int x)
 {
-    return pbinom_int(x,nullptr,nullptr,log_form);
+    return pbinom(x,1,0.5,false);
 }
 
-inline
+statslib_inline
 double
-pbinom(int x, int n_trials, double prob_par)
+pbinom(const int x, const bool log_form)
 {
-    return pbinom_int(x,&n_trials,&prob_par,false);
+    return pbinom(x,1,0.5,log_form);
 }
 
-inline
+statslib_inline
 double
-pbinom(int x, int n_trials, double prob_par, bool log_form)
+pbinom(const int x, const int n_trials, const double prob_par)
 {
-    return pbinom_int(x,&n_trials,&prob_par,log_form);
+    return pbinom(x,n_trials,prob_par,false);
 }
 
 //
-// vector input
+// matrix/vector input
 
 inline
-arma::vec
-pbinom_int(const arma::vec& x, const int* n_trials_inp, const double* prob_par_inp, bool log_form)
+arma::mat
+pbinom_int(const arma::mat& x, const int* n_trials_inp, const double* prob_par_inp, const bool log_form)
 {
-    const int n = x.n_elem;
-    arma::vec ret(n);
+    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
+    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    for (int i=0; i < n; i++) {
-        ret(i) = pbinom_int(x(i),n_trials_inp,prob_par_inp,log_form);
+    const int n = x.n_rows;
+    const int k = x.n_cols;
+
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = pbinom((int)x(i,j),n_trials,prob_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-pbinom(const arma::vec& x)
+arma::mat
+pbinom(const arma::mat& x)
 {
     return pbinom_int(x,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-pbinom(const arma::vec& x, bool log_form)
+arma::mat
+pbinom(const arma::mat& x, const bool log_form)
 {
     return pbinom_int(x,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-pbinom(const arma::vec& x, int n_trials, double prob_par)
+arma::mat
+pbinom(const arma::mat& x, const int n_trials, const double prob_par)
 {
     return pbinom_int(x,&n_trials,&prob_par,false);
 }
 
 inline
-arma::vec
-pbinom(const arma::vec& x, int n_trials, double prob_par, bool log_form)
+arma::mat
+pbinom(const arma::mat& x, const int n_trials, const double prob_par, const bool log_form)
 {
     return pbinom_int(x,&n_trials,&prob_par,log_form);
 }

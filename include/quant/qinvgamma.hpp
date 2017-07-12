@@ -37,7 +37,7 @@ double qinvgamma(double p, bool log_form);
 double qinvgamma(double p, double shape, double rate);
 double qinvgamma(double p, double shape, double rate, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qinvgamma_int(const arma::vec& p, const double* shape_inp, const double* rate_inp, bool log_form);
 
 arma::vec qinvgamma(const arma::vec& p);

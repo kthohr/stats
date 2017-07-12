@@ -23,27 +23,27 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/12/2017
  */
 
 #ifndef _statslib_pgamma_HPP
 #define _statslib_pgamma_HPP
 
 // single input
-double pgamma_int(double x, const double* shape_inp, const double* scale_inp, bool log_form);
+template<typename T>
+statslib_inline T pgamma(const T x, const T shape_par, const T scale_par, const bool log_form);
 
-double pgamma(double x);
-double pgamma(double x, bool log_form);
-double pgamma(double x, double shape, double scale);
-double pgamma(double x, double shape, double scale, bool log_form);
+statslib_inline double pgamma(const double x);
+statslib_inline double pgamma(const double x, const bool log_form);
+statslib_inline double pgamma(const double x, const double shape_par, const double scale_par);
 
-// vector input
-arma::vec pgamma_int(const arma::vec& x, const double* shape_inp, const double* scale_inp, bool log_form);
+// matrix/vector input
+arma::mat pgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, const bool log_form);
 
-arma::vec pgamma(const arma::vec& x);
-arma::vec pgamma(const arma::vec& x, bool log_form);
-arma::vec pgamma(const arma::vec& x, double shape, double scale);
-arma::vec pgamma(const arma::vec& x, double shape, double scale, bool log_form);
+arma::mat pgamma(const arma::mat& x);
+arma::mat pgamma(const arma::mat& x, const bool log_form);
+arma::mat pgamma(const arma::mat& x, const double shape_par, const double scale_par);
+arma::mat pgamma(const arma::mat& x, const double shape_par, const double scale_par, const bool log_form);
 
 #include "pgamma.ipp"
 

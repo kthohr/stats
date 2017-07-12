@@ -37,7 +37,7 @@ double qchisq(double p, bool log_form);
 double qchisq(double p, double dof);
 double qchisq(double p, double dof, bool log_form);
 
-// vector input
+// matrix/vector input
 arma::vec qchisq_int(const arma::vec& p, const double* dof_inp, bool log_form);
 
 arma::vec qchisq(const arma::vec& p);
