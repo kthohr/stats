@@ -65,6 +65,9 @@ int main()
     //
     // coverage tests
 
+    stats::dbinom(0,2,0.5);
+    stats::dbinom(2,2,0.5);
+
     stats::dbinom(x_1);
     stats::dbinom(x_1,true);
     stats::dbinom(x_1,n_trials,prob_par);

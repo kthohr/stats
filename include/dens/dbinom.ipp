@@ -34,7 +34,7 @@ statslib_inline
 T
 dbinom_int(const int x, const int n_trials, const T prob_par)
 {
-    return (x == 0 ? n_trials * stats_math::log(1.0 - prob_par) : x == n_trials ? x * stats_math::log(prob_par) : \
+    return (x == 0 ? n_trials * stats_math::log(1.0 - prob_par) : x == n_trials ? x * stats_math::log(prob_par) : 
             stats_math::log(gcem::binomial_coef(n_trials,x)) + x*stats_math::log(prob_par) + (n_trials - x)*stats_math::log(1.0 - prob_par) );
 }
 
