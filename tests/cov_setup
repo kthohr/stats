@@ -1,0 +1,14 @@
+
+git clone -b unstable --single-branch https://github.com/conradsnicta/armadillo-code ./arma_tmp
+
+export ARMA_INCLUDE_PATH="-I$PWD/arma_tmp/include"
+export CXXCOV=gcov
+
+cd dens
+./configure -c y
+make
+./run_tests
+./cov_check
+
+cd ..
+rm -rf ./arma_tmp

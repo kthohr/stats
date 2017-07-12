@@ -10,3 +10,7 @@ Makefile
 *.so
 *.test
 *.vscode
+*.dSYM
+*.gcda
+*.gcno
+*.gcov

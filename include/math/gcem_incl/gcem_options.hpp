@@ -35,6 +35,10 @@
     #define GCEM_LOG_2PI 1.83787706640934548356L
 #endif
 
+#ifndef GCEM_LOG_SQRT_2PI
+    #define GCEM_LOG_SQRT_2PI 0.918938533204672741780L
+#endif
+
 #ifndef GCEM_SQRT_PI
     #define GCEM_SQRT_PI 1.77245385090551602730L
 #endif
@@ -52,6 +56,10 @@
 
 #ifndef GCEM_ERF_MAX_ITER
     #define GCEM_ERF_MAX_ITER 35
+#endif
+
+#ifndef GCEM_ERF_INV_MAX_ITER
+    #define GCEM_ERF_INV_MAX_ITER 35
 #endif
 
 #ifndef GCEM_EXP_MAX_ITER_SMALL
@@ -78,8 +86,16 @@
     #define GCEM_INCML_BETA_MAX_ITER 205
 #endif
 
+#ifndef GCEM_INCML_BETA_INV_MAX_ITER
+    #define GCEM_INCML_BETA_INV_MAX_ITER 35
+#endif
+
 #ifndef GCEM_INCML_GAMMA_MAX_ITER
     #define GCEM_INCML_GAMMA_MAX_ITER 55
+#endif
+
+#ifndef GCEM_INCML_GAMMA_INV_MAX_ITER
+    #define GCEM_INCML_GAMMA_INV_MAX_ITER 35
 #endif
 
 #ifndef GCEM_SQRT_TOL

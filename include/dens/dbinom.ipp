@@ -85,7 +85,6 @@ dbinom_int(const arma::mat& x, const int* n_trials_inp, const double* prob_par_i
 
     for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
-            std::cout << "x(i,j) = " << (int)x(i,j) << std::endl;
             ret(i,j) = dbinom((int)x(i,j),n_trials,prob_par,log_form);
         }
     }

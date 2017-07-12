@@ -36,8 +36,7 @@ qbeta_int(double p, const double* par_1_inp, const double* par_2_inp, bool log_f
     const double par_1 = (par_1_inp) ? *par_1_inp : 1;
     const double par_2 = (par_2_inp) ? *par_2_inp : 1;
     //
-    double ret = 0.5;
-    gcem::incomplete_beta_inv(par_1,par_2,p,ret);
+    double ret = gcem::incomplete_beta_inv(par_1,par_2,p);
 
     if (log_form) {
         ret = std::log(ret);
