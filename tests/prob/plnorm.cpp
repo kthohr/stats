@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include plnorm_test.cpp -o plnorm.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include plnorm.cpp -o plnorm.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
