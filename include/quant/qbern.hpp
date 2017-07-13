@@ -31,19 +31,19 @@
 
 // single input
 template<typename T>
-statslib_constexpr T pbern(const T p, const T prob_par, const bool log_form);
+statslib_constexpr int qbern(const T p, const T prob_par, const bool log_form);
 
-statslib_constexpr double pbern(const double p);
-statslib_constexpr double pbern(const double p, const bool log_form);
-statslib_constexpr double pbern(const double p, const double prob_par);
+statslib_constexpr int qbern(const double p);
+statslib_constexpr int qbern(const double p, const bool log_form);
+statslib_constexpr int qbern(const double p, const double prob_par);
 
 // matrix/vector input
-arma::mat pbern_int(const arma::mat& p, const double* prob_par_inp, bool log_form);
+arma::mat qbern_int(const arma::mat& p, const double* prob_par_inp, bool log_form);
 
-arma::mat pbern(const arma::mat& p);
-arma::mat pbern(const arma::mat& p, const bool log_form);
-arma::mat pbern(const arma::mat& p, const double prob_par);
-arma::mat pbern(const arma::mat& p, const double prob_par, const bool log_form);
+arma::mat qbern(const arma::mat& p);
+arma::mat qbern(const arma::mat& p, const bool log_form);
+arma::mat qbern(const arma::mat& p, const double prob_par);
+arma::mat qbern(const arma::mat& p, const double prob_par, const bool log_form);
 
 #include "qbern.ipp"
 

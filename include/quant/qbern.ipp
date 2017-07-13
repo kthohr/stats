@@ -23,7 +23,7 @@
  * 06/23/2017
  *
  * This version:
- * 06/24/2017
+ * 07/12/2017
  */
 
 //
@@ -32,15 +32,15 @@
 template<typename T>
 statslib_constexpr
 int
-qbern_int(const double p, const T prob_par)
+qbern_int(const T p, const T prob_par)
 {
-    return ( p > (1.0 - prob_par) ? 1 : 0; );
+    return ( p > (1.0 - prob_par) ? 1 : 0 );
 }
 
 template<typename T>
 statslib_constexpr
 int
-qbern(const double p, const T prob_par, const bool log_form)
+qbern(const T p, const T prob_par, const bool log_form)
 {
     return ( log_form == true ? stats_math::log(qbern_int(p,prob_par)) : qbern_int(p,prob_par) );
 }
@@ -75,14 +75,14 @@ qbern_int(const arma::mat& p, const double* prob_par_inp, const bool log_form)
 {
     const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    const int n = x.n_rows;
-    const int k = x.n_cols;
+    const int n = p.n_rows;
+    const int k = p.n_cols;
 
     arma::mat ret(n,k);
 
     for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
-            ret(i,j) = pbern(p(i,j),prob_par,log_form);
+            ret(i,j) = qbern(p(i,j),prob_par,log_form);
         }
     }
     //

@@ -23,27 +23,27 @@
  * 06/17/2017
  *
  * This version:
- * 06/23/2017
+ * 07/13/2017
  */
 
 #ifndef _statslib_qbeta_HPP
 #define _statslib_qbeta_HPP
 
 // single input
-double qbeta_int(double p, const double* shape_inp, const double* par_2_inp, bool log_form);
+template<typename T>
+statslib_constexpr T qbeta(const T p, const T a_par, const T b_par, const bool log_form);
 
-double qbeta(double p);
-double qbeta(double p, bool log_form);
-double qbeta(double p, double shape, double par_2);
-double qbeta(double p, double shape, double par_2, bool log_form);
+statslib_constexpr double qbeta(const double p);
+statslib_constexpr double qbeta(const double p, const bool log_form);
+statslib_constexpr double qbeta(const double p, const double a_par, const double b_par);
 
 // matrix/vector input
-arma::vec qbeta_int(const arma::vec& p, const double* shape_inp, const double* par_2_inp, bool log_form);
+arma::mat qbeta_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form);
 
-arma::vec qbeta(const arma::vec& p);
-arma::vec qbeta(const arma::vec& p, bool log_form);
-arma::vec qbeta(const arma::vec& p, double shape, double par_2);
-arma::vec qbeta(const arma::vec& p, double shape, double par_2, bool log_form);
+arma::mat qbeta(const arma::mat& p);
+arma::mat qbeta(const arma::mat& p, const bool log_form);
+arma::mat qbeta(const arma::mat& p, const double a_par, const double b_par);
+arma::mat qbeta(const arma::mat& p, const double a_par, const double b_par, const bool log_form);
 
 #include "qbeta.ipp"
 

@@ -33,9 +33,9 @@
 template<typename T>
 statslib_constexpr T pbinom(const int x, const int n_trials_inp, const T prob_par_inp, const bool log_form);
 
-statslib_constexpr double pbinom(int x);
-statslib_constexpr double pbinom(int x, const bool log_form);
-statslib_constexpr double pbinom(int x, const int n_trials, const double prob_par);
+statslib_constexpr double pbinom(const int x);
+statslib_constexpr double pbinom(const int x, const bool log_form);
+statslib_constexpr double pbinom(const int x, const int n_trials, const double prob_par);
 
 // matrix/vector input
 arma::mat pbinom_int(const arma::mat& x, const int* n_trials, const double* prob_par_inp, bool log_form);

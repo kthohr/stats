@@ -17,110 +17,103 @@
   ################################################################################*/
 
 /*
- * cdf of the univariate Binomial distribution
+ * quantile function of the univariate Binomial distribution
  *
  * Keith O'Hara
  * 06/23/2017
  *
  * This version:
- * 06/25/2017
+ * 07/13/2017
  */
 
 //
 // single input
 
-inline
+template<typename T>
+statslib_constexpr
 int
-qbinom_int(double p, const int* n_trials_inp, const double* prob_par_inp, bool log_form)
+qbinom_int(const T p, const int n_trials, const T prob_par, const T value, const int count)
 {
-    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
-    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
-    //
-    int ret = 0;
-
-    double prob_val = pbinom(ret,n_trials,prob_par,false);
-
-    while (prob_val < p) {
-        ret++;
-        prob_val += pbinom(ret,n_trials,prob_par,false);
-    }
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( value < p ? qbinom_int(p,n_trials,prob_par, pbinom(count,n_trials,prob_par,false), count + 1) : count - 1 );
 }
 
-inline
+template<typename T>
+statslib_constexpr
 int
-qbinom(double p)
+qbinom(const T p, const int n_trials, const T prob_par, const bool log_form)
 {
-    return qbinom_int(p,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(qbinom_int(p,n_trials,prob_par,(T)0.0,0)) : qbinom_int(p,n_trials,prob_par,(T)0.0,0) );
 }
 
-inline
+statslib_constexpr
 int
-qbinom(double p, bool log_form)
+qbinom(const double p)
 {
-    return qbinom_int(p,nullptr,nullptr,log_form);
+    return qbinom(p,1,0.5,false);
 }
 
-inline
+statslib_constexpr
 int
-qbinom(double p, int n_trials, double prob_par)
+qbinom(const double p, const bool log_form)
 {
-    return qbinom_int(p,&n_trials,&prob_par,false);
+    return qbinom(p,1,0.5,log_form);
 }
 
-inline
+statslib_constexpr
 int
-qbinom(double p, int n_trials, double prob_par, bool log_form)
+qbinom(const double p, const int n_trials, const double prob_par)
 {
-    return qbinom_int(p,&n_trials,&prob_par,log_form);
+    return qbinom(p,n_trials,prob_par,false);
 }
 
 //
 // matrix/vector input
 
 inline
-arma::vec
-qbinom_int(const arma::vec& p, const int* n_trials_inp, const double* prob_par_inp, bool log_form)
+arma::mat
+qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_inp, const bool log_form)
 {
-    const int n = p.n_elem;
-    arma::vec ret(n);
+    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
+    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    for (int i=0; i < n; i++) {
-        ret(i) = qbinom_int(p(i),n_trials_inp,prob_par_inp,log_form);
+    const int n = p.n_rows;
+    const int k = p.n_cols;
+
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = qbinom(p(i,j),n_trials,prob_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-qbinom(const arma::vec& p)
+arma::mat
+qbinom(const arma::mat& p)
 {
     return qbinom_int(p,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-qbinom(const arma::vec& p, bool log_form)
+arma::mat
+qbinom(const arma::mat& p, const bool log_form)
 {
     return qbinom_int(p,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-qbinom(const arma::vec& p, int n_trials, double prob_par)
+arma::mat
+qbinom(const arma::mat& p, const int n_trials, const double prob_par)
 {
     return qbinom_int(p,&n_trials,&prob_par,false);
 }
 
 inline
-arma::vec
-qbinom(const arma::vec& p, int n_trials, double prob_par, bool log_form)
+arma::mat
+qbinom(const arma::mat& p, const int n_trials, const double prob_par, const bool log_form)
 {
     return qbinom_int(p,&n_trials,&prob_par,log_form);
 }

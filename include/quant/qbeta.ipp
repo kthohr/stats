@@ -23,97 +23,97 @@
  * 06/17/2017
  *
  * This version:
- * 06/23/2017
+ * 07/13/2017
  */
 
 //
 // single input
 
-inline
-double
-qbeta_int(double p, const double* par_1_inp, const double* par_2_inp, bool log_form)
+template<typename T>
+statslib_constexpr
+T
+qbeta_int(const T p, const T a_par, const T b_par)
 {
-    const double par_1 = (par_1_inp) ? *par_1_inp : 1;
-    const double par_2 = (par_2_inp) ? *par_2_inp : 1;
-    //
-    double ret = gcem::incomplete_beta_inv(par_1,par_2,p);
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( gcem::incomplete_beta_inv(a_par,b_par,p) );
 }
 
-inline
-double
-qbeta(double p)
+template<typename T>
+statslib_constexpr
+T
+qbeta(const T p, const T a_par, const T b_par, const bool log_form)
 {
-    return qbeta_int(p,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(qbeta_int(p,a_par,b_par)) : qbeta_int(p,a_par,b_par) );
 }
 
-inline
+statslib_constexpr
 double
-qbeta(double p, bool log_form)
+qbeta(const double p)
 {
-    return qbeta_int(p,nullptr,nullptr,log_form);
+    return qbeta(p,2.0,2.0,false);
 }
 
-inline
+statslib_constexpr
 double
-qbeta(double p, double par_1, double par_2)
+qbeta(const double p, const bool log_form)
 {
-    return qbeta_int(p,&par_1,&par_2,false);
+    return qbeta(p,2.0,2.0,log_form);
 }
 
-inline
+statslib_constexpr
 double
-qbeta(double p, double par_1, double par_2, bool log_form)
+qbeta(const double p, const double a_par, const double b_par)
 {
-    return qbeta_int(p,&par_1,&par_2,log_form);
+    return qbeta(p,a_par,b_par,false);
 }
 
 //
 // matrix/vector input
 
 inline
-arma::vec
-qbeta_int(const arma::vec& p, const double* par_1_inp, const double* par_2_inp, bool log_form)
+arma::mat
+qbeta_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form)
 {
-    const int n = p.n_elem;
-    arma::vec ret(n);
+    const double a_par = (a_par_inp) ? *a_par_inp : 2; // shape parameter 'alpha'
+    const double b_par = (b_par_inp) ? *b_par_inp : 2; // scale parameter 'beta'
 
-    for (int i=0; i < n; i++) {
-        ret(i) = qbeta_int(p(i),par_1_inp,par_2_inp,log_form);
+    const int n = p.n_rows;
+    const int k = p.n_cols;
+
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = qbeta(p(i,j),a_par,b_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-qbeta(const arma::vec& p)
+arma::mat
+qbeta(const arma::mat& p)
 {
     return qbeta_int(p,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-qbeta(const arma::vec& p, bool log_form)
+arma::mat
+qbeta(const arma::mat& p, const bool log_form)
 {
     return qbeta_int(p,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-qbeta(const arma::vec& p, double par_1, double par_2)
+arma::mat
+qbeta(const arma::mat& p, const double a_par, const double b_par)
 {
-    return qbeta_int(p,&par_1,&par_2,false);
+    return qbeta_int(p,&a_par,&b_par,false);
 }
 
 inline
-arma::vec
-qbeta(const arma::vec& p, double par_1, double par_2, bool log_form)
+arma::mat
+qbeta(const arma::mat& p, const double a_par, const double b_par, const bool log_form)
 {
-    return qbeta_int(p,&par_1,&par_2,log_form);
+    return qbeta_int(p,&a_par,&b_par,log_form);
 }

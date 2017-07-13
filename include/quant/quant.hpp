@@ -19,6 +19,7 @@
 #ifndef _statslib_quant_HPP
 #define _statslib_quant_HPP
 
+#include "qbern.hpp"
 #include "qbeta.hpp"
 #include "qbinom.hpp"
 #include "qchisq.hpp"
