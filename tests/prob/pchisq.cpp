@@ -29,12 +29,12 @@ int main()
     int round_digits_1 = 2;
     int round_digits_2 = 5;
 
-    double dof = 6;
+    double dof_par = 6;
 
     // x = 0.3
     double x_1 = 0.3;
     double val_1 = 0.0005028624;
-    double prob_1 = stats::pchisq(x_1,dof);
+    double prob_1 = stats::pchisq(x_1,dof_par);
 
     bool success_1 = (std::abs(prob_1 - val_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pchisq(" << x_1 << "): ";
@@ -43,7 +43,7 @@ int main()
     // x = 0.7
     double x_2 = 0.7;
     double val_2 = 0.005508933;
-    double prob_2 = stats::pchisq(x_2,dof);
+    double prob_2 = stats::pchisq(x_2,dof_par);
 
     bool success_2 = (std::abs(prob_2 - val_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pchisq(" << x_2 << "): ";
@@ -52,7 +52,7 @@ int main()
     // x = 1.01
     double x_3 = 1.01;
     double val_3 = 0.0147696;
-    double prob_3 = stats::pchisq(x_3,dof);
+    double prob_3 = stats::pchisq(x_3,dof_par);
 
     bool success_3 = (std::abs(prob_3 - val_3) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pchisq(" << x_3 << "): ";
@@ -61,7 +61,7 @@ int main()
     // x = 1.58
     double x_4 = 1.58;
     double val_4 = 0.04599555;
-    double prob_4 = stats::pchisq(x_4,dof);
+    double prob_4 = stats::pchisq(x_4,dof_par);
 
     bool success_4 = (std::abs(prob_4 - val_4) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pchisq(" << x_4 << "): ";
@@ -70,7 +70,7 @@ int main()
     // x = 2.5
     double x_5 = 2.5;
     double val_5 = 0.1315323;
-    double prob_5 = stats::pchisq(x_5,dof);
+    double prob_5 = stats::pchisq(x_5,dof_par);
 
     bool success_5 = (std::abs(prob_5 - val_5) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pchisq(" << x_5 << "): ";
@@ -79,7 +79,7 @@ int main()
     // x = 3.5
     double x_6 = 3.5;
     double val_6 = 0.2560303;
-    double prob_6 = stats::pchisq(x_6,dof);
+    double prob_6 = stats::pchisq(x_6,dof_par);
 
     bool success_6 = (std::abs(prob_6 - val_6) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pchisq(" << x_6 << "): ";
@@ -88,7 +88,7 @@ int main()
     // x = 5.0
     double x_7 = 5.0;
     double val_7 = 0.4561869;
-    double prob_7 = stats::pchisq(x_7,dof);
+    double prob_7 = stats::pchisq(x_7,dof_par);
 
     bool success_7 = (std::abs(prob_7 - val_7) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pchisq(" << x_7 << "): ";
@@ -97,7 +97,7 @@ int main()
     // x = 7.5
     double x_8 = 7.5;
     double val_8 = 0.7229316;
-    double prob_8 = stats::pchisq(x_8,dof);
+    double prob_8 = stats::pchisq(x_8,dof_par);
 
     bool success_8 = (std::abs(prob_8 - val_8) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pchisq(" << x_8 << "): ";
@@ -106,7 +106,7 @@ int main()
     // x = 10.0
     double x_9 = 10.0;
     double val_9 = 0.875348;
-    double prob_9 = stats::pchisq(x_9,dof);
+    double prob_9 = stats::pchisq(x_9,dof_par);
 
     bool success_9 = (std::abs(prob_9 - val_9) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "pchisq(" << x_9 << "): ";
@@ -115,6 +115,23 @@ int main()
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
         printf("\npchisq: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::pchisq(x_1);
+    stats::pchisq(x_1,true);
+    stats::pchisq(x_1,dof_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 1;
+    x_mat(1,0) = 1.5;
+
+    stats::pchisq(x_mat);
+    stats::pchisq(x_mat,true);
+    stats::pchisq(x_mat,dof_par);
+    stats::pchisq(x_mat,dof_par,true);
+
 
     return 0;
 }

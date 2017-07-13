@@ -54,5 +54,21 @@ int main()
         printf("\nplnorm: all tests passed.\n");
     }
 
+    //
+    // coverage tests
+
+    stats::plnorm(x_1);
+    stats::plnorm(x_1,true);
+    stats::plnorm(x_1,mu,sigma);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 1;
+    x_mat(1,0) = 1.5;
+
+    stats::plnorm(x_mat);
+    stats::plnorm(x_mat,true);
+    stats::plnorm(x_mat,mu,sigma);
+    stats::plnorm(x_mat,mu,sigma,true);
+
     return 0;
 }

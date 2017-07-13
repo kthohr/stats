@@ -117,5 +117,21 @@ int main()
         printf("\npnorm: all tests passed.\n");
     }
 
+    //
+    // coverage tests
+
+    stats::pnorm(x_1);
+    stats::pnorm(x_1,true);
+    stats::pnorm(x_1,mu,sigma);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 1;
+    x_mat(1,0) = 1.5;
+
+    stats::pnorm(x_mat);
+    stats::pnorm(x_mat,true);
+    stats::pnorm(x_mat,mu,sigma);
+    stats::pnorm(x_mat,mu,sigma,true);
+
     return 0;
 }

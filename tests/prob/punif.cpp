@@ -71,5 +71,21 @@ int main()
         printf("\npunif: all tests passed.\n");
     }
 
+    //
+    // coverage tests
+
+    stats::punif(x_1);
+    stats::punif(x_1,true);
+    stats::punif(x_1,a_par,b_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0.4;
+    x_mat(1,0) = 0.5;
+
+    stats::punif(x_mat);
+    stats::punif(x_mat,true);
+    stats::punif(x_mat,a_par,b_par);
+    stats::punif(x_mat,a_par,b_par,true);
+
     return 0;
 }
