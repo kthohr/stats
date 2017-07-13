@@ -31,11 +31,11 @@
 
 // single input
 template<typename T>
-statslib_inline T dlnorm(const T x, const T mu_par, const T sigma_par, const bool log_form);
+statslib_constexpr T dlnorm(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-statslib_inline double dlnorm(double x);
-statslib_inline double dlnorm(double x, const bool log_form);
-statslib_inline double dlnorm(double x, const double mu_par, const double sigma_par);
+statslib_constexpr double dlnorm(double x);
+statslib_constexpr double dlnorm(double x, const bool log_form);
+statslib_constexpr double dlnorm(double x, const double mu_par, const double sigma_par);
 
 // matrix/vector input
 arma::mat dlnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);

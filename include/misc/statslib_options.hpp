@@ -18,19 +18,19 @@
 
 // check if c++14 is available, then swap inline for constexpr in some functions
 #ifdef STATSLIB_GO_INLINE
-    #define statslib_inline inline
+    #define statslib_constexpr inline
 #endif
 
 #ifdef STATSLIB_GO_CONST
-    #define statslib_inline constexpr
+    #define statslib_constexpr constexpr
     #define stats_math gcem
 #endif
 
-#ifndef statslib_inline
+#ifndef statslib_constexpr
     #if __cplusplus >= 201300
-        #define statslib_inline constexpr
+        #define statslib_constexpr constexpr
     #else 
-        #define statslib_inline inline
+        #define statslib_constexpr inline
     #endif
 #endif
 

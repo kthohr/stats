@@ -23,27 +23,27 @@
  * 06/23/2017
  *
  * This version:
- * 06/24/2017
+ * 07/12/2017
  */
 
 #ifndef _statslib_qbern_HPP
 #define _statslib_qbern_HPP
 
 // single input
-double qbern_int(int p, const double* par_inp, bool log_form);
+template<typename T>
+statslib_constexpr T pbern(const T p, const T prob_par, const bool log_form);
 
-double qbern(int p);
-double qbern(int p, bool log_form);
-double qbern(int p, double par);
-double qbern(int p, double par, bool log_form);
+statslib_constexpr double pbern(const double p);
+statslib_constexpr double pbern(const double p, const bool log_form);
+statslib_constexpr double pbern(const double p, const double prob_par);
 
 // matrix/vector input
-arma::vec qbern_int(const arma::vec& p, const double* par_inp, bool log_form);
+arma::mat pbern_int(const arma::mat& p, const double* prob_par_inp, bool log_form);
 
-arma::vec qbern(const arma::vec& p);
-arma::vec qbern(const arma::vec& p, bool log_form);
-arma::vec qbern(const arma::vec& p, double par);
-arma::vec qbern(const arma::vec& p, double par, bool log_form);
+arma::mat pbern(const arma::mat& p);
+arma::mat pbern(const arma::mat& p, const bool log_form);
+arma::mat pbern(const arma::mat& p, const double prob_par);
+arma::mat pbern(const arma::mat& p, const double prob_par, const bool log_form);
 
 #include "qbern.ipp"
 

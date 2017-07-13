@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dbinom_int(const int x, const int n_trials, const T prob_par)
 {
@@ -40,28 +40,28 @@ dbinom_int(const int x, const int n_trials, const T prob_par)
 
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dbinom(const int x, const int n_trials, const T prob_par, const bool log_form)
 {
     return (x > n_trials ? 0.0 : n_trials == 1 ? dbern(x,prob_par,log_form) : ( log_form == true ? dbinom_int(x,n_trials,prob_par) : stats_math::exp(dbinom_int(x,n_trials,prob_par)) ));
 }
 
-statslib_inline
+statslib_constexpr
 double
 dbinom(const int x)
 {
     return dbinom(x,1,0.5,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dbinom(const int x, const bool log_form)
 {
     return dbinom(x,1,0.5,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dbinom(const int x, const int n_trials, const double prob_par)
 {

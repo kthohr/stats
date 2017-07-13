@@ -31,11 +31,11 @@
 
 // single input
 template<typename T>
-statslib_inline T pchisq(const T x, const T dof_par, const bool log_form);
+statslib_constexpr T pchisq(const T x, const T dof_par, const bool log_form);
 
-statslib_inline double pchisq(const double x);
-statslib_inline double pchisq(const double x, const bool log_form);
-statslib_inline double pchisq(const double x, const double dof_par);
+statslib_constexpr double pchisq(const double x);
+statslib_constexpr double pchisq(const double x, const bool log_form);
+statslib_constexpr double pchisq(const double x, const double dof_par);
 
 // matrix/vector input
 arma::mat pchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form);

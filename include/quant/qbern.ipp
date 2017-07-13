@@ -29,89 +29,90 @@
 //
 // single input
 
-inline
-double
-qbern_int(int p, const double* par_inp, bool log_form)
+template<typename T>
+statslib_constexpr
+int
+qbern_int(const double p, const T prob_par)
 {
-    const double par = (par_inp) ? *par_inp : 0.5;
-    double ret = (p > 1.0 - par) ? 1 : 0;
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( p > (1.0 - prob_par) ? 1 : 0; );
 }
 
-inline
-double
-qbern(int p)
+template<typename T>
+statslib_constexpr
+int
+qbern(const double p, const T prob_par, const bool log_form)
 {
-    return qbern_int(p,nullptr,false);
+    return ( log_form == true ? stats_math::log(qbern_int(p,prob_par)) : qbern_int(p,prob_par) );
 }
 
-inline
-double
-qbern(int p, bool log_form)
+statslib_constexpr
+int
+qbern(const double p)
 {
-    return qbern_int(p,nullptr,log_form);
+    return qbern(p,0.5,false);
 }
 
-inline
-double
-qbern(int p, double par)
+statslib_constexpr
+int
+qbern(const double p, const bool log_form)
 {
-    return qbern_int(p,&par,false);
+    return qbern(p,0.5,log_form);
 }
 
-inline
-double
-qbern(int p, double par, bool log_form)
+statslib_constexpr
+int
+qbern(const double p, const double prob_par)
 {
-    return qbern_int(p,&par,log_form);
+    return qbern(p,prob_par,false);
 }
 
 //
 // matrix/vector input
 
 inline
-arma::vec
-qbern_int(const arma::vec& p, const double* par_inp, bool log_form)
+arma::mat
+qbern_int(const arma::mat& p, const double* prob_par_inp, const bool log_form)
 {
-    const int n = p.n_elem;
-    arma::vec ret(n);
+    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    for (int i=0; i < n; i++) {
-        ret(i) = qbern_int(p(i),par_inp,log_form);
+    const int n = x.n_rows;
+    const int k = x.n_cols;
+
+    arma::mat ret(n,k);
+
+    for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = pbern(p(i,j),prob_par,log_form);
+        }
     }
     //
     return ret;
 }
 
 inline
-arma::vec
-qbern(const arma::vec& p)
+arma::mat
+qbern(const arma::mat& p)
 {
     return qbern_int(p,nullptr,false);
 }
 
 inline
-arma::vec
-qbern(const arma::vec& p, bool log_form)
+arma::mat
+qbern(const arma::mat& p, const bool log_form)
 {
     return qbern_int(p,nullptr,log_form);
 }
 
 inline
-arma::vec
-qbern(const arma::vec& p, double par)
+arma::mat
+qbern(const arma::mat& p, const double prob_par)
 {
-    return qbern_int(p,&par,false);
+    return qbern_int(p,&prob_par,false);
 }
 
 inline
-arma::vec
-qbern(const arma::vec& p, double par, bool log_form)
+arma::mat
+qbern(const arma::mat& p, const double prob_par, const bool log_form)
 {
-    return qbern_int(p,&par,log_form);
+    return qbern_int(p,&prob_par,log_form);
 }

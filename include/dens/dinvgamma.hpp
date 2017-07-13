@@ -31,11 +31,11 @@
 
 // single input
 template<typename T>
-statslib_inline T dinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form);
+statslib_constexpr T dinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form);
 
-statslib_inline double dinvgamma(const double x);
-statslib_inline double dinvgamma(const double x, const bool log_form);
-statslib_inline double dinvgamma(const double x, const double shape_par, const double rate_par);
+statslib_constexpr double dinvgamma(const double x);
+statslib_constexpr double dinvgamma(const double x, const bool log_form);
+statslib_constexpr double dinvgamma(const double x, const double shape_par, const double rate_par);
 
 // matrix/vector input
 arma::mat dinvgamma_int(const arma::mat& x, const double* shape_inp, const double* rate_par_inp, const bool log_form);

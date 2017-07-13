@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dnorm_int(const T z, const T sigma_par)
 {
@@ -38,28 +38,28 @@ dnorm_int(const T z, const T sigma_par)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dnorm(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? dnorm_int((x-mu_par)/sigma_par,sigma_par) : stats_math::exp(dnorm_int((x-mu_par)/sigma_par,sigma_par)) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 dnorm(const double x)
 {
     return dnorm(x,0.0,1.0,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dnorm(const double x, const bool log_form)
 {
     return dnorm(x,0.0,1.0,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dnorm(const double x, const double mu_par, const double sigma_par)
 {

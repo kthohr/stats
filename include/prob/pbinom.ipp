@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 pbinom_int(const int x, const int n_trials, const T prob_par, const int count)
 {
@@ -38,28 +38,28 @@ pbinom_int(const int x, const int n_trials, const T prob_par, const int count)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 pbinom(const int x, const int n_trials, const T prob_par, const bool log_form)
 {
     return ( log_form == true ? stats_math::log(pbinom_int(x,n_trials,prob_par,0)) : pbinom_int(x,n_trials,prob_par,0) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbinom(const int x)
 {
     return pbinom(x,1,0.5,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbinom(const int x, const bool log_form)
 {
     return pbinom(x,1,0.5,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbinom(const int x, const int n_trials, const double prob_par)
 {

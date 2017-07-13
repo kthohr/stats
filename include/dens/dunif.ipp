@@ -30,28 +30,28 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dunif(const T x, const T a_par, const T b_par, const bool log_form)
 {
     return ( log_form == true ? - stats_math::log(b_par-a_par) : 1.0 / (b_par-a_par) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 dunif(const double x)
 {
     return dunif(x,0.0,1.0,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dunif(const double x, const bool log_form)
 {
     return dunif(x,0.0,1.0,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dunif(const double x, const double a_par, const double b_par)
 {

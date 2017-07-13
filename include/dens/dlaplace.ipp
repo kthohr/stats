@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dlaplace_int(const T x, const T mu_par, const T sigma_par)
 {
@@ -38,28 +38,28 @@ dlaplace_int(const T x, const T mu_par, const T sigma_par)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dlaplace(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? dlaplace_int(x,mu_par,sigma_par) : stats_math::exp(dlaplace_int(x,mu_par,sigma_par)) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 dlaplace(const double x)
 {
     return dlaplace(x,0.0,1.0,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dlaplace(const double x, const bool log_form)
 {
     return dlaplace(x,0.0,1.0,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dlaplace(const double x, const double mu_par, const double sigma_par)
 {

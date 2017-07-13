@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 pinvgamma_int(const T x, const T shape_par, const T rate_par)
 {
@@ -38,28 +38,28 @@ pinvgamma_int(const T x, const T shape_par, const T rate_par)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 pinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form)
 {
     return ( log_form == true ? stats_math::log(pinvgamma_int(x,shape_par,rate_par)) : pinvgamma_int(x,shape_par,rate_par) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 pinvgamma(const double x)
 {
     return pinvgamma(x,1.0,1.0,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 pinvgamma(const double x, const bool log_form)
 {
     return pinvgamma(x,1.0,1.0,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 pinvgamma(const double x, const double shape_par, const double rate_par)
 {

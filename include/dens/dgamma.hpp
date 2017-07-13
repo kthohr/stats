@@ -31,11 +31,11 @@
 
 // single input
 template<typename T>
-statslib_inline T dgamma(const T x, const T shape_par, const T scale_par, const bool log_form);
+statslib_constexpr T dgamma(const T x, const T shape_par, const T scale_par, const bool log_form);
 
-statslib_inline double dgamma(const double x);
-statslib_inline double dgamma(const double x, const bool log_form);
-statslib_inline double dgamma(const double x, const double shape_par, const double scale_par);
+statslib_constexpr double dgamma(const double x);
+statslib_constexpr double dgamma(const double x, const bool log_form);
+statslib_constexpr double dgamma(const double x, const double shape_par, const double scale_par);
 
 // matrix/vector input
 arma::mat dgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, const bool log_form);

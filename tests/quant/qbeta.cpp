@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include qbeta_test.cpp -o qbeta.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include qbeta.cpp -o qbeta.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>

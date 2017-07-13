@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dchisq_int(const T x, const T dof_par)
 {
@@ -38,28 +38,28 @@ dchisq_int(const T x, const T dof_par)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dchisq(const T x, const T dof_par, const bool log_form)
 {
     return ( log_form == true ? dchisq_int(x,dof_par) : stats_math::exp(dchisq_int(x,dof_par)) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 dchisq(const double x)
 {
     return dchisq(x,1.0,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dchisq(const double x, const bool log_form)
 {
     return dchisq(x,1.0,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dchisq(const double x, const double dof_par)
 {

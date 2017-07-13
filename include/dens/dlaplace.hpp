@@ -31,11 +31,11 @@
 
 // single input
 template<typename T>
-statslib_inline T dlaplace(const T x, const T mu_par, const T sigma_par, const bool log_form);
+statslib_constexpr T dlaplace(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-statslib_inline double dlaplace(double x);
-statslib_inline double dlaplace(double x, const bool log_form);
-statslib_inline double dlaplace(double x, const double mu_par, const double sigma_par);
+statslib_constexpr double dlaplace(double x);
+statslib_constexpr double dlaplace(double x, const bool log_form);
+statslib_constexpr double dlaplace(double x, const double mu_par, const double sigma_par);
 
 // matrix/vector input
 arma::mat dlaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);

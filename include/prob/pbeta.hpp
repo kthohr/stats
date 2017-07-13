@@ -31,11 +31,11 @@
 
 // single input
 template<typename T>
-statslib_inline T pbeta(const T x, const T a_par, const T b_par, const bool log_form);
+statslib_constexpr T pbeta(const T x, const T a_par, const T b_par, const bool log_form);
 
-statslib_inline double pbeta(const double x);
-statslib_inline double pbeta(const double x, const bool log_form);
-statslib_inline double pbeta(const double x, const double a_par, const double b_par);
+statslib_constexpr double pbeta(const double x);
+statslib_constexpr double pbeta(const double x, const bool log_form);
+statslib_constexpr double pbeta(const double x, const double a_par, const double b_par);
 
 // matrix/vector input
 arma::mat pbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form);

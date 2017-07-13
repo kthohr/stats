@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 plogis_int(const T z)
 {
@@ -38,28 +38,28 @@ plogis_int(const T z)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 plogis(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? stats_math::log(plogis_int((x-mu_par)/sigma_par)) : plogis_int((x-mu_par)/sigma_par) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 plogis(const double x)
 {
     return plogis(x,0.0,1.0,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 plogis(const double x, const bool log_form)
 {
     return plogis(x,0.0,1.0,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 plogis(const double x, const double mu_par, const double sigma_par)
 {

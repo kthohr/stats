@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 pbeta_int(const T x, const T a_par, const T b_par)
 {
@@ -38,28 +38,28 @@ pbeta_int(const T x, const T a_par, const T b_par)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 pbeta(const T x, const T a_par, const T b_par, const bool log_form)
 {
     return ( log_form == true ? stats_math::log(pbeta_int(x,a_par,b_par)) : pbeta_int(x,a_par,b_par) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbeta(const double x)
 {
     return pbeta(x,2.0,2.0,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbeta(const double x, const bool log_form)
 {
     return pbeta(x,2.0,2.0,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbeta(const double x, const double a_par, const double b_par)
 {

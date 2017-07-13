@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 pbern_int(const int x, const T prob_par)
 {
@@ -38,28 +38,28 @@ pbern_int(const int x, const T prob_par)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 pbern(const int x, const T prob_par, const bool log_form)
 {
     return ( log_form == true ? stats_math::log(pbern_int(x,prob_par)) : pbern_int(x,prob_par) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbern(const int x)
 {
     return pbern(x,0.5,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbern(const int x, const bool log_form)
 {
     return pbern(x,0.5,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 pbern(const int x, const double prob_par)
 {

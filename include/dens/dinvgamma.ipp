@@ -30,7 +30,7 @@
 // single input
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dinvgamma_int(const T x, const T shape_par, const T rate_par)
 {
@@ -38,28 +38,28 @@ dinvgamma_int(const T x, const T shape_par, const T rate_par)
 }
 
 template<typename T>
-statslib_inline
+statslib_constexpr
 T
 dinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form)
 {
     return ( log_form == true ? dinvgamma_int(x,shape_par,rate_par) : stats_math::exp(dinvgamma_int(x,shape_par,rate_par)) );
 }
 
-statslib_inline
+statslib_constexpr
 double
 dinvgamma(const double x)
 {
     return dinvgamma(x,1.0,1.0,false);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dinvgamma(const double x, const bool log_form)
 {
     return dinvgamma(x,1.0,1.0,log_form);
 }
 
-statslib_inline
+statslib_constexpr
 double
 dinvgamma(const double x, const double shape_par, const double rate_par)
 {

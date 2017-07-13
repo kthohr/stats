@@ -31,11 +31,11 @@
 
 // single input
 template<typename T>
-statslib_inline T dbern(const int x, const T prob_par, const bool log_form);
+statslib_constexpr T dbern(const int x, const T prob_par, const bool log_form);
 
-statslib_inline double dbern(const int x);
-statslib_inline double dbern(const int x, const bool log_form);
-statslib_inline double dbern(const int x, const double prob_par);
+statslib_constexpr double dbern(const int x);
+statslib_constexpr double dbern(const int x, const bool log_form);
+statslib_constexpr double dbern(const int x, const double prob_par);
 
 // matrix/vector input
 arma::mat dbern_int(const arma::mat& x, const double* p_inp, bool log_form);
