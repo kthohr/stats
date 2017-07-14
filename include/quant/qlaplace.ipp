@@ -23,67 +23,60 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/14/2017
  */
 
 //
 // single input
 
-inline
-double
-qlaplace_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_constexpr
+T
+qlaplace_int(const T p, const T mu_par, const T sigma_par)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-    double ret = mu - sigma*gcem::sign_dbl(p - 0.5)*std::log(1.0 - 2.0*std::abs(p - 0.5));
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( mu_par - sigma_par*gcem::sign_dbl(p - 0.5)*stats_math::log(1.0 - 2.0*stats_math::abs(p - 0.5)) );
 }
 
-inline
-double
-qlaplace(double p)
+template<typename T>
+statslib_constexpr
+T
+qlaplace(const T p, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return qlaplace_int(p,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(qlaplace_int(p,mu_par,sigma_par)) : qlaplace_int(p,mu_par,sigma_par) );
 }
 
-inline
+statslib_constexpr
 double
-qlaplace(double p, bool log_form)
+qlaplace(const double p)
 {
-    return qlaplace_int(p,nullptr,nullptr,log_form);
+    return qlaplace(p,0.0,1.0,false);
 }
 
-inline
+statslib_constexpr
 double
-qlaplace(double p, double mu, double sigma)
+qlaplace(const double p, const bool log_form)
 {
-    return qlaplace_int(p,&mu,&sigma,false);
+    return qlaplace(p,0.0,1.0,log_form);
 }
 
-inline
+statslib_constexpr
 double
-qlaplace(double p, double mu, double sigma, bool log_form)
+qlaplace(const double p, const double mu_par, const double sigma_par)
 {
-    return qlaplace_int(p,&mu,&sigma,log_form);
+    return qlaplace(p,mu_par,sigma_par,false);
 }
 
 //
 // matrix/vector input
 
 inline
-arma::vec
-qlaplace_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+qlaplace_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, bool log_form)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
     //
-    arma::vec ret = mu - sigma*arma::sign(p - 0.5)%arma::log(1.0 - 2.0*arma::abs(p - 0.5));
+    arma::mat ret = mu_par - sigma_par*arma::sign(p - 0.5)%arma::log(1.0 - 2.0*arma::abs(p - 0.5));
 
     if (log_form) {
         ret = arma::log(ret);
@@ -93,29 +86,30 @@ qlaplace_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, 
 }
 
 inline
-arma::vec
-qlaplace(const arma::vec& p)
+arma::mat
+qlaplace(const arma::mat& p)
 {
     return qlaplace_int(p,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-qlaplace(const arma::vec& p, bool log_form)
+arma::mat
+qlaplace(const arma::mat& p, const bool log_form)
 {
     return qlaplace_int(p,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-qlaplace(const arma::vec& p, double mu, double sigma)
+arma::mat
+qlaplace(const arma::mat& p, const double mu_par, const double sigma_par)
 {
-    return qlaplace_int(p,&mu,&sigma,false);
+    return qlaplace_int(p,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-qlaplace(const arma::vec& p, double mu, double sigma, bool log_form)
+arma::mat
+qlaplace(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return qlaplace_int(p,&mu,&sigma,log_form);
+    return qlaplace_int(p,&mu_par,&sigma_par,log_form);
 }
+

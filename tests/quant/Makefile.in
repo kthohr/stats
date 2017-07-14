@@ -1,0 +1,38 @@
+
+# core compiling options
+CC  = @CC@
+CXX = @CXX@
+FC  = @FC@
+
+CXX_STD = -std=c++11
+OPT_FLAGS = @STATS_OPT_FLAGS@
+
+ARMA_INCLUDE_PATH = @ARMA_INCLUDE_PATH@
+
+# install location
+INSTALL_PATH=@STATS_INSTALL_PATH@
+
+# source directories
+SDIR = ./..
+STATS_DIR = $(SDIR)
+STATS_HEADER_DIR = @STATS_INCLUDE_PATH@
+STATS_TEST_DIR = .
+
+# general flags
+CXXFLAGS = $(CXX_STD) -Wall $(OPT_FLAGS) $(ARMA_INCLUDE_PATH) -I$(STATS_HEADER_DIR)
+LIBS= @STATS_BLAS_LAPACK@
+
+# Test Files
+SOURCES_STATS_DENS= $(STATS_TEST_DIR)/qbern.cpp $(STATS_TEST_DIR)/qbeta.cpp $(STATS_TEST_DIR)/qbinom.cpp $(STATS_TEST_DIR)/qcauchy.cpp $(STATS_TEST_DIR)/qchisq.cpp $(STATS_TEST_DIR)/qgamma.cpp $(STATS_TEST_DIR)/qinvgamma.cpp $(STATS_TEST_DIR)/qlaplace.cpp $(STATS_TEST_DIR)/qlnorm.cpp $(STATS_TEST_DIR)/qlogis.cpp $(STATS_TEST_DIR)/qnorm.cpp $(STATS_TEST_DIR)/qunif.cpp
+OBJECTS_STATS_DENS= $(SOURCES_STATS_DENS:.cpp=.test)
+
+all: $(OBJECTS_STATS_DENS)
+
+# core TraME files
+$(STATS_TEST_DIR)/%.test: $(STATS_TEST_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBS)
+
+# cleanup and install
+.PHONY: clean
+clean:
+	@rm -rf ./*.gcov ./*.gcno ./*.gcda ./*.dSYM ./*.test

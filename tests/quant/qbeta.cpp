@@ -33,8 +33,8 @@ int main()
 
     // x = +0.01
     double x_1 = 0.01;
-    constexpr double val_1 = 3.97e-06;
-    constexpr double q_1 = stats::qbeta(val_1,alpha_par,beta_par);
+    double val_1 = 3.97e-06;
+    double q_1 = stats::qbeta(val_1,alpha_par,beta_par);
 
     bool success_1 = (std::abs(q_1 - x_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_1 << "): ";
@@ -42,8 +42,8 @@ int main()
 
     // x = +0.05
     double x_2 = 0.05;
-    constexpr double val_2 = 0.00048125;
-    constexpr double q_2 = stats::qbeta(val_2,alpha_par,beta_par);
+    double val_2 = 0.00048125;
+    double q_2 = stats::qbeta(val_2,alpha_par,beta_par);
 
     bool success_2 = (std::abs(q_2 - x_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_2 << "): ";
@@ -51,8 +51,8 @@ int main()
 
     // x = +0.15
     double x_3 = 0.15;
-    constexpr double val_3 = 0.01198125;
-    constexpr double q_3 = stats::qbeta(val_3,alpha_par,beta_par);
+    double val_3 = 0.01198125;
+    double q_3 = stats::qbeta(val_3,alpha_par,beta_par);
 
     bool success_3 = (std::abs(q_3 - x_3) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_3 << "): ";
@@ -60,8 +60,8 @@ int main()
 
     // x = +0.35
     double x_4 = 0.35;
-    constexpr double val_4 = 0.1264812;
-    constexpr double q_4 = stats::qbeta(val_4,alpha_par,beta_par);
+    double val_4 = 0.1264812;
+    double q_4 = stats::qbeta(val_4,alpha_par,beta_par);
 
     bool success_4 = (std::abs(q_4 - x_4) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_4 << "): ";
@@ -69,8 +69,8 @@ int main()
 
     // x = +0.50
     double x_5 = 0.50;
-    constexpr double val_5 = 0.3125;
-    constexpr double q_5 = stats::qbeta(val_5,alpha_par,beta_par);
+    double val_5 = 0.3125;
+    double q_5 = stats::qbeta(val_5,alpha_par,beta_par);
 
     bool success_5 = (std::abs(q_5 - x_5) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_5 << "): ";
@@ -78,8 +78,8 @@ int main()
 
     // x = +0.65
     double x_6 = 0.65;
-    constexpr double val_6 = 0.5629813;
-    constexpr double q_6 = stats::qbeta(val_6,alpha_par,beta_par);
+    double val_6 = 0.5629813;
+    double q_6 = stats::qbeta(val_6,alpha_par,beta_par);
 
     bool success_6 = (std::abs(q_6 - x_6) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_6 << "): ";
@@ -87,8 +87,8 @@ int main()
 
     // x = +0.85
     double x_7 = 0.85;
-    constexpr double val_7 = 0.8904812;
-    constexpr double q_7 = stats::qbeta(val_7,alpha_par,beta_par);
+    double val_7 = 0.8904812;
+    double q_7 = stats::qbeta(val_7,alpha_par,beta_par);
 
     bool success_7 = (std::abs(q_7 - x_7) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_7 << "): ";
@@ -96,8 +96,8 @@ int main()
 
     // x = +0.95
     double x_8 = 0.95;
-    constexpr double val_8 = 0.9859813;
-    constexpr double q_8 = stats::qbeta(val_8,alpha_par,beta_par);
+    double val_8 = 0.9859813;
+    double q_8 = stats::qbeta(val_8,alpha_par,beta_par);
 
     bool success_8 = (std::abs(q_8 - x_8) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_8 << "): ";
@@ -105,8 +105,8 @@ int main()
 
     // x = +0.99
     double x_9 = 0.99;
-    constexpr double val_9 = 0.999408;
-    constexpr double q_9 = stats::qbeta(val_9,alpha_par,beta_par);
+    double val_9 = 0.999408;
+    double q_9 = stats::qbeta(val_9,alpha_par,beta_par);
 
     bool success_9 = (std::abs(q_9 - x_9) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qbeta(" << val_9 << "): ";
@@ -115,6 +115,22 @@ int main()
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
         printf("\nqbeta: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::pbeta(val_6);
+    stats::pbeta(val_6,true);
+    stats::pbeta(val_6,alpha_par,beta_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0.7;
+    x_mat(1,0) = 0.8;
+
+    stats::pbeta(x_mat);
+    stats::pbeta(x_mat,true);
+    stats::pbeta(x_mat,alpha_par,beta_par);
+    stats::pbeta(x_mat,alpha_par,beta_par,true);
 
     return 0;
 }

@@ -16,5 +16,11 @@ make
 ./run_tests
 ./cov_check
 
+cd ../quant
+./configure -c y
+make
+./run_tests
+./cov_check
+
 cd ..
 rm -rf ./arma_tmp

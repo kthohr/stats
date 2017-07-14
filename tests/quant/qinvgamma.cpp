@@ -16,11 +16,10 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include qinvgamma_test.cpp -o qinvgamma.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include qinvgamma.cpp -o qinvgamma.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
@@ -29,13 +28,13 @@ int main()
     int round_digits_1 = 5;
     int round_digits_2 = 2;
 
-    double shape = 3;
-    double rate = 2;
+    double shape_par = 3;
+    double rate_par = 2;
 
     // x = 0.3
     double x_1 = 0.3;
     double val_1 = 0.03803761;
-    double q_1 = stats::qinvgamma(val_1,shape,rate);
+    double q_1 = stats::qinvgamma(val_1,shape_par,rate_par);
 
     bool success_1 = (std::abs(q_1 - x_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_1 << "): ";
@@ -44,7 +43,7 @@ int main()
     // x = 0.7
     double x_2 = 0.7;
     double val_2 = 0.4559447;
-    double q_2 = stats::qinvgamma(val_2,shape,rate);
+    double q_2 = stats::qinvgamma(val_2,shape_par,rate_par);
 
     bool success_2 = (std::abs(q_2 - x_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_2 << "): ";
@@ -53,7 +52,7 @@ int main()
     // x = 1.01
     double x_3 = 1.01;
     double val_3 = 0.6820361;
-    double q_3 = stats::qinvgamma(val_3,shape,rate);
+    double q_3 = stats::qinvgamma(val_3,shape_par,rate_par);
 
     bool success_3 = (std::abs(q_3 - x_3) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_3 << "): ";
@@ -62,7 +61,7 @@ int main()
     // x = 1.58
     double x_4 = 1.58;
     double val_4 = 0.8649093;
-    double q_4 = stats::qinvgamma(val_4,shape,rate);
+    double q_4 = stats::qinvgamma(val_4,shape_par,rate_par);
 
     bool success_4 = (std::abs(q_4 - x_4) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_4 << "): ";
@@ -71,7 +70,7 @@ int main()
     // x = 2.5
     double x_5 = 2.5;
     double val_5 = 0.9525774;
-    double q_5 = stats::qinvgamma(val_5,shape,rate);
+    double q_5 = stats::qinvgamma(val_5,shape_par,rate_par);
 
     bool success_5 = (std::abs(q_5 - x_5) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_5 << "): ";
@@ -80,7 +79,7 @@ int main()
     // x = 3.5
     double x_6 = 3.5;
     double val_6 = 0.9796131;
-    double q_6 = stats::qinvgamma(val_6,shape,rate);
+    double q_6 = stats::qinvgamma(val_6,shape_par,rate_par);
 
     bool success_6 = (std::abs(q_6 - x_6) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_6 << "): ";
@@ -89,7 +88,7 @@ int main()
     // x = 5.0
     double x_7 = 5.0;
     double val_7 = 0.9920737;
-    double q_7 = stats::qinvgamma(val_7,shape,rate);
+    double q_7 = stats::qinvgamma(val_7,shape_par,rate_par);
 
     bool success_7 = (std::abs(q_7 - x_7) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_7 << "): ";
@@ -98,7 +97,7 @@ int main()
     // x = 7.5
     double x_8 = 7.5;
     double val_8 = 0.9974089;
-    double q_8 = stats::qinvgamma(val_8,shape,rate);
+    double q_8 = stats::qinvgamma(val_8,shape_par,rate_par);
 
     bool success_8 = (std::abs(q_8 - x_8) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_8 << "): ";
@@ -107,7 +106,7 @@ int main()
     // x = 10.0
     double x_9 = 10.0;
     double val_9 = 0.9988515;
-    double q_9 = stats::qinvgamma(val_9,shape,rate);
+    double q_9 = stats::qinvgamma(val_9,shape_par,rate_par);
 
     bool success_9 = (std::abs(q_9 - x_9) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qinvgamma(" << val_9 << "): ";
@@ -116,6 +115,22 @@ int main()
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
         printf("\nqinvgamma: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::qinvgamma(val_4);
+    stats::qinvgamma(val_4,true);
+    stats::qinvgamma(val_4,shape_par,rate_par);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = val_3;
+    x_mat(1,0) = val_4;
+
+    stats::qinvgamma(x_mat);
+    stats::qinvgamma(x_mat,true);
+    stats::qinvgamma(x_mat,shape_par,rate_par);
+    stats::qinvgamma(x_mat,shape_par,rate_par,true);
 
     return 0;
 }

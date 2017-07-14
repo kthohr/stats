@@ -23,27 +23,27 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/14/2017
  */
 
 #ifndef _statslib_qlaplace_HPP
 #define _statslib_qlaplace_HPP
 
 // single input
-double qlaplace_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form);
+template<typename T>
+statslib_constexpr T qlaplace(const T p, const T mu_par, const T sigma_par, const bool log_form);
 
-double qlaplace(double p);
-double qlaplace(double p, bool log_form);
-double qlaplace(double p, double mu, double sigma);
-double qlaplace(double p, double mu, double sigma, bool log_form);
+statslib_constexpr double qlaplace(const double p);
+statslib_constexpr double qlaplace(const double p, const bool log_form);
+statslib_constexpr double qlaplace(const double p, const double mu_par, const double sigma_par);
 
 // matrix/vector input
-arma::vec qlaplace_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bool log_form);
+arma::mat qlaplace_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::vec qlaplace(const arma::vec& p);
-arma::vec qlaplace(const arma::vec& p, bool log_form);
-arma::vec qlaplace(const arma::vec& p, double mu, double sigma);
-arma::vec qlaplace(const arma::vec& p, double mu, double sigma, bool log_form);
+arma::mat qlaplace(const arma::mat& p);
+arma::mat qlaplace(const arma::mat& p, const bool log_form);
+arma::mat qlaplace(const arma::mat& p, const double mu_par, const double sigma_par);
+arma::mat qlaplace(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form);
 
 #include "qlaplace.ipp"
 

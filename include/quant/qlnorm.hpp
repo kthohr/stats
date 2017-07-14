@@ -23,27 +23,27 @@
  * 06/25/2017
  *
  * This version:
- * 06/25/2017
+ * 07/14/2017
  */
 
 #ifndef _statslib_qlnorm_HPP
 #define _statslib_qlnorm_HPP
 
 // single input
-double qlnorm_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form);
+template<typename T>
+statslib_constexpr T qlnorm(const T p, const T mu_par, const T sigma_par, const bool log_form);
 
-double qlnorm(double p);
-double qlnorm(double p, bool log_form);
-double qlnorm(double p, double mu, double sigma);
-double qlnorm(double p, double mu, double sigma, bool log_form);
+statslib_constexpr double qlnorm(const double p);
+statslib_constexpr double qlnorm(const double p, const bool log_form);
+statslib_constexpr double qlnorm(const double p, const double mu_par, const double sigma_par);
 
 // matrix/vector input
-arma::vec qlnorm_int(const arma::vec& x, const double* mu_inp, const double* sigma_inp, bool log_form);
+arma::mat qlnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::vec qlnorm(const arma::vec& x);
-arma::vec qlnorm(const arma::vec& x, bool log_form);
-arma::vec qlnorm(const arma::vec& x, double mu, double sigma);
-arma::vec qlnorm(const arma::vec& x, double mu, double sigma, bool log_form);
+arma::mat qlnorm(const arma::mat& p);
+arma::mat qlnorm(const arma::mat& p, const bool log_form);
+arma::mat qlnorm(const arma::mat& p, const double mu_par, const double sigma_par);
+arma::mat qlnorm(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form);
 
 #include "qlnorm.ipp"
 

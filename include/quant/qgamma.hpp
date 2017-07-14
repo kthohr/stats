@@ -23,27 +23,27 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/14/2017
  */
 
 #ifndef _statslib_qgamma_HPP
 #define _statslib_qgamma_HPP
 
 // single input
-double qgamma_int(double p, const double* shape_inp, const double* scale_inp, bool log_form);
+template<typename T>
+statslib_constexpr T qgamma(const T p, const T shape_par, const T scale_par, const bool log_form);
 
-double qgamma(double p);
-double qgamma(double p, bool log_form);
-double qgamma(double p, double shape, double scale);
-double qgamma(double p, double shape, double scale, bool log_form);
+statslib_constexpr double qgamma(const double p);
+statslib_constexpr double qgamma(const double p, const bool log_form);
+statslib_constexpr double qgamma(const double p, const double shape_par, const double scale_par);
 
 // matrix/vector input
-arma::vec qgamma_int(const arma::vec& p, const double* shape_inp, const double* scale_inp, bool log_form);
+arma::mat qgamma_int(const arma::mat& p, const double* shape_par_inp, const double* scale_par_inp, const bool log_form);
 
-arma::vec qgamma(const arma::vec& p);
-arma::vec qgamma(const arma::vec& p, bool log_form);
-arma::vec qgamma(const arma::vec& p, double shape, double scale);
-arma::vec qgamma(const arma::vec& p, double shape, double scale, bool log_form);
+arma::mat qgamma(const arma::mat& p);
+arma::mat qgamma(const arma::mat& p, const bool log_form);
+arma::mat qgamma(const arma::mat& p, const double shape_par, const double scale_par);
+arma::mat qgamma(const arma::mat& p, const double shape_par, const double scale_par, const bool log_form);
 
 #include "qgamma.ipp"
 
