@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include pinvgamma_test.cpp -o pinvgamma.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include pinvgamma.cpp -o pinvgamma.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
@@ -111,7 +111,7 @@ int main()
 
     bool success_9 = (std::abs(prob_9 - val_9) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "pinvgamma(" << x_9 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_9 << ". Success = " << success_8 << std::endl;
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_9 << ". Success = " << success_9 << std::endl;
 
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
         printf("\npinvgamma: all tests passed.\n");
