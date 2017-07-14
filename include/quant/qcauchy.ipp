@@ -17,13 +17,13 @@
   ################################################################################*/
 
 /*
- * quantile function of the univariate normal distribution
+ * quantile function of the Cauchy distribution
  *
  * Keith O'Hara
- * 06/15/2017
+ * 07/01/2017
  *
  * This version:
- * 07/14/2017
+ * 07/13/2017
  */
 
 //
@@ -32,38 +32,38 @@
 template<typename T>
 statslib_constexpr
 T
-qnorm_int(const T p, const T mu_par, const T sigma_par)
+qcauchy_int(const T p, const T mu_par, const T sigma_par)
 {
-    return ( mu_par + GCEM_SQRT_2*sigma_par*gcem::erf_inv( 2.0*p - 1.0 ) );
+    return ( mu_par + sigma_par*stats_math::tan(GCEM_PI*(p - 0.5)) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-qnorm(const T p, const T mu_par, const T sigma_par, const bool log_form)
+qcauchy(const T p, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qnorm_int(p,mu_par,sigma_par)) : qnorm_int(p,mu_par,sigma_par) );
+    return ( log_form == true ? stats_math::log(qcauchy_int(p,mu_par,sigma_par)) : qcauchy_int(p,mu_par,sigma_par) );
 }
 
 statslib_constexpr
 double
-qnorm(const double p)
+qcauchy(const double p)
 {
-    return qnorm(p,0.0,1.0,false);
+    return qcauchy(p,0.0,1.0,false);
 }
 
 statslib_constexpr
 double
-qnorm(const double p, const bool log_form)
+qcauchy(const double p, const bool log_form)
 {
-    return qnorm(p,0.0,1.0,log_form);
+    return qcauchy(p,0.0,1.0,log_form);
 }
 
 statslib_constexpr
 double
-qnorm(const double p, const double mu_par, const double sigma_par)
+qcauchy(const double p, const double mu_par, const double sigma_par)
 {
-    return qnorm(p,mu_par,sigma_par,false);
+    return qcauchy(p,mu_par,sigma_par,false);
 }
 
 //
@@ -71,7 +71,7 @@ qnorm(const double p, const double mu_par, const double sigma_par)
 
 inline
 arma::mat
-qnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
+qcauchy_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
     const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
     const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
@@ -83,7 +83,7 @@ qnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_
 
     for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
-            ret(i,j) = qnorm(p(i,j),mu_par,sigma_par,log_form);
+            ret(i,j) = qcauchy(p(i,j),mu_par,sigma_par,log_form);
         }
     }
     //
@@ -92,28 +92,28 @@ qnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_
 
 inline
 arma::mat
-qnorm(const arma::mat& p)
+qcauchy(const arma::mat& p)
 {
-    return qnorm_int(p,nullptr,nullptr,false);
+    return qcauchy_int(p,nullptr,nullptr,false);
 }
 
 inline
 arma::mat
-qnorm(const arma::mat& p, const bool log_form)
+qcauchy(const arma::mat& p, const bool log_form)
 {
-    return qnorm_int(p,nullptr,nullptr,log_form);
+    return qcauchy_int(p,nullptr,nullptr,log_form);
 }
 
 inline
 arma::mat
-qnorm(const arma::mat& p, const double mu_par, const double sigma_par)
+qcauchy(const arma::mat& p, const double mu_par, const double sigma_par)
 {
-    return qnorm_int(p,&mu_par,&sigma_par,false);
+    return qcauchy_int(p,&mu_par,&sigma_par,false);
 }
 
 inline
 arma::mat
-qnorm(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form)
+qcauchy(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return qnorm_int(p,&mu_par,&sigma_par,log_form);
+    return qcauchy_int(p,&mu_par,&sigma_par,log_form);
 }

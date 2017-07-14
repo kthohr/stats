@@ -23,27 +23,27 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/14/2017
  */
 
 #ifndef _statslib_qunif_HPP
 #define _statslib_qunif_HPP
 
 // single input
-double qunif_int(double p, const double* a_inp, const double* b_inp, bool log_form);
+template<typename T>
+statslib_constexpr T qunif(const T p, const T a_par, const T b_par, const bool log_form);
 
-double qunif(double p);
-double qunif(double p, bool log_form);
-double qunif(double p, double a, double b);
-double qunif(double p, double a, double b, bool log_form);
+statslib_constexpr double qunif(const double p);
+statslib_constexpr double qunif(const double p, const bool log_form);
+statslib_constexpr double qunif(const double p, const double a_par, const double b_par);
 
 // matrix/vector input
-arma::vec qunif_int(const arma::vec& p, const double* a_inp, const double* b_inp, bool log_form);
+arma::mat qunif_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form);
 
-arma::vec qunif(const arma::vec& p);
-arma::vec qunif(const arma::vec& p, bool log_form);
-arma::vec qunif(const arma::vec& p, double mu, double sigma);
-arma::vec qunif(const arma::vec& p, double mu, double sigma, bool log_form);
+arma::mat qunif(const arma::mat& p);
+arma::mat qunif(const arma::mat& p, const bool log_form);
+arma::mat qunif(const arma::mat& p, const double a_par, const double b_par);
+arma::mat qunif(const arma::mat& p, const double a_par, const double b_par, const bool log_form);
 
 #include "qunif.ipp"
 

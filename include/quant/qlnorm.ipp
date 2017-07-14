@@ -23,61 +23,49 @@
  * 06/25/2017
  *
  * This version:
- * 06/25/2017
+ * 07/14/2017
  */
 
 //
 // single input
 
-inline
-double
-qlnorm_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_constexpr
+T
+qlnorm(const T p, const T mu_par, const T sigma_par, const bool log_form)
 {
-    double ret = qnorm_int(p,mu_inp,sigma_inp,false);
-
-    if (!log_form) {
-        ret = std::exp(ret);
-    }
-    //
-    return ret;
+    return ( log_form == true ? qnorm(p,mu_par,sigma_par,false) : stats_math::exp(qnorm(p,mu_par,sigma_par,false)) );
 }
 
-inline
+statslib_constexpr
 double
-qlnorm(double p)
+qlnorm(const double p)
 {
-    return qlnorm_int(p,nullptr,nullptr,false);
+    return qlnorm(p,0.0,1.0,false);
 }
 
-inline
+statslib_constexpr
 double
-qlnorm(double p, bool log_form)
+qlnorm(const double p, const bool log_form)
 {
-    return qlnorm_int(p,nullptr,nullptr,log_form);
+    return qlnorm(p,0.0,1.0,log_form);
 }
 
-inline
+statslib_constexpr
 double
-qlnorm(double p, double mu, double sigma)
+qlnorm(const double p, const double mu_par, const double sigma_par)
 {
-    return qlnorm_int(p,&mu,&sigma,false);
-}
-
-inline
-double
-qlnorm(double p, double mu, double sigma, bool log_form)
-{
-    return qlnorm_int(p,&mu,&sigma,log_form);
+    return qlnorm(p,mu_par,sigma_par,false);
 }
 
 //
 // matrix/vector input
 
 inline
-arma::vec
-qlnorm_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+qlnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    arma::vec ret = qnorm_int(p,mu_inp,sigma_inp,false);
+    arma::mat ret = qnorm_int(p,mu_par_inp,sigma_par_inp,false);
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -87,29 +75,29 @@ qlnorm_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bo
 }
 
 inline
-arma::vec
-qlnorm(const arma::vec& p)
+arma::mat
+qlnorm(const arma::mat& p)
 {
     return qlnorm_int(p,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-qlnorm(const arma::vec& p, bool log_form)
+arma::mat
+qlnorm(const arma::mat& p, const bool log_form)
 {
     return qlnorm_int(p,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-qlnorm(const arma::vec& p, double mu, double sigma)
+arma::mat
+qlnorm(const arma::mat& p, const double mu_par, const double sigma_par)
 {
-    return qlnorm_int(p,&mu,&sigma,false);
+    return qlnorm_int(p,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-qlnorm(const arma::vec& p, double mu, double sigma, bool log_form)
+arma::mat
+qlnorm(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return qlnorm_int(p,&mu,&sigma,log_form);
+    return qlnorm_int(p,&mu_par,&sigma_par,log_form);
 }

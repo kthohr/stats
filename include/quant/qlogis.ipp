@@ -23,67 +23,60 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/14/2017
  */
 
 //
 // single input
 
-inline
-double
-qlogis_int(double p, const double* mu_inp, const double* sigma_inp, bool log_form)
+template<typename T>
+statslib_constexpr
+T
+qlogis_int(const T p, const T mu_par, const T sigma_par)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-    double ret = mu + sigma*std::log(p/(1.0 - p));
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( mu_par + sigma_par*stats_math::log(p/(1.0 - p)) );
 }
 
-inline
-double
-qlogis(double p)
+template<typename T>
+statslib_constexpr
+T
+qlogis(const T p, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return qlogis_int(p,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(qlogis_int(p,mu_par,sigma_par)) : qlogis_int(p,mu_par,sigma_par) );
 }
 
-inline
+statslib_constexpr
 double
-qlogis(double p, bool log_form)
+qlogis(const double p)
 {
-    return qlogis_int(p,nullptr,nullptr,log_form);
+    return qlogis(p,0.0,1.0,false);
 }
 
-inline
+statslib_constexpr
 double
-qlogis(double p, double mu, double sigma)
+qlogis(const double p, const bool log_form)
 {
-    return qlogis_int(p,&mu,&sigma,false);
+    return qlogis(p,0.0,1.0,log_form);
 }
 
-inline
+statslib_constexpr
 double
-qlogis(double p, double mu, double sigma, bool log_form)
+qlogis(const double p, const double mu_par, const double sigma_par)
 {
-    return qlogis_int(p,&mu,&sigma,log_form);
+    return qlogis(p,mu_par,sigma_par,false);
 }
 
 //
 // matrix/vector input
 
 inline
-arma::vec
-qlogis_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bool log_form)
+arma::mat
+qlogis_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, bool log_form)
 {
-    double mu = (mu_inp) ? *mu_inp : 0;
-    double sigma = (sigma_inp) ? *sigma_inp : 1;
+    double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
     //
-    arma::vec ret = mu + sigma*arma::log(p/(1.0 - p));
+    arma::mat ret = mu_par + sigma_par*arma::log(p/(1.0 - p));
     
     if (log_form) {
         ret = arma::log(ret);
@@ -93,29 +86,29 @@ qlogis_int(const arma::vec& p, const double* mu_inp, const double* sigma_inp, bo
 }
 
 inline
-arma::vec
-qlogis(const arma::vec& p)
+arma::mat
+qlogis(const arma::mat& p)
 {
     return qlogis_int(p,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-qlogis(const arma::vec& p, bool log_form)
+arma::mat
+qlogis(const arma::mat& p, const bool log_form)
 {
     return qlogis_int(p,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-qlogis(const arma::vec& p, double mu, double sigma)
+arma::mat
+qlogis(const arma::mat& p, const double mu_par, const double sigma_par)
 {
-    return qlogis_int(p,&mu,&sigma,false);
+    return qlogis_int(p,&mu_par,&sigma_par,false);
 }
 
 inline
-arma::vec
-qlogis(const arma::vec& p, double mu, double sigma, bool log_form)
+arma::mat
+qlogis(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return qlogis_int(p,&mu,&sigma,log_form);
+    return qlogis_int(p,&mu_par,&sigma_par,log_form);
 }

@@ -22,6 +22,7 @@
 #include "qbern.hpp"
 #include "qbeta.hpp"
 #include "qbinom.hpp"
+#include "qcauchy.hpp"
 #include "qchisq.hpp"
 #include "qgamma.hpp"
 #include "qinvgamma.hpp"

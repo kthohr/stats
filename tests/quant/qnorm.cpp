@@ -117,5 +117,21 @@ int main()
         printf("\nqnorm: all tests passed.\n");
     }
 
+    //
+    // coverage tests
+
+    stats::qnorm(val_6);
+    stats::qnorm(val_6,true);
+    stats::qnorm(val_6,mu,sigma);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0.7;
+    x_mat(1,0) = 0.8;
+
+    stats::qnorm(x_mat);
+    stats::qnorm(x_mat,true);
+    stats::qnorm(x_mat,mu,sigma);
+    stats::qnorm(x_mat,mu,sigma,true);
+
     return 0;
 }

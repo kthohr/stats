@@ -23,27 +23,27 @@
  * 06/17/2017
  *
  * This version:
- * 06/23/2017
+ * 07/13/2017
  */
 
 #ifndef _statslib_qchisq_HPP
 #define _statslib_qchisq_HPP
 
 // single input
-double qchisq_int(double p, const double* dof_inp, bool log_form);
+template<typename T>
+statslib_constexpr T qchisq(const T p, const T dof_par, const bool log_form);
 
-double qchisq(double p);
-double qchisq(double p, bool log_form);
-double qchisq(double p, double dof);
-double qchisq(double p, double dof, bool log_form);
+statslib_constexpr double qchisq(const double p);
+statslib_constexpr double qchisq(const double p, const bool log_form);
+statslib_constexpr double qchisq(const double p, const double dof_par);
 
 // matrix/vector input
-arma::vec qchisq_int(const arma::vec& p, const double* dof_inp, bool log_form);
+arma::mat qchisq_int(const arma::mat& p, const double* dof_par_inp, const bool log_form);
 
-arma::vec qchisq(const arma::vec& p);
-arma::vec qchisq(const arma::vec& p, bool log_form);
-arma::vec qchisq(const arma::vec& p, double dof);
-arma::vec qchisq(const arma::vec& p, double dof, bool log_form);
+arma::mat qchisq(const arma::mat& p);
+arma::mat qchisq(const arma::mat& p, const bool log_form);
+arma::mat qchisq(const arma::mat& p, const double dof_par);
+arma::mat qchisq(const arma::mat& p, const double dof_par, const bool log_form);
 
 #include "qchisq.ipp"
 

@@ -17,34 +17,34 @@
   ################################################################################*/
 
 /*
- * quantile function of the inverse-gamma distribution
+ * quantile function of the Cauchy distribution
  *
  * Keith O'Hara
- * 06/17/2017
+ * 07/01/2017
  *
  * This version:
- * 07/14/2017
+ * 07/13/2017
  */
 
-#ifndef _statslib_qinvgamma_HPP
-#define _statslib_qinvgamma_HPP
+#ifndef _statslib_qcauchy_HPP
+#define _statslib_qcauchy_HPP
 
 // single input
 template<typename T>
-statslib_constexpr T qgamma(const T p, const T shape_par, const T rate_par, const bool log_form);
+statslib_constexpr T qcauchy(const T p, const T mu_par, const T sigma_par, const bool log_form);
 
-statslib_constexpr double qgamma(const double p);
-statslib_constexpr double qgamma(const double p, const bool log_form);
-statslib_constexpr double qgamma(const double p, const double shape_par, const double rate_par);
+statslib_constexpr double qcauchy(const double p);
+statslib_constexpr double qcauchy(const double p, const bool log_form);
+statslib_constexpr double qcauchy(const double p, const double mu_par, const double sigma_par);
 
 // matrix/vector input
-arma::mat qgamma_int(const arma::mat& p, const double* shape_par_inp, const double* rate_par_inp, const bool log_form);
+arma::mat qcauchy_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::mat qgamma(const arma::mat& p);
-arma::mat qgamma(const arma::mat& p, const bool log_form);
-arma::mat qgamma(const arma::mat& p, const double shape_par, const double rate_par);
-arma::mat qgamma(const arma::mat& p, const double shape_par, const double rate_par, const bool log_form);
+arma::mat qcauchy(const arma::mat& p);
+arma::mat qcauchy(const arma::mat& p, const bool log_form);
+arma::mat qcauchy(const arma::mat& p, const double mu_par, const double sigma_par);
+arma::mat qcauchy(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form);
 
-#include "qinvgamma.ipp"
+#include "qcauchy.ipp"
 
 #endif

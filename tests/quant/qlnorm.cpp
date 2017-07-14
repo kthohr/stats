@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include qlnorm_test.cpp -o qlnorm.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include qlnorm.cpp -o qlnorm.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
@@ -26,8 +26,8 @@
 int main()
 {
     double err_tol = 1E-05;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    int round_digits_1 = 5;
+    int round_digits_2 = 3;
 
     double mu = 1;
     double sigma = 2;
@@ -38,8 +38,8 @@ int main()
     double q_1 = stats::qlnorm(val_1,mu,sigma);
 
     bool success_1 = (std::abs(q_1 - x_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qlnorm(" << val_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_1 << ". Success = " << success_1 << std::endl;
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qlnorm(" << val_1 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2-1) << q_1 << ". Success = " << success_1 << std::endl;
 
     // x = 2.0
     double x_2 = 0.6931471;
@@ -47,12 +47,28 @@ int main()
     double q_2 = stats::qlnorm(val_2,mu,sigma,true);
 
     bool success_2 = (std::abs(q_2 - x_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qlnorm(" << val_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_2 << ". Success = " << success_2 << std::endl;
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qlnorm(" << val_2 << ",log=true): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2-1) << q_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
         printf("\nqlnorm: all tests passed.\n");
     }
+
+    //
+    // coverage tests
+
+    stats::qlnorm(val_1);
+    stats::qlnorm(val_1,true);
+    stats::qlnorm(val_1,mu,sigma);
+
+    arma::mat x_mat(2,1);
+    x_mat(0,0) = 0.7;
+    x_mat(1,0) = 0.8;
+
+    stats::qlnorm(x_mat);
+    stats::qlnorm(x_mat,true);
+    stats::qlnorm(x_mat,mu,sigma);
+    stats::qlnorm(x_mat,mu,sigma,true);
 
     return 0;
 }

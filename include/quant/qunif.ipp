@@ -23,67 +23,60 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/14/2017
  */
 
 //
 // single input
 
-inline
-double
-qunif_int(double p, const double* a_inp, const double* b_inp, bool log_form)
+template<typename T>
+statslib_constexpr
+T
+qunif_int(const T p, const T a_par, const T b_par)
 {
-    const double a = (a_inp) ? *a_inp : 0;
-    const double b = (b_inp) ? *b_inp : 1;
-    //
-    double ret = a + p*(b-a);
-
-    if (log_form) {
-        ret = std::log(ret);
-    }
-    //
-    return ret;
+    return ( a_par + p*(b_par-a_par) );
 }
 
-inline
-double
-qunif(double p)
+template<typename T>
+statslib_constexpr
+T
+qunif(const T p, const T a_par, const T b_par, const bool log_form)
 {
-    return qunif_int(p,nullptr,nullptr,false);
+    return ( log_form == true ? stats_math::log(qunif_int(p,a_par,b_par)) : qunif_int(p,a_par,b_par) );
 }
 
-inline
+statslib_constexpr
 double
-qunif(double p, bool log_form)
+qunif(const double p)
 {
-    return qunif_int(p,nullptr,nullptr,log_form);
+    return qunif(p,2.0,2.0,false);
 }
 
-inline
+statslib_constexpr
 double
-qunif(double p, double a, double b)
+qunif(const double p, const bool log_form)
 {
-    return qunif_int(p,&a,&b,false);
+    return qunif(p,2.0,2.0,log_form);
 }
 
-inline
+statslib_constexpr
 double
-qunif(double p, double a, double b, bool log_form)
+qunif(const double p, const double a_par, const double b_par)
 {
-    return qunif_int(p,&a,&b,log_form);
+    return qunif(p,a_par,b_par,false);
 }
 
 //
 // matrix/vector input
 
 inline
-arma::vec
-qunif_int(const arma::vec& p, const double* a_inp, const double* b_inp, bool log_form)
+arma::mat
+qunif_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form)
 {
-    const double a = (a_inp) ? *a_inp : 0;
-    const double b = (b_inp) ? *b_inp : 1;
+    const double a_par = (a_par_inp) ? *a_par_inp : 0;
+    const double b_par = (b_par_inp) ? *b_par_inp : 1;
     //
-    arma::vec ret = a + p*(b-a);
+    arma::mat ret = a_par + p*(b_par - a_par);
 
     if (log_form) {
         ret = arma::log(ret);
@@ -93,29 +86,29 @@ qunif_int(const arma::vec& p, const double* a_inp, const double* b_inp, bool log
 }
 
 inline
-arma::vec
-qunif(const arma::vec& p)
+arma::mat
+qunif(const arma::mat& p)
 {
     return qunif_int(p,nullptr,nullptr,false);
 }
 
 inline
-arma::vec
-qunif(const arma::vec& p, bool log_form)
+arma::mat
+qunif(const arma::mat& p, const bool log_form)
 {
     return qunif_int(p,nullptr,nullptr,log_form);
 }
 
 inline
-arma::vec
-qunif(const arma::vec& p, double a, double b)
+arma::mat
+qunif(const arma::mat& p, const double a_par, const double b_par)
 {
-    return qunif_int(p,&a,&b,false);
+    return qunif_int(p,&a_par,&b_par,false);
 }
 
 inline
-arma::vec
-qunif(const arma::vec& p, double a, double b, bool log_form)
+arma::mat
+qunif(const arma::mat& p, const double a_par, const double b_par, const bool log_form)
 {
-    return qunif_int(p,&a,&b,log_form);
+    return qunif_int(p,&a_par,&b_par,log_form);
 }
