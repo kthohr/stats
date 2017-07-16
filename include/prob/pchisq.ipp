@@ -71,7 +71,7 @@ pchisq(const double x, const double dof_par)
 
 inline
 arma::mat
-pchisq_int(const arma::mat& x, const double* dof_par_inp, bool log_form)
+pchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form)
 {
     const double dof_par = (dof_par_inp) ? *dof_par_inp : 1;
     //

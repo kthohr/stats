@@ -32,17 +32,17 @@
 template<typename T>
 statslib_constexpr
 T
-pbinom_int(const int x, const int n_trials, const T prob_par, const int count)
+pbinom_int(const int x, const int n_trials_par, const T prob_par, const int count)
 {
-    return ( count == x ? dbinom(count,n_trials,prob_par,false) : dbinom(count,n_trials,prob_par,false) + pbinom_int(x,n_trials,prob_par,count+1) );
+    return ( count == x ? dbinom(count,n_trials_par,prob_par,false) : dbinom(count,n_trials_par,prob_par,false) + pbinom_int(x,n_trials_par,prob_par,count+1) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-pbinom(const int x, const int n_trials, const T prob_par, const bool log_form)
+pbinom(const int x, const int n_trials_par, const T prob_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pbinom_int(x,n_trials,prob_par,0)) : pbinom_int(x,n_trials,prob_par,0) );
+    return ( log_form == true ? stats_math::log(pbinom_int(x,n_trials_par,prob_par,0)) : pbinom_int(x,n_trials_par,prob_par,0) );
 }
 
 statslib_constexpr
@@ -61,9 +61,9 @@ pbinom(const int x, const bool log_form)
 
 statslib_constexpr
 double
-pbinom(const int x, const int n_trials, const double prob_par)
+pbinom(const int x, const int n_trials_par, const double prob_par)
 {
-    return pbinom(x,n_trials,prob_par,false);
+    return pbinom(x,n_trials_par,prob_par,false);
 }
 
 //
@@ -71,9 +71,9 @@ pbinom(const int x, const int n_trials, const double prob_par)
 
 inline
 arma::mat
-pbinom_int(const arma::mat& x, const int* n_trials_inp, const double* prob_par_inp, const bool log_form)
+pbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_par_inp, const bool log_form)
 {
-    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
+    const int n_trials_par = (n_trials_par_inp) ? *n_trials_par_inp : 1;
     const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
     const int n = x.n_rows;
@@ -83,7 +83,7 @@ pbinom_int(const arma::mat& x, const int* n_trials_inp, const double* prob_par_i
 
     for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
-            ret(i,j) = pbinom((int)x(i,j),n_trials,prob_par,log_form);
+            ret(i,j) = pbinom((int)x(i,j),n_trials_par,prob_par,log_form);
         }
     }
     //
@@ -106,14 +106,14 @@ pbinom(const arma::mat& x, const bool log_form)
 
 inline
 arma::mat
-pbinom(const arma::mat& x, const int n_trials, const double prob_par)
+pbinom(const arma::mat& x, const int n_trials_par, const double prob_par)
 {
-    return pbinom_int(x,&n_trials,&prob_par,false);
+    return pbinom_int(x,&n_trials_par,&prob_par,false);
 }
 
 inline
 arma::mat
-pbinom(const arma::mat& x, const int n_trials, const double prob_par, const bool log_form)
+pbinom(const arma::mat& x, const int n_trials_par, const double prob_par, const bool log_form)
 {
-    return pbinom_int(x,&n_trials,&prob_par,log_form);
+    return pbinom_int(x,&n_trials_par,&prob_par,log_form);
 }

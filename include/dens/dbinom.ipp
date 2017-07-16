@@ -32,19 +32,19 @@
 template<typename T>
 statslib_constexpr
 T
-dbinom_int(const int x, const int n_trials, const T prob_par)
+dbinom_int(const int x, const int n_trials_par, const T prob_par)
 {
-    return (x == 0 ? n_trials * stats_math::log(1.0 - prob_par) : x == n_trials ? x * stats_math::log(prob_par) : 
-            stats_math::log(gcem::binomial_coef(n_trials,x)) + x*stats_math::log(prob_par) + (n_trials - x)*stats_math::log(1.0 - prob_par) );
+    return (x == 0 ? n_trials_par * stats_math::log(1.0 - prob_par) : x == n_trials_par ? x * stats_math::log(prob_par) : 
+            stats_math::log(gcem::binomial_coef(n_trials_par,x)) + x*stats_math::log(prob_par) + (n_trials_par - x)*stats_math::log(1.0 - prob_par) );
 }
 
 
 template<typename T>
 statslib_constexpr
 T
-dbinom(const int x, const int n_trials, const T prob_par, const bool log_form)
+dbinom(const int x, const int n_trials_par, const T prob_par, const bool log_form)
 {
-    return (x > n_trials ? 0.0 : n_trials == 1 ? dbern(x,prob_par,log_form) : ( log_form == true ? dbinom_int(x,n_trials,prob_par) : stats_math::exp(dbinom_int(x,n_trials,prob_par)) ));
+    return (x > n_trials_par ? 0.0 : n_trials_par == 1 ? dbern(x,prob_par,log_form) : ( log_form == true ? dbinom_int(x,n_trials_par,prob_par) : stats_math::exp(dbinom_int(x,n_trials_par,prob_par)) ));
 }
 
 statslib_constexpr
@@ -63,9 +63,9 @@ dbinom(const int x, const bool log_form)
 
 statslib_constexpr
 double
-dbinom(const int x, const int n_trials, const double prob_par)
+dbinom(const int x, const int n_trials_par, const double prob_par)
 {
-    return dbinom(x,n_trials,prob_par,false);
+    return dbinom(x,n_trials_par,prob_par,false);
 }
 
 //
@@ -73,9 +73,9 @@ dbinom(const int x, const int n_trials, const double prob_par)
 
 inline
 arma::mat
-dbinom_int(const arma::mat& x, const int* n_trials_inp, const double* prob_par_inp, const bool log_form)
+dbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_par_inp, const bool log_form)
 {
-    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
+    const int n_trials_par = (n_trials_par_inp) ? *n_trials_par_inp : 1;
     const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
     const int n = x.n_rows;
@@ -85,7 +85,7 @@ dbinom_int(const arma::mat& x, const int* n_trials_inp, const double* prob_par_i
 
     for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
-            ret(i,j) = dbinom((int)x(i,j),n_trials,prob_par,log_form);
+            ret(i,j) = dbinom((int)x(i,j),n_trials_par,prob_par,log_form);
         }
     }
     //
@@ -108,14 +108,14 @@ dbinom(const arma::mat& x, const bool log_form)
 
 inline
 arma::mat
-dbinom(const arma::mat& x, const int n_trials, const double prob_par)
+dbinom(const arma::mat& x, const int n_trials_par, const double prob_par)
 {
-    return dbinom_int(x,&n_trials,&prob_par,false);
+    return dbinom_int(x,&n_trials_par,&prob_par,false);
 }
 
 inline
 arma::mat
-dbinom(const arma::mat& x, const int n_trials, const double prob_par, const bool log_form)
+dbinom(const arma::mat& x, const int n_trials_par, const double prob_par, const bool log_form)
 {
-    return dbinom_int(x,&n_trials,&prob_par,log_form);
+    return dbinom_int(x,&n_trials_par,&prob_par,log_form);
 }

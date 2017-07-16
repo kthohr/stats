@@ -28,16 +28,16 @@
 
 inline
 double
-dmvnorm_int(const arma::vec& x, const arma::vec* mu_inp, const arma::mat* Sigma_inp, const bool log_form)
+dmvnorm_int(const arma::vec& x, const arma::vec* mu_par_inp, const arma::mat* Sigma_par_inp, const bool log_form)
 {
     const int K = x.n_rows;
 
-    const arma::vec mu = (mu_inp) ? *mu_inp : arma::zeros(K,1);
-    const arma::mat Sigma = (Sigma_inp) ? *Sigma_inp : arma::eye(K,K);
+    const arma::vec mu_par = (mu_par_inp) ? *mu_par_inp : arma::zeros(K,1);
+    const arma::mat Sigma_par = (Sigma_par_inp) ? *Sigma_par_inp : arma::eye(K,K);
     //
     const double cons_term = -0.5*K*GCEM_LOG_2PI;
 
-    double ret = cons_term - 0.5 * ( std::log(arma::det(Sigma)) + arma::as_scalar((x - mu).t() * arma::inv(Sigma) * (x - mu)) );
+    double ret = cons_term - 0.5 * ( std::log(arma::det(Sigma_par)) + arma::as_scalar((x - mu_par).t() * arma::inv(Sigma_par) * (x - mu_par)) );
 
     if (!log_form) {
         ret = std::exp(ret);
@@ -62,14 +62,14 @@ dmvnorm(const arma::vec& x, const bool log_form)
 
 inline
 double
-dmvnorm(const arma::vec& x, const arma::vec& mu_inp, const arma::mat& Sigma_inp)
+dmvnorm(const arma::vec& x, const arma::vec& mu_par, const arma::mat& Sigma_par)
 {
-    return dmvnorm_int(x,&mu_inp,&Sigma_inp,false);
+    return dmvnorm_int(x,&mu_par,&Sigma_par,false);
 }
 
 inline
 double
-dmvnorm(const arma::vec& x, const arma::vec& mu_inp, const arma::mat& Sigma_inp, const bool log_form)
+dmvnorm(const arma::vec& x, const arma::vec& mu_par, const arma::mat& Sigma_par, const bool log_form)
 {
-    return dmvnorm_int(x,&mu_inp,&Sigma_inp,log_form);
+    return dmvnorm_int(x,&mu_par,&Sigma_par,log_form);
 }

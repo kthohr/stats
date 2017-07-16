@@ -71,7 +71,7 @@ punif(const double x, const double a_par, const double b_par)
 
 inline
 arma::vec
-punif_int(const arma::vec& x, const double* a_par_inp, const double* b_par_inp, bool log_form)
+punif_int(const arma::vec& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
 {
     const double a_par = (a_par_inp) ? *a_par_inp : 0;
     const double b_par = (b_par_inp) ? *b_par_inp : 1;

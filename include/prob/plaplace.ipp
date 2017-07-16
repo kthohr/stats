@@ -34,7 +34,7 @@ statslib_constexpr
 T
 plaplace_int(const T x, const T mu_par, const T sigma_par)
 {
-    return ( 0.5 + 0.5*gcem::sign_dbl(x-mu_par)*(1.0 - stats_math::exp(-stats_math::abs(x - mu_par) / sigma_par)) );
+    return ( 0.5 + 0.5*gcem::sign_dbl(x - mu_par)*(1.0 - stats_math::exp(-stats_math::abs(x - mu_par) / sigma_par)) );
 }
 
 template<typename T>

@@ -28,19 +28,19 @@
 
 inline
 double
-dwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, const bool log_form)
+dwish_int(const arma::mat& X, const arma::mat* Psi_par_inp, const int* nu_par_inp, const bool log_form)
 {
     const int K = X.n_rows;
 
-    const arma::mat Psi = (Psi_inp) ? *Psi_inp : arma::eye(K,K);
-    const int nu = (nu_inp) ? *nu_inp : K;
+    const arma::mat Psi_par = (Psi_par_inp) ? *Psi_par_inp : arma::eye(K,K);
+    const int nu_par = (nu_par_inp) ? *nu_par_inp : K;
 
-    const double nu_2 = ((double) nu) / 2.0;
+    const double nu_par_2 = ((double) nu_par) / 2.0;
     //
-    const double lmg_term = gcem::log_multi_gamma(nu_2, K);
-    const double norm_term = - nu_2*std::log(arma::det(Psi)) - nu_2*K*GCEM_LOG_2 - lmg_term;
+    const double lmg_term = gcem::log_multi_gamma(nu_par_2, K);
+    const double norm_term = - nu_par_2*std::log(arma::det(Psi_par)) - nu_par_2*K*GCEM_LOG_2 - lmg_term;
 
-    double ret = norm_term + 0.5 * ( (nu-K-1) * std::log(arma::det(X)) - arma::trace(arma::inv(Psi)*X) );
+    double ret = norm_term + 0.5 * ( (nu_par-K-1) * std::log(arma::det(X)) - arma::trace(arma::inv(Psi_par)*X) );
 	
     if (!log_form) {
         ret = std::exp(ret);
@@ -65,14 +65,14 @@ dwish(const arma::mat& X, const bool log_form)
 
 inline
 double
-dwish(const arma::mat& X, const arma::mat& Psi, const int nu)
+dwish(const arma::mat& X, const arma::mat& Psi_par, const int nu_par)
 {
-	return dwish_int(X,&Psi,&nu,false);
+	return dwish_int(X,&Psi_par,&nu_par,false);
 }
 
 inline
 double
-dwish(const arma::mat& X, const arma::mat& Psi, const int nu, const bool log_form)
+dwish(const arma::mat& X, const arma::mat& Psi_par, const int nu_par, const bool log_form)
 {
-	return dwish_int(X,&Psi,&nu,log_form);
+	return dwish_int(X,&Psi_par,&nu_par,log_form);
 }

@@ -29,12 +29,12 @@
 #ifndef _statslib_dinvwish_HPP
 #define _statslib_dinvwish_HPP
 
-double dinvwish_int(const arma::mat& X, const arma::mat* Psi_inp, const int* nu_inp, bool log_form);
+double dinvwish_int(const arma::mat& X, const arma::mat* Psi_par_inp, const int* nu_par_inp, bool log_form);
 
 double dinvwish(const arma::mat& X);
 double dinvwish(const arma::mat& X, const bool log_form);
-double dinvwish(const arma::mat& X, const arma::mat& Psi, const int nu);
-double dinvwish(const arma::mat& X, const arma::mat& Psi, const int nu, const bool log_form);
+double dinvwish(const arma::mat& X, const arma::mat& Psi_par, const int nu_par);
+double dinvwish(const arma::mat& X, const arma::mat& Psi_par, const int nu_par, const bool log_form);
 
 #include "dinvwish.ipp"
 

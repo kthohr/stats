@@ -33,9 +33,9 @@
 template<typename T>
 statslib_constexpr T dnorm(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-statslib_constexpr double dnorm(double x);
-statslib_constexpr double dnorm(double x, const bool log_form);
-statslib_constexpr double dnorm(double x, const double mu_par, const double sigma_par);
+statslib_constexpr double dnorm(const double x);
+statslib_constexpr double dnorm(const double x, const bool log_form);
+statslib_constexpr double dnorm(const double x, const double mu_par, const double sigma_par);
 
 // matrix/vector input
 arma::mat dnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);

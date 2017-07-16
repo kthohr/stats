@@ -38,7 +38,7 @@ statslib_constexpr double dbern(const int x, const bool log_form);
 statslib_constexpr double dbern(const int x, const double prob_par);
 
 // matrix/vector input
-arma::mat dbern_int(const arma::mat& x, const double* p_inp, bool log_form);
+arma::mat dbern_int(const arma::mat& x, const double* p_inp, const bool log_form);
 
 arma::mat dbern(const arma::mat& x);
 arma::mat dbern(const arma::mat& x, const bool log_form);

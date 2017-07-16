@@ -74,7 +74,7 @@ arma::mat
 dbern_int(const arma::mat& x, const double* prob_par_inp, const bool log_form)
 {
     const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
-
+    //
     arma::mat ret(x.n_rows,x.n_cols);
     
     (log_form) ? ret.fill(std::log(1.0 - prob_par)) : ret.fill(1.0 - prob_par);

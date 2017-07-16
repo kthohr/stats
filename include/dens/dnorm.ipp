@@ -71,13 +71,13 @@ dnorm(const double x, const double mu_par, const double sigma_par)
 
 inline
 arma::mat
-dnorm_int(const arma::mat& x, const double* mu_inp, const double* sigma_inp, const bool log_form)
+dnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
     //
-    const double norm_term = - 0.5*GCEM_LOG_2PI - stats_math::log(sigma);
-    arma::mat ret = norm_term - (x - mu)%(x - mu)  / (2 * sigma*sigma);
+    const double norm_term = - 0.5*GCEM_LOG_2PI - std::log(sigma_par);
+    arma::mat ret = norm_term - (x - mu_par)%(x - mu_par)  / (2 * sigma_par*sigma_par);
 
     if (!log_form) {
         ret = arma::exp(ret);
@@ -95,21 +95,21 @@ dnorm(const arma::mat& x)
 
 inline
 arma::mat
-dnorm(const arma::mat& x, bool log_form)
+dnorm(const arma::mat& x, const bool log_form)
 {
     return dnorm_int(x,nullptr,nullptr,log_form);
 }
 
 inline
 arma::mat
-dnorm(const arma::mat& x, double mu, double sigma)
+dnorm(const arma::mat& x, const double mu_par, const double sigma_par)
 {
-    return dnorm_int(x,&mu,&sigma,false);
+    return dnorm_int(x,&mu_par,&sigma_par,false);
 }
 
 inline
 arma::mat
-dnorm(const arma::mat& x, double mu, double sigma, bool log_form)
+dnorm(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
 {
-    return dnorm_int(x,&mu,&sigma,log_form);
+    return dnorm_int(x,&mu_par,&sigma_par,log_form);
 }

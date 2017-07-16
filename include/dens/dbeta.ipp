@@ -75,7 +75,7 @@ dbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, 
 {
     const double a_par = (a_par_inp) ? *a_par_inp : 2; // shape parameter 'alpha'
     const double b_par = (b_par_inp) ? *b_par_inp : 2; // scale parameter 'beta'
-
+    //
     const double lbeta_term = std::lgamma(a_par + b_par) - std::lgamma(a_par) - std::lgamma(b_par); // log beta function
     arma::mat ret = lbeta_term + (a_par - 1.0)*arma::log(x) + (b_par - 1.0)*arma::log(1.0 - x);
 
