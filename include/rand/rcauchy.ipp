@@ -16,24 +16,36 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I../ -I/usr/local/include/trame rmvnorm_test.cpp -o rmvnorm.test -framework Accelerate
+/* 
+ * Sample from a Cauchy distribution
+ *
+ * Keith O'Hara
+ * 06/15/2017
+ *
+ * This version:
+ * 07/15/2017
+ */
 
-#include "armadillo"
-#include "stats.hpp"
-
-int main()
+template<typename T>
+inline
+T
+rcauchy(const T mu_par, const T sigma_par)
 {
-    int n = 10000;
-    int K = 3;
+    return qcauchy(runif(),mu_par,sigma_par);
+}
 
-    arma::vec mu(K);
-    mu.fill(2);
+inline
+arma::mat
+rcauchy(const int n, const double mu_par, const double sigma_par)
+{
+	return rcauchy(n,1,mu_par,sigma_par);
+}
 
-    arma::mat Sigma = arma::eye(K,K);
-    arma::mat mvnorm_vars = stats::rmvnorm(n,mu,Sigma,true);
+inline
+arma::mat
+rcauchy(const int n, const int k, const double mu_par, const double sigma_par)
+{
+	arma::mat U = runif(n,k,0.0,1.0);
 
-    arma::cout << "mu_hat:\n" << arma::mean(mvnorm_vars) << arma::endl;
-    arma::cout << "Sigma_hat:\n" << arma::cov(mvnorm_vars) << arma::endl;
-
-    return 0;
+	return qcauchy(U,mu_par,sigma_par);
 }

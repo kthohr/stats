@@ -23,27 +23,35 @@
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 07/15/2017
  */
 
+template<typename T>
 inline
 int
-rbinom(int k, double p)
+rbinom(const int n_trials_par, const T prob_par)
 {
-    int ret = arma::accu(rbern(k,p));
-    //
-    return ret;
+    return arma::accu(rbern(n_trials_par,1,prob_par));
 }
 
 inline
-arma::colvec
-rbinom(int n, int k, double p)
+arma::mat
+rbinom(const int n, const int n_trials_par, const double prob_par)
 {
-    arma::colvec ret(n);
-    //
-    for (int j = 0; j < n; j++) {
-        ret(j) = arma::accu(rbern(k,p));
+	return rbinom(n,1,n_trials_par,prob_par);
+}
+
+inline
+arma::mat
+rbinom(const int n, const int k, const int n_trials_par, const double prob_par)
+{
+	arma::mat ret(n,k);
+	//
+	for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = rbinom(n_trials_par,prob_par);
+        }
     }
     //
-    return ret;
+	return ret;
 }

@@ -20,7 +20,7 @@
 
 inline
 arma::vec
-rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol)
+rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_chol)
 {
     int K = 0;
 
@@ -62,7 +62,7 @@ rmvnorm(const arma::mat& Sigma)
 
 inline
 arma::vec
-rmvnorm(const arma::mat& Sigma, bool pre_chol)
+rmvnorm(const arma::mat& Sigma, const bool pre_chol)
 {
 	return rmvnorm_int(nullptr,&Sigma,pre_chol);
 }
@@ -82,7 +82,7 @@ rmvnorm(const arma::mat& mu, const arma::mat& Sigma)
 
 inline
 arma::vec
-rmvnorm(const arma::mat& mu, const arma::mat& Sigma, bool pre_chol)
+rmvnorm(const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol)
 {
    return rmvnorm_int(&mu,&Sigma,pre_chol);
 }
@@ -92,7 +92,7 @@ rmvnorm(const arma::mat& mu, const arma::mat& Sigma, bool pre_chol)
 
 inline
 arma::mat
-rmvnorm_int(int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol)
+rmvnorm_int(const int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_chol)
 {
 	int K = 0;
 
@@ -130,14 +130,14 @@ rmvnorm_int(int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre
 
 inline
 arma::mat
-rmvnorm(int n, const arma::mat& Sigma)
+rmvnorm(const int n, const arma::mat& Sigma)
 {
 	return rmvnorm_int(n,nullptr,&Sigma,false);
 }
 
 inline
 arma::mat
-rmvnorm(int n, const arma::mat& Sigma, bool pre_chol)
+rmvnorm(const int n, const arma::mat& Sigma, const bool pre_chol)
 {
 	return rmvnorm_int(n,nullptr,&Sigma,pre_chol);
 }
@@ -150,14 +150,14 @@ rmvnorm(int n, const arma::mat& Sigma, bool pre_chol)
 
 inline
 arma::mat
-rmvnorm(int n, const arma::mat& mu, const arma::mat& Sigma)
+rmvnorm(const int n, const arma::mat& mu, const arma::mat& Sigma)
 {
    return rmvnorm_int(n,&mu,&Sigma,false);
 }
 
 inline
 arma::mat
-rmvnorm(int n, const arma::mat& mu, const arma::mat& Sigma, bool pre_chol)
+rmvnorm(const int n, const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol)
 {
    return rmvnorm_int(n,&mu,&Sigma,pre_chol);
 }

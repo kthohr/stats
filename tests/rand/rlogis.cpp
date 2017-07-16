@@ -16,26 +16,31 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include rinvgamma_test.cpp -o rinvgamma.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rlogis.cpp -o rlogis.test -framework Accelerate
 
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
 {
-    double shape = 4;
-    double rate = 5;
-    double invgamma_mean = rate / (shape - 1.0);
-    double invgamma_var = std::pow(invgamma_mean,2) / (shape - 2.0);
-    double invgamma_rand = stats::rinvgamma(shape,rate);
+    double mu = 2.5;
+    double sigma = 2;
 
-    std::cout << "invgamma rv: " << invgamma_rand << std::endl;
+    double logis_mean = mu;
+    double logis_var = std::pow(arma::datum::pi*sigma,2) / 3.0;
+    double logis_rand = stats::rlogis(mu,sigma);
+
+    std::cout << "logis rv: " << logis_rand << std::endl;
 
     int n = 100000;
-    arma::vec invgamma_vec = stats::rinvgamma(n,shape,rate);
+    arma::vec logis_vec = stats::rlogis(n,mu,sigma);
 
-    std::cout << "invgamma rv mean: " << arma::mean(invgamma_vec) << ". Should be close to: " << invgamma_mean << std::endl;
-    std::cout << "invgamma rv variance: " << arma::var(invgamma_vec) << ". Should be close to: " << invgamma_var << std::endl;
+    std::cout << "logis rv mean: " << arma::mean(logis_vec) << ". Should be close to: " << logis_mean << std::endl;
+    std::cout << "logis rv variance: " << arma::var(logis_vec) << ". Should be close to: " << logis_var << std::endl;
+
+    //
+    // coverage tests
+    
+    stats::rlogis(100,100,mu,sigma);
 
     return 0;
 }

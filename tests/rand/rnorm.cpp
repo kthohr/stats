@@ -16,27 +16,31 @@
   ##
   ################################################################################*/
 
-/* 
- * Sample from a uniform distribution
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 07/15/2017
- */
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rnorm.cpp -o rnorm.test -framework Accelerate
 
-#ifndef _statslib_runif_HPP
-#define _statslib_runif_HPP
+#include "stats.hpp"
 
-template<typename T>
-T rnorm(const T a_par, const T b_par);
+int main()
+{
+    double mu = 2.5;
+    double sigma = 1.5;
+    
+    double normal_mean = mu;
+    double normal_var = sigma*sigma;
+    double normal_rand = stats::rnorm(mu,sigma);
 
-double runif();
+    std::cout << "normal rv: " << normal_rand << std::endl;
 
-arma::mat runif(const int n, const double a_par, const double b_par);
-arma::mat runif(const int n, const int k, const double a_par, const double b_par);
+    int n = 100000;
+    arma::vec normal_vec = stats::rnorm(n,mu,sigma);
 
-#include "runif.ipp"
+    std::cout << "normal rv mean: " << arma::mean(normal_vec) << ". Should be close to: " << normal_mean << std::endl;
+    std::cout << "normal rv variance: " << arma::var(normal_vec) << ". Should be close to: " << normal_var << std::endl;
 
-#endif
+    //
+    // coverage tests
+    
+    stats::rnorm(100,100,mu,sigma);
+
+    return 0;
+}

@@ -17,69 +17,43 @@
   ################################################################################*/
 
 /* 
- * n draws from a normal distribution with parameters (mu,sigma)
+ * Sample from a normal distribution
  *
  * Keith O'Hara
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 07/15/2017
  */
 
 //
 // single draw
 
+template<typename T>
 inline
-double
-rnorm_int(const double* mu_inp, const double* sigma_inp)
+T
+rnorm(const T mu_par, const T sigma_par)
 {
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-	double ret = mu + sigma*arma::as_scalar(arma::randn(1));
-    //
-	return ret;
+	return mu_par + sigma_par*arma::as_scalar(arma::randn(1));
 }
 
 inline
 double
 rnorm()
 {
-    return rnorm_int(nullptr,nullptr);
+    return rnorm(0.0,1.0);
 }
 
 inline
-double
-rnorm(double mu, double sigma)
+arma::mat
+rnorm(const int n, const double mu_par, const double sigma_par)
 {
-    return rnorm_int(&mu,&sigma);
-}
-
-//
-// n draws
-
-inline
-arma::colvec
-rnorm_int(int n, const double* mu_inp, const double* sigma_inp)
-{
-    const double mu = (mu_inp) ? *mu_inp : 0;
-    const double sigma = (sigma_inp) ? *sigma_inp : 1;
-    //
-	arma::vec ret = mu + sigma*arma::randn(n);
-    //
-	return ret;
+	return rnorm(n,1,mu_par,sigma_par);
 }
 
 inline
-arma::colvec
-rnorm(int n)
+arma::mat
+rnorm(const int n, const int k, const double mu_par, const double sigma_par)
 {
-    return rnorm_int(n,nullptr,nullptr);
-}
-
-inline
-arma::colvec
-rnorm(int n, double mu, double sigma)
-{
-    return rnorm_int(n,&mu,&sigma);
+	return ( mu_par + sigma_par*arma::randn(n,k) );
 }

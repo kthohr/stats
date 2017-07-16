@@ -17,20 +17,23 @@
   ################################################################################*/
 
 /* 
- * n draws from a gamma distribution with parameters (shape, scale)
+ * Sample from a gamma distribution
  *
  * Keith O'Hara
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rgamma_HPP
 #define _statslib_rgamma_HPP
 
-double rgamma(double shape, double scale);
-arma::colvec rgamma(int n, double shape, double scale);
+template<typename T>
+T rgamma(const T shape_par, const T scale_par);
+
+arma::mat rgamma(const int n, const double shape_par, const double scale_par);
+arma::mat rgamma(const int n, const int k, const double shape_par, const double scale_par);
 
 #include "rgamma.ipp"
 

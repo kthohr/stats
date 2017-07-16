@@ -22,5 +22,11 @@ make
 ./run_tests
 ./cov_check
 
+cd ../rand
+./configure -c y
+make
+./run_tests
+./cov_check
+
 cd ..
 rm -rf ./arma_tmp

@@ -17,33 +17,35 @@
   ################################################################################*/
 
 /* 
- * n draws from a Laplace distribution with parameters (mu, sigma)
+ * Sample from a Laplace distribution
  *
  * Keith O'Hara
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 07/15/2017
  */
 
-// 1 draw
+template<typename T>
 inline
-double
-rlaplace(double mu, double sigma)
+T
+rlaplace(const T mu_par, const T sigma_par)
 {
-    const double U = runif();
-    double ret = qlaplace(U,mu,sigma);
-    //
-    return ret;
+    return qlaplace(runif(),mu_par,sigma_par);
 }
 
-// n draws
 inline
-arma::colvec
-rlaplace(int n, double mu, double sigma)
+arma::mat
+rlaplace(const int n, const double mu_par, const double sigma_par)
 {
-	arma::vec U = runif(n);
-    arma::vec ret = qlaplace(U,mu,sigma);
-    //
-	return ret;
+	return rlaplace(n,1,mu_par,sigma_par);
+}
+
+inline
+arma::mat
+rlaplace(const int n, const int k, const double mu_par, const double sigma_par)
+{
+	arma::mat U = runif(n,k,0.0,1.0);
+
+	return qlaplace(U,mu_par,sigma_par);
 }

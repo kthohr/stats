@@ -17,20 +17,23 @@
   ################################################################################*/
 
 /* 
- * n draws from a beta distribution with parameters (alpha, beta)
+ * Sample from a beta distribution
  *
  * Keith O'Hara
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rbeta_HPP
 #define _statslib_rbeta_HPP
 
-double rbeta(double par_1, double par_2);
-arma::colvec rbeta(int n, double par_1, double par_2);
+template<typename T>
+T rbeta(const T a_par, const T b_par);
+
+arma::mat rbeta(const int n, const double a_par, const double b_par);
+arma::mat rbeta(const int n, const int k, const double a_par, const double b_par);
 
 #include "rbeta.ipp"
 

@@ -23,14 +23,17 @@
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rbinom_HPP
 #define _statslib_rbinom_HPP
 
-int rbinom(int k, double p);
-arma::colvec rbinom(int n, int k, double p);
+template<typename T>
+int rbinom(const int n_trials_par, const T prob_par);
+
+arma::mat rbinom(const int n, const int n_trials_par, const double prob_par);
+arma::mat rbinom(const int n, const int k, const int n_trials_par, const double prob_par);
 
 #include "rbinom.ipp"
 

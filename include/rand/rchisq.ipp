@@ -17,46 +17,56 @@
   ################################################################################*/
 
 /* 
- * n draws from a Chi-Squared distribution with parameter k
+ * Sample from a Chi-Squared distribution
  *
  * Keith O'Hara
  * 06/01/2015
+ *
+ * This version:
+ * 07/15/2017
  */
 
-// 1 draw
 inline
 double
-rchisq(int k)
+rchisq(const int dof_par)
 {
 	double ret = 0;
 	//
-	if (k < 50) { // sum of squared (standard) normals
-		arma::colvec X = rnorm(k);
+	if (dof_par < 50) { // sum of squared (standard) normals
+		arma::mat X = rnorm(dof_par,1,0.0,1.0);
 
 		ret = arma::as_scalar(X.t() * X);
 	} else { // Fisher's asymptotic approximation
-		ret = 0.5 * std::pow(rnorm() + std::sqrt(2*k - 1), 2);
+		ret = 0.5 * stats_math::pow(rnorm() + stats_math::sqrt((double) 2*dof_par - 1), 2);
 	}
     //
 	return ret;
 }
 
-// n draws
 inline
-arma::colvec
-rchisq(int n, int k)
+arma::mat
+rchisq(const int n, const int dof_par)
 {
-	arma::colvec ret(n);
-	//
-	if (k < 50) { // sum of squared (standard) normals
-		arma::colvec X(k);
+	return rchisq(n,1,dof_par);
+}
 
-		for (int j=0; j < n; j++) {
-			X = rnorm(k);
-			ret.row(j) = X.t() * X;
+inline
+arma::mat
+rchisq(const int n, const int k, const int dof_par)
+{
+	arma::mat ret(n,k);
+	//
+	if (dof_par < 50) { // sum of squared (standard) normals
+		arma::colvec X(dof_par);
+
+		for (int j=0; j < k; j++) {
+            for (int i=0; i < n; i++) {
+			    X = rnorm(dof_par,1,0.0,1.0);
+			    ret(i,j) = arma::as_scalar(X.t() * X);
+            }
 		}
 	} else { // Fisher's asymptotic approximation
-		ret = 0.5 * arma::pow(rnorm(n) + std::sqrt(2*k - 1), 2);
+		ret = 0.5 * arma::pow(rnorm(n,k,0.0,1.0) + std::sqrt(2*dof_par - 1), 2);
 	}
     //
 	return ret;

@@ -16,26 +16,31 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include rlogis_test.cpp -o rlogis.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rbern.cpp -o rbern.test -framework Accelerate
 
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
 {
-    double mu = 2.5;
-    double sigma = 2;
-    double logis_mean = mu;
-    double logis_var = std::pow(arma::datum::pi*sigma,2) / 3.0;
-    double logis_rand = stats::rlogis(mu,sigma);
+    double prob_par = 0.75;
 
-    std::cout << "logis rv: " << logis_rand << std::endl;
+    double bern_mean = prob_par;
+    double bern_var = prob_par*(1.0 - prob_par);
 
-    int n = 100000;
-    arma::vec logis_vec = stats::rlogis(n,mu,sigma);
+    int bern_rand = stats::rbern(prob_par);
 
-    std::cout << "logis rv mean: " << arma::mean(logis_vec) << ". Should be close to: " << logis_mean << std::endl;
-    std::cout << "logis rv variance: " << arma::var(logis_vec) << ". Should be close to: " << logis_var << std::endl;
+    std::cout << "bern rv: " << bern_rand << std::endl;
+
+    int n = 10000;
+    arma::vec bern_vec = stats::rbern(n,prob_par);
+
+    std::cout << "bern rv mean: " << arma::mean(bern_vec) << ". Should be close to: " << bern_mean << std::endl;
+    std::cout << "bern rv variance: " << arma::var(bern_vec) << ". Should be close to: " << bern_var << std::endl;
+
+    //
+    // coverage tests
+
+    stats::rbern(100,100,prob_par);
 
     return 0;
 }

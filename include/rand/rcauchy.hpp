@@ -17,26 +17,24 @@
   ################################################################################*/
 
 /* 
- * Sample from a uniform distribution
+ * Sample from a Cauchy distribution
  *
  * Keith O'Hara
- * 06/01/2015
+ * 06/15/2017
  *
  * This version:
  * 07/15/2017
  */
 
-#ifndef _statslib_runif_HPP
-#define _statslib_runif_HPP
+#ifndef _statslib_rcauchy_HPP
+#define _statslib_rcauchy_HPP
 
 template<typename T>
-T rnorm(const T a_par, const T b_par);
+T rcauchy(const T mu_par, const T sigma_par);
 
-double runif();
+arma::mat rcauchy(const int n, const double mu_par, const double sigma_par);
+arma::mat rcauchy(const int n, const int k, const double mu_par, const double sigma_par);
 
-arma::mat runif(const int n, const double a_par, const double b_par);
-arma::mat runif(const int n, const int k, const double a_par, const double b_par);
-
-#include "runif.ipp"
+#include "rcauchy.ipp"
 
 #endif

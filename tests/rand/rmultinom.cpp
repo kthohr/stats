@@ -16,27 +16,30 @@
   ##
   ################################################################################*/
 
-/* 
- * Sample from a uniform distribution
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 07/15/2017
- */
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rmultinom.cpp -o rmultinom.test -framework Accelerate
 
-#ifndef _statslib_runif_HPP
-#define _statslib_runif_HPP
+#include "stats.hpp"
 
-template<typename T>
-T rnorm(const T a_par, const T b_par);
+int main()
+{
+    arma::vec prob_vec(5);
+    prob_vec(0) = 0.1;
+    prob_vec(1) = 0.15;
+    prob_vec(2) = 0.2;
+    prob_vec(3) = 0.25;
+    prob_vec(4) = 0.3;
 
-double runif();
+    arma::cout << stats::rmultinom(prob_vec) << arma::endl;
 
-arma::mat runif(const int n, const double a_par, const double b_par);
-arma::mat runif(const int n, const int k, const double a_par, const double b_par);
+    arma::mat X = arma::zeros(5,1);
 
-#include "runif.ipp"
+    int n = 10000;
 
-#endif
+    for (int i=0; i < n; i++) {
+        X += stats::rmultinom(prob_vec) / n;
+    }
+
+    arma::cout << "sample mean:\n" << X << arma::endl;
+
+    return 0;
+}

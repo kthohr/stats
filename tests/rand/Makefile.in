@@ -1,0 +1,38 @@
+
+# core compiling options
+CC  = @CC@
+CXX = @CXX@
+FC  = @FC@
+
+CXX_STD = -std=c++11
+OPT_FLAGS = @STATS_OPT_FLAGS@
+
+ARMA_INCLUDE_PATH = @ARMA_INCLUDE_PATH@
+
+# install location
+INSTALL_PATH=@STATS_INSTALL_PATH@
+
+# source directories
+SDIR = ./..
+STATS_DIR = $(SDIR)
+STATS_HEADER_DIR = @STATS_INCLUDE_PATH@
+STATS_TEST_DIR = .
+
+# general flags
+CXXFLAGS = $(CXX_STD) -Wall $(OPT_FLAGS) $(ARMA_INCLUDE_PATH) -I$(STATS_HEADER_DIR)
+LIBS= @STATS_BLAS_LAPACK@
+
+# Test Files
+SOURCES_STATS_DENS= $(STATS_TEST_DIR)/rbern.cpp $(STATS_TEST_DIR)/rbeta.cpp $(STATS_TEST_DIR)/rbinom.cpp $(STATS_TEST_DIR)/rcauchy.cpp $(STATS_TEST_DIR)/rchisq.cpp $(STATS_TEST_DIR)/rgamma.cpp $(STATS_TEST_DIR)/rinvgamma.cpp $(STATS_TEST_DIR)/rinvwish.cpp $(STATS_TEST_DIR)/rlaplace.cpp $(STATS_TEST_DIR)/rlnorm.cpp $(STATS_TEST_DIR)/rlogis.cpp $(STATS_TEST_DIR)/rmultinom.cpp $(STATS_TEST_DIR)/rmvnorm.cpp $(STATS_TEST_DIR)/rnorm.cpp $(STATS_TEST_DIR)/runif.cpp
+OBJECTS_STATS_DENS= $(SOURCES_STATS_DENS:.cpp=.test)
+
+all: $(OBJECTS_STATS_DENS)
+
+# core TraME files
+$(STATS_TEST_DIR)/%.test: $(STATS_TEST_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBS)
+
+# cleanup and install
+.PHONY: clean
+clean:
+	@rm -rf ./*.gcov ./*.gcno ./*.gcda ./*.dSYM ./*.test

@@ -17,19 +17,19 @@
   ################################################################################*/
 
 /* 
- * Draw from an inverse Wishart distribution
+ * Sample from an inverse-Wishart distribution
  *
  * Keith O'Hara
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rinvwish_HPP
 #define _statslib_rinvwish_HPP
 
-arma::mat rinvwish(const arma::mat& Psi, int nu);
+arma::mat rinvwish(const arma::mat& Psi_par, const int nu_par);
 
 #include "rinvwish.ipp"
 

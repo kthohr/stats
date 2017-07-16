@@ -27,6 +27,7 @@
 #include "rbern.hpp"
 #include "rbeta.hpp"
 #include "rbinom.hpp"
+#include "rcauchy.hpp"
 #include "rchisq.hpp"
 #include "rinvgamma.hpp"
 #include "rinvwish.hpp"

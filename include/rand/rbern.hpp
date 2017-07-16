@@ -23,14 +23,17 @@
  * 06/01/2015
  *
  * This version:
- * 06/23/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rbern_HPP
 #define _statslib_rbern_HPP
 
-int rbern(double p);
-arma::colvec rbern(int n, double p);
+template<typename T>
+int rbern(const T p);
+
+arma::mat rbern(const int n, const double prob_par);
+arma::mat rbern(const int n, const int k, const double prob_par);
 
 #include "rbern.ipp"
 

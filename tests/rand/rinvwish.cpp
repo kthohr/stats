@@ -16,27 +16,32 @@
   ##
   ################################################################################*/
 
-/* 
- * Sample from a uniform distribution
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 07/15/2017
- */
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rinvwish.cpp -o rinvwish.test -framework Accelerate
 
-#ifndef _statslib_runif_HPP
-#define _statslib_runif_HPP
+#include "armadillo"
+#include "stats.hpp"
 
-template<typename T>
-T rnorm(const T a_par, const T b_par);
+int main()
+{
+    int n = 10000;
+    int K = 3;
 
-double runif();
 
-arma::mat runif(const int n, const double a_par, const double b_par);
-arma::mat runif(const int n, const int k, const double a_par, const double b_par);
+    int nu = 10 + K + 1;
+    arma::mat Psi = arma::eye(K,K) * 10;
 
-#include "runif.ipp"
+    arma::mat X = arma::zeros(K,K);
 
-#endif
+    for (int i=0; i < n; i++) {
+        X += stats::rinvwish(Psi,nu) / n;
+    }
+
+    arma::cout << "true mean:\n" << Psi / (nu - K - 1) << arma::endl;
+    arma::cout << "sample mean:\n" << X << arma::endl;
+
+    double dinvwish_val = stats::dinvwish(X,Psi,nu,false);
+
+    std::cout << "density value: " << dinvwish_val << std::endl;
+
+    return 0;
+}

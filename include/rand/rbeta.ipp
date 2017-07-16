@@ -23,32 +23,37 @@
  * 06/15/2017
  *
  * This version:
- * 06/23/2017
+ * 07/15/2017
  */
 
-// 1 draw
+template<typename T>
 inline
-double
-rbeta(double par_1, double par_2)
+T
+rbeta(const T a_par, const T b_par)
 {
-	//
-    const double X = rgamma(par_1,1.0);
-    const double Y = rgamma(par_2,1.0);
-
-    double ret = X / (X + Y);
+    const T X = rgamma(a_par,1.0);
+    const T Y = rgamma(b_par,1.0);
     //
-    return ret;
+    return X / (X + Y);
 }
 
-// n draws
 inline
-arma::colvec
-rbeta(int n, double par_1, double par_2)
+arma::mat
+rbeta(const int n, const double a_par, const double b_par)
 {
-	arma::colvec ret(n);
+	return rbeta(n,1,a_par,b_par);
+}
+
+inline
+arma::mat
+rbeta(const int n, const int k, const double a_par, const double b_par)
+{
+	arma::mat ret(n,k);
 	//
-	for (int i=0; i < n; i++) {
-        ret(i) = rbeta(par_1,par_2);
+	for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = rbeta(a_par,b_par);
+        }
     }
     //
 	return ret;

@@ -17,63 +17,33 @@
   ################################################################################*/
 
 /* 
- * n draws from a log-normal distribution with parameters (mu,sigma)
+ * Sample from a log-normal distribution
  *
  * Keith O'Hara
  * 06/24/2017
  *
  * This version:
- * 06/26/2017
+ * 07/15/2017
  */
 
-//
-// single draw
-
+template<typename T>
 inline
-double
-rlnorm_int(const double* mu_inp, const double* sigma_inp)
+T
+rlnorm(const T mu_par, const T sigma_par)
 {
-    double ret = std::exp( rnorm_int(mu_inp,sigma_inp) );
-    //
-	return ret;
+	return stats_math::exp( rnorm(mu_par,sigma_par) );
 }
 
 inline
-double
-rlnorm()
+arma::mat
+rlnorm(const int n, const double mu_par, const double sigma_par)
 {
-    return rlnorm_int(nullptr,nullptr);
+	return rlnorm(n,1,mu_par,sigma_par);
 }
 
 inline
-double
-rlnorm(double mu, double sigma)
+arma::mat
+rlnorm(const int n, const int k, const double mu_par, const double sigma_par)
 {
-    return rlnorm_int(&mu,&sigma);
-}
-
-//
-// n draws
-
-inline
-arma::colvec
-rlnorm_int(int n, const double* mu_inp, const double* sigma_inp)
-{
-    arma::vec ret = arma::exp( rnorm_int(n,mu_inp,sigma_inp) );
-    //
-	return ret;
-}
-
-inline
-arma::colvec
-rlnorm(int n)
-{
-    return rlnorm_int(n,nullptr,nullptr);
-}
-
-inline
-arma::colvec
-rlnorm(int n, double mu, double sigma)
-{
-    return rlnorm_int(n,&mu,&sigma);
+	return arma::exp( rnorm(n,k,mu_par,sigma_par) );
 }

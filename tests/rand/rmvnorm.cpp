@@ -16,27 +16,24 @@
   ##
   ################################################################################*/
 
-/* 
- * Sample from a uniform distribution
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 07/15/2017
- */
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rmvnorm.cpp -o rmvnorm.test -framework Accelerate
 
-#ifndef _statslib_runif_HPP
-#define _statslib_runif_HPP
+#include "armadillo"
+#include "stats.hpp"
 
-template<typename T>
-T rnorm(const T a_par, const T b_par);
+int main()
+{
+    int n = 10000;
+    int K = 3;
 
-double runif();
+    arma::vec mu(K);
+    mu.fill(2);
 
-arma::mat runif(const int n, const double a_par, const double b_par);
-arma::mat runif(const int n, const int k, const double a_par, const double b_par);
+    arma::mat Sigma = arma::eye(K,K);
+    arma::mat mvnorm_vars = stats::rmvnorm(n,mu,Sigma,true);
 
-#include "runif.ipp"
+    arma::cout << "mu_hat:\n" << arma::mean(mvnorm_vars) << arma::endl;
+    arma::cout << "Sigma_hat:\n" << arma::cov(mvnorm_vars) << arma::endl;
 
-#endif
+    return 0;
+}

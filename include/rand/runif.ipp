@@ -17,69 +17,40 @@
   ################################################################################*/
 
 /* 
- * n draws from a uniform distribution with parameters (a,b)
+ * Sample from a uniform distribution
  *
  * Keith O'Hara
  * 06/01/2015
  *
  * This version:
- * 06/24/2017
+ * 07/15/2017
  */
 
-//
-// single draw
-
+template<typename T>
 inline
-double
-runif_int(const double* a_inp, const double* b_inp)
+T
+runif(const T a_par, const T b_par)
 {
-    const double a = (a_inp) ? *a_inp : 0;
-    const double b = (b_inp) ? *b_inp : 1;
-    //
-	double ret = a + (b-a)*arma::as_scalar(arma::randu(1));
-    //
-	return ret;
+	return ( a_par + (b_par - a_par)*arma::as_scalar(arma::randu(1)) ); 
 }
 
 inline
 double
 runif()
 {
-    return runif_int(nullptr,nullptr);
+    return runif(0.0,1.0);
 }
 
 inline
-double
-runif(double a, double b)
+arma::mat
+runif(const int n, const double a_par, const double b_par)
 {
-    return runif_int(&a,&b);
-}
-
-//
-// n draws
-
-inline
-arma::colvec
-runif_int(int n, const double* a_inp, const double* b_inp)
-{
-    const double a = (a_inp) ? *a_inp : 0;
-    const double b = (b_inp) ? *b_inp : 1;
-    //
-	arma::vec ret = a + (b-a)*arma::randu(n);
-    //
-	return ret;
+	return runif(n,1,a_par,b_par);
 }
 
 inline
-arma::colvec
-runif(int n)
+arma::mat
+runif(const int n, const int k, const double a_par, const double b_par)
 {
-    return runif_int(n,nullptr,nullptr);
-}
-
-inline
-arma::colvec
-runif(int n, double a, double b)
-{
-    return runif_int(n,&a,&b);
+	return ( a_par + (b_par - a_par)*arma::randu(n,k) );
 }

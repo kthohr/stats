@@ -17,20 +17,23 @@
   ################################################################################*/
 
 /* 
- * n draws from a logistic distribution with parameters (mu, sigma)
+ * Sample from a logistic distribution
  *
  * Keith O'Hara
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rlogis_HPP
 #define _statslib_rlogis_HPP
 
-double rlogis(double mu, double sigma);
-arma::colvec rlogis(int n, double mu, double sigma);
+template<typename T>
+T rlogis(const T mu_par, const T sigma_par);
+
+arma::mat rlogis(const int n, const double mu_par, const double sigma_par);
+arma::mat rlogis(const int n, const int k, const double mu_par, const double sigma_par);
 
 #include "rlogis.ipp"
 

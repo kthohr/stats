@@ -17,20 +17,23 @@
   ################################################################################*/
 
 /* 
- * n draws from a Laplace distribution with parameters (mu, sigma)
+ * Sample from a Laplace distribution
  *
  * Keith O'Hara
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rlaplace_HPP
 #define _statslib_rlaplace_HPP
 
-double rlaplace(double mu, double sigma);
-arma::colvec rlaplace(int n, double mu, double sigma);
+template<typename T>
+T rlaplace(const T mu_par, const T sigma_par);
+
+arma::mat rlaplace(const int n, const double mu_par, const double sigma_par);
+arma::mat rlaplace(const int n, const int k, const double mu_par, const double sigma_par);
 
 #include "rlaplace.ipp"
 

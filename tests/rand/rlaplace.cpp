@@ -16,27 +16,31 @@
   ##
   ################################################################################*/
 
-/* 
- * Sample from a uniform distribution
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 07/15/2017
- */
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rlaplace.cpp -o rlaplace.test -framework Accelerate
 
-#ifndef _statslib_runif_HPP
-#define _statslib_runif_HPP
+#include "stats.hpp"
 
-template<typename T>
-T rnorm(const T a_par, const T b_par);
+int main()
+{
+    double mu = 2.5;
+    double sigma = 1.5;
+    
+    double laplace_mean = mu;
+    double laplace_var = 2.0*sigma*sigma;
+    double laplace_rand = stats::rlaplace(mu,sigma);
 
-double runif();
+    std::cout << "laplace rv: " << laplace_rand << std::endl;
 
-arma::mat runif(const int n, const double a_par, const double b_par);
-arma::mat runif(const int n, const int k, const double a_par, const double b_par);
+    int n = 100000;
+    arma::vec laplace_vec = stats::rlaplace(n,mu,sigma);
 
-#include "runif.ipp"
+    std::cout << "laplace rv mean: " << arma::mean(laplace_vec) << ". Should be close to: " << laplace_mean << std::endl;
+    std::cout << "laplace rv variance: " << arma::var(laplace_vec) << ". Should be close to: " << laplace_var << std::endl;
 
-#endif
+    //
+    // coverage tests
+    
+    stats::rlaplace(100,100,mu,sigma);
+
+    return 0;
+}

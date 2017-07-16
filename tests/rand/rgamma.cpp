@@ -16,26 +16,30 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++14 -I./../../ -I/opt/local/include rlnorm_test.cpp -o rlnorm.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rgamma.cpp -o rgamma.test -framework Accelerate
 
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
 {
-    double mu = 0.1;
-    double sigma = 1;
-    double lnorm_mean = std::exp(mu + sigma*sigma / 2.0);
-    double lnorm_var = (std::exp(sigma*sigma) - 1.0) * std::exp(mu*2 + sigma*sigma);
-    double lnorm_rand = stats::rlnorm(mu,sigma);
+    double shape = 3;
+    double scale = 2;
+    double gamma_mean = shape*scale;
+    double gamma_var = gamma_mean*scale;
+    double gamma_rand = stats::rgamma(shape,scale);
 
-    std::cout << "lnorm rv: " << lnorm_rand << std::endl;
+    std::cout << "gamma rv: " << gamma_rand << std::endl;
 
-    int n = 10000;
-    arma::vec lnorm_vec = stats::rlnorm(n,mu,sigma);
+    int n = 1000;
+    arma::vec gamma_vec = stats::rgamma(n,shape,scale);
 
-    std::cout << "lnorm rv mean: " << arma::mean(lnorm_vec) << ". Should be close to: " << lnorm_mean << std::endl;
-    std::cout << "lnorm rv variance: " << arma::var(lnorm_vec) << ". Should be close to: " << lnorm_var << std::endl;
+    std::cout << "gamma rv mean: " << arma::mean(gamma_vec) << ". Should be close to: " << gamma_mean << std::endl;
+    std::cout << "gamma rv variance: " << arma::var(gamma_vec) << ". Should be close to: " << gamma_var << std::endl;
+
+    //
+    // coverage tests
     
+    stats::rgamma(100,100,shape,scale);
+
     return 0;
 }

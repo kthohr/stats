@@ -17,20 +17,23 @@
   ################################################################################*/
 
 /* 
- * n draws from an inverse-gamma distribution with parameters (shape, rate)
+ * Sample from an inverse-gamma distribution
  *
  * Keith O'Hara
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rinvgamma_HPP
 #define _statslib_rinvgamma_HPP
 
-double rinvgamma(double shape, double rate);
-arma::colvec rinvgamma(int n, double shape, double rate);
+template<typename T>
+T rinvgamma(const T shape_par, const T rate_par);
+
+arma::mat rinvgamma(const int n, const double shape_par, const double rate_par);
+arma::mat rinvgamma(const int n, const int k, const double shape_par, const double rate_par);
 
 #include "rinvgamma.ipp"
 

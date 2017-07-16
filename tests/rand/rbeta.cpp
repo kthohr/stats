@@ -16,26 +16,32 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include rlaplace_test.cpp -o rlaplace.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rbeta.cpp -o rbeta.test -framework Accelerate
 
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
 {
-    double mu = 2.5;
-    double sigma = 1.5;
-    double laplace_mean = mu;
-    double laplace_var = 2.0*sigma*sigma;
-    double laplace_rand = stats::rlaplace(mu,sigma);
+    double alpha = 3;
+    double beta = 2;
 
-    std::cout << "laplace rv: " << laplace_rand << std::endl;
+    double beta_mean = alpha/(alpha + beta);
+    double beta_var = alpha*beta/(std::pow(alpha + beta,2)*(alpha + beta + 1.0));
 
-    int n = 100000;
-    arma::vec laplace_vec = stats::rlaplace(n,mu,sigma);
+    double beta_rand = stats::rbeta(alpha,beta);
 
-    std::cout << "laplace rv mean: " << arma::mean(laplace_vec) << ". Should be close to: " << laplace_mean << std::endl;
-    std::cout << "laplace rv variance: " << arma::var(laplace_vec) << ". Should be close to: " << laplace_var << std::endl;
+    std::cout << "beta rv: " << beta_rand << std::endl;
 
+    int n = 1000;
+    arma::vec beta_vec = stats::rbeta(n,alpha,beta);
+
+    std::cout << "beta rv mean: " << arma::mean(beta_vec) << ". Should be close to: " << beta_mean << std::endl;
+    std::cout << "beta rv variance: " << arma::var(beta_vec) << ". Should be close to: " << beta_var << std::endl;
+    
+    //
+    // coverage tests
+
+    stats::rbeta(100,100,alpha,beta);
+    
     return 0;
 }

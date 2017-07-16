@@ -17,20 +17,22 @@
   ################################################################################*/
 
 /* 
- * n draws from a Chi-Squared distribution with parameter k
+ * Sample from a Chi-Squared distribution
  *
  * Keith O'Hara
  * 06/01/2015
  *
  * This version:
- * 06/15/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rchisq_HPP
 #define _statslib_rchisq_HPP
 
-double rchisq(int k);
-arma::colvec rchisq(int n, int k);
+double rchisq(const int dof_par);
+
+arma::mat rchisq(const int n, const int dof_par);
+arma::mat rchisq(const int n, const int k, const int dof_par);
 
 #include "rchisq.ipp"
 

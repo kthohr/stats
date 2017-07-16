@@ -29,20 +29,20 @@
 #ifndef _statslib_rmvnorm_HPP
 #define _statslib_rmvnorm_HPP
 
-arma::vec rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol);
+arma::vec rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_chol);
 
 arma::vec rmvnorm(const arma::mat& Sigma);
-arma::vec rmvnorm(const arma::mat& Sigma, bool pre_chol);
+arma::vec rmvnorm(const arma::mat& Sigma, const bool pre_chol);
 arma::vec rmvnorm(const arma::mat& mu, const arma::mat& Sigma);
-arma::vec rmvnorm(const arma::mat& mu, const arma::mat& Sigma, bool pre_chol);
+arma::vec rmvnorm(const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol);
 
 // n samples
-arma::mat rmvnorm_int(int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol);
+arma::mat rmvnorm_int(const int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol);
 
-arma::mat rmvnorm(int n, const arma::mat& Sigma);
-arma::mat rmvnorm(int n, const arma::mat& Sigma, bool pre_chol);
-arma::mat rmvnorm(int n, const arma::mat& mu, const arma::mat& Sigma);
-arma::mat rmvnorm(int n, const arma::mat& mu, const arma::mat& Sigma, bool pre_chol);
+arma::mat rmvnorm(const int n, const arma::mat& Sigma);
+arma::mat rmvnorm(const int n, const arma::mat& Sigma, const bool pre_chol);
+arma::mat rmvnorm(const int n, const arma::mat& mu, const arma::mat& Sigma);
+arma::mat rmvnorm(const int n, const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol);
 
 #include "rmvnorm.ipp"
 

@@ -16,34 +16,36 @@
   ##
   ################################################################################*/
 
-/* 
- * n draws from a logistic distribution with parameters (mu, sigma)
+/*
+ * Sample from a logistic distribution
  *
  * Keith O'Hara
  * 06/15/2017
  *
  * This version:
- * 06/18/2017
+ * 07/15/2017
  */
 
-// 1 draw
+template<typename T>
 inline
-double
-rlogis(double mu, double sigma)
+T
+rlogis(const T mu_par, const T sigma_par)
 {
-    const double U = runif();
-    double ret = qlogis(U,mu,sigma);
-    //
-    return ret;
+    return qlogis(runif(),mu_par,sigma_par);
 }
 
-// n draws
 inline
-arma::colvec
-rlogis(int n, double mu, double sigma)
+arma::mat
+rlogis(const int n, const double mu_par, const double sigma_par)
 {
-	arma::vec U = runif(n);
-    arma::vec ret = qlogis(U,mu,sigma);
-    //
-	return ret;
+	return rlogis(n,1,mu_par,sigma_par);
+}
+
+inline
+arma::mat
+rlogis(const int n, const int k, const double mu_par, const double sigma_par)
+{
+	arma::mat U = runif(n,k,0.0,1.0);
+
+	return qlogis(U,mu_par,sigma_par);
 }

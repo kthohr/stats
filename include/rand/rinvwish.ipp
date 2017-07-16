@@ -17,33 +17,34 @@
   ################################################################################*/
 
 /* 
- * Draw from an inverse Wishart distribution
+ * Sample from an inverse-Wishart distribution
  *
  * Keith O'Hara
  * 06/01/2015
+ *
+ * This version:
+ * 07/15/2017
  */
 
 inline
 arma::mat
-rinvwish(const arma::mat& Psi, int nu)
+rinvwish(const arma::mat& Psi_par, const int nu_par)
 {
-    int K = Psi.n_rows;
+    const int K = Psi_par.n_rows;
 	
-    arma::mat chol_Psi_inv = arma::trans(arma::chol(arma::inv(Psi)));
+    const arma::mat chol_Psi_inv = arma::trans(arma::chol(arma::inv(Psi_par)));
     //
     arma::mat A(K,K);
 
-    for (int i=1; i<K; i++) {
-        for (int j=0; j<i; j++) {
-            A(i,j) = arma::as_scalar(arma::randn(1));
+    for (int i=1; i < K; i++) {
+        for (int j=0; j < i; j++) {
+            A(i,j) = rnorm();
         }
     }
 	
-    for (int i=0; i<K; i++) {
-	    A(i,i) = arma::as_scalar(arma::sqrt(rchisq(1,nu-i)));
+    for (int i=0; i < K; i++) {
+	    A(i,i) = std::sqrt(rchisq(nu_par-i));
     }
     //
-    arma::mat ret = arma::inv( chol_Psi_inv * A * (chol_Psi_inv * A).t() );
-    //
-    return ret;
+    return arma::inv( chol_Psi_inv * A * (chol_Psi_inv * A).t() );
 }

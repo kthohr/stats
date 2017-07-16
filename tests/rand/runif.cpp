@@ -16,32 +16,32 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I../ -I/usr/local/include/trame rinvwish_test.cpp -o rinvwish.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include runif.cpp -o runif.test -framework Accelerate
 
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
 {
+    double a_par = -1;
+    double b_par = 3;
+
+    double unif_mean = (a_par + b_par) / 2.0;
+    double unif_var = (b_par - a_par)*(b_par - a_par) / 12.0;
+
+    double unif_rand = stats::runif(a_par,b_par);
+
+    std::cout << "unif rv: " << unif_rand << std::endl;
+
     int n = 10000;
-    int K = 3;
+    arma::vec unif_vec = stats::runif(n,a_par,b_par);
 
+    std::cout << "unif rv mean: " << arma::mean(unif_vec) << ". Should be close to: " << unif_mean << std::endl;
+    std::cout << "unif rv variance: " << arma::var(unif_vec) << ". Should be close to: " << unif_var << std::endl;
+    
+    //
+    // coverage tests
 
-    int nu = 10 + K + 1;
-    arma::mat Psi = arma::eye(K,K) * 10;
-
-    arma::mat X = arma::zeros(K,K);
-
-    for (int i=0; i < n; i++) {
-        X += stats::rinvwish(Psi,nu) / n;
-    }
-
-    arma::cout << "true mean:\n" << Psi / (nu - K - 1) << arma::endl;
-    arma::cout << "sample mean:\n" << X << arma::endl;
-
-    double dinvwish_val = stats::dinvwish(X,Psi,nu,false);
-
-    std::cout << "density value: " << dinvwish_val << std::endl;
-
+    stats::runif(100,100,a_par,b_par);
+    
     return 0;
 }

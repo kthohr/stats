@@ -16,25 +16,32 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include rchisq_test.cpp -o rchisq.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rbinom.cpp -o rbinom.test -framework Accelerate
 
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
 {
-    double dof = 3;
-    double chisq_mean = dof;
-    double chisq_var = 2*dof;
-    double chisq_rand = stats::rchisq(dof);
+    int n_trials = 5;
+    double prob_par = 0.75;
 
-    std::cout << "chisq rv: " << chisq_rand << std::endl;
+    double binom_mean = n_trials*prob_par;
+    double binom_var = n_trials*prob_par*(1.0 - prob_par);
 
-    int n = 100000;
-    arma::vec chisq_vec = stats::rchisq(n,dof);
+    int binom_rand = stats::rbinom(n_trials,prob_par);
 
-    std::cout << "chisq rv mean: " << arma::mean(chisq_vec) << ". Should be close to: " << chisq_mean << std::endl;
-    std::cout << "chisq rv variance: " << arma::var(chisq_vec) << ". Should be close to: " << chisq_var << std::endl;
+    std::cout << "binom rv: " << binom_rand << std::endl;
+
+    int n = 10000;
+    arma::vec binom_vec = stats::rbinom(n,n_trials,prob_par);
+
+    std::cout << "binom rv mean: " << arma::mean(binom_vec) << ". Should be close to: " << binom_mean << std::endl;
+    std::cout << "binom rv variance: " << arma::var(binom_vec) << ". Should be close to: " << binom_var << std::endl;
+
+    //
+    // coverage tests
+
+    stats::rbinom(100,100,n_trials,prob_par);
 
     return 0;
 }

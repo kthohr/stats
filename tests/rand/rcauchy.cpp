@@ -16,26 +16,29 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include rbeta_test.cpp -o rbeta.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rcauchy.cpp -o rcauchy.test -framework Accelerate
 
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
 {
-    double alpha = 2;
-    double beta = 2;
-    double beta_mean = alpha/(alpha + beta);
-    double beta_var = alpha*beta/(std::pow(alpha + beta,2)*(alpha + beta + 1.0));
-    double beta_rand = stats::rbeta(alpha,beta);
-
-    std::cout << "beta rv: " << beta_rand << std::endl;
-
-    int n = 1000;
-    arma::vec beta_vec = stats::rbeta(n,alpha,beta);
-
-    std::cout << "beta rv mean: " << arma::mean(beta_vec) << ". Should be close to: " << beta_mean << std::endl;
-    std::cout << "beta rv variance: " << arma::var(beta_vec) << ". Should be close to: " << beta_var << std::endl;
+    double mu = 2.5;
+    double sigma = 1.5;
     
+    double cauchy_rand = stats::rcauchy(mu,sigma);
+
+    std::cout << "cauchy rv: " << cauchy_rand << std::endl;
+
+    int n = 100;
+    arma::vec cauchy_vec = stats::rcauchy(n,mu,sigma);
+
+    std::cout << "cauchy rv mean: " << arma::mean(cauchy_vec) << std::endl; // not defined
+    std::cout << "cauchy rv variance: " << arma::var(cauchy_vec) << std::endl; // not defined
+
+    //
+    // coverage tests
+    
+    stats::rcauchy(100,100,mu,sigma);
+
     return 0;
 }

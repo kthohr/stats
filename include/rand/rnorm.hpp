@@ -17,29 +17,25 @@
   ################################################################################*/
 
 /* 
- * n draws from a normal distribution with parameters (mu,sigma)
+ * Sample from a normal distribution
  *
  * Keith O'Hara
  * 06/01/2015
  *
  * This version:
- * 06/24/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rnorm_HPP
 #define _statslib_rnorm_HPP
 
-// single draw
-double rnorm_int(const double* mu_inp, const double* sigma_inp);
+template<typename T>
+T rnorm(const T mu_par, const T sigma_par);
 
 double rnorm();
-double rnorm(double mu, double sigma);
 
-// n draws
-arma::colvec rnorm_int(int n, const double* mu_inp, const double* sigma_inp);
-
-arma::colvec rnorm(int n);
-arma::colvec rnorm(int n, double mu, double sigma);
+arma::mat rnorm(const int n, const double mu_par, const double sigma_par);
+arma::mat rnorm(const int n, const int k, const double mu_par, const double sigma_par);
 
 #include "rnorm.ipp"
 

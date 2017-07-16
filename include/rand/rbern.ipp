@@ -23,30 +23,40 @@
  * 06/01/2015
  *
  * This version:
- * 06/23/2017
+ * 07/15/2017
  */
 
+template<typename T>
 inline
-int 
-rbern(double p)
+int
+rbern(const T prob_par)
 {
-	const double u = runif();
-	//
-    int ret = (u <= p) ? 1 : 0;
+	const T u = runif();
+
+    int ret = (u <= prob_par) ? 1 : 0;
 	//
 	return ret;
 }
 
 inline
-arma::colvec 
-rbern(int n, double p)
+arma::mat
+rbern(const int n, const double prob_par)
 {
-    arma::colvec ret(n);
-	arma::colvec u = runif(n);
+	return rbern(n,1,prob_par);
+}
+
+inline
+arma::mat
+rbern(const int n, const int k, const double prob_par)
+{
+    arma::mat ret(n,k);
+	const arma::mat u = runif(n,k,0.0,1.0);
 	//
-	for (int j=0; j < n; j++) {
-        ret(j) = (u(j) <= p) ? 1 : 0;
-	}
+	for (int j=0; j < k; j++) {
+        for (int i=0; i < n; i++) {
+            ret(i,j) = (u(i,j) <= prob_par) ? 1 : 0;
+        }
+    }
 	//
 	return ret;
 }

@@ -21,6 +21,9 @@
  *
  * Keith O'Hara
  * 06/01/2015
+ *
+ * This version:
+ * 06/15/2017
  */
 
 inline
@@ -32,7 +35,7 @@ rmultinom(const arma::vec& prob)
     double p_j = 1;
 
     arma::colvec ret(nprob);
-    arma::vec prob_csum = arma::cumsum(prob);
+    const arma::vec prob_csum = arma::cumsum(prob);
 
     p_j = prob(0);
     ret(0) = rbinom(n_j,p_j);

@@ -17,29 +17,23 @@
   ################################################################################*/
 
 /* 
- * n draws from a log-normal distribution with parameters (mu,sigma)
+ * Sample from a log-normal distribution
  *
  * Keith O'Hara
  * 06/24/2017
  *
  * This version:
- * 06/26/2017
+ * 07/15/2017
  */
 
 #ifndef _statslib_rlnorm_HPP
 #define _statslib_rlnorm_HPP
 
-// single draw
-double rlnorm_int(const double* mu_inp, const double* sigma_inp);
+template<typename T>
+T rlnorm(const T mu_par, const T sigma_par);
 
-double rlnorm();
-double rlnorm(double mu, double sigma);
-
-// n draws
-arma::colvec rlnorm_int(int n, const double* mu_inp, const double* sigma_inp);
-
-arma::colvec rlnorm(int n);
-arma::colvec rlnorm(int n, double mu, double sigma);
+arma::mat rlnorm(const int n, const double mu_par, const double sigma_par);
+arma::mat rlnorm(const int n, const int k, const double mu_par, const double sigma_par);
 
 #include "rlnorm.ipp"
 
