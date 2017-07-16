@@ -39,7 +39,9 @@ int main()
     //
     // coverage tests
     
+    stats::rchisq(100);
     stats::rchisq(100,100,dof);
+    stats::rchisq(100,100,100);
 
     return 0;
 }

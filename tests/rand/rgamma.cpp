@@ -38,7 +38,8 @@ int main()
 
     //
     // coverage tests
-    
+
+    stats::rgamma(0.7,scale);
     stats::rgamma(100,100,shape,scale);
 
     return 0;

@@ -35,5 +35,24 @@ int main()
     arma::cout << "mu_hat:\n" << arma::mean(mvnorm_vars) << arma::endl;
     arma::cout << "Sigma_hat:\n" << arma::cov(mvnorm_vars) << arma::endl;
 
+    //
+    // coverage tests
+
+    stats::rmvnorm(Sigma);
+    stats::rmvnorm(Sigma,false);
+    stats::rmvnorm(Sigma,true);
+
+    stats::rmvnorm(mu,Sigma);
+    stats::rmvnorm(mu,Sigma,false);
+    stats::rmvnorm(mu,Sigma,true);
+
+    stats::rmvnorm_int(n,&mu,NULL,false);
+    stats::rmvnorm_int(n,NULL,&Sigma,true);
+
+    stats::rmvnorm(n,Sigma);
+    stats::rmvnorm(n,Sigma,false);
+    stats::rmvnorm(n,Sigma,true);
+    stats::rmvnorm(n,mu,Sigma);
+
     return 0;
 }
