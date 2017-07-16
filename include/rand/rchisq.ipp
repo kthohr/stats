@@ -37,7 +37,7 @@ rchisq(const int dof_par)
 
 		ret = arma::as_scalar(X.t() * X);
 	} else { // Fisher's asymptotic approximation
-		ret = 0.5 * stats_math::pow(rnorm() + stats_math::sqrt((double) 2*dof_par - 1), 2);
+		ret = 0.5 * std::pow(rnorm() + std::sqrt((double) (2*dof_par - 1)), 2);
 	}
     //
 	return ret;
