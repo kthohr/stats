@@ -123,6 +123,7 @@ int main()
     stats::qnorm(val_6);
     stats::qnorm(val_6,true);
     stats::qnorm(val_6,mu,sigma);
+    stats::qnorm(0.999,mu,sigma);
 
     arma::mat x_mat(2,1);
     x_mat(0,0) = 0.7;

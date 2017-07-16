@@ -38,6 +38,10 @@ int main()
     //
     // coverage tests
 
+    stats::rmvnorm_int(NULL,NULL,false);
+    stats::rmvnorm_int(&mu,NULL,false);
+    stats::rmvnorm_int(NULL,&Sigma,true);
+
     stats::rmvnorm(Sigma);
     stats::rmvnorm(Sigma,false);
     stats::rmvnorm(Sigma,true);
@@ -46,6 +50,7 @@ int main()
     stats::rmvnorm(mu,Sigma,false);
     stats::rmvnorm(mu,Sigma,true);
 
+    stats::rmvnorm_int(n,NULL,NULL,false);
     stats::rmvnorm_int(n,&mu,NULL,false);
     stats::rmvnorm_int(n,NULL,&Sigma,true);
 
