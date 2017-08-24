@@ -23,7 +23,7 @@
  * 06/01/2015
  *
  * This version:
- * 07/15/2017
+ * 08/23/2017
  */
 
 inline
@@ -32,9 +32,9 @@ rinvwish(const arma::mat& Psi_par, const int nu_par)
 {
     const int K = Psi_par.n_rows;
 	
-    const arma::mat chol_Psi_inv = arma::trans(arma::chol(arma::inv(Psi_par)));
+    arma::mat chol_Psi_inv = arma::trans(arma::chol(arma::inv(Psi_par)));
     //
-    arma::mat A(K,K);
+    arma::mat A = arma::zeros(K,K);
 
     for (int i=1; i < K; i++) {
         for (int j=0; j < i; j++) {
@@ -45,6 +45,8 @@ rinvwish(const arma::mat& Psi_par, const int nu_par)
     for (int i=0; i < K; i++) {
 	    A(i,i) = std::sqrt(rchisq(nu_par-i));
     }
+
+    chol_Psi_inv = chol_Psi_inv*A;
     //
-    return arma::inv( chol_Psi_inv * A * (chol_Psi_inv * A).t() );
+    return arma::inv( chol_Psi_inv * chol_Psi_inv.t() );
 }
