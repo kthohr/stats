@@ -32,7 +32,7 @@ rinvwish(const arma::mat& Psi_par, const int nu_par)
 {
     const int K = Psi_par.n_rows;
 	
-    arma::mat chol_Psi_inv = arma::trans(arma::chol(arma::inv(Psi_par)));
+    arma::mat chol_Psi_inv = arma::chol(arma::inv(Psi_par),"lower");
     //
     arma::mat A = arma::zeros(K,K);
 
