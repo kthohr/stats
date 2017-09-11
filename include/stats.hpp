@@ -19,7 +19,6 @@
 #ifndef _statslib_HPP
 #define _statslib_HPP
 
-#include "armadillo"
 #include "math/gcem.hpp"
 #include "misc/statslib_options.hpp"
 

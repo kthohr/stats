@@ -16,6 +16,15 @@
   ##
   ################################################################################*/
 
+#ifdef USE_RCPP_ARMADILLO
+    #include <RcppArmadillo.h>
+#else
+    #ifndef ARMA_DONT_USE_WRAPPER
+        #define ARMA_DONT_USE_WRAPPER
+    #endif
+    #include "armadillo"
+#endif
+
 #ifndef STATSLIB_GO_INLINE
     #define statslib_constexpr constexpr
     #define stats_math gcem
