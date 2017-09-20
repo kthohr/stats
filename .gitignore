@@ -10,6 +10,7 @@ Makefile
 *.so
 *.test
 *.vscode
+include/armadillo*
 *.dSYM
 *.gcda
 *.gcno

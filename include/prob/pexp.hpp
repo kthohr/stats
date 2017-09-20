@@ -16,26 +16,29 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_dens_HPP
-#define _statslib_dens_HPP
+/*
+ * cdf of the exponential distribution
+ */
 
-#include "dbern.hpp"
-#include "dbeta.hpp"
-#include "dcauchy.hpp"
-#include "dchisq.hpp"
-#include "dexp.hpp"
-#include "dgamma.hpp"
-#include "dinvgamma.hpp"
-#include "dinvwish.hpp"
-#include "dlaplace.hpp"
-#include "dlogis.hpp"
-#include "dmvnorm.hpp"
-#include "dnorm.hpp"
-#include "dunif.hpp"
-#include "dwish.hpp"
+#ifndef _statslib_pexp_HPP
+#define _statslib_pexp_HPP
 
-// these depend on one of the above
-#include "dbinom.hpp"
-#include "dlnorm.hpp"
+// single input
+template<typename T>
+statslib_constexpr T pexp(const T x, const T dof_par, const bool log_form);
+
+statslib_constexpr double pexp(const double x);
+statslib_constexpr double pexp(const double x, const bool log_form);
+statslib_constexpr double pexp(const double x, const double dof_par);
+
+// matrix/vector input
+arma::mat pexp_int(const arma::mat& x, const double* dof_par_inp, const bool log_form);
+
+arma::mat pexp(const arma::mat& x);
+arma::mat pexp(const arma::mat& x, const bool log_form);
+arma::mat pexp(const arma::mat& x, const double dof_par);
+arma::mat pexp(const arma::mat& x, const double dof_par, const bool log_form);
+
+#include "pexp.ipp"
 
 #endif

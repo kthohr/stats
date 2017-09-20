@@ -9,9 +9,6 @@ OPT_FLAGS = @STATS_OPT_FLAGS@
 
 ARMA_INCLUDE_PATH = @ARMA_INCLUDE_PATH@
 
-# install location
-INSTALL_PATH=@STATS_INSTALL_PATH@
-
 # source directories
 SDIR = ./..
 STATS_DIR = $(SDIR)
@@ -19,11 +16,11 @@ STATS_HEADER_DIR = @STATS_INCLUDE_PATH@
 STATS_TEST_DIR = .
 
 # general flags
-CXXFLAGS = $(CXX_STD) -Wall $(OPT_FLAGS) $(ARMA_INCLUDE_PATH) -I$(STATS_HEADER_DIR)
+CXXFLAGS = $(CXX_STD) -Wall $(OPT_FLAGS) -I$(ARMA_INCLUDE_PATH) -I$(STATS_HEADER_DIR)
 LIBS= @STATS_BLAS_LAPACK@
 
 # Test Files
-SOURCES_STATS_DENS= $(STATS_TEST_DIR)/dbern.cpp $(STATS_TEST_DIR)/dbeta.cpp $(STATS_TEST_DIR)/dbinom.cpp $(STATS_TEST_DIR)/dcauchy.cpp $(STATS_TEST_DIR)/dchisq.cpp $(STATS_TEST_DIR)/dgamma.cpp $(STATS_TEST_DIR)/dinvgamma.cpp $(STATS_TEST_DIR)/dinvwish.cpp $(STATS_TEST_DIR)/dlaplace.cpp $(STATS_TEST_DIR)/dlnorm.cpp $(STATS_TEST_DIR)/dlogis.cpp $(STATS_TEST_DIR)/dmvnorm.cpp $(STATS_TEST_DIR)/dnorm.cpp $(STATS_TEST_DIR)/dunif.cpp $(STATS_TEST_DIR)/dwish.cpp
+SOURCES_STATS_DENS= $(STATS_TEST_DIR)/dbern.cpp $(STATS_TEST_DIR)/dbeta.cpp $(STATS_TEST_DIR)/dbinom.cpp $(STATS_TEST_DIR)/dcauchy.cpp $(STATS_TEST_DIR)/dchisq.cpp $(STATS_TEST_DIR)/dexp.cpp $(STATS_TEST_DIR)/dgamma.cpp $(STATS_TEST_DIR)/dinvgamma.cpp $(STATS_TEST_DIR)/dinvwish.cpp $(STATS_TEST_DIR)/dlaplace.cpp $(STATS_TEST_DIR)/dlnorm.cpp $(STATS_TEST_DIR)/dlogis.cpp $(STATS_TEST_DIR)/dmvnorm.cpp $(STATS_TEST_DIR)/dnorm.cpp $(STATS_TEST_DIR)/dunif.cpp $(STATS_TEST_DIR)/dwish.cpp
 OBJECTS_STATS_DENS= $(SOURCES_STATS_DENS:.cpp=.test)
 
 all: $(OBJECTS_STATS_DENS)

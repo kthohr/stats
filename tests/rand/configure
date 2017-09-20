@@ -1,12 +1,11 @@
 #!/bin/bash
 ## stats tests config script
 
-while getopts b:c: option
+while getopts :c option
 do
     case "${option}"
     in
-    b) STATS_BUILD=${OPTARG};;
-    c) STATS_COVERAGE=${OPTARG};;
+    c) STATS_COVERAGE_BUILD="y";;
     esac
 done
 
@@ -26,21 +25,27 @@ if [[ !(-z ${KEITH_DEV_SETTINGS+x}) ]]; then
     FC=gfortran-mp-7
 fi
 
+#
+
+if [[ "${STATS_COVERAGE_BUILD}" == "y" ]]; then 
+    echo "stats tests: coverage build"
+fi
+
+#
+
 WDIR=${PWD}
 
 if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
-    echo "stats: ARMA_INCLUDE_PATH not set"
-    # if [ -f ${WDIR}/../include/armadillo ]; then 
-        # ARMA_INCLUDE_PATH="-I./../include"
-    # elif [ -f /usr/include/armadillo ]; then
-    if [ -f /usr/include/armadillo ]; then
-        ARMA_INCLUDE_PATH="-I/usr/include"
+    if [ -f ${WDIR}/../../include/armadillo ]; then 
+        ARMA_INCLUDE_PATH="./../../include"
+    elif [ -f /usr/include/armadillo ]; then
+        ARMA_INCLUDE_PATH="/usr/include"
     elif [ -f /usr/local/include/armadillo ]; then
-        ARMA_INCLUDE_PATH="-I/usr/local/include"
+        ARMA_INCLUDE_PATH="/usr/local/include"
     elif [ -f /opt/include/armadillo ]; then
-        ARMA_INCLUDE_PATH="-I/opt/include"
+        ARMA_INCLUDE_PATH="/opt/include"
     elif [ -f /opt/local/include/armadillo ]; then
-        ARMA_INCLUDE_PATH="-I/opt/local/include"
+        ARMA_INCLUDE_PATH="/opt/local/include"
     else 
         echo "stats tests: cannot find the armadillo library."
         echo ""
@@ -52,23 +57,22 @@ echo "stats tests: ARMA_INCLUDE_PATH set to ${ARMA_INCLUDE_PATH}"
 
 # coverage build? used for codecov
 
-if [[ "${STATS_COVERAGE}" == "y" ]]; then 
-    echo "stats tests: coverage build"
-    STATS_OPT_FLAGS="-g -O0 -Wall -DSTATSLIB_GO_CONST --coverage -fno-inline -fno-inline-small-functions -fno-default-inline"
+if [[ "${STATS_COVERAGE_BUILD}" == "y" ]]; then 
+    STATS_OPT_FLAGS="-g -O0 -Wall -DSTATSLIB_GO_INLINE --coverage -fno-inline -fno-inline-small-functions -fno-default-inline"
 else
-    STATS_OPT_FLAGS="-O3 -DSTATSLIB_GO_CONST"
+    STATS_OPT_FLAGS="-O3"
 fi
 
-# dev build
+# get include path for StatsLib
+
 cd ../..
 STATS_INCLUDE_PATH=${PWD}/include
-STATS_INSTALL_PATH=${PWD}
-cd tests/rand
+cd ${WDIR}
 
 # BLAS and LAPACK settings
 
 if [[ $OSTYPE == darwin* ]] ; then
-        STATS_BLAS_LAPACK="-framework Accelerate"
+    STATS_BLAS_LAPACK="-framework Accelerate"
 elif [[ $OSTYPE == *linux* ]] ; then
     STATS_BLAS_LAPACK="-lblas -llapack"
 else
@@ -82,5 +86,4 @@ sed -e "s|@CC@|${CC}|" \
     -e "s|@STATS_BLAS_LAPACK@|${STATS_BLAS_LAPACK}|" \
     -e "s|@STATS_OPT_FLAGS@|${STATS_OPT_FLAGS}|" \
     -e "s|@STATS_INCLUDE_PATH@|${STATS_INCLUDE_PATH}|" \
-    -e "s|@STATS_INSTALL_PATH@|${STATS_INSTALL_PATH}|" \
     Makefile.in > Makefile

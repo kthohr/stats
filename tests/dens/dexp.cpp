@@ -26,45 +26,45 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double dof_par = 3.0;
+    constexpr double rate_par = 2.0;
 
     // x = 1
     constexpr double x_1 = 1.0;
-    double val_1 = 0.241971;
-    constexpr double dens_1 = stats::dchisq(x_1,dof_par,false);
+    double val_1 = 0.2706706;
+    constexpr double dens_1 = stats::dexp(x_1,rate_par,false);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dchisq(" << x_1 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dexp(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
     // x = 2, return log
     constexpr double x_2 = 2;
-    double val_2 = -1.572365;
-    constexpr double dens_2 = stats::dchisq(x_2,dof_par,true);
+    double val_2 = -3.306853;
+    constexpr double dens_2 = stats::dexp(x_2,rate_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dchisq(" << x_2 << ",log=true): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dexp(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndchisq: all tests passed.\n");
+        printf("\ndexp: all tests passed.\n");
     }
 
     //
     // coverage tests
 
-    stats::dchisq(x_1);
-    stats::dchisq(x_1,true);
-    stats::dchisq(x_1,dof_par);
+    stats::dexp(x_1);
+    stats::dexp(x_1,true);
+    stats::dexp(x_1,rate_par);
 
     arma::mat x_mat(2,1);
     x_mat(0,0) = 1;
     x_mat(1,0) = 1.5;
 
-    stats::dchisq(x_mat);
-    stats::dchisq(x_mat,true);
-    stats::dchisq(x_mat,dof_par);
-    stats::dchisq(x_mat,dof_par,true);
+    stats::dexp(x_mat);
+    stats::dexp(x_mat,true);
+    stats::dexp(x_mat,rate_par);
+    stats::dexp(x_mat,rate_par,true);
 
     return 0;
 }

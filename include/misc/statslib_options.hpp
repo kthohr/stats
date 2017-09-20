@@ -49,3 +49,6 @@
     #endif
 #endif
 
+namespace stats {
+    static const double inf = arma::datum::inf;
+}

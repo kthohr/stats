@@ -24,6 +24,7 @@
 #include "pbinom.hpp"
 #include "pcauchy.hpp"
 #include "pchisq.hpp"
+#include "pexp.hpp"
 #include "pgamma.hpp"
 #include "pinvgamma.hpp"
 #include "plaplace.hpp"

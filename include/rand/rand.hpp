@@ -29,6 +29,7 @@
 #include "rbinom.hpp"
 #include "rcauchy.hpp"
 #include "rchisq.hpp"
+#include "rexp.hpp"
 #include "rinvgamma.hpp"
 #include "rinvwish.hpp"
 #include "rlaplace.hpp"

@@ -24,6 +24,7 @@
 #include "qbinom.hpp"
 #include "qcauchy.hpp"
 #include "qchisq.hpp"
+#include "qexp.hpp"
 #include "qgamma.hpp"
 #include "qinvgamma.hpp"
 #include "qlaplace.hpp"

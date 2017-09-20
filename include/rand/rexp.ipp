@@ -16,26 +16,31 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_dens_HPP
-#define _statslib_dens_HPP
+/* 
+ * Sample from an exponential distribution
+ */
 
-#include "dbern.hpp"
-#include "dbeta.hpp"
-#include "dcauchy.hpp"
-#include "dchisq.hpp"
-#include "dexp.hpp"
-#include "dgamma.hpp"
-#include "dinvgamma.hpp"
-#include "dinvwish.hpp"
-#include "dlaplace.hpp"
-#include "dlogis.hpp"
-#include "dmvnorm.hpp"
-#include "dnorm.hpp"
-#include "dunif.hpp"
-#include "dwish.hpp"
+inline
+double
+rexp(const double rate_par)
+{
+    return qexp(runif(),rate_par);
+}
 
-// these depend on one of the above
-#include "dbinom.hpp"
-#include "dlnorm.hpp"
 
-#endif
+
+inline
+arma::mat
+rexp(const int n, const double rate_par)
+{
+	return rexp(n,1,rate_par);
+}
+
+inline
+arma::mat
+rexp(const int n, const int k, const double rate_par)
+{
+	arma::mat U = runif(n,k,0.0,1.0);
+
+	return qexp(U,rate_par);
+}

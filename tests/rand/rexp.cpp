@@ -16,26 +16,31 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_dens_HPP
-#define _statslib_dens_HPP
+#include "stats.hpp"
 
-#include "dbern.hpp"
-#include "dbeta.hpp"
-#include "dcauchy.hpp"
-#include "dchisq.hpp"
-#include "dexp.hpp"
-#include "dgamma.hpp"
-#include "dinvgamma.hpp"
-#include "dinvwish.hpp"
-#include "dlaplace.hpp"
-#include "dlogis.hpp"
-#include "dmvnorm.hpp"
-#include "dnorm.hpp"
-#include "dunif.hpp"
-#include "dwish.hpp"
+int main()
+{
+    double rate_par = 0.8;
+    
+    double exp_mean = 1.0 / rate_par;
+    double exp_var = std::pow(rate_par,-2);
 
-// these depend on one of the above
-#include "dbinom.hpp"
-#include "dlnorm.hpp"
+    double exp_rand = stats::rexp(rate_par);
 
-#endif
+    std::cout << "exp rv: " << exp_rand << std::endl;
+
+    int n = 100000;
+    arma::vec exp_vec = stats::rexp(n,rate_par);
+
+    std::cout << "exp rv mean: " << arma::mean(exp_vec) << ". Should be close to: " << exp_mean << std::endl;
+    std::cout << "exp rv variance: " << arma::var(exp_vec) << ". Should be close to: " << exp_var << std::endl;
+
+    //
+    // coverage tests
+    
+    stats::rexp(100);
+    stats::rexp(100,100,rate_par);
+    stats::rexp(100,100,100);
+
+    return 0;
+}

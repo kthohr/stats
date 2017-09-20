@@ -16,26 +16,29 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_dens_HPP
-#define _statslib_dens_HPP
+/*
+ * quantile function of the exponential distribution
+ */
 
-#include "dbern.hpp"
-#include "dbeta.hpp"
-#include "dcauchy.hpp"
-#include "dchisq.hpp"
-#include "dexp.hpp"
-#include "dgamma.hpp"
-#include "dinvgamma.hpp"
-#include "dinvwish.hpp"
-#include "dlaplace.hpp"
-#include "dlogis.hpp"
-#include "dmvnorm.hpp"
-#include "dnorm.hpp"
-#include "dunif.hpp"
-#include "dwish.hpp"
+#ifndef _statslib_qexp_HPP
+#define _statslib_qexp_HPP
 
-// these depend on one of the above
-#include "dbinom.hpp"
-#include "dlnorm.hpp"
+// single input
+template<typename T>
+statslib_constexpr T qexp(const T p, const T dof_par, const bool log_form);
+
+statslib_constexpr double qexp(const double p);
+statslib_constexpr double qexp(const double p, const bool log_form);
+statslib_constexpr double qexp(const double p, const double dof_par);
+
+// matrix/vector input
+arma::mat qexp_int(const arma::mat& p, const double* dof_par_inp, const bool log_form);
+
+arma::mat qexp(const arma::mat& p);
+arma::mat qexp(const arma::mat& p, const bool log_form);
+arma::mat qexp(const arma::mat& p, const double dof_par);
+arma::mat qexp(const arma::mat& p, const double dof_par, const bool log_form);
+
+#include "qexp.ipp"
 
 #endif

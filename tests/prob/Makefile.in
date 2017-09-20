@@ -9,9 +9,6 @@ OPT_FLAGS = @STATS_OPT_FLAGS@
 
 ARMA_INCLUDE_PATH = @ARMA_INCLUDE_PATH@
 
-# install location
-INSTALL_PATH=@STATS_INSTALL_PATH@
-
 # source directories
 SDIR = ./..
 STATS_DIR = $(SDIR)
@@ -19,11 +16,11 @@ STATS_HEADER_DIR = @STATS_INCLUDE_PATH@
 STATS_TEST_DIR = .
 
 # general flags
-CXXFLAGS = $(CXX_STD) -Wall $(OPT_FLAGS) $(ARMA_INCLUDE_PATH) -I$(STATS_HEADER_DIR)
+CXXFLAGS = $(CXX_STD) -Wall $(OPT_FLAGS) -I$(ARMA_INCLUDE_PATH) -I$(STATS_HEADER_DIR)
 LIBS= @STATS_BLAS_LAPACK@
 
 # Test Files
-SOURCES_STATS_DENS= $(STATS_TEST_DIR)/pbern.cpp $(STATS_TEST_DIR)/pbeta.cpp $(STATS_TEST_DIR)/pbinom.cpp $(STATS_TEST_DIR)/pcauchy.cpp $(STATS_TEST_DIR)/pchisq.cpp $(STATS_TEST_DIR)/pgamma.cpp $(STATS_TEST_DIR)/pinvgamma.cpp $(STATS_TEST_DIR)/plaplace.cpp $(STATS_TEST_DIR)/plnorm.cpp $(STATS_TEST_DIR)/plogis.cpp $(STATS_TEST_DIR)/pnorm.cpp $(STATS_TEST_DIR)/punif.cpp
+SOURCES_STATS_DENS= $(STATS_TEST_DIR)/pbern.cpp $(STATS_TEST_DIR)/pbeta.cpp $(STATS_TEST_DIR)/pbinom.cpp $(STATS_TEST_DIR)/pcauchy.cpp $(STATS_TEST_DIR)/pchisq.cpp $(STATS_TEST_DIR)/pexp.cpp $(STATS_TEST_DIR)/pgamma.cpp $(STATS_TEST_DIR)/pinvgamma.cpp $(STATS_TEST_DIR)/plaplace.cpp $(STATS_TEST_DIR)/plnorm.cpp $(STATS_TEST_DIR)/plogis.cpp $(STATS_TEST_DIR)/pnorm.cpp $(STATS_TEST_DIR)/punif.cpp
 OBJECTS_STATS_DENS= $(SOURCES_STATS_DENS:.cpp=.test)
 
 all: $(OBJECTS_STATS_DENS)
