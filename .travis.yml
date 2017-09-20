@@ -1,4 +1,5 @@
-langauge: cpp
+
+langauge: c++
 sudo: required
 
 branches:
@@ -6,11 +7,10 @@ branches:
 
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
       - g++-6
-      - gfortran-6
+    sources: &sources
+      - ubuntu-toolchain-r-test
 
 matrix:
   include:
@@ -19,7 +19,6 @@ matrix:
       compiler: gcc
 
     - os: osx
-      # env:
       osx_image: xcode8
 
 before_install:
