@@ -68,5 +68,7 @@ int main()
     stats::qbern(x_mat,prob_par);
     stats::qbern(x_mat,prob_par,true);
 
+    printf("\nqbern: end of tests.\n");
+
     return 0;
 }

@@ -40,7 +40,7 @@ matrix:
       # compiler: clang
 
 before_install:
-    -  eval "${MATRIX_EVAL}"
+    - eval "${MATRIX_EVAL}"
 
 install:
     - |
