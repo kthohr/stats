@@ -28,31 +28,31 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr int n_trials = 1;
-    constexpr double prob_par = 0.4;
+    int n_trials = 1;
+    double prob_par = 0.4;
 
     // x = 1
-    constexpr int x_1 = 1;
+    int x_1 = 1;
     double val_1 = prob_par;
-    constexpr double dens_1 = stats::dbinom(x_1,n_trials,prob_par,false);
+    double dens_1 = stats::dbinom(x_1,n_trials,prob_par,false);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbinom(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
     // x = 1, return log
-    constexpr int x_2 = x_1;
+    int x_2 = x_1;
     double val_2 = std::log(prob_par);
-    constexpr double dens_2 = stats::dbinom(x_2,n_trials,prob_par,true);
+    double dens_2 = stats::dbinom(x_2,n_trials,prob_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbinom(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     // x = 3
-    constexpr int x_3 = 3;
+    int x_3 = 3;
     double val_3 = 0.2304;
-    constexpr double dens_3 = stats::dbinom(x_3,5,prob_par,false);
+    double dens_3 = stats::dbinom(x_3,5,prob_par,false);
 
     bool success_3 = (std::abs(dens_3 - val_3) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbinom(" << x_3 << "): ";

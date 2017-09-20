@@ -28,22 +28,22 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double mu = 1;
-    constexpr double sigma = 2;
+    double mu = 1;
+    double sigma = 2;
 
     // x = 1
-    constexpr double x_1 = 1;
+    double x_1 = 1;
     double val_1 = 0.25;
-    constexpr double dens_1 = stats::dlaplace(x_1,mu,sigma);
+    double dens_1 = stats::dlaplace(x_1,mu,sigma);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlaplace(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
     // x = 1.5, return log
-    constexpr double x_2 = 1.5;
+    double x_2 = 1.5;
     double val_2 = -1.636294;
-    constexpr double dens_2 = stats::dlaplace(x_2,mu,sigma,true);
+    double dens_2 = stats::dlaplace(x_2,mu,sigma,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlaplace(" << x_2 << ",log=true): ";

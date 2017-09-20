@@ -29,11 +29,11 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double shape_par = 2.0;
-    constexpr double scale_par = 3.0;
+    double shape_par = 2.0;
+    double scale_par = 3.0;
 
     // x = 1
-    constexpr double x_1 = 1;
+    double x_1 = 1;
     double val_1 = 0.07961459;
     double dens_1 = stats::dgamma(x_1,shape_par,scale_par,false);
 
@@ -42,9 +42,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
     // x = 2, return log
-    constexpr double x_2 = 2;
+    double x_2 = 2;
     double val_2 = -2.170744;
-    constexpr double dens_2 = stats::dgamma(x_2,shape_par,scale_par,true);
+    double dens_2 = stats::dgamma(x_2,shape_par,scale_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dgamma(" << x_2 << ",log=true): ";

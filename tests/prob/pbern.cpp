@@ -28,21 +28,21 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double prob_par = 0.4;
+    double prob_par = 0.4;
 
     // x = 1
-    constexpr int x_1 = 1;
+    int x_1 = 1;
     double val_1 = 1.0;
-    constexpr double dens_1 = stats::pbern(x_1,prob_par,false);
+    double dens_1 = stats::pbern(x_1,prob_par,false);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "pbern(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
     // x = 1, return log
-    constexpr int x_2 = 1;
+    int x_2 = 1;
     double val_2 = 0.0;
-    constexpr double dens_2 = stats::pbern(x_2,prob_par,true);
+    double dens_2 = stats::pbern(x_2,prob_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "pbern(" << x_2 << ",log=true): ";

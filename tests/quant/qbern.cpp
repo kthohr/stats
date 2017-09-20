@@ -28,12 +28,12 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double prob_par = 0.4;
+    double prob_par = 0.4;
 
     // x = 1
     int x_1 = 1;
-    constexpr double val_1 = 0.7;
-    constexpr double q_1 = stats::qbern(val_1,prob_par,false);
+    double val_1 = 0.7;
+    double q_1 = stats::qbern(val_1,prob_par,false);
 
     bool success_1 = (std::abs(x_1 - q_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qbern(" << val_1 << "): ";
@@ -41,8 +41,8 @@ int main()
 
     // x = 1, return log
     int x_2 = 0;
-    constexpr double val_2 = 0.7;
-    constexpr double q_2 = stats::qbern(val_2,prob_par,true);
+    double val_2 = 0.7;
+    double q_2 = stats::qbern(val_2,prob_par,true);
 
     bool success_2 = (std::abs(x_2 - q_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qbern(" << val_2 << ",log=true): ";

@@ -28,22 +28,22 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double mu = 1;
-    constexpr double sigma = 2;
+    double mu = 1;
+    double sigma = 2;
 
     // x = 2
-    constexpr double x_1 = 2;
-    constexpr double val_1 = 0.6475836;
-    constexpr double q_1 = stats::qcauchy(val_1,mu,sigma);
+    double x_1 = 2;
+    double val_1 = 0.6475836;
+    double q_1 = stats::qcauchy(val_1,mu,sigma);
 
     bool success_1 = (std::abs(q_1 - x_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qcauchy(" << val_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_1 << ". Success = " << success_1 << std::endl;
 
     // x = 1, return log
-    constexpr double x_2 = GCEM_LOG_2;
-    constexpr double val_2 = 0.6475836;
-    constexpr double q_2 = stats::qcauchy(val_2,mu,sigma,true);
+    double x_2 = GCEM_LOG_2;
+    double val_2 = 0.6475836;
+    double q_2 = stats::qcauchy(val_2,mu,sigma,true);
 
     bool success_2 = (std::abs(q_2 - x_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qcauchy(" << val_2 << ",log=true): ";

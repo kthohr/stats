@@ -29,11 +29,11 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double a_par = 0.0;
-    constexpr double b_par = 2.5;
+    double a_par = 0.0;
+    double b_par = 2.5;
 
     // x = 1
-    constexpr double x_1 = 0.5;
+    double x_1 = 0.5;
     double val_1 = 0.40;
     double dens_1 = stats::dunif(x_1,a_par,b_par,false);
 
@@ -42,9 +42,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
     // x = 1, return log
-    constexpr double x_2 = 0.5;
+    double x_2 = 0.5;
     double val_2 = std::log(val_1);
-    constexpr double dens_2 = stats::dunif(x_2,a_par,b_par,true);
+    double dens_2 = stats::dunif(x_2,a_par,b_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dunif(" << x_2 << ",log=true): ";

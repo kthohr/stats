@@ -28,22 +28,22 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    constexpr double a_par = -1;
-    constexpr double b_par = 3;
+    double a_par = -1;
+    double b_par = 3;
 
     // x = 2
-    constexpr double x_1 = 2;
-    constexpr double val_1 = 0.75;
-    constexpr double q_1 = stats::qunif(val_1,a_par,b_par);
+    double x_1 = 2;
+    double val_1 = 0.75;
+    double q_1 = stats::qunif(val_1,a_par,b_par);
 
     bool success_1 = (std::abs(q_1 - x_1) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qunif(" << val_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_1 << ". Success = " << success_1 << std::endl;
 
     // x = 1, return log
-    constexpr double x_2 = GCEM_LOG_2;
-    constexpr double val_2 = 0.75;
-    constexpr double q_2 = stats::qunif(val_2,a_par,b_par,true);
+    double x_2 = GCEM_LOG_2;
+    double val_2 = 0.75;
+    double q_2 = stats::qunif(val_2,a_par,b_par,true);
 
     bool success_2 = (std::abs(q_2 - x_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qunif(" << val_2 << ",log=true): ";
