@@ -1,5 +1,5 @@
 
-langauge: c++
+language: c++
 sudo: required
 
 branches:
