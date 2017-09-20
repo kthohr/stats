@@ -8,5 +8,5 @@ if [[ !(-z ${KEITH_DEV_SETTINGS+x}) ]]; then
 fi
 
 for t in ./*.cpp; do
-   $CXXCOV "$t"
+   $CXXCOV "$t" > /dev/null 2>&1
 done
