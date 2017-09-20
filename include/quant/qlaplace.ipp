@@ -110,4 +110,3 @@ qlaplace(const arma::mat& p, const double mu_par, const double sigma_par, const 
 {
     return qlaplace_int(p,&mu_par,&sigma_par,log_form);
 }
-
