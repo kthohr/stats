@@ -31,8 +31,13 @@ before_install:
     -  eval "${MATRIX_EVAL}"
 
 install:
-    - sudo apt-get update
-    - sudo apt-get install libblas-dev liblapack-dev
+    - |
+      if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+        sudo apt-get update
+        sudo apt-get install libblas-dev liblapack-dev
+      else
+        brew upgrade gcc || brew install gcc
+      fi
 
 script:
   - cd ./tests
