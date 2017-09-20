@@ -5,27 +5,39 @@ sudo: required
 branches:
   except: /pr\/.*/
 
-addons:
-  apt:
-    packages:
-      - g++-6
-      - gfortran-6
-    sources: &sources
-      - ubuntu-toolchain-r-test
-
 matrix:
   include:
     - os: linux
       dist: trusty
+      addons:
+        apt:
+          packages:
+            - g++-5
+            - gfortran-5
+          sources: &sources
+            - ubuntu-toolchain-r-test
+      env:
+        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5 && FC=gfortran-5"
+      compiler: gcc
+    
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          packages:
+            - g++-6
+            - gfortran-6
+          sources: &sources
+            - ubuntu-toolchain-r-test
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && FC=gfortran-6"
       compiler: gcc
 
-    - os: osx
-      osx_image: xcode8
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-      compiler: clang
+    # - os: osx
+      # osx_image: xcode8
+      # env:
+        # - MATRIX_EVAL="CC=clang && CXX=clang++"
+      # compiler: clang
 
 before_install:
     -  eval "${MATRIX_EVAL}"
@@ -36,6 +48,7 @@ install:
         sudo apt-get update
         sudo apt-get install libblas-dev liblapack-dev
       else
+        # OSX
         brew upgrade gcc || brew install gcc
       fi
 
