@@ -69,9 +69,11 @@ qinvgamma_int(const arma::mat& p, const double* shape_par_inp, const double* rat
 {
     const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
     const double rate_par = (rate_par_inp) ? *rate_par_inp : 1.0;
-    //
+    
     const int n = p.n_rows;
     const int k = p.n_cols;
+
+    //
 
     arma::mat ret(n,k);
 
@@ -80,7 +82,9 @@ qinvgamma_int(const arma::mat& p, const double* shape_par_inp, const double* rat
             ret(i,j) = qinvgamma(p(i,j),shape_par,rate_par,log_form);
         }
     }
+
     //
+    
     return ret;
 }
 

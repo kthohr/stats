@@ -21,7 +21,6 @@
  */
 
 template<typename T>
-inline
 T
 rlnorm(const T mu_par, const T sigma_par)
 {

@@ -21,7 +21,6 @@
  */
 
 template<typename T>
-inline
 T
 runif(const T a_par, const T b_par)
 {

@@ -24,7 +24,6 @@
 // single draw
 
 template<typename T>
-inline
 T
 rnorm(const T mu_par, const T sigma_par)
 {

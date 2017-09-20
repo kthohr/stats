@@ -67,10 +67,12 @@ inline
 arma::mat
 pchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form)
 {
-    const double dof_par = (dof_par_inp) ? *dof_par_inp : 1;
-    //
+    const double dof_par = (dof_par_inp) ? *dof_par_inp : 1.0;
+    
     const int n = x.n_rows;
     const int k = x.n_cols;
+
+    //
 
     arma::mat ret(n,k);
 
@@ -79,7 +81,9 @@ pchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form)
             ret(i,j) = pchisq(x(i,j),dof_par,log_form);
         }
     }
+
     //
+    
     return ret;
 }
 

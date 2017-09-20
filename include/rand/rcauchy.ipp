@@ -21,7 +21,6 @@
  */
 
 template<typename T>
-inline
 T
 rcauchy(const T mu_par, const T sigma_par)
 {

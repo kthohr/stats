@@ -67,15 +67,19 @@ inline
 arma::mat
 plogis_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, bool log_form)
 {
-    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
-    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
+
     //
+
     arma::mat ret = 1.0/(1.0 + arma::exp(- (x - mu_par) / sigma_par));
 
     if (log_form) {
         ret = arma::log(ret);
     }
+
     //
+
     return ret;
 }
 

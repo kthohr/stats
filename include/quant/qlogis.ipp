@@ -67,15 +67,19 @@ inline
 arma::mat
 qlogis_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, bool log_form)
 {
-    double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
-    double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
+    double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
+    double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
+
     //
+
     arma::mat ret = mu_par + sigma_par*arma::log(p/(1.0 - p));
     
     if (log_form) {
         ret = arma::log(ret);
     }
+
     //
+    
     return ret;
 }
 

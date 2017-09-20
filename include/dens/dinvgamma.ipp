@@ -67,9 +67,11 @@ inline
 arma::mat
 dinvgamma_int(const arma::mat& x, const double* shape_par_inp, const double* rate_par_inp, const bool log_form)
 {
-    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1;
-    const double rate_par = (rate_par_inp) ? *rate_par_inp : 1;
+    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
+    const double rate_par = (rate_par_inp) ? *rate_par_inp : 1.0;
+
     //
+
     const double norm_term = - std::lgamma(shape_par) + shape_par*std::log(rate_par);
 
     arma::mat ret = norm_term + (- shape_par - 1) * arma::log(x) - rate_par / x;
@@ -77,7 +79,9 @@ dinvgamma_int(const arma::mat& x, const double* shape_par_inp, const double* rat
     if (!log_form) {
         ret = arma::exp(ret);
     }
+
     //
+    
     return ret;
 }
 

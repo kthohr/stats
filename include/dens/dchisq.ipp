@@ -68,7 +68,9 @@ arma::mat
 dchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form)
 {
     const double dof_2 = (dof_par_inp) ? *dof_par_inp / 2.0 : 0.5; // dof / 2
+
     //
+
     const double norm_term = - std::lgamma(dof_2) - dof_2*GCEM_LOG_2;
 
     arma::mat ret = norm_term + (dof_2 - 1) * arma::log(x) - x / 2.0;
@@ -76,7 +78,9 @@ dchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form)
     if (!log_form) {
         ret = arma::exp(ret);
     }
+
     //
+    
     return ret;
 }
 

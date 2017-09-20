@@ -69,9 +69,11 @@ pgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_
 {
     const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
     const double scale_par = (scale_par_inp) ? *scale_par_inp : 1.0;
-    //
+    
     const int n = x.n_rows;
     const int k = x.n_cols;
+
+    //
 
     arma::mat ret(n,k);
 
@@ -80,7 +82,9 @@ pgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_
             ret(i,j) = pgamma(x(i,j),shape_par,scale_par,log_form);
         }
     }
+
     //
+    
     return ret;
 }
 

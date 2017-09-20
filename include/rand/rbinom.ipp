@@ -21,7 +21,6 @@
  */
 
 template<typename T>
-inline
 int
 rbinom(const int n_trials_par, const T prob_par)
 {
@@ -39,13 +38,17 @@ inline
 arma::mat
 rbinom(const int n, const int k, const int n_trials_par, const double prob_par)
 {
-	arma::mat ret(n,k);
-	//
+    arma::mat ret(n,k);
+    
+    //
+    
 	for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = rbinom(n_trials_par,prob_par);
         }
     }
+
     //
+
 	return ret;
 }

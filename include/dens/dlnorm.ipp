@@ -66,7 +66,9 @@ dlnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par
     } else {
         ret /= x;
     }
+
     //
+    
     return ret;
 }
 

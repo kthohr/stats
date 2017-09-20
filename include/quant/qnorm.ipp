@@ -67,11 +67,13 @@ inline
 arma::mat
 qnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
-    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
-    //
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
+    
     const int n = p.n_rows;
     const int k = p.n_cols;
+
+    //
 
     arma::mat ret(n,k);
 
@@ -80,7 +82,9 @@ qnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_
             ret(i,j) = qnorm(p(i,j),mu_par,sigma_par,log_form);
         }
     }
+
     //
+
     return ret;
 }
 

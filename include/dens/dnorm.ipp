@@ -67,16 +67,20 @@ inline
 arma::mat
 dnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
-    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
+
     //
+
     const double norm_term = - 0.5*GCEM_LOG_2PI - std::log(sigma_par);
     arma::mat ret = norm_term - (x - mu_par)%(x - mu_par)  / (2 * sigma_par*sigma_par);
 
     if (!log_form) {
         ret = arma::exp(ret);
     }
+
     //
+    
     return ret;
 }
 

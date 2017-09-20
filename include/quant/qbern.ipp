@@ -72,6 +72,8 @@ qbern_int(const arma::mat& p, const double* prob_par_inp, const bool log_form)
     const int n = p.n_rows;
     const int k = p.n_cols;
 
+    //
+
     arma::mat ret(n,k);
 
     for (int j=0; j < k; j++) {
@@ -79,7 +81,9 @@ qbern_int(const arma::mat& p, const double* prob_par_inp, const bool log_form)
             ret(i,j) = qbern(p(i,j),prob_par,log_form);
         }
     }
+
     //
+    
     return ret;
 }
 

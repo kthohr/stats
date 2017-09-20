@@ -73,6 +73,8 @@ pbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_p
     const int n = x.n_rows;
     const int k = x.n_cols;
 
+    //
+
     arma::mat ret(n,k);
 
     for (int j=0; j < k; j++) {
@@ -80,7 +82,9 @@ pbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_p
             ret(i,j) = pbinom((int)x(i,j),n_trials_par,prob_par,log_form);
         }
     }
+
     //
+    
     return ret;
 }
 

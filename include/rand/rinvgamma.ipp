@@ -21,7 +21,6 @@
  */
 
 template<typename T>
-inline
 T
 rinvgamma(T shape_par, T rate_par)
 {

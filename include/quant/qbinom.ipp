@@ -73,6 +73,8 @@ qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_i
     const int n = p.n_rows;
     const int k = p.n_cols;
 
+    //
+
     arma::mat ret(n,k);
 
     for (int j=0; j < k; j++) {
@@ -80,7 +82,9 @@ qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_i
             ret(i,j) = qbinom(p(i,j),n_trials,prob_par,log_form);
         }
     }
+
     //
+    
     return ret;
 }
 

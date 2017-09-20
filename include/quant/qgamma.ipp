@@ -69,9 +69,11 @@ qgamma_int(const arma::mat& p, const double* shape_par_inp, const double* scale_
 {
     const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
     const double scale_par = (scale_par_inp) ? *scale_par_inp : 1.0;
-    //
+    
     const int n = p.n_rows;
     const int k = p.n_cols;
+
+    //
 
     arma::mat ret(n,k);
 
@@ -80,7 +82,9 @@ qgamma_int(const arma::mat& p, const double* shape_par_inp, const double* scale_
             ret(i,j) = qgamma(p(i,j),shape_par,scale_par,log_form);
         }
     }
+
     //
+    
     return ret;
 }
 

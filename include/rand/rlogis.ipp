@@ -21,7 +21,6 @@
  */
 
 template<typename T>
-inline
 T
 rlogis(const T mu_par, const T sigma_par)
 {

@@ -67,11 +67,13 @@ inline
 arma::mat
 qbeta_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form)
 {
-    const double a_par = (a_par_inp) ? *a_par_inp : 2; // shape parameter 'alpha'
-    const double b_par = (b_par_inp) ? *b_par_inp : 2; // scale parameter 'beta'
+    const double a_par = (a_par_inp) ? *a_par_inp : 2.0; // shape parameter 'alpha'
+    const double b_par = (b_par_inp) ? *b_par_inp : 2.0; // scale parameter 'beta'
 
     const int n = p.n_rows;
     const int k = p.n_cols;
+
+    //
 
     arma::mat ret(n,k);
 
@@ -80,7 +82,9 @@ qbeta_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, 
             ret(i,j) = qbeta(p(i,j),a_par,b_par,log_form);
         }
     }
+
     //
+    
     return ret;
 }
 

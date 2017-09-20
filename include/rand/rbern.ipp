@@ -21,14 +21,13 @@
  */
 
 template<typename T>
-inline
 int
 rbern(const T prob_par)
 {
 	const T u = runif();
 
     int ret = (u <= prob_par) ? 1 : 0;
-	//
+    
 	return ret;
 }
 
@@ -44,13 +43,15 @@ arma::mat
 rbern(const int n, const int k, const double prob_par)
 {
     arma::mat ret(n,k);
-	const arma::mat u = runif(n,k,0.0,1.0);
-	//
+    const arma::mat u = runif(n,k,0.0,1.0);
+    
 	for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = (u(i,j) <= prob_par) ? 1 : 0;
         }
     }
-	//
+
+    //
+    
 	return ret;
 }

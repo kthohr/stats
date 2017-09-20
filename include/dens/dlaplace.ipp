@@ -67,15 +67,19 @@ inline
 arma::mat
 dlaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
 {
-    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
-    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
+
     //
+
     arma::mat ret = - std::log(2*sigma_par) - arma::abs(x - mu_par) / sigma_par;
 
     if (!log_form) {
         ret = arma::exp(ret);
     }
+
     //
+    
     return ret;
 }
 

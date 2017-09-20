@@ -64,7 +64,9 @@ qlnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par
     if (!log_form) {
         ret = arma::exp(ret);
     }
+
     //
+    
     return ret;
 }
 

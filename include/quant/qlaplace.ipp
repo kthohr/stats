@@ -67,15 +67,19 @@ inline
 arma::mat
 qlaplace_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, bool log_form)
 {
-    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0;
-    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1;
+    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
+    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
+
     //
+
     arma::mat ret = mu_par - sigma_par*arma::sign(p - 0.5)%arma::log(1.0 - 2.0*arma::abs(p - 0.5));
 
     if (log_form) {
         ret = arma::log(ret);
     }
+
     //
+    
     return ret;
 }
 

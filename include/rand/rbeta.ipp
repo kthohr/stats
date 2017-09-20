@@ -21,13 +21,14 @@
  */
 
 template<typename T>
-inline
 T
 rbeta(const T a_par, const T b_par)
 {
     const T X = rgamma(a_par,1.0);
     const T Y = rgamma(b_par,1.0);
+
     //
+    
     return X / (X + Y);
 }
 
@@ -42,13 +43,17 @@ inline
 arma::mat
 rbeta(const int n, const int k, const double a_par, const double b_par)
 {
-	arma::mat ret(n,k);
-	//
+    arma::mat ret(n,k);
+    
+    //
+    
 	for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = rbeta(a_par,b_par);
         }
     }
+
     //
+
 	return ret;
 }

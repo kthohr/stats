@@ -69,7 +69,9 @@ punif_int(const arma::vec& x, const double* a_par_inp, const double* b_par_inp, 
 {
     const double a_par = (a_par_inp) ? *a_par_inp : 0;
     const double b_par = (b_par_inp) ? *b_par_inp : 1;
+
     //
+
     arma::mat ret = (x-a_par) / (b_par-a_par);
 
     ret.elem(arma::find( ret < 0 )).zeros();
@@ -78,7 +80,9 @@ punif_int(const arma::vec& x, const double* a_par_inp, const double* b_par_inp, 
     if (log_form) {
         ret = arma::log(ret);
     }
+
     //
+    
     return ret;
 }
 

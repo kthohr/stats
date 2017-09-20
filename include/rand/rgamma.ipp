@@ -22,7 +22,6 @@
  */
 
 template<typename T>
-inline
 T
 rgamma(const T shape_par, const T scale_par)
 {
