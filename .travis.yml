@@ -9,12 +9,14 @@ addons:
   apt:
     packages:
       - g++-6
+      - gfortran-6
     sources: &sources
       - ubuntu-toolchain-r-test
 
 matrix:
   include:
     - os: linux
+      dist: trusty
       env: CC=gcc-6 CXX=g++-6 FC=gfortran-6
       compiler: gcc
 
