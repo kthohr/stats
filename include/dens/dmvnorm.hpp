@@ -17,13 +17,7 @@
   ################################################################################*/
 
 /*
- * Multivariate normal density
- *
- * Keith O'Hara
- * 04/12/2017
- *
- * This version:
- * 07/08/2017
+ * pdf of the Multivariate Normal distribution
  */
 
 #ifndef _statslib_dmvnorm_HPP

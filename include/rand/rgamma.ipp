@@ -19,12 +19,6 @@
 /* 
  * Sample from a gamma distribution
  * using the Marsaglia and Tsang method
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 07/15/2017
  */
 
 template<typename T>
@@ -32,8 +26,10 @@ inline
 T
 rgamma(const T shape_par, const T scale_par)
 {
-	double ret = 0;
+    double ret = 0;
+    
     //
+
     if (shape_par < 1.0) {
         const T U = runif();
         ret = rgamma(1.0 + shape_par, scale_par) * std::pow(U,1/shape_par);
@@ -61,7 +57,9 @@ rgamma(const T shape_par, const T scale_par)
 
         ret = d * V * scale_par;
     }
+
     //
+
     return ret;
 }
 
@@ -76,13 +74,17 @@ inline
 arma::mat
 rgamma(const int n, const int k, const double shape_par, const double scale_par)
 {
-	arma::mat ret(n,k);
-	//
+    arma::mat ret(n,k);
+    
+    //
+    
 	for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = rgamma(shape_par,scale_par);
         }
     }
+
     //
+    
 	return ret;
 }

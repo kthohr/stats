@@ -18,12 +18,6 @@
 
 /* 
  * n draws from a beta distribution with parameters (alpha, beta)
- *
- * Keith O'Hara
- * 06/15/2017
- *
- * This version:
- * 07/15/2017
  */
 
 template<typename T>

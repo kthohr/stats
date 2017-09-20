@@ -18,12 +18,6 @@
 
 /*
  * cdf of the univariate logistic distribution
- *
- * Keith O'Hara
- * 06/15/2017
- *
- * This version:
- * 07/12/2017
  */
 
 #ifndef _statslib_plogis_HPP

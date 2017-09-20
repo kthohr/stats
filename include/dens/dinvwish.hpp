@@ -18,12 +18,6 @@
 
 /*
  * pdf of the inverse-Wishart distribution
- *
- * Keith O'Hara
- * 04/12/2015
- *
- * This version:
- * 06/23/2017
  */
 
 #ifndef _statslib_dinvwish_HPP

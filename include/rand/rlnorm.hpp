@@ -18,12 +18,6 @@
 
 /* 
  * Sample from a log-normal distribution
- *
- * Keith O'Hara
- * 06/24/2017
- *
- * This version:
- * 07/15/2017
  */
 
 #ifndef _statslib_rlnorm_HPP

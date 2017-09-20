@@ -18,12 +18,6 @@
 
 /*
  * cdf of the univariate log-normal distribution
- *
- * Keith O'Hara
- * 06/25/2017
- *
- * This version:
- * 07/12/2017
  */
 
 #ifndef _statslib_plnorm_HPP

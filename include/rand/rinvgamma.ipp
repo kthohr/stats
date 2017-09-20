@@ -18,12 +18,6 @@
 
 /* 
  * Sample from an inverse-gamma distribution
- *
- * Keith O'Hara
- * 06/15/2017
- *
- * This version:
- * 07/15/2017
  */
 
 template<typename T>
@@ -45,13 +39,17 @@ inline
 arma::mat
 rinvgamma(const int n, const int k, const double shape_par, const double rate_par)
 {
-	arma::mat ret(n,k);
-	//
+    arma::mat ret(n,k);
+    
+    //
+    
 	for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = rinvgamma(shape_par,rate_par);
         }
     }
+
     //
+    
 	return ret;
 }

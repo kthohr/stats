@@ -18,12 +18,6 @@
 
 /*
  * quantile function of the univariate Bernoulli distribution
- *
- * Keith O'Hara
- * 06/23/2017
- *
- * This version:
- * 07/12/2017
  */
 
 #ifndef _statslib_qbern_HPP

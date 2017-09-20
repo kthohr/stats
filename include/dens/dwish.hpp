@@ -18,12 +18,6 @@
 
 /* 
  * pdf of the Wishart distribution
- *
- * Keith O'Hara
- * 04/12/2015
- *
- * This version:
- * 07/08/2017
  */
 
 #ifndef _statslib_dwish_HPP

@@ -18,12 +18,6 @@
 
 /*
  * pdf of the univariate log-normal distribution
- *
- * Keith O'Hara
- * 06/25/2017
- *
- * This version:
- * 07/07/2017
  */
 
 #ifndef _statslib_dlnorm_HPP

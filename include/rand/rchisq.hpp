@@ -18,12 +18,6 @@
 
 /* 
  * Sample from a Chi-Squared distribution
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 07/15/2017
  */
 
 #ifndef _statslib_rchisq_HPP

@@ -18,12 +18,6 @@
 
 /*
  * pdf of the inverse-gamma distribution
- *
- * Keith O'Hara
- * 01/02/2016
- *
- * This version:
- * 07/07/2017
  */
 
 #ifndef _statslib_dinvgamma_HPP

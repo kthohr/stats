@@ -18,12 +18,6 @@
 
 /*
  * pdf of the gamma distribution
- *
- * Keith O'Hara
- * 04/12/2017
- *
- * This version:
- * 07/07/2017
  */
 
 //

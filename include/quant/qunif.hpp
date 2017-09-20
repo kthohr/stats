@@ -18,12 +18,6 @@
 
 /*
  * quantile function of the uniform distribution
- *
- * Keith O'Hara
- * 06/15/2017
- *
- * This version:
- * 07/14/2017
  */
 
 #ifndef _statslib_qunif_HPP

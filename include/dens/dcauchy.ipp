@@ -18,12 +18,6 @@
 
 /*
  * pdf of the Cauchy distribution
- *
- * Keith O'Hara
- * 07/01/2017
- *
- * This version:
- * 07/07/2017
  */
 
 //

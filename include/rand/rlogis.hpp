@@ -18,12 +18,6 @@
 
 /* 
  * Sample from a logistic distribution
- *
- * Keith O'Hara
- * 06/15/2017
- *
- * This version:
- * 07/15/2017
  */
 
 #ifndef _statslib_rlogis_HPP

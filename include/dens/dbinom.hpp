@@ -18,12 +18,6 @@
 
 /*
  * pdf of the univariate Binomial distribution
- *
- * Keith O'Hara
- * 06/23/2017
- *
- * This version:
- * 07/06/2017
  */
 
 #ifndef _statslib_dbinom_HPP

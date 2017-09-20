@@ -18,12 +18,6 @@
 
 /*
  * cdf of the inverse-gamma distribution
- *
- * Keith O'Hara
- * 06/17/2017
- *
- * This version:
- * 07/12/2017
  */
 
 //

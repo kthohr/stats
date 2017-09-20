@@ -27,8 +27,6 @@ rexp(const double rate_par)
     return qexp(runif(),rate_par);
 }
 
-
-
 inline
 arma::mat
 rexp(const int n, const double rate_par)

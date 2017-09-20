@@ -18,12 +18,6 @@
 
 /* 
  * Sample from a normal distribution
- *
- * Keith O'Hara
- * 06/01/2015
- *
- * This version:
- * 07/15/2017
  */
 
 #ifndef _statslib_rnorm_HPP

@@ -18,12 +18,6 @@
 
 /*
  * cdf of the univariate normal distribution
- *
- * Keith O'Hara
- * 01/03/2016
- *
- * This version:
- * 07/12/2017
  */
 
 #ifndef _statslib_pnorm_HPP

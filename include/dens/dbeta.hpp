@@ -18,12 +18,6 @@
 
 /*
  * pdf of the beta distribution
- *
- * Keith O'Hara
- * 01/02/16
- *
- * This version:
- * 07/06/2017
  */
 
 #ifndef _statslib_dbeta_HPP

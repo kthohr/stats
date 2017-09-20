@@ -18,12 +18,6 @@
 
 /*
  * quantile function of the chi-squared distribution
- *
- * Keith O'Hara
- * 06/17/2017
- *
- * This version:
- * 07/13/2017
  */
 
 #ifndef _statslib_qchisq_HPP

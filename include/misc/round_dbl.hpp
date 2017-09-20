@@ -18,12 +18,6 @@
 
 /*
  * a simple rounding function
- *
- * Keith O'Hara
- * 06/15/2017
- *
- * This version:
- * 06/18/2017
  */
 
 #ifndef _statslib_round_dbl_HPP
@@ -34,8 +28,8 @@ double
 round_dbl(const double& val, const int& n_digits)
 {
     int round_val = std::pow(10,n_digits);
-    double ret_val = std::round(val * round_val) / round_val;
-    return ret_val;
+    
+    return std::round(val * round_val) / round_val;
 }
 
 #endif

@@ -16,13 +16,16 @@
   ##
   ################################################################################*/
 
-// internal
+/*
+ * Sample from a multivariate normal distribution
+ */
 
 inline
 arma::vec
 rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_chol)
 {
     int K = 0;
+    arma::vec ret;
 
     if (mu_inp) {
         K = mu_inp->n_elem;
@@ -30,28 +33,25 @@ rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_
         K = Sigma_inp->n_rows;
     } else {
         printf("rmvnorm: missing both mu and Sigma.\n");
-        arma::vec ret;
+        
         return ret;
     }
+
     //
+
     const arma::vec mu = (mu_inp) ? *mu_inp : arma::zeros(K,1);
 
-    arma::vec ret;
     if (Sigma_inp) {
         arma::mat A = (pre_chol) ? *Sigma_inp : arma::chol(*Sigma_inp);
         ret = mu + A.t() * arma::randn(K,1); // transpose A to be lower triangular
     } else {
         ret = mu + arma::randn(K,1); // A = eye(K,K)
     }
-	//
+
+    //
+    
 	return ret;
 }
-
-/*
- * Sample from a mutivariate normal distribution
- * Sigma is K x K
- * Returns a K x 1 vector
- */
 
 inline
 arma::vec
@@ -66,12 +66,6 @@ rmvnorm(const arma::mat& Sigma, const bool pre_chol)
 {
 	return rmvnorm_int(nullptr,&Sigma,pre_chol);
 }
-
-/*
- * Sample from a mutivariate normal distribution
- * mu is K x 1; Sigma is K x K
- * Returns a K x 1 vector
- */
 
 inline
 arma::vec
@@ -88,13 +82,14 @@ rmvnorm(const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol)
 }
 
 //
-// internal
+// n-samples
 
 inline
 arma::mat
 rmvnorm_int(const int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_chol)
 {
-	int K = 0;
+    int K = 0;
+    arma::mat ret;
 
     if (mu_inp) {
         K = mu_inp->n_elem;
@@ -102,11 +97,11 @@ rmvnorm_int(const int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, co
         K = Sigma_inp->n_rows;
     } else {
         printf("rmvnorm: missing both mu and Sigma.\n");
-        arma::vec ret;
+        
         return ret;
     }
+
     //
-    arma::mat ret;
 
     if (Sigma_inp) {
         const arma::mat A = (pre_chol) ? *Sigma_inp : arma::chol(*Sigma_inp);
@@ -118,15 +113,11 @@ rmvnorm_int(const int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, co
     if (mu_inp) {
         ret += arma::repmat((*mu_inp).t(),n,1);
     }
-	//
+
+    //
+    
 	return ret;
 }
-
-/*
- * Sample from a mutivariate normal distribution
- * Sigma is K x K
- * Returns an n x K matrix
- */
 
 inline
 arma::mat
@@ -141,12 +132,6 @@ rmvnorm(const int n, const arma::mat& Sigma, const bool pre_chol)
 {
 	return rmvnorm_int(n,nullptr,&Sigma,pre_chol);
 }
-
-/*
- * Sample from a mutivariate normal distribution
- * mu is K x 1; Sigma is K x K
- * Returns an n x K matrix
- */
 
 inline
 arma::mat

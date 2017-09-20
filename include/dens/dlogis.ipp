@@ -18,12 +18,6 @@
 
 /*
  * pdf of the univariate logistic distribution
- *
- * Keith O'Hara
- * 01/03/2016
- *
- * This version:
- * 07/07/2017
  */
 
 //

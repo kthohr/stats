@@ -18,12 +18,6 @@
 
 /*
  * cdf of the Cauchy distribution
- *
- * Keith O'Hara
- * 07/01/2017
- *
- * This version:
- * 07/12/2017
  */
 
 #ifndef _statslib_pcauchy_HPP

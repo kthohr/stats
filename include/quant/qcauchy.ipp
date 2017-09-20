@@ -18,12 +18,6 @@
 
 /*
  * quantile function of the Cauchy distribution
- *
- * Keith O'Hara
- * 07/01/2017
- *
- * This version:
- * 07/13/2017
  */
 
 //
