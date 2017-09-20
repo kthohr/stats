@@ -17,14 +17,18 @@ matrix:
   include:
     - os: linux
       dist: trusty
-      env: CC=gcc-6 CXX=g++-6 FC=gfortran-6
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && FC=gfortran-6"
       compiler: gcc
 
     - os: osx
       osx_image: xcode8
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+      compiler: clang
 
 before_install:
-    -  
+    -  eval "${MATRIX_EVAL}"
 
 install:
     - sudo apt-get update
