@@ -33,7 +33,7 @@ Functions are written in a clean R-like syntax.
 
 ## Examples
 
-```
+```cpp
 // evaulate the normal PDF at x = 1, mu = 0, sigma = 1
 double dval_1 = stats::dnorm(1.0,0.0,1.0)
  
