@@ -7,7 +7,7 @@ StatsLib is a templated C++ library for fast computation of statistical distribu
 
 ## List of available distributons
 
-pdf, cdf, quantile, and random variable generation:
+cdf, pdf, quantile, and random variable generation:
 
 * Bernoulli
 * Beta
