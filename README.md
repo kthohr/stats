@@ -29,9 +29,9 @@ pdf and random variable generation only:
 * Multivariate Normal
 * Wishart
 
-Functions are written in a clean R-like syntax.
-
 ## Examples
+
+Functions are written in a clean R-like syntax.
 
 ```cpp
 // evaulate the normal PDF at x = 1, mu = 0, sigma = 1
