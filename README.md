@@ -5,7 +5,7 @@
 
 StatsLib is a templated C++ library for fast computation of statistical distribution functions.
 
-Vector and matrix functionality through the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
+Vector-matrix functionality is based on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
 
 ## List of available distributons
 
