@@ -5,6 +5,8 @@
 
 StatsLib is a templated C++ library for fast computation of statistical distribution functions.
 
+Vector and matrix functionality through the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
+
 ## List of available distributons
 
 cdf, pdf, quantile, and random variable generation:
@@ -31,7 +33,7 @@ pdf and random variable generation only:
 
 ## Examples
 
-Functions are written in a clean R-like syntax.
+Functions are called using a clean R-like syntax.
 
 ```cpp
 // evaulate the normal PDF at x = 1, mu = 0, sigma = 1
@@ -45,4 +47,8 @@ double pval_1 = stats::pnorm(1.0,0.0,1.0)
  
 // evaulate the Laplacian quantile at p = 0.1, mu = 0, sigma = 1
 double qval_1 = stats::qlaplace(0.1,0.0,1.0)
+
+// matrix input of beta-distributed random variables
+arma::mat beta_rvs = stats::rbeta(100,100,3.0,2.0);
+arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 ```
