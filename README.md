@@ -36,16 +36,16 @@ pdf and random variable generation only:
 Functions are called using a clean R-like syntax.
 
 ```cpp
-// evaulate the normal PDF at x = 1, mu = 0, sigma = 1
+// evaluate the normal PDF at x = 1, mu = 0, sigma = 1
 double dval_1 = stats::dnorm(1.0,0.0,1.0)
  
-// evaulate the normal PDF at x = 1, mu = 0, sigma = 1, and return the log value
+// evaluate the normal PDF at x = 1, mu = 0, sigma = 1, and return the log value
 double dval_2 = stats::dnorm(1.0,0.0,1.0,true)
  
-// evaulate the normal CDF at x = 1, mu = 0, sigma = 1
+// evaluate the normal CDF at x = 1, mu = 0, sigma = 1
 double pval_1 = stats::pnorm(1.0,0.0,1.0)
  
-// evaulate the Laplacian quantile at p = 0.1, mu = 0, sigma = 1
+// evaluate the Laplacian quantile at p = 0.1, mu = 0, sigma = 1
 double qval_1 = stats::qlaplace(0.1,0.0,1.0)
 
 // matrix input of beta-distributed random variables
