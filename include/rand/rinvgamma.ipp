@@ -31,7 +31,7 @@ inline
 arma::mat
 rinvgamma(const int n, const double shape_par, const double rate_par)
 {
-	return rinvgamma(n,1,shape_par,rate_par);
+    return rinvgamma(n,1,shape_par,rate_par);
 }
 
 inline
@@ -42,7 +42,7 @@ rinvgamma(const int n, const int k, const double shape_par, const double rate_pa
     
     //
     
-	for (int j=0; j < k; j++) {
+    for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = rinvgamma(shape_par,rate_par);
         }
@@ -50,5 +50,5 @@ rinvgamma(const int n, const int k, const double shape_par, const double rate_pa
 
     //
     
-	return ret;
+    return ret;
 }

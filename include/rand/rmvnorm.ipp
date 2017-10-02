@@ -50,21 +50,21 @@ rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_
 
     //
     
-	return ret;
+    return ret;
 }
 
 inline
 arma::vec
 rmvnorm(const arma::mat& Sigma)
 {
-	return rmvnorm_int(nullptr,&Sigma,false);
+    return rmvnorm_int(nullptr,&Sigma,false);
 }
 
 inline
 arma::vec
 rmvnorm(const arma::mat& Sigma, const bool pre_chol)
 {
-	return rmvnorm_int(nullptr,&Sigma,pre_chol);
+    return rmvnorm_int(nullptr,&Sigma,pre_chol);
 }
 
 inline
@@ -116,21 +116,21 @@ rmvnorm_int(const int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, co
 
     //
     
-	return ret;
+    return ret;
 }
 
 inline
 arma::mat
 rmvnorm(const int n, const arma::mat& Sigma)
 {
-	return rmvnorm_int(n,nullptr,&Sigma,false);
+    return rmvnorm_int(n,nullptr,&Sigma,false);
 }
 
 inline
 arma::mat
 rmvnorm(const int n, const arma::mat& Sigma, const bool pre_chol)
 {
-	return rmvnorm_int(n,nullptr,&Sigma,pre_chol);
+    return rmvnorm_int(n,nullptr,&Sigma,pre_chol);
 }
 
 inline

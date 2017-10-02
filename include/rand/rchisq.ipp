@@ -28,24 +28,24 @@ rchisq(const int dof_par)
     
     //
     
-	if (dof_par < 50) { // sum of squared (standard) normals
-		arma::mat X = rnorm(dof_par,1,0.0,1.0);
+    if (dof_par < 50) { // sum of squared (standard) normals
+        arma::mat X = rnorm(dof_par,1,0.0,1.0);
 
-		ret = arma::as_scalar(X.t() * X);
-	} else { // Fisher's asymptotic approximation
-		ret = 0.5 * std::pow(rnorm() + std::sqrt((double) (2*dof_par - 1)), 2);
+        ret = arma::as_scalar(X.t() * X);
+    } else { // Fisher's asymptotic approximation
+        ret = 0.5 * std::pow(rnorm() + std::sqrt((double) (2*dof_par - 1)), 2);
     }
     
     //
 
-	return ret;
+    return ret;
 }
 
 inline
 arma::mat
 rchisq(const int n, const int dof_par)
 {
-	return rchisq(n,1,dof_par);
+    return rchisq(n,1,dof_par);
 }
 
 inline
@@ -56,20 +56,20 @@ rchisq(const int n, const int k, const int dof_par)
     
     //
     
-	if (dof_par < 50) { // sum of squared (standard) normals
-		arma::colvec X(dof_par);
+    if (dof_par < 50) { // sum of squared (standard) normals
+        arma::colvec X(dof_par);
 
-		for (int j=0; j < k; j++) {
+        for (int j=0; j < k; j++) {
             for (int i=0; i < n; i++) {
-			    X = rnorm(dof_par,1,0.0,1.0);
-			    ret(i,j) = arma::as_scalar(X.t() * X);
+                X = rnorm(dof_par,1,0.0,1.0);
+                ret(i,j) = arma::as_scalar(X.t() * X);
             }
-		}
-	} else { // Fisher's asymptotic approximation
-		ret = 0.5 * arma::pow(rnorm(n,k,0.0,1.0) + std::sqrt(2*dof_par - 1), 2);
+        }
+    } else { // Fisher's asymptotic approximation
+        ret = 0.5 * arma::pow(rnorm(n,k,0.0,1.0) + std::sqrt(2*dof_par - 1), 2);
     }
     
     //
 
-	return ret;
+    return ret;
 }

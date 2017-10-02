@@ -31,7 +31,7 @@ inline
 arma::mat
 rbinom(const int n, const int n_trials_par, const double prob_par)
 {
-	return rbinom(n,1,n_trials_par,prob_par);
+    return rbinom(n,1,n_trials_par,prob_par);
 }
 
 inline
@@ -42,7 +42,7 @@ rbinom(const int n, const int k, const int n_trials_par, const double prob_par)
     
     //
     
-	for (int j=0; j < k; j++) {
+    for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = rbinom(n_trials_par,prob_par);
         }
@@ -50,5 +50,5 @@ rbinom(const int n, const int k, const int n_trials_par, const double prob_par)
 
     //
 
-	return ret;
+    return ret;
 }

@@ -25,7 +25,7 @@ arma::mat
 rinvwish(const arma::mat& Psi_par, const int nu_par)
 {
     const int K = Psi_par.n_rows;
-	
+    
     arma::mat chol_Psi_inv = arma::chol(arma::inv(Psi_par),"lower");
 
     //
@@ -37,9 +37,9 @@ rinvwish(const arma::mat& Psi_par, const int nu_par)
             A(i,j) = rnorm();
         }
     }
-	
+    
     for (int i=0; i < K; i++) {
-	    A(i,i) = std::sqrt(rchisq(nu_par-i));
+        A(i,i) = std::sqrt(rchisq(nu_par-i));
     }
 
     chol_Psi_inv = chol_Psi_inv*A;

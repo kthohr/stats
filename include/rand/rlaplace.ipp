@@ -31,14 +31,14 @@ inline
 arma::mat
 rlaplace(const int n, const double mu_par, const double sigma_par)
 {
-	return rlaplace(n,1,mu_par,sigma_par);
+    return rlaplace(n,1,mu_par,sigma_par);
 }
 
 inline
 arma::mat
 rlaplace(const int n, const int k, const double mu_par, const double sigma_par)
 {
-	arma::mat U = runif(n,k,0.0,1.0);
+    arma::mat U = runif(n,k,0.0,1.0);
 
-	return qlaplace(U,mu_par,sigma_par);
+    return qlaplace(U,mu_par,sigma_par);
 }

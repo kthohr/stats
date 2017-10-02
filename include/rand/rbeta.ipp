@@ -36,7 +36,7 @@ inline
 arma::mat
 rbeta(const int n, const double a_par, const double b_par)
 {
-	return rbeta(n,1,a_par,b_par);
+    return rbeta(n,1,a_par,b_par);
 }
 
 inline
@@ -47,7 +47,7 @@ rbeta(const int n, const int k, const double a_par, const double b_par)
     
     //
     
-	for (int j=0; j < k; j++) {
+    for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = rbeta(a_par,b_par);
         }
@@ -55,5 +55,5 @@ rbeta(const int n, const int k, const double a_par, const double b_par)
 
     //
 
-	return ret;
+    return ret;
 }

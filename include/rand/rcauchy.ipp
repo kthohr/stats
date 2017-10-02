@@ -31,14 +31,14 @@ inline
 arma::mat
 rcauchy(const int n, const double mu_par, const double sigma_par)
 {
-	return rcauchy(n,1,mu_par,sigma_par);
+    return rcauchy(n,1,mu_par,sigma_par);
 }
 
 inline
 arma::mat
 rcauchy(const int n, const int k, const double mu_par, const double sigma_par)
 {
-	arma::mat U = runif(n,k,0.0,1.0);
+    arma::mat U = runif(n,k,0.0,1.0);
 
-	return qcauchy(U,mu_par,sigma_par);
+    return qcauchy(U,mu_par,sigma_par);
 }

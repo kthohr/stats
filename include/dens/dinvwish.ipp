@@ -44,33 +44,33 @@ dinvwish_int(const arma::mat& X, const arma::mat* Psi_par_inp, const int* nu_par
 
     //
     
-	return ret;
+    return ret;
 }
 
 inline
 double
 dinvwish(const arma::mat& X)
 {
-	return dinvwish_int(X,nullptr,nullptr,false);
+    return dinvwish_int(X,nullptr,nullptr,false);
 }
 
 inline
 double
 dinvwish(const arma::mat& X, const bool log_form)
 {
-	return dinvwish_int(X,nullptr,nullptr,log_form);
+    return dinvwish_int(X,nullptr,nullptr,log_form);
 }
 
 inline
 double
 dinvwish(const arma::mat& X, const arma::mat& Psi_par, const int nu_par)
 {
-	return dinvwish_int(X,&Psi_par,&nu_par,false);
+    return dinvwish_int(X,&Psi_par,&nu_par,false);
 }
 
 inline
 double
 dinvwish(const arma::mat& X, const arma::mat& Psi_par, const int nu_par, const bool log_form)
 {
-	return dinvwish_int(X,&Psi_par,&nu_par,log_form);
+    return dinvwish_int(X,&Psi_par,&nu_par,log_form);
 }

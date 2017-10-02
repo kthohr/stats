@@ -37,40 +37,40 @@ dwish_int(const arma::mat& X, const arma::mat* Psi_par_inp, const int* nu_par_in
     const double norm_term = - nu_par_2*std::log(arma::det(Psi_par)) - nu_par_2*K*GCEM_LOG_2 - lmg_term;
 
     double ret = norm_term + 0.5 * ( (nu_par-K-1) * std::log(arma::det(X)) - arma::trace(arma::inv(Psi_par)*X) );
-	
+    
     if (!log_form) {
         ret = std::exp(ret);
     }
 
     //
     
-	return ret;
+    return ret;
 }
 
 inline
 double
 dwish(const arma::mat& X)
 {
-	return dwish_int(X,nullptr,nullptr,false);
+    return dwish_int(X,nullptr,nullptr,false);
 }
 
 inline
 double
 dwish(const arma::mat& X, const bool log_form)
 {
-	return dwish_int(X,nullptr,nullptr,log_form);
+    return dwish_int(X,nullptr,nullptr,log_form);
 }
 
 inline
 double
 dwish(const arma::mat& X, const arma::mat& Psi_par, const int nu_par)
 {
-	return dwish_int(X,&Psi_par,&nu_par,false);
+    return dwish_int(X,&Psi_par,&nu_par,false);
 }
 
 inline
 double
 dwish(const arma::mat& X, const arma::mat& Psi_par, const int nu_par, const bool log_form)
 {
-	return dwish_int(X,&Psi_par,&nu_par,log_form);
+    return dwish_int(X,&Psi_par,&nu_par,log_form);
 }

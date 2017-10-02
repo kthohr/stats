@@ -24,19 +24,19 @@ template<typename T>
 T
 rlnorm(const T mu_par, const T sigma_par)
 {
-	return stats_math::exp( rnorm(mu_par,sigma_par) );
+    return stats_math::exp( rnorm(mu_par,sigma_par) );
 }
 
 inline
 arma::mat
 rlnorm(const int n, const double mu_par, const double sigma_par)
 {
-	return rlnorm(n,1,mu_par,sigma_par);
+    return rlnorm(n,1,mu_par,sigma_par);
 }
 
 inline
 arma::mat
 rlnorm(const int n, const int k, const double mu_par, const double sigma_par)
 {
-	return arma::exp( rnorm(n,k,mu_par,sigma_par) );
+    return arma::exp( rnorm(n,k,mu_par,sigma_par) );
 }

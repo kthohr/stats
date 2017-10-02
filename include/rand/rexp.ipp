@@ -31,14 +31,14 @@ inline
 arma::mat
 rexp(const int n, const double rate_par)
 {
-	return rexp(n,1,rate_par);
+    return rexp(n,1,rate_par);
 }
 
 inline
 arma::mat
 rexp(const int n, const int k, const double rate_par)
 {
-	arma::mat U = runif(n,k,0.0,1.0);
+    arma::mat U = runif(n,k,0.0,1.0);
 
-	return qexp(U,rate_par);
+    return qexp(U,rate_par);
 }

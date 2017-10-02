@@ -24,7 +24,7 @@ template<typename T>
 T
 runif(const T a_par, const T b_par)
 {
-	return ( a_par + (b_par - a_par)*arma::as_scalar(arma::randu(1)) ); 
+    return ( a_par + (b_par - a_par)*arma::as_scalar(arma::randu(1)) ); 
 }
 
 inline
@@ -38,12 +38,12 @@ inline
 arma::mat
 runif(const int n, const double a_par, const double b_par)
 {
-	return runif(n,1,a_par,b_par);
+    return runif(n,1,a_par,b_par);
 }
 
 inline
 arma::mat
 runif(const int n, const int k, const double a_par, const double b_par)
 {
-	return ( a_par + (b_par - a_par)*arma::randu(n,k) );
+    return ( a_par + (b_par - a_par)*arma::randu(n,k) );
 }

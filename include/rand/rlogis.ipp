@@ -31,14 +31,14 @@ inline
 arma::mat
 rlogis(const int n, const double mu_par, const double sigma_par)
 {
-	return rlogis(n,1,mu_par,sigma_par);
+    return rlogis(n,1,mu_par,sigma_par);
 }
 
 inline
 arma::mat
 rlogis(const int n, const int k, const double mu_par, const double sigma_par)
 {
-	arma::mat U = runif(n,k,0.0,1.0);
+    arma::mat U = runif(n,k,0.0,1.0);
 
-	return qlogis(U,mu_par,sigma_par);
+    return qlogis(U,mu_par,sigma_par);
 }

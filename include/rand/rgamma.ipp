@@ -66,7 +66,7 @@ inline
 arma::mat
 rgamma(const int n, const double shape_par, const double scale_par)
 {
-	return rgamma(n,1,shape_par,scale_par);
+    return rgamma(n,1,shape_par,scale_par);
 }
 
 inline
@@ -77,7 +77,7 @@ rgamma(const int n, const int k, const double shape_par, const double scale_par)
     
     //
     
-	for (int j=0; j < k; j++) {
+    for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
             ret(i,j) = rgamma(shape_par,scale_par);
         }
@@ -85,5 +85,5 @@ rgamma(const int n, const int k, const double shape_par, const double scale_par)
 
     //
     
-	return ret;
+    return ret;
 }

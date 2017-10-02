@@ -27,7 +27,7 @@ template<typename T>
 T
 rnorm(const T mu_par, const T sigma_par)
 {
-	return mu_par + sigma_par*arma::as_scalar(arma::randn(1));
+    return mu_par + sigma_par*arma::as_scalar(arma::randn(1));
 }
 
 inline
@@ -41,12 +41,12 @@ inline
 arma::mat
 rnorm(const int n, const double mu_par, const double sigma_par)
 {
-	return rnorm(n,1,mu_par,sigma_par);
+    return rnorm(n,1,mu_par,sigma_par);
 }
 
 inline
 arma::mat
 rnorm(const int n, const int k, const double mu_par, const double sigma_par)
 {
-	return ( mu_par + sigma_par*arma::randn(n,k) );
+    return ( mu_par + sigma_par*arma::randn(n,k) );
 }
