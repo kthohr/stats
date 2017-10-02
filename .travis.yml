@@ -2,9 +2,6 @@
 language: c++
 sudo: required
 
-branches:
-  except: /pr\/.*/
-
 matrix:
   include:
     - os: linux
@@ -33,13 +30,21 @@ matrix:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && FC=gfortran-6"
       compiler: gcc
 
-    # - os: osx
-      # osx_image: xcode8
-      # env:
-        # - MATRIX_EVAL="CC=clang && CXX=clang++"
-      # compiler: clang
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          packages:
+            - g++-7
+            - gfortran-7
+          sources: &sources
+            - ubuntu-toolchain-r-test
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && FC=gfortran-7"
+      compiler: gcc
 
 before_install:
+    - export FC=gfortran
     - eval "${MATRIX_EVAL}"
 
 install:
