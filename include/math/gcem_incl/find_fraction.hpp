@@ -18,12 +18,6 @@
 
 /*
  * find the fraction part of x = n + r, where -0.5 < r < 0.5
- *
- * Keith O'Hara
- * 06/25/2017
- *
- * This version:
- * 07/02/2017
  */
 
 #ifndef _gcem_find_fraction_HPP
@@ -34,7 +28,7 @@ constexpr
 T
 find_fraction(const T x)
 {
-    return ( abs(x - int(x)) > 0.5 ? x - (int)x - sign_dbl(x) : x - (int)x );
+    return ( abs(x - int(x)) > 0.5 ? x - int(x) - sgn(x) : x - int(x) );
 }
 
 #endif
