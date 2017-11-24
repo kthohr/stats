@@ -25,19 +25,19 @@
 
 // single input
 template<typename T>
-statslib_constexpr T dlogis(const T x, const T mu_par, const T sigma_par, const bool log_form);
+statslib_constexpr T plogis(const T x, const T mu_par, const T sigma_par, const bool log_form);
 
-statslib_constexpr double dlogis(const double x);
-statslib_constexpr double dlogis(const double x, const bool log_form);
-statslib_constexpr double dlogis(const double x, const double mu_par, const double sigma_par);
+statslib_constexpr double plogis(const double x);
+statslib_constexpr double plogis(const double x, const bool log_form);
+statslib_constexpr double plogis(const double x, const double mu_par, const double sigma_par);
 
 // matrix/vector input
-arma::mat dlogis_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
+arma::mat plogis_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::mat dlogis(const arma::mat& x);
-arma::mat dlogis(const arma::mat& x, const bool log_form);
-arma::mat dlogis(const arma::mat& x, const double mu_par, const double sigma_par);
-arma::mat dlogis(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form);
+arma::mat plogis(const arma::mat& x);
+arma::mat plogis(const arma::mat& x, const bool log_form);
+arma::mat plogis(const arma::mat& x, const double mu_par, const double sigma_par);
+arma::mat plogis(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form);
 
 #include "plogis.ipp"
 
