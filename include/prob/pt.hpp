@@ -16,25 +16,29 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_prob_HPP
-#define _statslib_prob_HPP
+/*
+ * cdf of the univariate t distribution
+ */
 
-#include "pbern.hpp"
-#include "pbeta.hpp"
-#include "pbinom.hpp"
-#include "pcauchy.hpp"
-#include "pchisq.hpp"
-#include "pexp.hpp"
-#include "pgamma.hpp"
-#include "pinvgamma.hpp"
-#include "plaplace.hpp"
-#include "plogis.hpp"
-#include "pnorm.hpp"
-#include "pt.hpp"
-#include "punif.hpp"
+#ifndef _statslib_pt_HPP
+#define _statslib_pt_HPP
 
-// these depend on one of the above
-#include "plnorm.hpp"
+// single input
+template<typename T>
+statslib_constexpr T pt(const T x, const int dof_par, const bool log_form);
 
+statslib_constexpr double pt(const double x);
+statslib_constexpr double pt(const double x, const bool log_form);
+statslib_constexpr double pt(const double x, const int dof_par);
+
+// matrix/vector input
+arma::mat pt_int(const arma::mat& x, const int* dof_par_inp, const bool log_form);
+
+arma::mat pt(const arma::mat& x);
+arma::mat pt(const arma::mat& x, const bool log_form);
+arma::mat pt(const arma::mat& x, const int dof_par);
+arma::mat pt(const arma::mat& x, const int dof_par, const bool log_form);
+
+#include "pt.ipp"
 
 #endif
