@@ -110,24 +110,24 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_9 << ". Success = " << success_9 << std::endl;
 
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        printf("\npnorm: all tests passed.\n");
+        printf("\npt: all tests passed.\n");
     }
 
     //
     // coverage tests
 
-    stats::pnorm(x_1);
-    stats::pnorm(x_1,true);
-    stats::pnorm(x_1,dof_par);
+    stats::pt(x_1);
+    stats::pt(x_1,true);
+    stats::pt(x_1,dof_par);
 
     arma::mat x_mat(2,1);
     x_mat(0,0) = 1;
     x_mat(1,0) = 1.5;
 
-    stats::pnorm(x_mat);
-    stats::pnorm(x_mat,true);
-    stats::pnorm(x_mat,dof_par);
-    stats::pnorm(x_mat,dof_par,true);
+    stats::pt(x_mat);
+    stats::pt(x_mat,true);
+    stats::pt(x_mat,dof_par);
+    stats::pt(x_mat,dof_par,true);
 
     return 0;
 }

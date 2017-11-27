@@ -16,27 +16,29 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_dens_HPP
-#define _statslib_dens_HPP
+/*
+ * pdf of the univariate t distribution
+ */
 
-#include "dbern.hpp"
-#include "dbeta.hpp"
-#include "dcauchy.hpp"
-#include "dchisq.hpp"
-#include "dexp.hpp"
-#include "dgamma.hpp"
-#include "dinvgamma.hpp"
-#include "dinvwish.hpp"
-#include "dlaplace.hpp"
-#include "dlogis.hpp"
-#include "dmvnorm.hpp"
-#include "dnorm.hpp"
-#include "dt.hpp"
-#include "dunif.hpp"
-#include "dwish.hpp"
+#ifndef _statslib_dt_HPP
+#define _statslib_dt_HPP
 
-// these depend on one of the above
-#include "dbinom.hpp"
-#include "dlnorm.hpp"
+// single input
+template<typename T>
+statslib_constexpr T dt(const T x, const int dof_par, const bool log_form);
+
+statslib_constexpr double dt(const double x);
+statslib_constexpr double dt(const double x, const bool log_form);
+statslib_constexpr double dt(const double x, const int dof_par);
+
+// matrix/vector input
+arma::mat dt_int(const arma::mat& x, const int* dof_par_inp, const bool log_form);
+
+arma::mat dt(const arma::mat& x);
+arma::mat dt(const arma::mat& x, const bool log_form);
+arma::mat dt(const arma::mat& x, const int dof_par);
+arma::mat dt(const arma::mat& x, const int dof_par, const bool log_form);
+
+#include "dt.ipp"
 
 #endif
