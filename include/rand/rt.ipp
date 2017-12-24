@@ -16,27 +16,27 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_rand_HPP
-#define _statslib_rand_HPP
+/* 
+ * Sample from a t distribution
+ */
 
-#include "runif.hpp"
-#include "rnorm.hpp"
+inline
+double
+rt(const int dof_par)
+{
+    return rnorm() / std::sqrt( rchisq(dof_par) / static_cast<double>(dof_par) );
+}
 
-#include "rgamma.hpp"
+inline
+arma::mat
+rt(const int n, const int dof_par)
+{
+    return rt(n,1,dof_par);
+}
 
-#include "rbern.hpp"
-#include "rbeta.hpp"
-#include "rbinom.hpp"
-#include "rcauchy.hpp"
-#include "rchisq.hpp"
-#include "rexp.hpp"
-#include "rinvgamma.hpp"
-#include "rinvwish.hpp"
-#include "rlaplace.hpp"
-#include "rlnorm.hpp"
-#include "rlogis.hpp"
-#include "rmultinom.hpp"
-#include "rmvnorm.hpp"
-#include "rt.hpp"
-
-#endif
+inline
+arma::mat
+rt(const int n, const int k, const int dof_par)
+{
+    return ( arma::randn(n,k) / arma::sqrt( rchisq(n,k,dof_par) / static_cast<double>(dof_par) ) );
+}

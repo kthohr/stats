@@ -16,27 +16,18 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_rand_HPP
-#define _statslib_rand_HPP
+/* 
+ * Sample from a t distribution
+ */
 
-#include "runif.hpp"
-#include "rnorm.hpp"
+#ifndef _statslib_rt_HPP
+#define _statslib_rt_HPP
 
-#include "rgamma.hpp"
+double rt(const int dof_par);
 
-#include "rbern.hpp"
-#include "rbeta.hpp"
-#include "rbinom.hpp"
-#include "rcauchy.hpp"
-#include "rchisq.hpp"
-#include "rexp.hpp"
-#include "rinvgamma.hpp"
-#include "rinvwish.hpp"
-#include "rlaplace.hpp"
-#include "rlnorm.hpp"
-#include "rlogis.hpp"
-#include "rmultinom.hpp"
-#include "rmvnorm.hpp"
-#include "rt.hpp"
+arma::mat rt(const int n, const int dof_par);
+arma::mat rt(const int n, const int k, const int dof_par);
+
+#include "rt.ipp"
 
 #endif

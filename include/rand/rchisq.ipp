@@ -33,7 +33,7 @@ rchisq(const int dof_par)
 
         ret = arma::as_scalar(X.t() * X);
     } else { // Fisher's asymptotic approximation
-        ret = 0.5 * std::pow(rnorm() + std::sqrt((double) (2*dof_par - 1)), 2);
+        ret = 0.5 * std::pow(rnorm() + std::sqrt(static_cast<double>(2*dof_par - 1)), 2);
     }
     
     //
@@ -66,7 +66,7 @@ rchisq(const int n, const int k, const int dof_par)
             }
         }
     } else { // Fisher's asymptotic approximation
-        ret = 0.5 * arma::pow(rnorm(n,k,0.0,1.0) + std::sqrt(2*dof_par - 1), 2);
+        ret = 0.5 * arma::pow(rnorm(n,k,0.0,1.0) + std::sqrt(static_cast<double>(2*dof_par - 1)), 2);
     }
     
     //

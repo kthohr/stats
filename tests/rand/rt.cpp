@@ -16,27 +16,30 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_rand_HPP
-#define _statslib_rand_HPP
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rt.cpp -o rt.test -framework Accelerate
 
-#include "runif.hpp"
-#include "rnorm.hpp"
+#include "stats.hpp"
 
-#include "rgamma.hpp"
+int main()
+{
+    int dof_par = 11;
+    
+    double t_mean = 0.0;
+    double t_var = static_cast<double>(dof_par) / (static_cast<double>(dof_par) - 2.0) ;
+    double t_rand = stats::rt(dof_par);
 
-#include "rbern.hpp"
-#include "rbeta.hpp"
-#include "rbinom.hpp"
-#include "rcauchy.hpp"
-#include "rchisq.hpp"
-#include "rexp.hpp"
-#include "rinvgamma.hpp"
-#include "rinvwish.hpp"
-#include "rlaplace.hpp"
-#include "rlnorm.hpp"
-#include "rlogis.hpp"
-#include "rmultinom.hpp"
-#include "rmvnorm.hpp"
-#include "rt.hpp"
+    std::cout << "t rv: " << t_rand << std::endl;
 
-#endif
+    int n = 100000;
+    arma::vec t_vec = stats::rt(n,dof_par);
+
+    std::cout << "t rv mean: " << arma::mean(t_vec) << ". Should be close to: " << t_mean << std::endl;
+    std::cout << "t rv variance: " << arma::var(t_vec) << ". Should be close to: " << t_var << std::endl;
+
+    //
+    // coverage tests
+    
+    stats::rt(100,100,dof_par);
+
+    return 0;
+}
