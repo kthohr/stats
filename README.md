@@ -9,7 +9,7 @@ Vector-matrix functionality is built on the [Armadillo C++ linear algebra librar
 
 ## List of available distributons
 
-cdf, pdf, quantile, and random variable generation:
+cdf, pdf, quantile, and random variable generation are available for the following distributions:
 
 * Bernoulli
 * Beta
