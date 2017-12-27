@@ -23,6 +23,7 @@ cdf, pdf, quantile, and random variable generation:
 * Logistic
 * Log-Normal
 * Normal (Gaussian)
+* Student's t
 * Uniform
 
 pdf and random variable generation only:
