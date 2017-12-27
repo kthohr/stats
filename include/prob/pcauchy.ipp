@@ -28,7 +28,7 @@ statslib_constexpr
 T
 pcauchy_int(const T z)
 {
-    return ( 0.5 + stats_math::atan(z) / GCEM_PI );
+    return ( T(0.5) + stats_math::atan(z) / GCEM_PI );
 }
 
 template<typename T>

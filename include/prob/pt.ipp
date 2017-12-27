@@ -25,14 +25,14 @@
 
 inline
 long double
-pt_int_2(const long double z, const long double r_par)
+pt_int_main_2(const long double z, const long double r_par)
 {
     return ( pbeta(1.0L / z, r_par / 2.0L, 0.5L) / 2.0L );
 }
 
 inline
 long double
-pt_int_1(const long double z, const long double r_par)
+pt_int_main_1(const long double z, const long double r_par)
 {
     return ( 0.5L - pbeta(z / (r_par + z), 0.5L, r_par / 2.0L) / 2.0L );
 }
@@ -40,9 +40,19 @@ pt_int_1(const long double z, const long double r_par)
 template<typename T>
 statslib_constexpr
 T
-pt_int(const T x, const T r_par)
+pt_int_main(const T x, const T r_par)
 {
-    return ( r_par > x*x ? (x > T(0.0) ? T(1.0) - pt_int_1(x*x,r_par) : pt_int_1(x*x,r_par)) : (x > T(0.0) ? T(1.0) - pt_int_2(T(1.0) + (x/r_par)*x,r_par) : pt_int_2(T(1.0) + (x/r_par)*x,r_par)) );
+    return ( r_par > x*x ? (x > T(0.0) ? T(1.0) - pt_int_main_1(x*x,r_par) : pt_int_main_1(x*x,r_par)) : (x > T(0.0) ? T(1.0) - pt_int_main_2(T(1.0) + (x/r_par)*x,r_par) : pt_int_main_2(T(1.0) + (x/r_par)*x,r_par)) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+pt_int(const T x, const int r_par)
+{
+    return ( r_par == 1 ? pcauchy_int(x) :
+             r_par == 2 ? T(0.5) + x / (T(2.0) * stats_math::sqrt(x*x + T(2.0)) ) :
+                          pt_int_main(x,T(r_par)) );
 }
 
 template<typename T>
@@ -50,7 +60,7 @@ statslib_constexpr
 T
 pt(const T x, const int dof_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pt_int(x, T(dof_par))) : pt_int(x, T(dof_par)) );
+    return ( log_form == true ? stats_math::log(pt_int(x, dof_par)) : pt_int(x, dof_par) );
 }
 
 statslib_constexpr

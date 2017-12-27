@@ -67,7 +67,7 @@ qt_int_coef_d(const int dof_par, const long double coef_a, const long double coe
 
 statslib_constexpr
 long double
-qt_int_init_y(const long double p, const int dof_par, const long double coef_d)
+qt_int_y_init(const long double p, const int dof_par, const long double coef_d)
 {
     return ( stats_math::pow_dbl( coef_d*p , 2.0L/static_cast<long double>(dof_par) ) );
 }
@@ -76,18 +76,28 @@ qt_int_init_y(const long double p, const int dof_par, const long double coef_d)
 
 statslib_constexpr
 long double
-qt_int_update_y_1(const int stage, const long double y, const long double x, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
+qt_int_y_1_update(const int stage, const long double y, const long double x, const long double coef_a, const long double coef_b, const long double coef_c)
 {
-    return ( stage == 0 ? qt_int_update_y_1(stage+1,0.0,x,dof_par,coef_a,coef_b, qt_int_coef_c_update(x,dof_par,coef_c) ,coef_d) : 
-             stage == 1 ? qt_int_update_y_1(stage+1,x*x,x,dof_par,coef_a,coef_b, coef_b + coef_c + x * (- 2.0L + x * (- 7.0L + x * (-5.0L + x*coef_d*0.05))),coef_d) : 
-             stage == 2 ? qt_int_update_y_1(stage+1, x * ( 1.0L + ( ( y * ( 36.0L + y * (6.3L + 0.4L*y) ) + 94.5)/coef_c - y - 3.0L ) / coef_b ) ,x,dof_par,coef_a,coef_b,coef_c,coef_d) :
-             stage == 3 ? qt_int_update_y_1(stage+1, coef_a * y * y, x,dof_par,coef_a,coef_b,coef_c,coef_d) :
+    return ( stage == 1 ? x*x : 
+             stage == 2 ? x * ( 1.0L + ( ( y * ( 36.0L + y * (6.3L + 0.4L*y) ) + 94.5)/coef_c - y - 3.0L ) / coef_b ) :
+             stage == 3 ? coef_a * y * y :
                           (y > 0.1L ? stats_math::exp(y) - 1.0L : y * (1.0L + y * (12.0L + y * (4.0L + y))/24.0L ) ) );
 }
 
 statslib_constexpr
 long double
-qt_int_update_y_2(const long double y, const int dof_par, const long double coef_b, const long double coef_c, const long double coef_d)
+qt_int_y_1(const int stage, const long double y, const long double x, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
+{
+    return ( stage == 0 ? qt_int_y_1(1,0.0,x,dof_par,coef_a,coef_b, qt_int_coef_c_update(x,dof_par,coef_c) ,coef_d) : 
+             stage == 1 ? qt_int_y_1(2,qt_int_y_1_update(1,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b, coef_b + coef_c + x * (- 2.0L + x * (- 7.0L + x * (-5.0L + x*coef_d*0.05))),coef_d) : 
+             stage == 2 ? qt_int_y_1(3,qt_int_y_1_update(2,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b,coef_c,coef_d) :
+             stage == 3 ? qt_int_y_1(4,qt_int_y_1_update(3,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b,coef_c,coef_d) :
+                          qt_int_y_1_update(4,y,x,coef_a,coef_b,coef_c) );
+}
+
+statslib_constexpr
+long double
+qt_int_y_2(const long double y, const int dof_par, const long double coef_b, const long double coef_c, const long double coef_d)
 {
     return ( (1.0L/y) + (dof_par + 1.0L) * ( (1.0L / (((dof_par + 6.0L) / (dof_par * y) - 0.089L*coef_d - 0.822L) * (dof_par + 2.0L) * 3.0L) + 0.5L / (dof_par + 4.0L)) * y - 1.0L) / (dof_par + 2.0L) );
 }
@@ -96,32 +106,41 @@ statslib_constexpr
 long double
 qt_int_choose(const long double p, const long double y, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
 {
-    return ( y > 0.05 + coef_a ? qt_int_update_y_1(0,y,qnorm(0.5L*p),dof_par,coef_a,coef_b,coef_c,coef_d) : qt_int_update_y_2(y,dof_par,coef_b,coef_c,coef_d) );
+    return ( y > 0.05 + coef_a ? qt_int_y_1(0,y,qnorm(0.5L*p),dof_par,coef_a,coef_b,coef_c,coef_d) : qt_int_y_2(y,dof_par,coef_b,coef_c,coef_d) );
 }
 
 statslib_constexpr
 long double
 qt_int_finish(const long double p, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
 {
-    return ( stats_math::sqrt( dof_par * qt_int_choose(p, qt_int_init_y(p,dof_par,coef_d), dof_par,coef_a,coef_b,coef_c,coef_d) ) );
+    return ( stats_math::sqrt( dof_par * qt_int_choose(p, qt_int_y_init(p,dof_par,coef_d), dof_par,coef_a,coef_b,coef_c,coef_d) ) );
 }
 
 statslib_constexpr
 long double
-qt_int_main(const int stage, const long double p, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
+qt_int_main_iter(const int stage, const long double p, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
 {
-    return ( stage == 0 ? qt_int_main(stage+1,p,dof_par,qt_int_coef_a(dof_par),0,0,0) :
-             stage == 1 ? qt_int_main(stage+1,p,dof_par,coef_a,qt_int_coef_b(coef_a),0,0) : 
-             stage == 2 ? qt_int_main(stage+1,p,dof_par,coef_a,coef_b,qt_int_coef_c(coef_a,coef_b),0) :
-             stage == 3 ? qt_int_main(stage+1,p,dof_par,coef_a,coef_b,coef_c,qt_int_coef_d(dof_par,coef_a,coef_b,coef_c)) :
+    return ( stage == 0 ? qt_int_main_iter(1,p,dof_par,qt_int_coef_a(dof_par),0,0,0) :
+             stage == 1 ? qt_int_main_iter(2,p,dof_par,coef_a,qt_int_coef_b(coef_a),0,0) : 
+             stage == 2 ? qt_int_main_iter(3,p,dof_par,coef_a,coef_b,qt_int_coef_c(coef_a,coef_b),0) :
+             stage == 3 ? qt_int_main_iter(4,p,dof_par,coef_a,coef_b,coef_c,qt_int_coef_d(dof_par,coef_a,coef_b,coef_c)) :
                           qt_int_finish(p,dof_par,coef_a,coef_b,coef_c,coef_d) );
+}
+
+statslib_constexpr
+long double
+qt_int_main(const long double p, const int dof_par)
+{
+    return ( p < 0.5 ? - qt_int_main_iter(0,2*p,dof_par,0,0,0,0) : qt_int_main_iter(0,2*p,dof_par,0,0,0,0) );
 }
 
 statslib_constexpr
 long double
 qt_int(const long double p, const int dof_par)
 {
-    return ( p < 0.5 ? - qt_int_main(0,2*p,dof_par,0,0,0,0) : qt_int_main(0,2*p,dof_par,0,0,0,0) );
+    return ( dof_par == 1 ? stats_math::tan(GCEM_PI*(p - 0.5L)) : // Cauchy
+             dof_par == 2 ? (2*p - 1.0L) / stats_math::sqrt(2*p*(1.0L - p)) :
+                            qt_int_main(p,dof_par) );
 }
 
 //
