@@ -17,7 +17,7 @@
   ################################################################################*/
 
 /*
- * pdf of the univariate t distribution
+ * pdf of the univariate t-distribution
  */
 
 #ifndef _statslib_dt_HPP

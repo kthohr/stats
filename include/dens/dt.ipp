@@ -17,7 +17,7 @@
   ################################################################################*/
 
 /*
- * cdf of the univariate t distribution
+ * pdf of the univariate t-distribution
  */
 
 //
