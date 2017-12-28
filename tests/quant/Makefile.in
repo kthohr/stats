@@ -20,7 +20,7 @@ CXXFLAGS = $(CXX_STD) -Wall $(OPT_FLAGS) -I$(ARMA_INCLUDE_PATH) -I$(STATS_HEADER
 LIBS= @STATS_BLAS_LAPACK@
 
 # Test Files
-SOURCES_STATS_DENS= $(STATS_TEST_DIR)/qbern.cpp $(STATS_TEST_DIR)/qbeta.cpp $(STATS_TEST_DIR)/qbinom.cpp $(STATS_TEST_DIR)/qcauchy.cpp $(STATS_TEST_DIR)/qchisq.cpp $(STATS_TEST_DIR)/qexp.cpp $(STATS_TEST_DIR)/qgamma.cpp $(STATS_TEST_DIR)/qinvgamma.cpp $(STATS_TEST_DIR)/qlaplace.cpp $(STATS_TEST_DIR)/qlnorm.cpp $(STATS_TEST_DIR)/qlogis.cpp $(STATS_TEST_DIR)/qnorm.cpp $(STATS_TEST_DIR)/qunif.cpp
+SOURCES_STATS_DENS= $(STATS_TEST_DIR)/qbern.cpp $(STATS_TEST_DIR)/qbeta.cpp $(STATS_TEST_DIR)/qbinom.cpp $(STATS_TEST_DIR)/qcauchy.cpp $(STATS_TEST_DIR)/qchisq.cpp $(STATS_TEST_DIR)/qexp.cpp $(STATS_TEST_DIR)/qgamma.cpp $(STATS_TEST_DIR)/qinvgamma.cpp $(STATS_TEST_DIR)/qlaplace.cpp $(STATS_TEST_DIR)/qlnorm.cpp $(STATS_TEST_DIR)/qlogis.cpp $(STATS_TEST_DIR)/qnorm.cpp $(STATS_TEST_DIR)/qt.cpp $(STATS_TEST_DIR)/qunif.cpp
 OBJECTS_STATS_DENS= $(SOURCES_STATS_DENS:.cpp=.test)
 
 all: $(OBJECTS_STATS_DENS)
