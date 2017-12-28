@@ -31,6 +31,8 @@ rbern(const T prob_par)
     return ret;
 }
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 rbern(const int n, const double prob_par)
@@ -55,3 +57,5 @@ rbern(const int n, const int k, const double prob_par)
     
     return ret;
 }
+
+#endif

@@ -27,6 +27,8 @@ rlogis(const T mu_par, const T sigma_par)
     return qlogis(runif(),mu_par,sigma_par);
 }
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 rlogis(const int n, const double mu_par, const double sigma_par)
@@ -42,3 +44,5 @@ rlogis(const int n, const int k, const double mu_par, const double sigma_par)
 
     return qlogis(U,mu_par,sigma_par);
 }
+
+#endif

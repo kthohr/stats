@@ -23,8 +23,12 @@
 #ifndef _statslib_rinvwish_HPP
 #define _statslib_rinvwish_HPP
 
+#ifndef STATS_NO_ARMA
+
 arma::mat rinvwish(const arma::mat& Psi_par, const int nu_par);
 
 #include "rinvwish.ipp"
+
+#endif
 
 #endif

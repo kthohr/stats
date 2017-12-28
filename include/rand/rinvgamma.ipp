@@ -27,6 +27,8 @@ rinvgamma(T shape_par, T rate_par)
     return 1.0/rgamma(shape_par,1.0/rate_par);
 }
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 rinvgamma(const int n, const double shape_par, const double rate_par)
@@ -52,3 +54,5 @@ rinvgamma(const int n, const int k, const double shape_par, const double rate_pa
     
     return ret;
 }
+
+#endif

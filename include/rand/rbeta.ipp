@@ -32,6 +32,8 @@ rbeta(const T a_par, const T b_par)
     return X / (X + Y);
 }
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 rbeta(const int n, const double a_par, const double b_par)
@@ -57,3 +59,5 @@ rbeta(const int n, const int k, const double a_par, const double b_par)
 
     return ret;
 }
+
+#endif

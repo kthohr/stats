@@ -27,7 +27,11 @@ template<typename T>
 T
 rnorm(const T mu_par, const T sigma_par)
 {
-    return mu_par + sigma_par*arma::as_scalar(arma::randn(1));
+    std::mt19937_64 engine;
+    std::normal_distribution<double> norm_dist;
+
+    // return mu_par + sigma_par*arma::as_scalar(arma::randn(1));
+    return mu_par + sigma_par*norm_dist(engine);
 }
 
 inline
@@ -36,6 +40,8 @@ rnorm()
 {
     return rnorm(0.0,1.0);
 }
+
+#ifndef STATS_NO_ARMA
 
 inline
 arma::mat
@@ -50,3 +56,5 @@ rnorm(const int n, const int k, const double mu_par, const double sigma_par)
 {
     return ( mu_par + sigma_par*arma::randn(n,k) );
 }
+
+#endif

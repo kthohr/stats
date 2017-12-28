@@ -25,6 +25,9 @@
         #endif
         #include "armadillo"
     #endif
+#else
+    #include <limits>
+    #include <random>
 #endif
 
 #ifndef STATSLIB_GO_INLINE

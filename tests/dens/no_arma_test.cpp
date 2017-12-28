@@ -16,7 +16,8 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include dnorm.cpp -o dnorm.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include no_arma_test.cpp -o no_arma_test.test -framework Accelerate
+// g++-mp-7 -O3 -Wall -std=c++11 -DSTATS_NO_ARMA -I./../../include -I/opt/local/include no_arma_test.cpp -o no_arma_test.test -framework Accelerate
 
 #include <math.h>
 #include <iomanip>
@@ -37,8 +38,6 @@ int main()
     double dens_1 = stats::dnorm(x_1,mu,sigma);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dnorm(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
     // x = 1, return log
     double x_2 = 1;
@@ -46,28 +45,10 @@ int main()
     double dens_2 = stats::dnorm(x_2,mu,sigma,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dnorm(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
         printf("\ndnorm: all tests passed.\n");
     }
-
-    //
-    // coverage tests
-
-    stats::dnorm(x_1);
-    stats::dnorm(x_1,true);
-    stats::dnorm(x_1,mu,sigma);
-
-    arma::mat x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 1.5;
-
-    stats::dnorm(x_mat);
-    stats::dnorm(x_mat,true);
-    stats::dnorm(x_mat,mu,sigma);
-    stats::dnorm(x_mat,mu,sigma,true);
 
     return 0;
 }

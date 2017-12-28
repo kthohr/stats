@@ -27,6 +27,8 @@ rt(const int dof_par)
     return rnorm() / std::sqrt( rchisq(dof_par) / static_cast<double>(dof_par) );
 }
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 rt(const int n, const int dof_par)
@@ -40,3 +42,5 @@ rt(const int n, const int k, const int dof_par)
 {
     return ( arma::randn(n,k) / arma::sqrt( rchisq(n,k,dof_par) / static_cast<double>(dof_par) ) );
 }
+
+#endif

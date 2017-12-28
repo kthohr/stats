@@ -26,8 +26,10 @@
 template<typename T>
 int rbern(const T p);
 
+#ifndef STATS_NO_ARMA
 arma::mat rbern(const int n, const double prob_par);
 arma::mat rbern(const int n, const int k, const double prob_par);
+#endif
 
 #include "rbern.ipp"
 

@@ -24,8 +24,17 @@ template<typename T>
 int
 rbinom(const int n_trials_par, const T prob_par)
 {
-    return arma::accu(rbern(n_trials_par,1,prob_par));
+    // return arma::accu(rbern(n_trials_par,1,prob_par)); // removed for STATS_NO_ARMA
+    int ret = 0;
+
+    for (int i=0; i < n_trials_par; i++) {
+        ret += rbern(prob_par);
+    }
+
+    return ret;
 }
+
+#ifndef STATS_NO_ARMA
 
 inline
 arma::mat
@@ -52,3 +61,5 @@ rbinom(const int n, const int k, const int n_trials_par, const double prob_par)
 
     return ret;
 }
+
+#endif

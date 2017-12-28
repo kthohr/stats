@@ -24,7 +24,11 @@ template<typename T>
 T
 runif(const T a_par, const T b_par)
 {
-    return ( a_par + (b_par - a_par)*arma::as_scalar(arma::randu(1)) ); 
+    std::mt19937_64 engine;
+    std::uniform_real_distribution<double> unif_dist;
+
+    // return ( a_par + (b_par - a_par)*arma::as_scalar(arma::randu(1)) ); 
+    return ( a_par + (b_par - a_par)*unif_dist(engine) ); 
 }
 
 inline
@@ -33,6 +37,8 @@ runif()
 {
     return runif(0.0,1.0);
 }
+
+#ifndef STATS_NO_ARMA
 
 inline
 arma::mat
@@ -47,3 +53,5 @@ runif(const int n, const int k, const double a_par, const double b_par)
 {
     return ( a_par + (b_par - a_par)*arma::randu(n,k) );
 }
+
+#endif

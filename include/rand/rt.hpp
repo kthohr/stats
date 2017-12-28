@@ -25,8 +25,10 @@
 
 double rt(const int dof_par);
 
+#ifndef STATS_NO_ARMA
 arma::mat rt(const int n, const int dof_par);
 arma::mat rt(const int n, const int k, const int dof_par);
+#endif
 
 #include "rt.ipp"
 

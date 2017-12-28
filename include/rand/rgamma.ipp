@@ -62,6 +62,8 @@ rgamma(const T shape_par, const T scale_par)
     return ret;
 }
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 rgamma(const int n, const double shape_par, const double scale_par)
@@ -87,3 +89,5 @@ rgamma(const int n, const int k, const double shape_par, const double scale_par)
     
     return ret;
 }
+
+#endif

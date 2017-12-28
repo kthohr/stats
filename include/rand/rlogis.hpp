@@ -26,8 +26,10 @@
 template<typename T>
 T rlogis(const T mu_par, const T sigma_par);
 
+#ifndef STATS_NO_ARMA
 arma::mat rlogis(const int n, const double mu_par, const double sigma_par);
 arma::mat rlogis(const int n, const int k, const double mu_par, const double sigma_par);
+#endif
 
 #include "rlogis.ipp"
 

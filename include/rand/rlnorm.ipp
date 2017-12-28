@@ -27,6 +27,8 @@ rlnorm(const T mu_par, const T sigma_par)
     return stats_math::exp( rnorm(mu_par,sigma_par) );
 }
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 rlnorm(const int n, const double mu_par, const double sigma_par)
@@ -40,3 +42,5 @@ rlnorm(const int n, const int k, const double mu_par, const double sigma_par)
 {
     return arma::exp( rnorm(n,k,mu_par,sigma_par) );
 }
+
+#endif

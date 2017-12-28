@@ -23,8 +23,12 @@
 #ifndef _statslib_rmultinom_HPP
 #define _statslib_rmultinom_HPP
 
+#ifndef STATS_NO_ARMA
+
 arma::colvec rmultinom(const arma::vec& prob);
 
 #include "rmultinom.ipp"
+
+#endif
 
 #endif

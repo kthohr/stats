@@ -26,8 +26,10 @@
 template<typename T>
 T rlnorm(const T mu_par, const T sigma_par);
 
+#ifndef STATS_NO_ARMA
 arma::mat rlnorm(const int n, const double mu_par, const double sigma_par);
 arma::mat rlnorm(const int n, const int k, const double mu_par, const double sigma_par);
+#endif
 
 #include "rlnorm.ipp"
 

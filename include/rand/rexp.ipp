@@ -27,6 +27,8 @@ rexp(const double rate_par)
     return qexp(runif(),rate_par);
 }
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 rexp(const int n, const double rate_par)
@@ -42,3 +44,5 @@ rexp(const int n, const int k, const double rate_par)
 
     return qexp(U,rate_par);
 }
+
+#endif
