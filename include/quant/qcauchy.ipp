@@ -28,7 +28,7 @@ statslib_constexpr
 T
 qcauchy_int(const T p, const T mu_par, const T sigma_par)
 {
-    return ( mu_par + sigma_par*stats_math::tan(GCEM_PI*(p - 0.5)) );
+    return ( mu_par + sigma_par*stats_math::tan(GCEM_PI*(p - T(0.5))) );
 }
 
 template<typename T>
