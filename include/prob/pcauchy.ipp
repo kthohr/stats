@@ -63,6 +63,8 @@ pcauchy(const double x, const double mu_par, const double sigma_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 pcauchy_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
@@ -115,3 +117,5 @@ pcauchy(const arma::mat& x, const double mu_par, const double sigma_par, const b
 {
     return pcauchy_int(x,&mu_par,&sigma_par,log_form);
 }
+
+#endif

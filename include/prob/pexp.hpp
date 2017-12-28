@@ -32,12 +32,14 @@ statslib_constexpr double pexp(const double x, const bool log_form);
 statslib_constexpr double pexp(const double x, const double dof_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat pexp_int(const arma::mat& x, const double* dof_par_inp, const bool log_form);
 
 arma::mat pexp(const arma::mat& x);
 arma::mat pexp(const arma::mat& x, const bool log_form);
 arma::mat pexp(const arma::mat& x, const double dof_par);
 arma::mat pexp(const arma::mat& x, const double dof_par, const bool log_form);
+#endif
 
 #include "pexp.ipp"
 

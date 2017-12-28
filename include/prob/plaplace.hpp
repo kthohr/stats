@@ -32,12 +32,14 @@ statslib_constexpr double plaplace(const double x, const bool log_form);
 statslib_constexpr double plaplace(const double x, const double mu_par, const double sigma_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat plaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
 arma::mat plaplace(const arma::mat& x);
 arma::mat plaplace(const arma::mat& x, const bool log_form);
 arma::mat plaplace(const arma::mat& x, const double mu_par, const double sigma_par);
 arma::mat plaplace(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form);
+#endif
 
 #include "plaplace.ipp"
 

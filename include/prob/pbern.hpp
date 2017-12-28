@@ -32,12 +32,14 @@ statslib_constexpr double pbern(const int x, const bool log_form);
 statslib_constexpr double pbern(const int x, const double prob_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat pbern_int(const arma::mat& x, const double* prob_par_inp, bool log_form);
 
 arma::mat pbern(const arma::mat& x);
 arma::mat pbern(const arma::mat& x, const bool log_form);
 arma::mat pbern(const arma::mat& x, const double prob_par);
 arma::mat pbern(const arma::mat& x, const double prob_par, const bool log_form);
+#endif
 
 #include "pbern.ipp"
 

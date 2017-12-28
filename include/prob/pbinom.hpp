@@ -32,12 +32,14 @@ statslib_constexpr double pbinom(const int x, const bool log_form);
 statslib_constexpr double pbinom(const int x, const int n_trials_par, const double prob_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat pbinom_int(const arma::mat& x, const int* n_trials_par, const double* prob_par_inp, bool log_form);
 
 arma::mat pbinom(const arma::mat& x);
 arma::mat pbinom(const arma::mat& x, const bool log_form);
 arma::mat pbinom(const arma::mat& x, const int n_trials_par, const double prob_par);
 arma::mat pbinom(const arma::mat& x, const int n_trials_par, const double prob_par, const bool log_form);
+#endif
 
 #include "pbinom.ipp"
 

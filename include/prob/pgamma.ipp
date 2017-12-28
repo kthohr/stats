@@ -63,6 +63,8 @@ pgamma(const double x, const double shape_par, const double scale_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 pgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, const bool log_form)
@@ -115,3 +117,5 @@ pgamma(const arma::mat& x, const double shape_par, const double scale_par, const
 {
     return pgamma_int(x,&shape_par,&scale_par,log_form);
 }
+
+#endif

@@ -63,6 +63,8 @@ plogis(const double x, const double mu_par, const double sigma_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 plogis_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, bool log_form)
@@ -110,3 +112,5 @@ plogis(const arma::mat& x, const double mu_par, const double sigma_par, const bo
 {
     return plogis_int(x,&mu_par,&sigma_par,log_form);
 }
+
+#endif

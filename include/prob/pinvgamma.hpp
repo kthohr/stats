@@ -32,12 +32,14 @@ statslib_constexpr double pinvgamma(const double x, const bool log_form);
 statslib_constexpr double pinvgamma(const double x, const double shape_par, const double rate_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat pinvgamma_int(const arma::mat& x, const double* shape_inp, const double* rate_par_inp, const bool log_form);
 
 arma::mat pinvgamma(const arma::mat& x);
 arma::mat pinvgamma(const arma::mat& x, const bool log_form);
 arma::mat pinvgamma(const arma::mat& x, const double shape_par, const double rate_par);
 arma::mat pinvgamma(const arma::mat& x, const double shape_par, const double rate_par, const bool log_form);
+#endif
 
 #include "pinvgamma.ipp"
 

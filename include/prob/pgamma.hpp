@@ -32,12 +32,14 @@ statslib_constexpr double pgamma(const double x, const bool log_form);
 statslib_constexpr double pgamma(const double x, const double shape_par, const double scale_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat pgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, const bool log_form);
 
 arma::mat pgamma(const arma::mat& x);
 arma::mat pgamma(const arma::mat& x, const bool log_form);
 arma::mat pgamma(const arma::mat& x, const double shape_par, const double scale_par);
 arma::mat pgamma(const arma::mat& x, const double shape_par, const double scale_par, const bool log_form);
+#endif
 
 #include "pgamma.ipp"
 

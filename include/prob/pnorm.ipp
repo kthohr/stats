@@ -63,6 +63,8 @@ pnorm(const double x, const double mu_par, const double sigma_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 pnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
@@ -115,3 +117,5 @@ pnorm(const arma::mat& x, const double mu_par, const double sigma_par, const boo
 {
     return pnorm_int(x,&mu_par,&sigma_par,log_form);
 }
+
+#endif

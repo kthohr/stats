@@ -63,6 +63,8 @@ pexp(const double x, const double rate_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 pexp_int(const arma::mat& x, const double* rate_par_inp, const bool log_form)
@@ -111,3 +113,5 @@ pexp(const arma::mat& x, const double rate_par, const bool log_form)
 {
     return pexp_int(x,&rate_par,log_form);
 }
+
+#endif

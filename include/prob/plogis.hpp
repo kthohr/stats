@@ -32,12 +32,14 @@ statslib_constexpr double plogis(const double x, const bool log_form);
 statslib_constexpr double plogis(const double x, const double mu_par, const double sigma_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat plogis_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
 arma::mat plogis(const arma::mat& x);
 arma::mat plogis(const arma::mat& x, const bool log_form);
 arma::mat plogis(const arma::mat& x, const double mu_par, const double sigma_par);
 arma::mat plogis(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form);
+#endif
 
 #include "plogis.ipp"
 

@@ -87,6 +87,8 @@ pt(const double x, const int dof_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 pt_int(const arma::mat& x, const int* dof_par_inp, bool log_form)
@@ -138,3 +140,5 @@ pt(const arma::mat& x, const int dof_par, const bool log_form)
 {
     return pt_int(x,&dof_par,log_form);
 }
+
+#endif
