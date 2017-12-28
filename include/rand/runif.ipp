@@ -25,10 +25,10 @@ T
 runif(const T a_par, const T b_par)
 {
     std::mt19937_64 engine(std::random_device{}());
-    std::uniform_real_distribution<double> unif_dist(0,1);
+    std::uniform_real_distribution<T> unif_dist(std::nextafter(a_par, b_par),b_par); // converts from [a,b) to (a,b)
 
-    // return ( a_par + (b_par - a_par)*arma::as_scalar(arma::randu(1)) ); 
-    return ( a_par + (b_par - a_par)*unif_dist(engine) ); 
+    // return ( a_par + (b_par - a_par)*unif_dist(engine) ); 
+    return ( unif_dist(engine) ); 
 }
 
 inline
