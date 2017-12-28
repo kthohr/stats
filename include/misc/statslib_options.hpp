@@ -16,13 +16,15 @@
   ##
   ################################################################################*/
 
-#ifdef USE_RCPP_ARMADILLO
-    #include <RcppArmadillo.h>
-#else
-    #ifndef ARMA_DONT_USE_WRAPPER
-        #define ARMA_DONT_USE_WRAPPER
+#ifndef STATS_NO_ARMA
+    #ifdef USE_RCPP_ARMADILLO
+        #include <RcppArmadillo.h>
+    #else
+        #ifndef ARMA_DONT_USE_WRAPPER
+            #define ARMA_DONT_USE_WRAPPER
+        #endif
+        #include "armadillo"
     #endif
-    #include "armadillo"
 #endif
 
 #ifndef STATSLIB_GO_INLINE
@@ -50,5 +52,5 @@
 #endif
 
 namespace stats {
-    static const double inf = arma::datum::inf;
+    static const double inf = std::numeric_limits<double>::infinity();
 }

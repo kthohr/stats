@@ -69,7 +69,7 @@ statslib_constexpr
 long double
 qt_int_y_init(const long double p, const int dof_par, const long double coef_d)
 {
-    return ( pow_dbl( coef_d*p , 2.0L/static_cast<long double>(dof_par) ) );
+    return ( gcem::pow_dbl( coef_d*p , 2.0L/static_cast<long double>(dof_par) ) );
 }
 
 // update y
