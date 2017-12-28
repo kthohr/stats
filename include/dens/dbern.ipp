@@ -63,6 +63,8 @@ dbern(const int x, const double prob_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 dbern_int(const arma::mat& x, const double* prob_par_inp, const bool log_form)
@@ -108,3 +110,5 @@ dbern(const arma::mat& x, const double prob_par, const bool log_form)
 {
     return dbern_int(x,&prob_par,log_form);
 }
+
+#endif

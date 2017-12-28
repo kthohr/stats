@@ -55,6 +55,8 @@ dunif(const double x, const double a_par, const double b_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 dunif_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
@@ -104,3 +106,5 @@ dunif(const arma::mat& x, const double a_par, const double b_par, const bool log
 {
     return dunif_int(x,&a_par,&b_par,log_form);
 }
+
+#endif

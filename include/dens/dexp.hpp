@@ -32,12 +32,14 @@ statslib_constexpr double dexp(const double x, const bool log_form);
 statslib_constexpr double dexp(const double x, const double dof_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat dexp_int(const arma::mat& x, const double* dof_par_inp, const bool log_form);
 
 arma::mat dexp(const arma::mat& x);
 arma::mat dexp(const arma::mat& x, const bool log_form);
 arma::mat dexp(const arma::mat& x, const double dof_par);
 arma::mat dexp(const arma::mat& x, const double dof_par, const bool log_form);
+#endif
 
 #include "dexp.ipp"
 

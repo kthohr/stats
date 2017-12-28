@@ -32,12 +32,14 @@ statslib_constexpr double dinvgamma(const double x, const bool log_form);
 statslib_constexpr double dinvgamma(const double x, const double shape_par, const double rate_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat dinvgamma_int(const arma::mat& x, const double* shape_inp, const double* rate_par_inp, const bool log_form);
 
 arma::mat dinvgamma(const arma::mat& x);
 arma::mat dinvgamma(const arma::mat& x, const bool log_form);
 arma::mat dinvgamma(const arma::mat& x, const double shape_par, const double rate_par);
 arma::mat dinvgamma(const arma::mat& x, const double shape_par, const double rate_par, const bool log_form);
+#endif
 
 #include "dinvgamma.ipp"
 

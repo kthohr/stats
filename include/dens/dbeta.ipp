@@ -63,6 +63,8 @@ dbeta(const double x, const double a_par, const double b_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 dbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
@@ -111,3 +113,5 @@ dbeta(const arma::mat& x, const double a_par, const double b_par, const bool log
 {
     return dbeta_int(x,&a_par,&b_par,log_form);
 }
+
+#endif

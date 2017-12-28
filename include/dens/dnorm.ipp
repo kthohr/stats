@@ -63,6 +63,8 @@ dnorm(const double x, const double mu_par, const double sigma_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 dnorm_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
@@ -111,3 +113,5 @@ dnorm(const arma::mat& x, const double mu_par, const double sigma_par, const boo
 {
     return dnorm_int(x,&mu_par,&sigma_par,log_form);
 }
+
+#endif

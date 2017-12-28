@@ -32,12 +32,14 @@ statslib_constexpr double dcauchy(const double x, const bool log_form);
 statslib_constexpr double dcauchy(const double x, const double mu_par, const double sigma_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat dcauchy_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, bool log_form);
 
 arma::mat dcauchy(const arma::mat& x);
 arma::mat dcauchy(const arma::mat& x, const bool log_form);
 arma::mat dcauchy(const arma::mat& x, const double mu_par, const double sigma_par);
 arma::mat dcauchy(const arma::mat& x, const double mu_par, const double sigma_par, bool log_form);
+#endif
 
 #include "dcauchy.ipp"
 

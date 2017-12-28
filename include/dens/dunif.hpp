@@ -32,12 +32,14 @@ statslib_constexpr double dunif(const double x, const bool log_form);
 statslib_constexpr double dunif(const double x, const double a_par, const double b_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat dunif_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form);
 
 arma::mat dunif(const arma::mat& x);
 arma::mat dunif(const arma::mat& x, const bool log_form);
 arma::mat dunif(const arma::mat& x, const double a_par, const double b_par);
 arma::mat dunif(const arma::mat& x, const double a_par, const double b_par, const bool log_form);
+#endif
 
 #include "dunif.ipp"
 

@@ -63,6 +63,8 @@ dexp(const double x, const double rate_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 dexp_int(const arma::mat& x, const double* rate_par_inp, const bool log_form)
@@ -113,3 +115,5 @@ dexp(const arma::mat& x, const double rate_par, const bool log_form)
 {
     return dexp_int(x,&rate_par,log_form);
 }
+
+#endif

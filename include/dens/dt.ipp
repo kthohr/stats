@@ -77,6 +77,8 @@ dt(const double x, const int dof_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 dt_int(const arma::mat& x, const int* dof_par_inp, bool log_form)
@@ -128,3 +130,5 @@ dt(const arma::mat& x, const int dof_par, const bool log_form)
 {
     return dt_int(x,&dof_par,log_form);
 }
+
+#endif

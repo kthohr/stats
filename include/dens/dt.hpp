@@ -32,12 +32,14 @@ statslib_constexpr double dt(const double x, const bool log_form);
 statslib_constexpr double dt(const double x, const int dof_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat dt_int(const arma::mat& x, const int* dof_par_inp, const bool log_form);
 
 arma::mat dt(const arma::mat& x);
 arma::mat dt(const arma::mat& x, const bool log_form);
 arma::mat dt(const arma::mat& x, const int dof_par);
 arma::mat dt(const arma::mat& x, const int dof_par, const bool log_form);
+#endif
 
 #include "dt.ipp"
 

@@ -63,6 +63,8 @@ dgamma(const double x, const double shape_par, const double scale_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 dgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, bool log_form)
@@ -112,3 +114,5 @@ dgamma(const arma::mat& x, const double shape_par, const double scale_par, const
 {
     return dgamma_int(x,&shape_par,&scale_par,log_form);
 }
+
+#endif

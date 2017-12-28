@@ -65,6 +65,8 @@ dbinom(const int x, const int n_trials_par, const double prob_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 dbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_par_inp, const bool log_form)
@@ -117,3 +119,5 @@ dbinom(const arma::mat& x, const int n_trials_par, const double prob_par, const 
 {
     return dbinom_int(x,&n_trials_par,&prob_par,log_form);
 }
+
+#endif
