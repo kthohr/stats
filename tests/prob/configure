@@ -58,7 +58,7 @@ echo "stats tests: ARMA_INCLUDE_PATH set to ${ARMA_INCLUDE_PATH}"
 # coverage build? used for codecov
 
 if [[ "${STATS_COVERAGE_BUILD}" == "y" ]]; then 
-    STATS_OPT_FLAGS="-g -O0 -Wall -DSTATSLIB_GO_INLINE --coverage -fno-inline -fno-inline-small-functions -fno-default-inline"
+    STATS_OPT_FLAGS="-g -O0 -Wall -DSTATS_GO_INLINE --coverage -fno-inline -fno-inline-small-functions -fno-default-inline"
 else
     STATS_OPT_FLAGS="-O3"
 fi

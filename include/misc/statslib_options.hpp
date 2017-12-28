@@ -30,7 +30,7 @@
     #include <random>
 #endif
 
-#ifndef STATSLIB_GO_INLINE
+#ifndef STATS_GO_INLINE
     #define statslib_constexpr constexpr
     #define stats_math gcem
 #else

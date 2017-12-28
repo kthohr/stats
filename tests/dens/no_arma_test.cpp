@@ -26,8 +26,6 @@
 int main()
 {
     double err_tol = 1E-05;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
 
     double mu = 1;
     double sigma = 2;

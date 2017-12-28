@@ -32,6 +32,18 @@ pdf and random variable generation only:
 * Multivariate Normal
 * Wishart
 
+## Options
+
+Use
+```cpp
+#define STATS_GO_INLINE
+```
+to use inline functionality only (not constexpr), and
+```cpp
+#define STATS_NO_ARMA
+```
+to remove any Armadillo-related functionality.
+
 ## Examples
 
 Functions are called using a clean R-like syntax.
