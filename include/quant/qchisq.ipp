@@ -63,6 +63,8 @@ qchisq(const double p, const double dof_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qchisq_int(const arma::mat& p, const double* dof_par_inp, bool log_form)
@@ -114,3 +116,5 @@ qchisq(const arma::mat& p, const double dof_par, const bool log_form)
 {
     return qchisq_int(p,&dof_par,log_form);
 }
+
+#endif

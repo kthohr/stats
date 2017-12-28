@@ -32,12 +32,14 @@ statslib_constexpr double qgamma(const double p, const bool log_form);
 statslib_constexpr double qgamma(const double p, const double shape_par, const double scale_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat qgamma_int(const arma::mat& p, const double* shape_par_inp, const double* scale_par_inp, const bool log_form);
 
 arma::mat qgamma(const arma::mat& p);
 arma::mat qgamma(const arma::mat& p, const bool log_form);
 arma::mat qgamma(const arma::mat& p, const double shape_par, const double scale_par);
 arma::mat qgamma(const arma::mat& p, const double shape_par, const double scale_par, const bool log_form);
+#endif
 
 #include "qgamma.ipp"
 

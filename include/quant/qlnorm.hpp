@@ -32,12 +32,14 @@ statslib_constexpr double qlnorm(const double p, const bool log_form);
 statslib_constexpr double qlnorm(const double p, const double mu_par, const double sigma_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat qlnorm_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
 arma::mat qlnorm(const arma::mat& p);
 arma::mat qlnorm(const arma::mat& p, const bool log_form);
 arma::mat qlnorm(const arma::mat& p, const double mu_par, const double sigma_par);
 arma::mat qlnorm(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form);
+#endif
 
 #include "qlnorm.ipp"
 

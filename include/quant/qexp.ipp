@@ -63,6 +63,8 @@ qexp(const double p, const double rate_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qexp_int(const arma::mat& p, const double* rate_par_inp, const bool log_form)
@@ -111,3 +113,5 @@ qexp(const arma::mat& p, const double rate_par, const bool log_form)
 {
     return qexp_int(p,&rate_par,log_form);
 }
+
+#endif

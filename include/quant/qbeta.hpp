@@ -32,12 +32,14 @@ statslib_constexpr double qbeta(const double p, const bool log_form);
 statslib_constexpr double qbeta(const double p, const double a_par, const double b_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat qbeta_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form);
 
 arma::mat qbeta(const arma::mat& p);
 arma::mat qbeta(const arma::mat& p, const bool log_form);
 arma::mat qbeta(const arma::mat& p, const double a_par, const double b_par);
 arma::mat qbeta(const arma::mat& p, const double a_par, const double b_par, const bool log_form);
+#endif
 
 #include "qbeta.ipp"
 

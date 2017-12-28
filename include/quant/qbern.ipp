@@ -63,6 +63,8 @@ qbern(const double p, const double prob_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qbern_int(const arma::mat& p, const double* prob_par_inp, const bool log_form)
@@ -114,3 +116,5 @@ qbern(const arma::mat& p, const double prob_par, const bool log_form)
 {
     return qbern_int(p,&prob_par,log_form);
 }
+
+#endif

@@ -63,6 +63,8 @@ qbinom(const double p, const int n_trials, const double prob_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_inp, const bool log_form)
@@ -115,3 +117,5 @@ qbinom(const arma::mat& p, const int n_trials, const double prob_par, const bool
 {
     return qbinom_int(p,&n_trials,&prob_par,log_form);
 }
+
+#endif

@@ -63,6 +63,8 @@ qlaplace(const double p, const double mu_par, const double sigma_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qlaplace_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, bool log_form)
@@ -110,3 +112,5 @@ qlaplace(const arma::mat& p, const double mu_par, const double sigma_par, const 
 {
     return qlaplace_int(p,&mu_par,&sigma_par,log_form);
 }
+
+#endif

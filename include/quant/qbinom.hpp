@@ -32,12 +32,14 @@ statslib_constexpr int qbinom(const double p, const bool log_form);
 statslib_constexpr int qbinom(const double p, const int n_trials, const double prob_par);
 
 // matrix/vector input
+#ifndef STATS_NO_ARMA
 arma::mat qbinom_int(const arma::mat& p, const int* n_trials, const double* prob_par_inp, bool log_form);
 
 arma::mat qbinom(const arma::mat& p);
 arma::mat qbinom(const arma::mat& p, const bool log_form);
 arma::mat qbinom(const arma::mat& p, const int n_trials, const double prob_par);
 arma::mat qbinom(const arma::mat& p, const int n_trials, const double prob_par, const bool log_form);
+#endif
 
 #include "qbinom.ipp"
 

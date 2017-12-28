@@ -63,6 +63,8 @@ qgamma(const double p, const double shape_par, const double scale_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qgamma_int(const arma::mat& p, const double* shape_par_inp, const double* scale_par_inp, const bool log_form)
@@ -115,3 +117,5 @@ qgamma(const arma::mat& p, const double shape_par, const double scale_par, const
 {
     return qgamma_int(p,&shape_par,&scale_par,log_form);
 }
+
+#endif

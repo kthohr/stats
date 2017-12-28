@@ -63,6 +63,8 @@ qbeta(const double p, const double a_par, const double b_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qbeta_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form)
@@ -115,3 +117,5 @@ qbeta(const arma::mat& p, const double a_par, const double b_par, const bool log
 {
     return qbeta_int(p,&a_par,&b_par,log_form);
 }
+
+#endif

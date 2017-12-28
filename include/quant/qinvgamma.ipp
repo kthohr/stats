@@ -63,6 +63,8 @@ qinvgamma(const double p, const double shape_par, const double rate_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qinvgamma_int(const arma::mat& p, const double* shape_par_inp, const double* rate_par_inp, const bool log_form)
@@ -115,3 +117,5 @@ qinvgamma(const arma::mat& p, const double shape_par, const double rate_par, con
 {
     return qinvgamma_int(p,&shape_par,&rate_par,log_form);
 }
+
+#endif

@@ -63,6 +63,8 @@ qcauchy(const double p, const double mu_par, const double sigma_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qcauchy_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
@@ -115,3 +117,5 @@ qcauchy(const arma::mat& p, const double mu_par, const double sigma_par, const b
 {
     return qcauchy_int(p,&mu_par,&sigma_par,log_form);
 }
+
+#endif

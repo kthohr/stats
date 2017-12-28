@@ -177,6 +177,8 @@ qt(const double p, const int dof_par)
 //
 // matrix/vector input
 
+#ifndef STATS_NO_ARMA
+
 inline
 arma::mat
 qt_int(const arma::mat& p, const int* dof_par_inp, bool log_form)
@@ -228,3 +230,5 @@ qt(const arma::mat& p, const int dof_par, const bool log_form)
 {
     return qt_int(p,&dof_par,log_form);
 }
+
+#endif
