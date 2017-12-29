@@ -23,11 +23,12 @@
 #ifndef _gcem_cosh_HPP
 #define _gcem_cosh_HPP
 
+template<typename T>
 constexpr
-long double
-cosh(const long double x)
+T
+cosh(const T x)
 {
-    return ( x == 0 ? 1 : (exp(x) + exp(-x))/2.0 );
+    return ( GCEM_LIM<T>::epsilon() > abs(x) ? T(1.0) : (exp(x) + exp(-x)) / T(2.0) );
 }
 
 #endif

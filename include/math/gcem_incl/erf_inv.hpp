@@ -74,7 +74,7 @@ constexpr
 long double
 erf_inv_initial_val_int(const long double a)
 {
-    return ( a < 5.0 ? erf_inv_initial_val_case_1(a-2.5,0.0,1) : erf_inv_initial_val_case_2(sqrt(a)-3.0,0.0,1) );
+    return ( a < 5.0L ? erf_inv_initial_val_case_1(a-2.5,0.0,1) : erf_inv_initial_val_case_2(sqrt(a)-3.0,0.0,1) );
 }
 
 constexpr
@@ -133,14 +133,14 @@ constexpr
 long double
 erf_inv_recur(const long double value, const long double p, const long double deriv_1, const int iter_count)
 {
-    return ( erf_inv_decision( value, p, erf_inv_halley(erf_inv_ratio_val_1(value,p,deriv_1),erf_inv_ratio_val_2(value,p,deriv_1)), iter_count ) );
+    return ( erf_inv_decision( value, p, erf_inv_halley(erf_inv_ratio_val_1(value,p,deriv_1), erf_inv_ratio_val_2(value,p,deriv_1)), iter_count ) );
 }
 
 constexpr
 long double
 erf_inv_decision(const long double value, const long double p, const long double direc, const int iter_count)
 {
-    return ( iter_count <= GCEM_ERF_INV_MAX_ITER ? erf_inv_recur(value-direc,p, erf_inv_deriv_1(value), iter_count+1) : value - direc );
+    return ( iter_count < GCEM_ERF_INV_MAX_ITER ? erf_inv_recur(value-direc,p, erf_inv_deriv_1(value), iter_count+1) : value - direc );
 }
 
 constexpr
