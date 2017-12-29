@@ -31,6 +31,8 @@ int main()
     double a_par = -1;
     double b_par = 3;
 
+    std::cout << "\n*** punif: begin tests. ***\n" << std::endl;
+
     // x = -0.5
     double x_1 = -0.5;
     double val_1 = 0.125;
@@ -68,7 +70,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits) << prob_4 << ". Success = " << success_4 << std::endl;
 
     if (success_1 && success_2 && success_3 && success_4) {
-        printf("\npunif: all tests passed.\n");
+        std::cout << "\n*** punif: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** punif: some tests FAILED. ***\n" << std::endl;
     }
 
     //

@@ -32,6 +32,8 @@ int main()
     double mu = 1;
     double sigma = 2;
 
+    std::cout << "\n*** plnorm: begin tests. ***\n" << std::endl;
+
     // x = 2.0
     double x_1 = 2.0;
     double val_1 = 0.439031;
@@ -51,7 +53,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\nplnorm: all tests passed.\n");
+        std::cout << "\n*** plnorm: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** plnorm: some tests FAILED. ***\n" << std::endl;
     }
 
     //

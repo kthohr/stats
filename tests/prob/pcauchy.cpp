@@ -31,6 +31,8 @@ int main()
     double mu = 1;
     double sigma = 2;
 
+    std::cout << "\n*** pcauchy: begin tests. ***\n" << std::endl;
+
     // x = 2
     double x_1 = 2;
     double val_1 = 0.6475836;
@@ -50,7 +52,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\npcauchy: all tests passed.\n");
+        std::cout << "\n*** pcauchy: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** pcauchy: some tests FAILED. ***\n" << std::endl;
     }
 
     //

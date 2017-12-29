@@ -32,6 +32,8 @@ int main()
     double shape_par = 3;
     double scale_par = 2;
 
+    std::cout << "\n*** pgamma: begin tests. ***\n" << std::endl;
+
     // x = 0.3
     double x_1 = 0.3;
     double val_1 = 0.0005028624;
@@ -114,7 +116,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_9 << ". Success = " << success_8 << std::endl;
 
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        printf("\npgamma: all tests passed.\n");
+        std::cout << "\n*** pgamma: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** pgamma: some tests FAILED. ***\n" << std::endl;
     }
 
     //

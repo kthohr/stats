@@ -32,6 +32,8 @@ int main()
     int n_trials = 7;
     double prob_par = 0.75;
 
+    std::cout << "\n*** pbinom: begin tests. ***\n" << std::endl;
+
     // x = 1
     int x_1 = 1;
     double val_1 = 0.001342773;
@@ -51,7 +53,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\npbinom: all tests passed.\n");
+        std::cout << "\n*** pbinom: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** pbinom: some tests FAILED. ***\n" << std::endl;
     }
 
     //
