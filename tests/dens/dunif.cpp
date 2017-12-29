@@ -51,10 +51,6 @@ int main()
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dunif(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-\
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(20) << std::log(2) << std::endl;
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(20) << std::atan(1)*4 << std::endl;
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(20) << std::exp(1) << std::endl;
 
     if (success_1 && success_2) {
         std::cout << "\n*** dunif: all tests passed. ***\n" << std::endl;
