@@ -31,6 +31,8 @@ int main()
     double mu_par = 1;
     double sigma_par = 2;
 
+    std::cout << "\n*** qlaplace: begin tests. ***\n" << std::endl;
+
     // x = -1.01
     double x_1 = -1.01;
     double val_1 = 0.1830223;
@@ -104,7 +106,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2-1) << q_9 << ". Success = " << success_9 << std::endl;
 
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        printf("\nqlaplace: all tests passed.\n");
+        std::cout << "\n*** qlaplace: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** qlaplace: some tests FAILED. ***\n" << std::endl;
     }
 
     //

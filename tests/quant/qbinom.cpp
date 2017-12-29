@@ -31,6 +31,8 @@ int main()
     int n_trials = 7;
     double prob_par = 0.75;
 
+    std::cout << "\n*** qbinom: begin tests. ***\n" << std::endl;
+
     // x = 1
     int x_1 = 1;
     double val_1 = 0.001342773;
@@ -50,7 +52,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\nqbinom: all tests passed.\n");
+        std::cout << "\n*** qbinom: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** qbinom: some tests FAILED. ***\n" << std::endl;
     }
 
     //

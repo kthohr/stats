@@ -31,6 +31,8 @@ int main()
     double alpha_par = 3;
     double beta_par = 2;
 
+    std::cout << "\n*** qbeta: begin tests. ***\n" << std::endl;
+
     // x = +0.01
     double x_1 = 0.01;
     double val_1 = 3.97e-06;
@@ -113,7 +115,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_9 << ". Success = " << success_9 << std::endl;
 
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        printf("\nqbeta: all tests passed.\n");
+        std::cout << "\n*** qbeta: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** qbeta: some tests FAILED. ***\n" << std::endl;
     }
 
     //

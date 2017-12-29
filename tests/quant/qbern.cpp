@@ -30,6 +30,8 @@ int main()
 
     double prob_par = 0.4;
 
+    std::cout << "\n*** qbern: begin tests. ***\n" << std::endl;
+
     // x = 1
     int x_1 = 1;
     double val_1 = 0.7;
@@ -49,7 +51,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\nqbern: all tests passed.\n");
+        std::cout << "\n*** qbern: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** qbern: some tests FAILED. ***\n" << std::endl;
     }
 
     //

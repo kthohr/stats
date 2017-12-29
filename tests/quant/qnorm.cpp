@@ -32,6 +32,8 @@ int main()
     double mu = 1;
     double sigma = 2;
 
+    std::cout << "\n*** qnorm: begin tests. ***\n" << std::endl;
+
     // x = -1.01
     double x_1 = -1.01;
     double val_1 = 0.1574484;
@@ -114,7 +116,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_9 << ". Success = " << success_9 << std::endl;
 
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        printf("\nqnorm: all tests passed.\n");
+        std::cout << "\n*** qnorm: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** qnorm: some tests FAILED. ***\n" << std::endl;
     }
 
     //
