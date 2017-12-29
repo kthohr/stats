@@ -32,7 +32,7 @@ int main()
     double a_par = 2.0;
     double b_par = 2.0;
 
-    printf("\n*** dbeta: begin tests. ***\n");
+    std::cout << "\n*** dbeta: begin tests. ***\n" << std::endl;
 
     // x = 1
     double x_1 = 0.5;
@@ -53,9 +53,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\n*** dbeta: all tests passed. ***\n");
+        std::cout << "\n*** dbeta: all tests passed. ***\n" << std::endl;
     } else {
-        printf("\n*** dbeta: some tests failed. ***\n");
+        std::cout << "\n*** dbeta: some tests failed. ***\n" << std::endl;
     }
 
     //

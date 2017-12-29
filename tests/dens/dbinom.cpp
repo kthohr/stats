@@ -31,7 +31,7 @@ int main()
     int n_trials = 1;
     double prob_par = 0.4;
 
-    printf("\n*** dbinom: begin tests. ***\n");
+    std::cout << "\n*** dbinom: begin tests. ***\n" << std::endl;
 
     // x = 1
     int x_1 = 1;
@@ -61,9 +61,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_3 << ". Success = " << success_3 << std::endl;
 
     if (success_1 && success_2 && success_3) {
-        printf("\n*** dbinom: all tests passed. ***\n");
+        std::cout << "\n*** dbinom: all tests passed. ***\n" << std::endl;
     } else {
-        printf("\n*** dbinom: some tests failed. ***\n");
+        std::cout << "\n*** dbinom: some tests failed. ***\n" << std::endl;
     }
 
     //
