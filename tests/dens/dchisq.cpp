@@ -28,6 +28,8 @@ int main()
 
     double dof_par = 3.0;
 
+    printf("\n*** dchisq: begin tests. ***\n");
+
     // x = 1
     double x_1 = 1.0;
     double val_1 = 0.241971;
@@ -47,7 +49,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndchisq: all tests passed.\n");
+        printf("\n*** dchisq: all tests passed. ***\n");
+    } else {
+        printf("\n*** dchisq: some tests failed. ***\n");
     }
 
     //

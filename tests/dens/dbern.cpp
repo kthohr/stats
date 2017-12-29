@@ -52,6 +52,8 @@ int main()
 
     if (success_1 && success_2) {
         printf("\n*** dbern: all tests passed. ***\n");
+    } else {
+        printf("\n*** dbern: some tests failed. ***\n");
     }
 
     //

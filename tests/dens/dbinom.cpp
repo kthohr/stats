@@ -62,6 +62,8 @@ int main()
 
     if (success_1 && success_2 && success_3) {
         printf("\n*** dbinom: all tests passed. ***\n");
+    } else {
+        printf("\n*** dbinom: some tests failed. ***\n");
     }
 
     //
