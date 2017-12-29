@@ -32,6 +32,8 @@ int main()
     double shape_par = 2.0;
     double scale_par = 3.0;
 
+    std::cout << "\n*** dgamma: begin tests. ***\n" << std::endl;
+
     // x = 1
     double x_1 = 1;
     double val_1 = 0.07961459;
@@ -51,7 +53,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndgamma: all tests passed.\n");
+        std::cout << "\n*** dgamma: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** dgamma: some tests FAILED. ***\n" << std::endl;
     }
 
     //

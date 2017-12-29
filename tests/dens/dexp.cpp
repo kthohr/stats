@@ -28,6 +28,8 @@ int main()
 
     double rate_par = 2.0;
 
+    std::cout << "\n*** dexp: begin tests. ***\n" << std::endl;
+
     // x = 1
     double x_1 = 1.0;
     double val_1 = 0.2706706;
@@ -47,7 +49,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndexp: all tests passed.\n");
+        std::cout << "\n*** dexp: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** dexp: some tests FAILED. ***\n" << std::endl;
     }
 
     //

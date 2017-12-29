@@ -26,12 +26,14 @@ int main()
 {
     int K = 2;
 
+    std::cout << "\n*** dinvwish: begin tests. ***\n" << std::endl;
+
     arma::mat X = arma::eye(K,K);
 
     arma::mat Psi = arma::eye(K,K);
     double dinvwish_val = stats::dinvwish(X,Psi,K+1,false);
 
-    std::cout << "density value: " << dinvwish_val << std::endl;
+    std::cout << "\n*** dinvwish: density value = " << dinvwish_val << " ***\n" << std::endl;
 
     return 0;
 }

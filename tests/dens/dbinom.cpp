@@ -63,7 +63,7 @@ int main()
     if (success_1 && success_2 && success_3) {
         std::cout << "\n*** dbinom: all tests passed. ***\n" << std::endl;
     } else {
-        std::cout << "\n*** dbinom: some tests failed. ***\n" << std::endl;
+        std::cout << "\n*** dbinom: some tests FAILED. ***\n" << std::endl;
     }
 
     //

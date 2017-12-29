@@ -48,6 +48,7 @@ matrix:
       addons:
         apt:
           packages:
+            - g++-6
             - clang-5.0
             - gfortran-7
           sources: &sources

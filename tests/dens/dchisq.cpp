@@ -51,7 +51,7 @@ int main()
     if (success_1 && success_2) {
         std::cout << "\n*** dchisq: all tests passed. ***\n" << std::endl;
     } else {
-        std::cout << "\n*** dchisq: some tests failed. ***\n" << std::endl;
+        std::cout << "\n*** dchisq: some tests FAILED. ***\n" << std::endl;
     }
 
     //

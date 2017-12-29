@@ -32,6 +32,8 @@ int main()
     double shape_par = 2.0;
     double rate_par = 1.0;
 
+    std::cout << "\n*** dinvgamma: begin tests. ***\n" << std::endl;
+
     // x = 1
     double x_1 = 0.5;
     double val_1 = stats::dgamma(1.0/x_1,shape_par,1.0/rate_par,false) /(x_1*x_1);
@@ -51,7 +53,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndinvgamma: all tests passed.\n");
+        std::cout << "\n*** dinvgamma: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** dinvgamma: some tests FAILED. ***\n" << std::endl;
     }
 
     //
