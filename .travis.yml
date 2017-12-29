@@ -43,6 +43,19 @@ matrix:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && FC=gfortran-7"
       compiler: gcc
 
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          packages:
+            - clang-5.0
+            - gfortran-7
+          sources: &sources
+            - llvm-toolchain-trusty-5.0
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && FC=gfortran-7"
+      compiler: clang
+
 before_install:
     - export FC=gfortran
     - eval "${MATRIX_EVAL}"
