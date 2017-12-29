@@ -81,7 +81,7 @@ pbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_p
 
     for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
-            ret(i,j) = pbinom((int)x(i,j),n_trials_par,prob_par,log_form);
+            ret(i,j) = pbinom(static_cast<int>(x(i,j)),n_trials_par,prob_par,log_form);
         }
     }
 

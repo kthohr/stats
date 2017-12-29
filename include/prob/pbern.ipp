@@ -80,7 +80,7 @@ pbern_int(const arma::mat& x, const double* prob_par_inp, const bool log_form)
 
     for (int j=0; j < k; j++) {
         for (int i=0; i < n; i++) {
-            ret(i,j) = pbern((int)x(i,j),prob_par,log_form);
+            ret(i,j) = pbern(static_cast<int>(x(i,j)),prob_par,log_form);
         }
     }
 
