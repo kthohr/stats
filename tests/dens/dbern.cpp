@@ -29,6 +29,8 @@ int main()
     int round_digits_2 = 5;
 
     double prob_par = 0.4;
+    
+    printf("\n*** dbern: begin tests. ***\n");
 
     // x = 1
     int x_1 = 1;
@@ -49,7 +51,7 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndbern: all tests passed.\n");
+        printf("\n*** dbern: all tests passed. ***\n");
     }
 
     //

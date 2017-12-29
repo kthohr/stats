@@ -31,6 +31,8 @@ int main()
     int n_trials = 1;
     double prob_par = 0.4;
 
+    printf("\n*** dbinom: begin tests. ***\n");
+
     // x = 1
     int x_1 = 1;
     double val_1 = prob_par;
@@ -59,7 +61,7 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_3 << ". Success = " << success_3 << std::endl;
 
     if (success_1 && success_2 && success_3) {
-        printf("\ndbinom: all tests passed.\n");
+        printf("\n*** dbinom: all tests passed. ***\n");
     }
 
     //
