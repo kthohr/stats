@@ -51,6 +51,7 @@ matrix:
             - clang-5.0
             - gfortran-7
           sources: &sources
+            - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-5.0
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && FC=gfortran-7"
