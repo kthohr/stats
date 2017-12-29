@@ -18,8 +18,6 @@
 
 // g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dinvwish.cpp -o dinvwish.test -framework Accelerate
 
-#include <cmath>
-#include <iomanip>
 #include "stats.hpp"
 
 int main()
@@ -33,7 +31,9 @@ int main()
     arma::mat Psi = arma::eye(K,K);
     double dinvwish_val = stats::dinvwish(X,Psi,K+1,false);
 
-    std::cout << "\n*** dinvwish: density value = " << dinvwish_val << " ***\n" << std::endl;
+    std::cout << "density value = " << dinvwish_val << "." << std::endl;
+
+    std::cout << "\n*** dinvwish: tests finished. ***\n" << std::endl;
 
     return 0;
 }

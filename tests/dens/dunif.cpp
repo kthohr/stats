@@ -32,6 +32,8 @@ int main()
     double a_par = 0.0;
     double b_par = 2.5;
 
+    std::cout << "\n*** dunif: begin tests. ***\n" << std::endl;
+
     // x = 1
     double x_1 = 0.5;
     double val_1 = 0.40;
@@ -55,7 +57,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(20) << std::exp(1) << std::endl;
 
     if (success_1 && success_2) {
-        printf("\ndunif: all tests passed.\n");
+        std::cout << "\n*** dunif: all tests passed. ***\n" << std::endl;
+    } else {
+        std::cout << "\n*** dunif: some tests FAILED. ***\n" << std::endl;
     }
 
     //

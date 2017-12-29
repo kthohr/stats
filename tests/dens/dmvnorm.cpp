@@ -18,12 +18,13 @@
 
 // g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dmvnorm.cpp -o dmvnorm.test -framework Accelerate
 
-#include "armadillo"
 #include "stats.hpp"
 
 int main()
 {
     int K = 3;
+
+    std::cout << "\n*** dmvnorm: begin tests. ***\n" << std::endl;
 
     arma::vec X = arma::zeros(K,1);
 
@@ -33,7 +34,9 @@ int main()
     arma::mat Sigma = arma::eye(K,K);
     double dmvnorm_val = stats::dmvnorm(X,mu,Sigma,false);
 
-    std::cout << "density value: " << dmvnorm_val << std::endl;
+    std::cout << "density value: " << dmvnorm_val << "." << std::endl;
+
+    std::cout << "\n*** dmvnorm: tests finished. ***\n" << std::endl;
 
     return 0;
 }
