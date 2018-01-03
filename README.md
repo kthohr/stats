@@ -1,13 +1,14 @@
-# StatsLib
-
-[![Build Status](https://travis-ci.org/kthohr/stats.svg?branch=master)](https://travis-ci.org/kthohr/stats)
-[![Coverage Status](https://codecov.io/github/kthohr/stats/coverage.svg?branch=master)](https://codecov.io/github/kthohr/stats?branch=master)
+# StatsLib &nbsp; [![Build Status](https://travis-ci.org/kthohr/stats.svg?branch=master)](https://travis-ci.org/kthohr/stats) [![Coverage Status](https://codecov.io/github/kthohr/stats/coverage.svg?branch=master)](https://codecov.io/github/kthohr/stats?branch=master)
 
 StatsLib is a templated C++ library for fast computation of statistical distribution functions.
 
-Vector-matrix functionality is built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
+Features:
+* Compile-time (or run-time) evaluation of density functions, cumulative distribution functions, and quantile functions.
+* Effective use of C++11 constexpr functions with the [GCE-Math library](https://github.com/kthohr/gcem).
+* Simple, R-like syntax.
+* Optional vector-matrix functionality is built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
 
-## List of available distributons
+## Distributons
 
 cdf, pdf, quantile, and random variable generation are available for the following distributions:
 
@@ -32,17 +33,17 @@ pdf and random variable generation only:
 * Multivariate Normal
 * Wishart
 
-## Options
+## Compiler Options
 
-Use
+For inline functionality only (no constexpr flags) use
 ```cpp
 #define STATS_GO_INLINE
 ```
-to use inline functionality only (not constexpr), and
+
+To remove any Armadillo-related functionality use
 ```cpp
 #define STATS_NO_ARMA
 ```
-to remove any Armadillo-related functionality.
 
 ## Examples
 
@@ -65,3 +66,11 @@ double qval_1 = stats::qlaplace(0.1,0.0,1.0)
 arma::mat beta_rvs = stats::rbeta(100,100,3.0,2.0);
 arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 ```
+
+## Author
+
+Keith O'Hara
+
+## License
+
+GPL (>= 2)
