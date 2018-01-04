@@ -62,9 +62,61 @@ double pval_1 = stats::pnorm(1.0,0.0,1.0)
 // evaluate the Laplacian quantile at p = 0.1, mu = 0, sigma = 1
 double qval_1 = stats::qlaplace(0.1,0.0,1.0)
 
-// matrix input of beta-distributed random variables
+// matrix output
 arma::mat beta_rvs = stats::rbeta(100,100,3.0,2.0);
+// matrix input
 arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
+```
+
+## Compile-time computation
+
+Compile-time features are enable using the ```constexpr``` specifier:
+```cpp
+#include "stats.hpp"
+
+int main()
+{
+    
+    constexpr double dens_1 = stats::dlaplace(1.0,1.0,2.0);  // answer = 0.25
+    constexpr double prob_1 = stats::plaplace(1.0,1.0,2.0);  // answer = 0.5
+    constexpr double quant_1 = stats::qlaplace(0.1,1.0,2.0); // answer = -2.218875...
+
+    return 0;
+}
+```
+
+```assembly
+LCPI0_0:
+	.quad	-4611193153885729483    ## double -2.2188758248682015
+LCPI0_1:
+	.quad	4602678819172646912     ## double 0.5
+LCPI0_2:
+	.quad	4598175219545276417     ## double 0.25000000000000006
+	.section	__TEXT,__text,regular,pure_instructions
+	.globl	_main
+	.p2align	4, 0x90
+_main:                                  ## @main
+	.cfi_startproc
+## BB#0:
+	push	rbp
+Lcfi0:
+	.cfi_def_cfa_offset 16
+Lcfi1:
+	.cfi_offset rbp, -16
+	mov	rbp, rsp
+Lcfi2:
+	.cfi_def_cfa_register rbp
+	xor	eax, eax
+	movsd	xmm0, qword ptr [rip + LCPI0_0] ## xmm0 = mem[0],zero
+	movsd	xmm1, qword ptr [rip + LCPI0_1] ## xmm1 = mem[0],zero
+	movsd	xmm2, qword ptr [rip + LCPI0_2] ## xmm2 = mem[0],zero
+	mov	dword ptr [rbp - 4], 0
+	movsd	qword ptr [rbp - 16], xmm2
+	movsd	qword ptr [rbp - 24], xmm1
+	movsd	qword ptr [rbp - 32], xmm0
+	pop	rbp
+	ret
+	.cfi_endproc
 ```
 
 ## Author
