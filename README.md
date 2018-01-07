@@ -27,7 +27,7 @@ cdf, density, and quantile functions, as well as random variable generation, are
 * Student's t
 * Uniform
 
-density and random variable generation only are available for:
+In addition, density and random variable generation are available for:
 
 * inverse-Wishart
 * Multivariate Normal
