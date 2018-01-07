@@ -49,19 +49,19 @@ To remove any Armadillo-related functionality use
 
 Functions are called using a clean R-like syntax.
 
-* density functions: `d*`. For example, the Normal (Gaussian) density is called using
+* density functions: `stats::d*`. For example, the Normal (Gaussian) density is called using
 ``` cpp
 stats::dnorm(<value>,<mean parameter>,<standard deviation>);
 ```
-* cumulative distribution functions: `p*`. For example, the Gamma CDF is called using
+* cumulative distribution functions: `stats::p*`. For example, the Gamma CDF is called using
 ``` cpp
 stats::pgamma(<value>,<shape parameter>,<scale parameter>);
 ```
-* quantile functions: `q*`. For example, the Beta quantile is called using
+* quantile functions: `stats::q*`. For example, the Beta quantile is called using
 ``` cpp
 stats::qbeta(<value>,<a parameter>,<b parameter>);
 ```
-* randomization: `r*`. For example, a Logistic random variable is generated with
+* randomization: `stats::r*`. For example, a Logistic random variable is generated with
 ``` cpp
 stats::rlogis(<location parameter>,<scale parameter>);
 ```
