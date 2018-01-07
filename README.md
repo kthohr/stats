@@ -66,6 +66,8 @@ stats::qbeta(<value>,<a parameter>,<b parameter>);
 stats::rlogis(<location parameter>,<scale parameter>);
 ```
 
+<br>
+
 All of these functions have vector and matrix equivalents using the Armadillo library.
 
 * The density, CDF, and quantile functions can all take matrix-valued arguments just as easily as scalar (`double`) arguments.
