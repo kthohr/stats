@@ -1,6 +1,6 @@
 # StatsLib &nbsp; [![Build Status](https://travis-ci.org/kthohr/stats.svg?branch=master)](https://travis-ci.org/kthohr/stats) [![Coverage Status](https://codecov.io/github/kthohr/stats/coverage.svg?branch=master)](https://codecov.io/github/kthohr/stats?branch=master)
 
-StatsLib is a templated C++ library for fast computation of statistical distribution functions.
+StatsLib is a templated C++ library designed for fast computation of statistical distribution functions.
 
 Features:
 * Compile-time (or run-time) evaluation of density functions, cumulative distribution functions, and quantile functions.
@@ -105,7 +105,7 @@ StatsLib is a header-only library. Simply include the header files with your pro
 
 ## Compile-time computation
 
-StatsLib can operate as a compile time or run time library. Compile-time features are enabled using the ```constexpr``` specifier:
+StatsLib can operate as a compile- or run-time library. Compile-time features are enabled using the ```constexpr``` specifier:
 ```cpp
 #include "stats.hpp"
 
