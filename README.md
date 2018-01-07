@@ -10,7 +10,7 @@ Features:
 
 ## Distributons
 
-cdf, pdf, quantile, and random variable generation are available for the following distributions:
+cdf, density, and quantile (`q`) functions, as well as random variable generation, are available for the following distributions:
 
 * Bernoulli
 * Beta
@@ -45,22 +45,53 @@ To remove any Armadillo-related functionality use
 #define STATS_NO_ARMA
 ```
 
-## Examples
+## Syntax and Examples
 
 Functions are called using a clean R-like syntax.
 
+* density functions: `d*`. For example, the Normal (Gaussian) density is called using
+``` cpp
+stats::dnorm(<value>,<mean parameter>,<standard deviation>);
+```
+* cumulative distribution functions: `p*`. For example, the Gamma CDF is called using
+``` cpp
+stats::pgamma(<value>,<shape parameter>,<scale parameter>);
+```
+* quantile functions: `q*`. For example, the Beta quantile is called using
+``` cpp
+stats::qbeta(<value>,<a parameter>,<b parameter>);
+```
+* randomization: `r*`. For example, a Logistic random variable is generated with
+``` cpp
+stats::rlogis(<location parameter>,<scale parameter>);
+```
+
+All of these functions have vector and matrix equivalents, which extend the Armadillo library with standard statistical functionality. 
+
+* The density, CDF, and quantile functions can all take matrix-valued arguments just as easily as scalar (`double`) arguments.
+* The randomization functions (`r*`) can output random matrices of arbitrary size. For example,
+```cpp
+arma::mat beta_cdf_vals = stats::rgamma(100,50,3.0,2.0);
+```
+will generate a 100 by 50 matrix of iid Gamma-distributed random variables with parameters (3,2).
+
+
+Examples with code:
 ```cpp
 // evaluate the normal PDF at x = 1, mu = 0, sigma = 1
-double dval_1 = stats::dnorm(1.0,0.0,1.0)
+double dval_1 = stats::dnorm(1.0,0.0,1.0);
  
 // evaluate the normal PDF at x = 1, mu = 0, sigma = 1, and return the log value
-double dval_2 = stats::dnorm(1.0,0.0,1.0,true)
+double dval_2 = stats::dnorm(1.0,0.0,1.0,true);
  
 // evaluate the normal CDF at x = 1, mu = 0, sigma = 1
-double pval_1 = stats::pnorm(1.0,0.0,1.0)
+double pval = stats::pnorm(1.0,0.0,1.0);
  
 // evaluate the Laplacian quantile at p = 0.1, mu = 0, sigma = 1
-double qval_1 = stats::qlaplace(0.1,0.0,1.0)
+double qval = stats::qlaplace(0.1,0.0,1.0);
+
+// generate a t-distributed random variable with dof = 30
+double rval = stats::rt(30);
 
 // matrix output
 arma::mat beta_rvs = stats::rbeta(100,100,3.0,2.0);
@@ -68,9 +99,13 @@ arma::mat beta_rvs = stats::rbeta(100,100,3.0,2.0);
 arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 ```
 
+## Installation
+
+StatsLib is a header-only library. Simply include the header files with your project using `#include "stats.hpp"`.
+
 ## Compile-time computation
 
-Compile-time features are enable using the ```constexpr``` specifier:
+StatsLib can operate as a compile time or run time library. Compile-time features are enabled using the ```constexpr``` specifier:
 ```cpp
 #include "stats.hpp"
 
