@@ -3,14 +3,14 @@
 StatsLib is a templated C++ library designed for fast computation of statistical distribution functions.
 
 Features:
-* Compile-time (or run-time) evaluation of density functions, cumulative distribution functions, and quantile functions.
-* Effective use of C++11 constexpr functions with the [GCE-Math library](https://github.com/kthohr/gcem).
-* Simple, R-like syntax.
-* Optional vector-matrix functionality is built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
+* Header-only library of density functions, cumulative distribution functions, and quantile functions, as well as random variable generation.
+* Compile-time enabled computation through effective use of C++11 `constexpr` functions with the [GCE-Math library](https://github.com/kthohr/gcem).
+* A simple, R-like syntax.
+* Optional vector-matrix functionality built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
 
-## Distributons
+## Available Distributions
 
-cdf, density, and quantile (`q`) functions, as well as random variable generation, are available for the following distributions:
+cdf, density, and quantile functions, as well as random variable generation, are available for the following distributions:
 
 * Bernoulli
 * Beta
@@ -27,7 +27,7 @@ cdf, density, and quantile (`q`) functions, as well as random variable generatio
 * Student's t
 * Uniform
 
-pdf and random variable generation only:
+density and random variable generation only are available for:
 
 * inverse-Wishart
 * Multivariate Normal
@@ -35,7 +35,7 @@ pdf and random variable generation only:
 
 ## Compiler Options
 
-For inline functionality only (no constexpr flags) use
+For inline-only functionality (no constexpr flags) use
 ```cpp
 #define STATS_GO_INLINE
 ```
@@ -66,7 +66,7 @@ stats::qbeta(<value>,<a parameter>,<b parameter>);
 stats::rlogis(<location parameter>,<scale parameter>);
 ```
 
-All of these functions have vector and matrix equivalents, which extend the Armadillo library with standard statistical functionality. 
+All of these functions have vector and matrix equivalents using the Armadillo library.
 
 * The density, CDF, and quantile functions can all take matrix-valued arguments just as easily as scalar (`double`) arguments.
 * The randomization functions (`r*`) can output random matrices of arbitrary size. For example,
@@ -101,7 +101,7 @@ arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 
 ## Installation
 
-StatsLib is a header-only library. Simply include the header files with your project using `#include "stats.hpp"`.
+StatsLib is a header-only library. Simply copy the contents of the include folder and add the header files to your project using `#include "stats.hpp"`.
 
 ## Compile-time computation
 
