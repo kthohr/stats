@@ -75,7 +75,7 @@ All of these functions have vector and matrix equivalents using the Armadillo li
 ```cpp
 arma::mat beta_cdf_vals = stats::rgamma(100,50,3.0,2.0);
 ```
-will generate a 100 by 50 matrix of iid Gamma-distributed random variables with parameters (3,2).
+will generate a 100-by-50 matrix of iid Gamma(3,2)-distributed random variables.
 
 
 Examples with code:
