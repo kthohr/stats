@@ -74,7 +74,7 @@ install:
 
 script:
   - cd ./tests
-  - ./cov_setup
+  - ./setup && ./tests_setup/run_cov
   - cd ..
 
 after_success:

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+declare -a DIRS=("dens" "prob" "quant" "rand")
+
+for i in "${DIRS[@]}"; do
+    rm -f ./"$i"/configure
+    rm -f ./"$i"/Makefile.in
+
+    cp tests_setup/configure.in ./"$i"/configure
+    cp tests_setup/Makefile.in ./"$i"/Makefile.in
+done

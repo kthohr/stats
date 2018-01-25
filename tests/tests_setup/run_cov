@@ -1,0 +1,24 @@
+#!/bin/bash
+
+WDIR=${PWD}
+
+cd ..
+if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
+    git clone -b unstable --single-branch https://github.com/conradsnicta/armadillo-code ./arma_tmp
+    export ARMA_INCLUDE_PATH="$PWD/arma_tmp/include"
+fi
+export CXXCOV=gcov
+export LD_LIBRARY_PATH="$PWD":$LD_LIBRARY_PATH
+cd tests
+
+#
+
+declare -a DIRS=("dens" "prob" "quant" "rand")
+
+for i in "${DIRS[@]}"; do
+    cd "$WDIR"/"$i"
+
+    ./configure -c -d
+    make
+    sh ./../tests_setup/cov_check
+done
