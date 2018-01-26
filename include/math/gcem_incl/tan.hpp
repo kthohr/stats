@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2016-2017 Keith O'Hara
+  ##   Copyright (C) 2016-2018 Keith O'Hara
   ##
   ##   This file is part of the GCE-Math C++ library.
   ##
@@ -44,7 +44,7 @@ constexpr
 T
 tan_int(const T x)
 { // tan(x) = tan(x + pi)
-    return ( x > T(GCEM_PI) ? tan_int(x - T(GCEM_PI)*( (int)(x/GCEM_PI) )) : tan_cf_main(x) );
+    return ( x > T(GCEM_PI) ? tan_int( x - T(GCEM_PI) * int(x/T(GCEM_PI)) ) : tan_cf_main(x) );
 }
 
 template<typename T>

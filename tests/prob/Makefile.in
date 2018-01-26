@@ -1,0 +1,35 @@
+
+# core compiling options
+CC  = @CC@
+CXX = @CXX@
+FC  = @FC@
+
+CXX_STD = -std=c++11
+OPT_FLAGS = @STATS_WARN_FLAGS@ @STATS_OPT_FLAGS@
+
+ARMA_INCLUDE_PATH = @ARMA_INCLUDE_PATH@
+
+# install location
+INSTALL_PATH=@STATS_INSTALL_PATH@
+
+# source directories
+STATS_HEADER_DIR = @STATS_INCLUDE_PATH@
+STATS_TEST_DIR = .
+
+# general flags
+CXXFLAGS = $(CXX_STD) $(OPT_FLAGS) -I$(ARMA_INCLUDE_PATH) -I$(STATS_HEADER_DIR)
+LIBS= @STATS_BLAS_LAPACK@
+
+# Optim Test Files
+SOURCES_STATS := $(shell find $(STATS_TEST_DIR) -name '*.cpp')
+OBJECTS_STATS := $(addprefix $(STATS_TEST_DIR)/,$(SOURCES_STATS:%.cpp=%.test))
+
+all: $(OBJECTS_STATS)
+
+$(STATS_TEST_DIR)/%.test: $(STATS_TEST_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBS)
+
+# cleanup and install
+.PHONY: clean
+clean:
+	@rm -rf *.so ./*.gcov ./*.gcno ./*.gcda ./*.dSYM ./*.test
