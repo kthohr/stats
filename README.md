@@ -3,16 +3,16 @@
 StatsLib is a templated C++ library designed for fast computation of statistical distribution functions.
 
 Features:
-* Header-only library of density functions, cumulative distribution functions, and quantile functions, as well as random variable generation.
-* Compile-time enabled computation through effective use of C++11 `constexpr` functions with the [GCE-Math library](https://github.com/kthohr/gcem).
-* A simple, R-like syntax.
+* A header-only library of density functions, cumulative distribution functions, quantile functions, as well as randomization methods.
+* All distribution functions are compile-time computation-enabled due to extensive use of C++11 `constexpr` functions with the [GCE-Math library](https://github.com/kthohr/gcem).
+* A simple, **R**-like syntax.
 * Optional vector-matrix functionality built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
 
 ## Available Distributions
 
-cdf, density, and quantile functions, as well as random variable generation, are available for the following distributions:
+cdf, pdf, quantile and randomization functions are available for the following distributions:
 
-* Bernoulli
+* Bernoulli 
 * Beta
 * Binomial
 * Cauchy
@@ -27,7 +27,7 @@ cdf, density, and quantile functions, as well as random variable generation, are
 * Student's t
 * Uniform
 
-In addition, density and random variable generation are available for:
+In addition, pdf and randomization functions are available for several multivariate distributions:
 
 * inverse-Wishart
 * Multivariate Normal
@@ -35,7 +35,7 @@ In addition, density and random variable generation are available for:
 
 ## Compiler Options
 
-For inline-only functionality (no constexpr flags) use
+For inline-only functionality (i.e., no `constexpr` specifiers) use
 ```cpp
 #define STATS_GO_INLINE
 ```
@@ -47,7 +47,7 @@ To remove any Armadillo-related functionality use
 
 ## Syntax and Examples
 
-Functions are called using a clean R-like syntax.
+Functions are called using an **R**-like syntax.
 
 * density functions: `stats::d*`. For example, the Normal (Gaussian) density is called using
 ``` cpp
@@ -61,24 +61,33 @@ stats::pgamma(<value>,<shape parameter>,<scale parameter>);
 ``` cpp
 stats::qbeta(<value>,<a parameter>,<b parameter>);
 ```
-* randomization: `stats::r*`. For example, a Logistic random variable is generated with
+* randomization: `stats::r*`. For example, to generate a single draw from the Logistic distribution:
 ``` cpp
 stats::rlogis(<location parameter>,<scale parameter>);
 ```
 
 <br>
 
-All of these functions have vector and matrix equivalents using the Armadillo library.
+All of these functions have matrix-based equivalents using Armadillo objects.
 
-* The density, CDF, and quantile functions can all take matrix-valued arguments just as easily as scalar (`double`) arguments.
-* The randomization functions (`r*`) can output random matrices of arbitrary size. For example,
+* The pdf, cdf, and quantile functions can all take matrix-valued arguments. Example:
+
 ```cpp
-arma::mat beta_cdf_vals = stats::rgamma(100,50,3.0,2.0);
+arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
 ```
-will generate a 100-by-50 matrix of iid Gamma(3,2)-distributed random variables.
+
+* The randomization functions (`r*`) can output random matrices of arbitrary dimensions. For example,</li>
+
+```cpp
+arma::mat gamma_rvs = stats::rgamma(100,50,3.0,2.0);
+```
+
+<ul style="list-style-type:none">
+    <li>will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.</li>
+</ul>
 
 
-Examples with code:
+More examples with code:
 ```cpp
 // evaluate the normal PDF at x = 1, mu = 0, sigma = 1
 double dval_1 = stats::dnorm(1.0,0.0,1.0);
@@ -107,7 +116,7 @@ StatsLib is a header-only library. Simply copy the contents of the include folde
 
 ## Compile-time computation
 
-StatsLib can operate as a compile- or run-time library. Compile-time features are enabled using the ```constexpr``` specifier:
+In addition to being a standard run-time library, StatsLib can operate as a compile-time library. Compile-time features are enabled using the ```constexpr``` specifier:
 ```cpp
 #include "stats.hpp"
 
