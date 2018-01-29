@@ -3,10 +3,10 @@
 StatsLib is a templated C++ library designed for fast computation of statistical distribution functions.
 
 Features:
-* A header-only library of density functions, cumulative distribution functions, quantile functions, as well as randomization methods.
+* A header-only library of probability density functions (pdfs), cumulative distribution functions (cdfs), quantile functions, as well as randomization methods.
 * All distribution functions are compile-time computation-enabled due to extensive use of C++11 `constexpr` functions with the [GCE-Math library](https://github.com/kthohr/gcem).
 * A simple, **R**-like syntax.
-* Optional vector-matrix functionality built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
+* Optional vector-matrix functionality built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/), and matrix-based operations parallelized via OpenMP.
 
 ## Available Distributions
 
@@ -86,6 +86,7 @@ arma::mat gamma_rvs = stats::rgamma(100,50,3.0,2.0);
     <li>will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.</li>
 </ul>
 
+* All matrix-based operations are parallelizable via OpenMP. Simply include the `-fopenmp` option during compilation.
 
 More examples with code:
 ```cpp
