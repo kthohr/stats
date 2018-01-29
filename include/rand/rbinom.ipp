@@ -50,11 +50,15 @@ rbinom(const int n, const int k, const int n_trials_par, const double prob_par)
     arma::mat ret(n,k);
     
     //
-    
-    for (int j=0; j < k; j++) {
-        for (int i=0; i < n; i++) {
-            ret(i,j) = rbinom(n_trials_par,prob_par);
-        }
+
+    double* ret_mem = ret.memptr();
+
+#ifndef STATS_NO_OMP
+    #pragma omp parallel for
+#endif
+    for (int j=0; j < n*k; j++)
+    {
+        ret_mem[j] = rbinom(n_trials_par,prob_par);
     }
 
     //

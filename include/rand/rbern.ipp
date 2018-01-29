@@ -44,13 +44,20 @@ inline
 arma::mat
 rbern(const int n, const int k, const double prob_par)
 {
-    arma::mat ret(n,k);
     const arma::mat u = runif(n,k,0.0,1.0);
-    
-    for (int j=0; j < k; j++) {
-        for (int i=0; i < n; i++) {
-            ret(i,j) = (u(i,j) <= prob_par) ? 1 : 0;
-        }
+    arma::mat ret(n,k);
+
+    //
+
+    const double* inp_mem = u.memptr();
+    double* ret_mem = ret.memptr();
+
+#ifndef STATS_NO_OMP
+    #pragma omp parallel for
+#endif
+    for (int j=0; j < n*k; j++)
+    {
+        ret_mem[j] = (inp_mem[j] <= prob_par) ? 1 : 0;
     }
 
     //
