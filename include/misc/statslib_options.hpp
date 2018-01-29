@@ -25,6 +25,10 @@
         #endif
         #include "armadillo"
     #endif
+
+    #ifdef STATS_NO_OMP
+        #define ARMA_DONT_USE_OPENMP
+    #endif
 #else
     #include <limits>
     #include <random>

@@ -69,9 +69,9 @@ echo "Stats tests: ARMA_INCLUDE_PATH set to ${ARMA_INCLUDE_PATH}"
 
 if [[ "${STATS_COVERAGE}" == "y" ]]; then 
     echo "Stats tests: coverage build"
-    STATS_OPT_FLAGS="-g -O0 --coverage -fno-inline -fno-inline-small-functions -fno-default-inline"
+    STATS_OPT_FLAGS="-g -O0 --coverage -fno-inline -fno-inline-small-functions -fno-default-inline -DSTATS_NO_OMP"
 elif [[ "${STATS_DEBUG}" == "y" ]]; then
-    STATS_OPT_FLAGS="-g -O0"
+    STATS_OPT_FLAGS="-g -O0 -DSTATS_NO_OMP"
 else
     if [[ "${STATS_OPT}" == "" ]]; then
         STATS_OPT_FLAGS="-O3 -march=native -DARMA_NO_DEBUG"

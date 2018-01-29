@@ -11,6 +11,14 @@ Makefile
 *.test
 *.vscode
 include/armadillo*
+tests/dens/configure
+tests/dens/Makefile*
+tests/prob/configure
+tests/prob/Makefile*
+tests/quant/configure
+tests/quant/Makefile*
+tests/rand/configure
+tests/rand/Makefile*
 *.dSYM
 *.gcda
 *.gcno

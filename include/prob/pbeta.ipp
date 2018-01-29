@@ -79,10 +79,15 @@ pbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, 
 
     arma::mat ret(n,k);
 
-    for (int j=0; j < k; j++) {
-        for (int i=0; i < n; i++) {
-            ret(i,j) = pbeta(x(i,j),a_par,b_par,log_form);
-        }
+    const double* inp_mem = x.memptr();
+    double* ret_mem = ret.memptr();
+
+#ifndef STATS_NO_OMP
+    #pragma omp parallel for
+#endif
+    for (int j=0; j < n*k; j++)
+    {
+        ret_mem[j] = pbeta(inp_mem[j],a_par,b_par,log_form);
     }
 
     //

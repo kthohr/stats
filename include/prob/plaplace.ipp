@@ -79,10 +79,15 @@ plaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_p
 
     arma::mat ret(n,k);
 
-    for (int j=0; j < k; j++) {
-        for (int i=0; i < n; i++) {
-            ret(i,j) = plaplace(x(i,j),mu_par,sigma_par,log_form);
-        }
+    const double* inp_mem = x.memptr();
+    double* ret_mem = ret.memptr();
+
+#ifndef STATS_NO_OMP
+    #pragma omp parallel for
+#endif
+    for (int j=0; j < n*k; j++)
+    {
+        ret_mem[j] = plaplace(inp_mem[j],mu_par,sigma_par,log_form);
     }
 
     //
