@@ -6,7 +6,7 @@ Features:
 * A header-only library of probability density functions (pdfs), cumulative distribution functions (cdfs), quantile functions, as well as randomization methods.
 * All distribution functions are compile-time computation-enabled due to extensive use of C++11 `constexpr` functions with the [GCE-Math library](https://github.com/kthohr/gcem).
 * A simple, **R**-like syntax.
-* Optional vector-matrix functionality built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/), and matrix-based operations parallelized via OpenMP.
+* Optional vector-matrix functionality built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/), and matrix-based operations are parallelized with OpenMP.
 
 ## Available Distributions
 
