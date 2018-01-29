@@ -85,7 +85,7 @@ arma::mat gamma_rvs = stats::rgamma(100,50,3.0,2.0);
 <!-- <ul style="list-style-type:none">
     <li>will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.</li>
 </ul> -->
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.
+&nbsp; &nbsp; &nbsp; &nbsp; will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.
 
 * All matrix-based operations are parallelizable via OpenMP. Simply include the `-fopenmp` option during compilation.
 
