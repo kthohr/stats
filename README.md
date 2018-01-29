@@ -70,7 +70,7 @@ stats::rlogis(<location parameter>,<scale parameter>);
 
 All of these functions have matrix-based equivalents using Armadillo objects.
 
-* The pdf, cdf, and quantile functions can all take matrix-valued arguments. Example:
+* The pdf, cdf, and quantile functions can take matrix-valued arguments. For example,
 
 ```cpp
 arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
