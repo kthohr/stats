@@ -192,10 +192,15 @@ qt_int(const arma::mat& p, const int* dof_par_inp, bool log_form)
 
     arma::mat ret(n,k);
 
-    for (int j=0; j < k; j++) {
-        for (int i=0; i < n; i++) {
-            ret(i,j) = qt(p(i,j),dof_par,log_form);
-        }
+    const double* inp_mem = p.memptr();
+    double* ret_mem = ret.memptr();
+
+#ifndef STATS_NO_OMP
+    #pragma omp parallel for
+#endif
+    for (int j=0; j < n*k; j++)
+    {
+        ret_mem[j] = qt(inp_mem[j],dof_par,log_form);
     }
 
     //

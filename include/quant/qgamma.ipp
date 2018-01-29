@@ -79,10 +79,15 @@ qgamma_int(const arma::mat& p, const double* shape_par_inp, const double* scale_
 
     arma::mat ret(n,k);
 
-    for (int j=0; j < k; j++) {
-        for (int i=0; i < n; i++) {
-            ret(i,j) = qgamma(p(i,j),shape_par,scale_par,log_form);
-        }
+    const double* inp_mem = p.memptr();
+    double* ret_mem = ret.memptr();
+
+#ifndef STATS_NO_OMP
+    #pragma omp parallel for
+#endif
+    for (int j=0; j < n*k; j++)
+    {
+        ret_mem[j] = qgamma(inp_mem[j],shape_par,scale_par,log_form);
     }
 
     //

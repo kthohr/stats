@@ -79,10 +79,15 @@ qcauchy_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_pa
 
     arma::mat ret(n,k);
 
-    for (int j=0; j < k; j++) {
-        for (int i=0; i < n; i++) {
-            ret(i,j) = qcauchy(p(i,j),mu_par,sigma_par,log_form);
-        }
+    const double* inp_mem = p.memptr();
+    double* ret_mem = ret.memptr();
+
+#ifndef STATS_NO_OMP
+    #pragma omp parallel for
+#endif
+    for (int j=0; j < n*k; j++)
+    {
+        ret_mem[j] = qcauchy(inp_mem[j],mu_par,sigma_par,log_form);
     }
 
     //

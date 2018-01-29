@@ -79,10 +79,15 @@ qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_i
 
     arma::mat ret(n,k);
 
-    for (int j=0; j < k; j++) {
-        for (int i=0; i < n; i++) {
-            ret(i,j) = qbinom(p(i,j),n_trials,prob_par,log_form);
-        }
+    const double* inp_mem = p.memptr();
+    double* ret_mem = ret.memptr();
+
+#ifndef STATS_NO_OMP
+    #pragma omp parallel for
+#endif
+    for (int j=0; j < n*k; j++)
+    {
+        ret_mem[j] = qbinom(inp_mem[j],n_trials,prob_par,log_form);
     }
 
     //
