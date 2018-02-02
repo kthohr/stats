@@ -72,8 +72,8 @@ pinvgamma_int(const arma::mat& x, const double* shape_par_inp, const double* rat
     const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
     const double rate_par = (rate_par_inp) ? *rate_par_inp : 1.0;
     
-    const int n = x.n_rows;
-    const int k = x.n_cols;
+    const uint_t n = x.n_rows;
+    const uint_t k = x.n_cols;
 
     //
 
@@ -85,7 +85,7 @@ pinvgamma_int(const arma::mat& x, const double* shape_par_inp, const double* rat
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = pinvgamma(inp_mem[j],shape_par,rate_par,log_form);
     }

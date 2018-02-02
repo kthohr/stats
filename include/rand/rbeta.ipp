@@ -54,7 +54,7 @@ rbeta(const int n, const int k, const double a_par, const double b_par)
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = rbeta(a_par,b_par);
     }

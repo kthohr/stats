@@ -72,8 +72,8 @@ qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_i
     const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
     const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    const int n = p.n_rows;
-    const int k = p.n_cols;
+    const uint_t n = p.n_rows;
+    const uint_t k = p.n_cols;
 
     //
 
@@ -85,7 +85,7 @@ qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_i
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = qbinom(inp_mem[j],n_trials,prob_par,log_form);
     }

@@ -84,7 +84,7 @@ rgamma(const int n, const int k, const double shape_par, const double scale_par)
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = rgamma(shape_par,scale_par);
     }

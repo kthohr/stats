@@ -72,8 +72,8 @@ pbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_p
     const int n_trials_par = (n_trials_par_inp) ? *n_trials_par_inp : 1;
     const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    const int n = x.n_rows;
-    const int k = x.n_cols;
+    const uint_t n = x.n_rows;
+    const uint_t k = x.n_cols;
 
     //
 
@@ -85,7 +85,7 @@ pbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_p
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = pbinom(static_cast<int>(inp_mem[j]),n_trials_par,prob_par,log_form);
     }

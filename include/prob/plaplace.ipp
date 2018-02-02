@@ -72,8 +72,8 @@ plaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_p
     const double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
     const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
     
-    const int n = x.n_rows;
-    const int k = x.n_cols;
+    const uint_t n = x.n_rows;
+    const uint_t k = x.n_cols;
 
     //
 
@@ -85,7 +85,7 @@ plaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_p
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = plaplace(inp_mem[j],mu_par,sigma_par,log_form);
     }

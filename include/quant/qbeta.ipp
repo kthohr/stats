@@ -72,8 +72,8 @@ qbeta_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, 
     const double a_par = (a_par_inp) ? *a_par_inp : 2.0; // shape parameter 'alpha'
     const double b_par = (b_par_inp) ? *b_par_inp : 2.0; // scale parameter 'beta'
 
-    const int n = p.n_rows;
-    const int k = p.n_cols;
+    const uint_t n = p.n_rows;
+    const uint_t k = p.n_cols;
 
     //
 
@@ -85,7 +85,7 @@ qbeta_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, 
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = qbeta(inp_mem[j],a_par,b_par,log_form);
     }

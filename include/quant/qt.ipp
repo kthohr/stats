@@ -185,8 +185,8 @@ qt_int(const arma::mat& p, const int* dof_par_inp, bool log_form)
 {
     const int dof_par = (dof_par_inp) ? *dof_par_inp : 30;
     
-    const int n = p.n_rows;
-    const int k = p.n_cols;
+    const uint_t n = p.n_rows;
+    const uint_t k = p.n_cols;
 
     //
 
@@ -198,7 +198,7 @@ qt_int(const arma::mat& p, const int* dof_par_inp, bool log_form)
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = qt(inp_mem[j],dof_par,log_form);
     }

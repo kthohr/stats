@@ -72,8 +72,8 @@ pgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_
     const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
     const double scale_par = (scale_par_inp) ? *scale_par_inp : 1.0;
     
-    const int n = x.n_rows;
-    const int k = x.n_cols;
+    const uint_t n = x.n_rows;
+    const uint_t k = x.n_cols;
 
     //
 
@@ -85,7 +85,7 @@ pgamma_int(const arma::mat& x, const double* shape_par_inp, const double* scale_
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = pgamma(inp_mem[j],shape_par,scale_par,log_form);
     }

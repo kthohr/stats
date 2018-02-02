@@ -85,8 +85,8 @@ dt_int(const arma::mat& x, const int* dof_par_inp, bool log_form)
 {
     const int dof_par = (dof_par_inp) ? *dof_par_inp : 30;
 
-    const int n = x.n_rows;
-    const int k = x.n_cols;
+    const uint_t n = x.n_rows;
+    const uint_t k = x.n_cols;
 
     //
 
@@ -98,7 +98,7 @@ dt_int(const arma::mat& x, const int* dof_par_inp, bool log_form)
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = dt(inp_mem[j],dof_par,log_form);
     }

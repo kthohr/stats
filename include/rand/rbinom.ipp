@@ -56,7 +56,7 @@ rbinom(const int n, const int k, const int n_trials_par, const double prob_par)
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = rbinom(n_trials_par,prob_par);
     }

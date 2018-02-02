@@ -49,7 +49,7 @@ rinvgamma(const int n, const int k, const double shape_par, const double rate_pa
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = rinvgamma(shape_par,rate_par);
     }

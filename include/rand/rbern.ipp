@@ -55,7 +55,7 @@ rbern(const int n, const int k, const double prob_par)
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = (inp_mem[j] <= prob_par) ? 1 : 0;
     }

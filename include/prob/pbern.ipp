@@ -71,8 +71,8 @@ pbern_int(const arma::mat& x, const double* prob_par_inp, const bool log_form)
 {
     const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
 
-    const int n = x.n_rows;
-    const int k = x.n_cols;
+    const uint_t n = x.n_rows;
+    const uint_t k = x.n_cols;
 
     //
 
@@ -84,7 +84,7 @@ pbern_int(const arma::mat& x, const double* prob_par_inp, const bool log_form)
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (int j=0; j < n*k; j++)
+    for (uint_t j=0; j < n*k; j++)
     {
         ret_mem[j] = pbern(static_cast<int>(inp_mem[j]),prob_par,log_form);
     }

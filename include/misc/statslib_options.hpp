@@ -60,4 +60,5 @@
 
 namespace stats {
     static const double inf = std::numeric_limits<double>::infinity();
+    using uint_t = unsigned int;
 }
