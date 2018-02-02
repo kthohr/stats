@@ -23,12 +23,8 @@
 template<typename T>
 int
 rbern(const T prob_par)
-{
-    const T u = runif();
-
-    int ret = (u <= prob_par) ? 1 : 0;
-    
-    return ret;
+{    
+    return (runif<T>(T(0.0),T(1.0)) <= prob_par);
 }
 
 #ifndef STATS_NO_ARMA
