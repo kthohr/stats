@@ -66,14 +66,14 @@ rgamma(const T shape_par, const T scale_par)
 
 inline
 arma::mat
-rgamma(const int n, const double shape_par, const double scale_par)
+rgamma(const uint_t n, const double shape_par, const double scale_par)
 {
     return rgamma(n,1,shape_par,scale_par);
 }
 
 inline
 arma::mat
-rgamma(const int n, const int k, const double shape_par, const double scale_par)
+rgamma(const uint_t n, const uint_t k, const double shape_par, const double scale_par)
 {
     arma::mat ret(n,k);
     

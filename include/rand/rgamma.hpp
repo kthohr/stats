@@ -27,8 +27,8 @@ template<typename T>
 T rgamma(const T shape_par, const T scale_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rgamma(const int n, const double shape_par, const double scale_par);
-arma::mat rgamma(const int n, const int k, const double shape_par, const double scale_par);
+arma::mat rgamma(const uint_t n, const double shape_par, const double scale_par);
+arma::mat rgamma(const uint_t n, const uint_t k, const double shape_par, const double scale_par);
 #endif
 
 #include "rgamma.ipp"

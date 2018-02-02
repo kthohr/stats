@@ -45,14 +45,14 @@ rnorm()
 
 inline
 arma::mat
-rnorm(const int n, const double mu_par, const double sigma_par)
+rnorm(const uint_t n, const double mu_par, const double sigma_par)
 {
     return rnorm(n,1,mu_par,sigma_par);
 }
 
 inline
 arma::mat
-rnorm(const int n, const int k, const double mu_par, const double sigma_par)
+rnorm(const uint_t n, const uint_t k, const double mu_par, const double sigma_par)
 {
     return ( mu_par + sigma_par*arma::randn(n,k) );
 }

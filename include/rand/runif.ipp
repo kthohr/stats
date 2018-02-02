@@ -42,14 +42,14 @@ runif()
 
 inline
 arma::mat
-runif(const int n, const double a_par, const double b_par)
+runif(const uint_t n, const double a_par, const double b_par)
 {
     return runif(n,1,a_par,b_par);
 }
 
 inline
 arma::mat
-runif(const int n, const int k, const double a_par, const double b_par)
+runif(const uint_t n, const uint_t k, const double a_par, const double b_par)
 {
     return ( a_par + (b_par - a_par)*arma::randu(n,k) );
 }

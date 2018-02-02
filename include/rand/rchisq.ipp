@@ -50,14 +50,14 @@ rchisq(const int dof_par)
 
 inline
 arma::mat
-rchisq(const int n, const int dof_par)
+rchisq(const uint_t n, const int dof_par)
 {
     return rchisq(n,1,dof_par);
 }
 
 inline
 arma::mat
-rchisq(const int n, const int k, const int dof_par)
+rchisq(const uint_t n, const uint_t k, const int dof_par)
 {
     arma::mat ret(n,k);
     

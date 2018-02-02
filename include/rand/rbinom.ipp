@@ -38,14 +38,14 @@ rbinom(const int n_trials_par, const T prob_par)
 
 inline
 arma::mat
-rbinom(const int n, const int n_trials_par, const double prob_par)
+rbinom(const uint_t n, const int n_trials_par, const double prob_par)
 {
     return rbinom(n,1,n_trials_par,prob_par);
 }
 
 inline
 arma::mat
-rbinom(const int n, const int k, const int n_trials_par, const double prob_par)
+rbinom(const uint_t n, const uint_t k, const int n_trials_par, const double prob_par)
 {
     arma::mat ret(n,k);
     

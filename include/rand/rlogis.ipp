@@ -31,14 +31,14 @@ rlogis(const T mu_par, const T sigma_par)
 
 inline
 arma::mat
-rlogis(const int n, const double mu_par, const double sigma_par)
+rlogis(const uint_t n, const double mu_par, const double sigma_par)
 {
     return rlogis(n,1,mu_par,sigma_par);
 }
 
 inline
 arma::mat
-rlogis(const int n, const int k, const double mu_par, const double sigma_par)
+rlogis(const uint_t n, const uint_t k, const double mu_par, const double sigma_par)
 {
     arma::mat U = runif(n,k,0.0,1.0);
 

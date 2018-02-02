@@ -35,14 +35,14 @@ rbern(const T prob_par)
 
 inline
 arma::mat
-rbern(const int n, const double prob_par)
+rbern(const uint_t n, const double prob_par)
 {
     return rbern(n,1,prob_par);
 }
 
 inline
 arma::mat
-rbern(const int n, const int k, const double prob_par)
+rbern(const uint_t n, const uint_t k, const double prob_par)
 {
     const arma::mat u = runif(n,k,0.0,1.0);
     arma::mat ret(n,k);

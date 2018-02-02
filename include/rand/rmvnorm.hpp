@@ -33,12 +33,12 @@ arma::vec rmvnorm(const arma::mat& mu, const arma::mat& Sigma);
 arma::vec rmvnorm(const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol);
 
 // n samples
-arma::mat rmvnorm_int(const int n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol);
+arma::mat rmvnorm_int(const uint_t n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol);
 
-arma::mat rmvnorm(const int n, const arma::mat& Sigma);
-arma::mat rmvnorm(const int n, const arma::mat& Sigma, const bool pre_chol);
-arma::mat rmvnorm(const int n, const arma::mat& mu, const arma::mat& Sigma);
-arma::mat rmvnorm(const int n, const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol);
+arma::mat rmvnorm(const uint_t n, const arma::mat& Sigma);
+arma::mat rmvnorm(const uint_t n, const arma::mat& Sigma, const bool pre_chol);
+arma::mat rmvnorm(const uint_t n, const arma::mat& mu, const arma::mat& Sigma);
+arma::mat rmvnorm(const uint_t n, const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol);
 
 #include "rmvnorm.ipp"
 

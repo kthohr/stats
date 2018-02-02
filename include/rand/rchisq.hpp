@@ -26,8 +26,8 @@
 double rchisq(const int dof_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rchisq(const int n, const int dof_par);
-arma::mat rchisq(const int n, const int k, const int dof_par);
+arma::mat rchisq(const uint_t n, const int dof_par);
+arma::mat rchisq(const uint_t n, const uint_t k, const int dof_par);
 #endif
 
 #include "rchisq.ipp"

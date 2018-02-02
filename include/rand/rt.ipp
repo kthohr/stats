@@ -16,7 +16,7 @@
   ##
   ################################################################################*/
 
-/* 
+/*
  * Sample from a t distribution
  */
 
@@ -31,14 +31,14 @@ rt(const int dof_par)
 
 inline
 arma::mat
-rt(const int n, const int dof_par)
+rt(const uint_t n, const int dof_par)
 {
     return rt(n,1,dof_par);
 }
 
 inline
 arma::mat
-rt(const int n, const int k, const int dof_par)
+rt(const uint_t n, const uint_t k, const int dof_par)
 {
     return ( arma::randn(n,k) / arma::sqrt( rchisq(n,k,dof_par) / static_cast<double>(dof_par) ) );
 }

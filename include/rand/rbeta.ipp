@@ -36,14 +36,14 @@ rbeta(const T a_par, const T b_par)
 
 inline
 arma::mat
-rbeta(const int n, const double a_par, const double b_par)
+rbeta(const uint_t n, const double a_par, const double b_par)
 {
     return rbeta(n,1,a_par,b_par);
 }
 
 inline
 arma::mat
-rbeta(const int n, const int k, const double a_par, const double b_par)
+rbeta(const uint_t n, const uint_t k, const double a_par, const double b_par)
 {
     arma::mat ret(n,k);
     

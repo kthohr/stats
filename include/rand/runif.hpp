@@ -29,8 +29,8 @@ T rnorm(const T a_par, const T b_par);
 double runif();
 
 #ifndef STATS_NO_ARMA
-arma::mat runif(const int n, const double a_par, const double b_par);
-arma::mat runif(const int n, const int k, const double a_par, const double b_par);
+arma::mat runif(const uint_t n, const double a_par, const double b_par);
+arma::mat runif(const uint_t n, const uint_t k, const double a_par, const double b_par);
 #endif
 
 #include "runif.ipp"

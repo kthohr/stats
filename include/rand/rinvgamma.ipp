@@ -31,14 +31,14 @@ rinvgamma(T shape_par, T rate_par)
 
 inline
 arma::mat
-rinvgamma(const int n, const double shape_par, const double rate_par)
+rinvgamma(const uint_t n, const double shape_par, const double rate_par)
 {
     return rinvgamma(n,1,shape_par,rate_par);
 }
 
 inline
 arma::mat
-rinvgamma(const int n, const int k, const double shape_par, const double rate_par)
+rinvgamma(const uint_t n, const uint_t k, const double shape_par, const double rate_par)
 {
     arma::mat ret(n,k);
     
