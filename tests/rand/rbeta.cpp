@@ -28,9 +28,11 @@ int main()
     double beta_mean = alpha/(alpha + beta);
     double beta_var = alpha*beta/(std::pow(alpha + beta,2)*(alpha + beta + 1.0));
 
+    std::cout << "\n*** rbeta: begin tests. ***\n" << std::endl;
+
     double beta_rand = stats::rbeta(alpha,beta);
 
-    std::cout << "beta rv: " << beta_rand << std::endl;
+    std::cout << "beta rv draw: " << beta_rand << std::endl;
 
     int n = 1000;
     arma::vec beta_vec = stats::rbeta(n,alpha,beta);
@@ -42,6 +44,8 @@ int main()
     // coverage tests
 
     stats::rbeta(100,100,alpha,beta);
+
+    std::cout << "\n*** rbeta: end tests. ***\n" << std::endl;
     
     return 0;
 }

@@ -27,9 +27,14 @@ int main()
     
     double invgamma_mean = rate / (shape - 1.0);
     double invgamma_var = std::pow(invgamma_mean,2) / (shape - 2.0);
+
+    std::cout << "\n*** rinvgamma: begin tests. ***\n" << std::endl;
+
+    //
+
     double invgamma_rand = stats::rinvgamma(shape,rate);
 
-    std::cout << "invgamma rv: " << invgamma_rand << std::endl;
+    std::cout << "invgamma rv draw: " << invgamma_rand << std::endl;
 
     int n = 100000;
     arma::vec invgamma_vec = stats::rinvgamma(n,shape,rate);
@@ -41,6 +46,8 @@ int main()
     // coverage tests
 
     stats::rinvgamma(100,100,shape,rate);
+
+    std::cout << "\n*** rinvgamma: end tests. ***\n" << std::endl;
 
     return 0;
 }

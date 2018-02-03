@@ -27,9 +27,13 @@ int main()
 
     double logis_mean = mu;
     double logis_var = std::pow(arma::datum::pi*sigma,2) / 3.0;
-    double logis_rand = stats::rlogis(mu,sigma);
 
-    std::cout << "logis rv: " << logis_rand << std::endl;
+    std::cout << "\n*** rlogis: begin tests. ***\n" << std::endl;
+
+    //
+
+    double logis_rand = stats::rlogis(mu,sigma);
+    std::cout << "logis rv draw: " << logis_rand << std::endl;
 
     int n = 100000;
     arma::vec logis_vec = stats::rlogis(n,mu,sigma);
@@ -41,6 +45,8 @@ int main()
     // coverage tests
     
     stats::rlogis(100,100,mu,sigma);
+
+    std::cout << "\n*** rlogis: begin tests. ***\n" << std::endl;
 
     return 0;
 }

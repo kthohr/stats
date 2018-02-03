@@ -27,18 +27,24 @@ int main()
     
     double cauchy_rand = stats::rcauchy(mu,sigma);
 
-    std::cout << "cauchy rv: " << cauchy_rand << std::endl;
+    std::cout << "\n*** rcauchy: begin tests. ***\n" << std::endl;
+
+    //
+
+    std::cout << "cauchy rv draw: " << cauchy_rand << std::endl;
 
     int n = 100;
     arma::vec cauchy_vec = stats::rcauchy(n,mu,sigma);
 
-    std::cout << "cauchy rv mean: " << arma::mean(cauchy_vec) << std::endl; // not defined
-    std::cout << "cauchy rv variance: " << arma::var(cauchy_vec) << std::endl; // not defined
+    std::cout << "cauchy rv mean: " << arma::mean(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
+    std::cout << "cauchy rv variance: " << arma::var(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
 
     //
     // coverage tests
     
     stats::rcauchy(100,100,mu,sigma);
+
+    std::cout << "\n*** rcauchy: end tests. ***\n" << std::endl;
 
     return 0;
 }

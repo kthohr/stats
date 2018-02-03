@@ -26,9 +26,14 @@ int main()
     
     double chisq_mean = dof;
     double chisq_var = 2*dof;
+
+    std::cout << "\n*** rchisq: begin tests. ***\n" << std::endl;
+
+    //
+
     double chisq_rand = stats::rchisq(dof);
 
-    std::cout << "chisq rv: " << chisq_rand << std::endl;
+    std::cout << "chisq rv draw: " << chisq_rand << std::endl;
 
     int n = 100000;
     arma::vec chisq_vec = stats::rchisq(n,dof);
@@ -42,6 +47,8 @@ int main()
     stats::rchisq(100);
     stats::rchisq(100,100,dof);
     stats::rchisq(100,100,100);
+
+    std::cout << "\n*** rchisq: end tests. ***\n" << std::endl;
 
     return 0;
 }

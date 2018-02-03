@@ -26,9 +26,14 @@ int main()
     double scale = 2;
     double gamma_mean = shape*scale;
     double gamma_var = gamma_mean*scale;
+
+    std::cout << "\n*** rgamma: begin tests. ***\n" << std::endl;
+
+    //
+
     double gamma_rand = stats::rgamma(shape,scale);
 
-    std::cout << "gamma rv: " << gamma_rand << std::endl;
+    std::cout << "gamma rv draw: " << gamma_rand << std::endl;
 
     int n = 1000;
     arma::vec gamma_vec = stats::rgamma(n,shape,scale);
@@ -41,6 +46,8 @@ int main()
 
     stats::rgamma(0.7,scale);
     stats::rgamma(100,100,shape,scale);
+
+    std::cout << "\n*** rgamma: end tests. ***\n" << std::endl;
 
     return 0;
 }

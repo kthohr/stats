@@ -27,9 +27,14 @@ int main()
     
     double normal_mean = mu;
     double normal_var = sigma*sigma;
+
+    std::cout << "\n*** rnorm: begin tests. ***\n" << std::endl;
+
+    //
+
     double normal_rand = stats::rnorm(mu,sigma);
 
-    std::cout << "normal rv: " << normal_rand << std::endl;
+    std::cout << "normal rv draw: " << normal_rand << std::endl;
 
     int n = 100000;
     arma::vec normal_vec = stats::rnorm(n,mu,sigma);
@@ -41,6 +46,8 @@ int main()
     // coverage tests
     
     stats::rnorm(100,100,mu,sigma);
+
+    std::cout << "\n*** rnorm: end tests. ***\n" << std::endl;
 
     return 0;
 }

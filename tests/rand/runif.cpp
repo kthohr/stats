@@ -28,9 +28,13 @@ int main()
     double unif_mean = (a_par + b_par) / 2.0;
     double unif_var = (b_par - a_par)*(b_par - a_par) / 12.0;
 
+    std::cout << "\n*** runif: begin tests. ***\n" << std::endl;
+
+    //
+
     double unif_rand = stats::runif(a_par,b_par);
 
-    std::cout << "unif rv: " << unif_rand << std::endl;
+    std::cout << "unif rv draw: " << unif_rand << std::endl;
 
     int n = 10000;
     arma::vec unif_vec = stats::runif(n,a_par,b_par);
@@ -42,6 +46,8 @@ int main()
     // coverage tests
 
     stats::runif(100,100,a_par,b_par);
+
+    std::cout << "\n*** runif: end tests. ***\n" << std::endl;
     
     return 0;
 }

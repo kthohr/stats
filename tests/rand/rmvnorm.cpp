@@ -26,6 +26,10 @@ int main()
     int n = 10000;
     int K = 3;
 
+    std::cout << "\n*** rmvnorm: begin tests. ***\n" << std::endl;
+
+    //
+
     arma::vec mu(K);
     mu.fill(2);
 
@@ -58,6 +62,10 @@ int main()
     stats::rmvnorm(n,Sigma,false);
     stats::rmvnorm(n,Sigma,true);
     stats::rmvnorm(n,mu,Sigma);
+
+    //
+
+    std::cout << "\n*** rmvnorm: end tests. ***\n" << std::endl;
 
     return 0;
 }

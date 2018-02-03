@@ -27,9 +27,13 @@ int main()
     double bern_mean = prob_par;
     double bern_var = prob_par*(1.0 - prob_par);
 
+    std::cout << "\n*** rbern: begin tests. ***\n" << std::endl;
+
+    //
+
     int bern_rand = stats::rbern(prob_par);
 
-    std::cout << "bern rv: " << bern_rand << std::endl;
+    std::cout << "bern rv draw: " << bern_rand << std::endl;
 
     int n = 10000;
     arma::vec bern_vec = stats::rbern(n,prob_par);
@@ -41,6 +45,8 @@ int main()
     // coverage tests
 
     stats::rbern(100,100,prob_par);
+
+    std::cout << "\n*** rbern: end tests. ***\n" << std::endl;
 
     return 0;
 }

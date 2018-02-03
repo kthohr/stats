@@ -26,6 +26,9 @@ int main()
     int n = 10000;
     int K = 3;
 
+    std::cout << "\n*** rinvwish: begin tests. ***\n" << std::endl;
+
+    //
 
     int nu = 10 + K + 1;
     arma::mat Psi = arma::eye(K,K) * 10;
@@ -42,6 +45,10 @@ int main()
     double dinvwish_val = stats::dinvwish(X,Psi,nu,false);
 
     std::cout << "density value: " << dinvwish_val << std::endl;
+
+    //
+
+    std::cout << "\n*** rinvwish: end tests. ***\n" << std::endl;
 
     return 0;
 }

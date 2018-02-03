@@ -26,9 +26,14 @@ int main()
     
     double t_mean = 0.0;
     double t_var = static_cast<double>(dof_par) / (static_cast<double>(dof_par) - 2.0) ;
+
+    std::cout << "\n*** rt: begin tests. ***\n" << std::endl;
+
+    //
+
     double t_rand = stats::rt(dof_par);
 
-    std::cout << "t rv: " << t_rand << std::endl;
+    std::cout << "t rv draw: " << t_rand << std::endl;
 
     int n = 100000;
     arma::vec t_vec = stats::rt(n,dof_par);
@@ -40,6 +45,8 @@ int main()
     // coverage tests
     
     stats::rt(100,100,dof_par);
+
+    std::cout << "\n*** rt: end tests. ***\n" << std::endl;
 
     return 0;
 }

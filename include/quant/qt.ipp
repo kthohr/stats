@@ -46,7 +46,7 @@ statslib_constexpr
 long double
 qt_int_coef_c(const long double coef_a, const long double coef_b)
 {
-    return ( 96.36 + coef_a * ( - 16.0L + coef_a * ( - 98.0L + 20700.0L*coef_a/coef_b ) ) );
+    return ( 96.36L + coef_a * ( - 16.0L + coef_a * ( - 98.0L + 20700.0L*coef_a/coef_b ) ) );
 }
 
 statslib_constexpr

@@ -29,7 +29,11 @@ int main()
     prob_vec(3) = 0.25;
     prob_vec(4) = 0.3;
 
-    arma::cout << stats::rmultinom(prob_vec) << arma::endl;
+    std::cout << "\n*** rmultinom: begin tests. ***\n" << std::endl;
+
+    //
+
+    arma::cout << "rmultinom draw:\n" stats::rmultinom(prob_vec) << arma::endl;
 
     arma::mat X = arma::zeros(5,1);
 
@@ -40,6 +44,10 @@ int main()
     }
 
     arma::cout << "sample mean:\n" << X << arma::endl;
+
+    //
+
+    std::cout << "\n*** rmultinom: end tests. ***\n" << std::endl;
 
     return 0;
 }

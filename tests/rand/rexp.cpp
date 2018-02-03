@@ -25,9 +25,13 @@ int main()
     double exp_mean = 1.0 / rate_par;
     double exp_var = std::pow(rate_par,-2);
 
+    std::cout << "\n*** rexp: begin tests. ***\n" << std::endl;
+
+    //
+
     double exp_rand = stats::rexp(rate_par);
 
-    std::cout << "exp rv: " << exp_rand << std::endl;
+    std::cout << "exp rv draw: " << exp_rand << std::endl;
 
     int n = 100000;
     arma::vec exp_vec = stats::rexp(n,rate_par);
@@ -41,6 +45,8 @@ int main()
     stats::rexp(100);
     stats::rexp(100,100,rate_par);
     stats::rexp(100,100,100);
+
+    std::cout << "\n*** rexp: end tests. ***\n" << std::endl;
 
     return 0;
 }

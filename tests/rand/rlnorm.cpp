@@ -27,9 +27,14 @@ int main()
     double sigma = 1;
     double lnorm_mean = std::exp(mu + sigma*sigma / 2.0);
     double lnorm_var = (std::exp(sigma*sigma) - 1.0) * std::exp(mu*2 + sigma*sigma);
+
+    std::cout << "\n*** rlnorm: begin tests. ***\n" << std::endl;
+
+    //
+
     double lnorm_rand = stats::rlnorm(mu,sigma);
 
-    std::cout << "lnorm rv: " << lnorm_rand << std::endl;
+    std::cout << "lnorm rv draw: " << lnorm_rand << std::endl;
 
     int n = 10000;
     arma::vec lnorm_vec = stats::rlnorm(n,mu,sigma);
@@ -41,6 +46,8 @@ int main()
     // coverage tests
     
     stats::rlnorm(100,100,mu,sigma);
+
+    std::cout << "\n*** rlnorm: end tests. ***\n" << std::endl;
     
     return 0;
 }

@@ -28,9 +28,13 @@ int main()
     double binom_mean = n_trials*prob_par;
     double binom_var = n_trials*prob_par*(1.0 - prob_par);
 
+    std::cout << "\n*** rbinom: begin tests. ***\n" << std::endl;
+
+    //
+
     int binom_rand = stats::rbinom(n_trials,prob_par);
 
-    std::cout << "binom rv: " << binom_rand << std::endl;
+    std::cout << "binom rv draw: " << binom_rand << std::endl;
 
     int n = 10000;
     arma::vec binom_vec = stats::rbinom(n,n_trials,prob_par);
@@ -42,6 +46,8 @@ int main()
     // coverage tests
 
     stats::rbinom(100,100,n_trials,prob_par);
+
+    std::cout << "\n*** rbinom: end tests. ***\n" << std::endl;
 
     return 0;
 }

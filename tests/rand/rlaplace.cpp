@@ -27,9 +27,14 @@ int main()
     
     double laplace_mean = mu;
     double laplace_var = 2.0*sigma*sigma;
+
+    std::cout << "\n*** rlaplace: begin tests. ***\n" << std::endl;
+    
+    //
+
     double laplace_rand = stats::rlaplace(mu,sigma);
 
-    std::cout << "laplace rv: " << laplace_rand << std::endl;
+    std::cout << "laplace rv draw: " << laplace_rand << std::endl;
 
     int n = 100000;
     arma::vec laplace_vec = stats::rlaplace(n,mu,sigma);
@@ -41,6 +46,8 @@ int main()
     // coverage tests
     
     stats::rlaplace(100,100,mu,sigma);
+
+    std::cout << "\n*** rlaplace: end tests. ***\n" << std::endl;
 
     return 0;
 }
