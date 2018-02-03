@@ -33,7 +33,7 @@ int main()
 
     //
 
-    arma::cout << "rmultinom draw:\n" stats::rmultinom(prob_vec) << arma::endl;
+    arma::cout << "rmultinom draw:\n" << stats::rmultinom(prob_vec) << arma::endl;
 
     arma::mat X = arma::zeros(5,1);
 
