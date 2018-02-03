@@ -46,7 +46,7 @@ int main()
     
     stats::rlogis(100,100,mu,sigma);
 
-    std::cout << "\n*** rlogis: begin tests. ***\n" << std::endl;
+    std::cout << "\n*** rlogis: end tests. ***\n" << std::endl;
 
     return 0;
 }
