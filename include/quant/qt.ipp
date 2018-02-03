@@ -138,7 +138,7 @@ statslib_constexpr
 long double
 qt_int(const long double p, const int dof_par)
 {
-    return ( dof_par == 1 ? stats_math::tan(GCEM_PI*(p - 0.5L)) : // Cauchy
+    return ( dof_par == 1 ? stats_math::tan(GCEM_PI*(p - 0.5L)) : // Cauchy case
              dof_par == 2 ? (2*p - 1.0L) / stats_math::sqrt(2*p*(1.0L - p)) :
                             qt_int_main(p,dof_par) );
 }

@@ -96,8 +96,8 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_7 << ". Success = " << success_7 << std::endl;
 
     // x = +3.5
-    double x_8 = -3.5;
-    double val_8 = 0.9975149;
+    double x_8 = 3.5;
+    double val_8 = 0.9975148547;
     double q_8 = stats::qt(val_8,dof_par);
 
     bool success_8 = (std::abs(q_8 - x_8) < err_tol);
@@ -106,7 +106,7 @@ int main()
 
     // x = -3.5
     double x_9 = -3.5;
-    double val_9 = 0.002485145;
+    double val_9 = 0.002485145257;
     double q_9 = stats::qt(val_9,dof_par);
 
     bool success_9 = (std::abs(q_9 - x_9) < err_tol);
