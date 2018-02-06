@@ -39,6 +39,8 @@
     #define stats_math gcem
 #else
     #define statslib_constexpr inline
+    #include <cmath>
+    #define stats_math std
 #endif
 
 // #ifndef statslib_constexpr
@@ -49,14 +51,14 @@
 //     #endif
 // #endif
 
-#ifndef stats_math
-    #if __cplusplus >= 201300
-        #define stats_math gcem
-    #else
-        #include <cmath>
-        #define stats_math std
-    #endif
-#endif
+// #ifndef stats_math
+//     #if __cplusplus >= 201300
+//         #define stats_math gcem
+//     #else
+//         #include <cmath>
+//         #define stats_math std
+//     #endif
+// #endif
 
 namespace stats {
     static const double inf = std::numeric_limits<double>::infinity();
