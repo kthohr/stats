@@ -16,28 +16,19 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_rand_HPP
-#define _statslib_rand_HPP
+/* 
+ * Sample from a Wishart distribution
+ */
 
-#include "runif.hpp"
-#include "rnorm.hpp"
+#ifndef _statslib_rwish_HPP
+#define _statslib_rwish_HPP
 
-#include "rgamma.hpp"
+#ifndef STATS_NO_ARMA
 
-#include "rbern.hpp"
-#include "rbeta.hpp"
-#include "rbinom.hpp"
-#include "rcauchy.hpp"
-#include "rchisq.hpp"
-#include "rexp.hpp"
-#include "rinvgamma.hpp"
-#include "rinvwish.hpp"
-#include "rlaplace.hpp"
-#include "rlnorm.hpp"
-#include "rlogis.hpp"
-#include "rmultinom.hpp"
-#include "rmvnorm.hpp"
-#include "rt.hpp"
-#include "rwish.hpp"
+arma::mat rwish(const arma::mat& Psi_par, const int nu_par);
+
+#include "rwish.ipp"
+
+#endif
 
 #endif

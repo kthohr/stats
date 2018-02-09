@@ -16,28 +16,35 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_rand_HPP
-#define _statslib_rand_HPP
+/* 
+ * Sample from a Wishart distribution
+ */
 
-#include "runif.hpp"
-#include "rnorm.hpp"
+inline
+arma::mat
+rwish(const arma::mat& Psi_par, const int nu_par)
+{
+    const int K = Psi_par.n_rows;
+    
+    arma::mat chol_Psi = arma::chol(Psi_par,"lower");
 
-#include "rgamma.hpp"
+    //
 
-#include "rbern.hpp"
-#include "rbeta.hpp"
-#include "rbinom.hpp"
-#include "rcauchy.hpp"
-#include "rchisq.hpp"
-#include "rexp.hpp"
-#include "rinvgamma.hpp"
-#include "rinvwish.hpp"
-#include "rlaplace.hpp"
-#include "rlnorm.hpp"
-#include "rlogis.hpp"
-#include "rmultinom.hpp"
-#include "rmvnorm.hpp"
-#include "rt.hpp"
-#include "rwish.hpp"
+    arma::mat A = arma::zeros(K,K);
 
-#endif
+    for (int i=1; i < K; i++) {
+        for (int j=0; j < i; j++) {
+            A(i,j) = rnorm();
+        }
+    }
+    
+    for (int i=0; i < K; i++) {
+        A(i,i) = std::sqrt(rchisq(nu_par-i));
+    }
+
+    chol_Psi = chol_Psi*A;
+
+    //
+    
+    return chol_Psi * chol_Psi.t();
+}
