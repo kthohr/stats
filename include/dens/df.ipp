@@ -43,30 +43,30 @@ df_int(const T x, const T a_par, const T b_par, const T abx, const bool log_form
 template<typename T>
 statslib_constexpr
 T
-df(const T x, const T a_par, const T b_par, const bool log_form)
+df(const T x, const T df1_par, const T df2_par, const bool log_form)
 {
-    return ( df_int(x,a_par/T(2.0),b_par/T(2.0),a_par*x/b_par,log_form) );
+    return ( df_int(x,df1_par/T(2.0),df2_par/T(2.0),df1_par*x/df2_par,log_form) );
 }
 
 statslib_constexpr
 double
 df(const double x)
 {
-    return df(x,20.0,20.0,false);
+    return df(x,4.0,4.0,false);
 }
 
 statslib_constexpr
 double
 df(const double x, const bool log_form)
 {
-    return df(x,20.0,20.0,log_form);
+    return df(x,4.0,4.0,log_form);
 }
 
 statslib_constexpr
 double
-df(const double x, const double a_par, const double b_par)
+df(const double x, const double df1_par, const double df2_par)
 {
-    return df(x,a_par,b_par,false);
+    return df(x,df1_par,df2_par,false);
 }
 
 //
@@ -76,10 +76,10 @@ df(const double x, const double a_par, const double b_par)
 
 inline
 arma::mat
-df_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
+df_int(const arma::mat& x, const double* df1_par_inp, const double* df2_par_inp, const bool log_form)
 {
-    const double a_par = (a_par_inp) ? *a_par_inp : 20.0; // shape parameter 'alpha'
-    const double b_par = (b_par_inp) ? *b_par_inp : 20.0; // scale parameter 'beta'
+    const double df1_par = (df1_par_inp) ? *df1_par_inp : 4.0; // degrees of freedom '1'
+    const double df2_par = (df2_par_inp) ? *df2_par_inp : 4.0; // degrees of freedom '2'
 
     const uint_t n = x.n_rows;
     const uint_t k = x.n_cols;
@@ -96,7 +96,7 @@ df_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, con
 #endif
     for (uint_t j=0; j < n*k; j++)
     {
-        ret_mem[j] = df(inp_mem[j],a_par,b_par,log_form);
+        ret_mem[j] = df(inp_mem[j],df1_par,df2_par,log_form);
     }
 
     //
@@ -120,16 +120,16 @@ df(const arma::mat& x, const bool log_form)
 
 inline
 arma::mat
-df(const arma::mat& x, const double a_par, const double b_par)
+df(const arma::mat& x, const double df1_par, const double df2_par)
 {
-    return df_int(x,&a_par,&b_par,false);
+    return df_int(x,&df1_par,&df2_par,false);
 }
 
 inline
 arma::mat
-df(const arma::mat& x, const double a_par, const double b_par, const bool log_form)
+df(const arma::mat& x, const double df1_par, const double df2_par, const bool log_form)
 {
-    return df_int(x,&a_par,&b_par,log_form);
+    return df_int(x,&df1_par,&df2_par,log_form);
 }
 
 #endif

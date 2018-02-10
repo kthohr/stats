@@ -36,37 +36,36 @@ statslib_constexpr
 T
 qf_int(const T p, const T a_par, const T b_par)
 {
-    // return ( p < 0.5 ? qf_int_adj(T(1.0) - gcem::incomplete_beta_inv(b_par,a_par,T(1.0) - p),a_par/b_par) : qf_int_adj(gcem::incomplete_beta_inv(a_par,b_par,p),a_par/b_par) );
     return ( qf_int_adj(gcem::incomplete_beta_inv(a_par,b_par,p),a_par/b_par) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-qf(const T p, const T a_par, const T b_par, const bool log_form)
+qf(const T p, const T df1_par, const T df2_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qf_int(p,a_par/T(2.0),b_par/T(2.0))) : qf_int(p,a_par/T(2.0),b_par/T(2.0)) );
+    return ( log_form == true ? stats_math::log(qf_int(p,df1_par/T(2.0),df2_par/T(2.0))) : qf_int(p,df1_par/T(2.0),df2_par/T(2.0)) );
 }
 
 statslib_constexpr
 double
 qf(const double p)
 {
-    return qf(p,2.0,2.0,false);
+    return qf(p,4.0,4.0,false);
 }
 
 statslib_constexpr
 double
 qf(const double p, const bool log_form)
 {
-    return qf(p,2.0,2.0,log_form);
+    return qf(p,4.0,4.0,log_form);
 }
 
 statslib_constexpr
 double
-qf(const double p, const double a_par, const double b_par)
+qf(const double p, const double df1_par, const double df2_par)
 {
-    return qf(p,a_par,b_par,false);
+    return qf(p,df1_par,df2_par,false);
 }
 
 //
@@ -76,10 +75,10 @@ qf(const double p, const double a_par, const double b_par)
 
 inline
 arma::mat
-qf_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form)
+qf_int(const arma::mat& p, const double* df1_par_inp, const double* df2_par_inp, const bool log_form)
 {
-    const double a_par = (a_par_inp) ? *a_par_inp : 2.0; // shape parameter 'alpha'
-    const double b_par = (b_par_inp) ? *b_par_inp : 2.0; // scale parameter 'beta'
+    const double df1_par = (df1_par_inp) ? *df1_par_inp : 4.0; // degrees of freedom '1'
+    const double df2_par = (df2_par_inp) ? *df2_par_inp : 4.0; // degrees of freedom '2'
 
     const uint_t n = p.n_rows;
     const uint_t k = p.n_cols;
@@ -96,7 +95,7 @@ qf_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, con
 #endif
     for (uint_t j=0; j < n*k; j++)
     {
-        ret_mem[j] = qf(inp_mem[j],a_par,b_par,log_form);
+        ret_mem[j] = qf(inp_mem[j],df1_par,df2_par,log_form);
     }
 
     //
@@ -120,16 +119,16 @@ qf(const arma::mat& p, const bool log_form)
 
 inline
 arma::mat
-qf(const arma::mat& p, const double a_par, const double b_par)
+qf(const arma::mat& p, const double df1_par, const double df2_par)
 {
-    return qf_int(p,&a_par,&b_par,false);
+    return qf_int(p,&df1_par,&df2_par,false);
 }
 
 inline
 arma::mat
-qf(const arma::mat& p, const double a_par, const double b_par, const bool log_form)
+qf(const arma::mat& p, const double df1_par, const double df2_par, const bool log_form)
 {
-    return qf_int(p,&a_par,&b_par,log_form);
+    return qf_int(p,&df1_par,&df2_par,log_form);
 }
 
 #endif

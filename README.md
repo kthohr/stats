@@ -10,7 +10,7 @@ Features:
 
 ## Available Distributions
 
-cdf, pdf, quantile and randomization functions are available for the following distributions:
+cdf, pdf, quantile and random sampling functions are available for the following distributions:
 
 * Bernoulli 
 * Beta
@@ -18,6 +18,7 @@ cdf, pdf, quantile and randomization functions are available for the following d
 * Cauchy
 * Chi-squared
 * Exponential
+* F
 * Gamma
 * Inverse-Gamma
 * Laplace

@@ -22,28 +22,28 @@
 
 template<typename T>
 T
-rf(const T a_par, const T b_par)
+rf(const T df1_par, const T df2_par)
 {
-    const T X = rchisq(a_par);
-    const T Y = rchisq(b_par);
+    const T X = rchisq(df1_par);
+    const T Y = rchisq(df2_par);
 
     //
     
-    return (b_par / a_par) * X / Y;
+    return (df2_par / df1_par) * X / Y;
 }
 
 #ifndef STATS_NO_ARMA
 
 inline
 arma::mat
-rf(const uint_t n, const double a_par, const double b_par)
+rf(const uint_t n, const double df1_par, const double df2_par)
 {
-    return rf(n,1,a_par,b_par);
+    return rf(n,1,df1_par,df2_par);
 }
 
 inline
 arma::mat
-rf(const uint_t n, const uint_t k, const double a_par, const double b_par)
+rf(const uint_t n, const uint_t k, const double df1_par, const double df2_par)
 {
     arma::mat ret(n,k);
     
@@ -56,7 +56,7 @@ rf(const uint_t n, const uint_t k, const double a_par, const double b_par)
 #endif
     for (uint_t j=0; j < n*k; j++)
     {
-        ret_mem[j] = rf(a_par,b_par);
+        ret_mem[j] = rf(df1_par,df2_par);
     }
 
     //

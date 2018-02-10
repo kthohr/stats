@@ -25,20 +25,20 @@
 
 // single input
 template<typename T>
-statslib_constexpr T qf(const T p, const T a_par, const T b_par, const bool log_form);
+statslib_constexpr T qf(const T p, const T df1_par, const T df2_par, const bool log_form);
 
 statslib_constexpr double qf(const double p);
 statslib_constexpr double qf(const double p, const bool log_form);
-statslib_constexpr double qf(const double p, const double a_par, const double b_par);
+statslib_constexpr double qf(const double p, const double df1_par, const double df2_par);
 
 // matrix/vector input
 #ifndef STATS_NO_ARMA
-arma::mat qf_int(const arma::mat& p, const double* a_par_inp, const double* b_par_inp, const bool log_form);
+arma::mat qf_int(const arma::mat& p, const double* df1_par_inp, const double* df2_par_inp, const bool log_form);
 
 arma::mat qf(const arma::mat& p);
 arma::mat qf(const arma::mat& p, const bool log_form);
-arma::mat qf(const arma::mat& p, const double a_par, const double b_par);
-arma::mat qf(const arma::mat& p, const double a_par, const double b_par, const bool log_form);
+arma::mat qf(const arma::mat& p, const double df1_par, const double df2_par);
+arma::mat qf(const arma::mat& p, const double df1_par, const double df2_par, const bool log_form);
 #endif
 
 #include "qf.ipp"

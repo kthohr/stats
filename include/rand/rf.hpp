@@ -24,11 +24,11 @@
 #define _statslib_rf_HPP
 
 template<typename T>
-T rf(const T a_par, const T b_par);
+T rf(const T df1_par, const T df2_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rf(const uint_t n, const double a_par, const double b_par);
-arma::mat rf(const uint_t n, const uint_t k, const double a_par, const double b_par);
+arma::mat rf(const uint_t n, const double df1_par, const double df2_par);
+arma::mat rf(const uint_t n, const uint_t k, const double df1_par, const double df2_par);
 #endif
 
 #include "rf.ipp"

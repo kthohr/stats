@@ -34,30 +34,30 @@ pf_int(const T x, const T a_par, const T b_par)
 template<typename T>
 statslib_constexpr
 T
-pf(const T x, const T a_par, const T b_par, const bool log_form)
+pf(const T x, const T df1_par, const T df2_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pf_int(a_par*x/b_par,a_par/T(2.0),b_par/T(2.0))) : pf_int(a_par*x/b_par,a_par/T(2.0),b_par/T(2.0)) );
+    return ( log_form == true ? stats_math::log(pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0))) : pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0)) );
 }
 
 statslib_constexpr
 double
 pf(const double x)
 {
-    return pf(x,2.0,2.0,false);
+    return pf(x,4.0,4.0,false);
 }
 
 statslib_constexpr
 double
 pf(const double x, const bool log_form)
 {
-    return pf(x,2.0,2.0,log_form);
+    return pf(x,4.0,4.0,log_form);
 }
 
 statslib_constexpr
 double
-pf(const double x, const double a_par, const double b_par)
+pf(const double x, const double df1_par, const double df2_par)
 {
-    return pf(x,a_par,b_par,false);
+    return pf(x,df1_par,df2_par,false);
 }
 
 //
@@ -67,10 +67,10 @@ pf(const double x, const double a_par, const double b_par)
 
 inline
 arma::mat
-pf_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
+pf_int(const arma::mat& x, const double* df1_par_inp, const double* df2_par_inp, const bool log_form)
 {
-    const double a_par = (a_par_inp) ? *a_par_inp : 2.0; // shape parameter 'alpha'
-    const double b_par = (b_par_inp) ? *b_par_inp : 2.0; // scale parameter 'beta'
+    const double df1_par = (df1_par_inp) ? *df1_par_inp : 4.0; // degrees of freedom '1'
+    const double df2_par = (df2_par_inp) ? *df2_par_inp : 4.0; // degrees of freedom '2'
 
     const uint_t n = x.n_rows;
     const uint_t k = x.n_cols;
@@ -87,7 +87,7 @@ pf_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, con
 #endif
     for (uint_t j=0; j < n*k; j++)
     {
-        ret_mem[j] = pf(inp_mem[j],a_par,b_par,log_form);
+        ret_mem[j] = pf(inp_mem[j],df1_par,df2_par,log_form);
     }
 
     //
@@ -111,16 +111,16 @@ pf(const arma::mat& x, const bool log_form)
 
 inline
 arma::mat
-pf(const arma::mat& x, const double a_par, const double b_par)
+pf(const arma::mat& x, const double df1_par, const double df2_par)
 {
-    return pf_int(x,&a_par,&b_par,false);
+    return pf_int(x,&df1_par,&df2_par,false);
 }
 
 inline
 arma::mat
-pf(const arma::mat& x, const double a_par, const double b_par, const bool log_form)
+pf(const arma::mat& x, const double df1_par, const double df2_par, const bool log_form)
 {
-    return pf_int(x,&a_par,&b_par,log_form);
+    return pf_int(x,&df1_par,&df2_par,log_form);
 }
 
 #endif

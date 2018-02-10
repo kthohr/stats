@@ -25,20 +25,20 @@
 
 // single input
 template<typename T>
-statslib_constexpr T pf(const T x, const T a_par, const T b_par, const bool log_form);
+statslib_constexpr T pf(const T x, const T df1_par, const T df2_par, const bool log_form);
 
 statslib_constexpr double pf(const double x);
 statslib_constexpr double pf(const double x, const bool log_form);
-statslib_constexpr double pf(const double x, const double a_par, const double b_par);
+statslib_constexpr double pf(const double x, const double df1_par, const double df2_par);
 
 // matrix/vector input
 #ifndef STATS_NO_ARMA
-arma::mat pf_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form);
+arma::mat pf_int(const arma::mat& x, const double* df1_par_inp, const double* df2_par_inp, const bool log_form);
 
 arma::mat pf(const arma::mat& x);
 arma::mat pf(const arma::mat& x, const bool log_form);
-arma::mat pf(const arma::mat& x, const double a_par, const double b_par);
-arma::mat pf(const arma::mat& x, const double a_par, const double b_par, const bool log_form);
+arma::mat pf(const arma::mat& x, const double df1_par, const double df2_par);
+arma::mat pf(const arma::mat& x, const double df1_par, const double df2_par, const bool log_form);
 #endif
 
 #include "pf.ipp"
