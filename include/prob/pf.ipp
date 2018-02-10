@@ -36,7 +36,8 @@ statslib_constexpr
 T
 pf(const T x, const T df1_par, const T df2_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0))) : pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0)) );
+    return ( log_form == true ? stats_math::log(pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0))) : 
+                                pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0)) );
 }
 
 statslib_constexpr

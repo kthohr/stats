@@ -42,7 +42,9 @@ statslib_constexpr
 T
 pt_int_main(const T x, const T r_par)
 {
-    return ( r_par > x*x ? (x > T(0.0) ? T(1.0) - pt_int_main_1(x*x,r_par) : pt_int_main_1(x*x,r_par)) : (x > T(0.0) ? T(1.0) - pt_int_main_2(T(1.0) + (x/r_par)*x,r_par) : pt_int_main_2(T(1.0) + (x/r_par)*x,r_par)) );
+    return ( r_par > x*x ? (x > T(0.0) ? T(1.0) - pt_int_main_1(x*x,r_par) : pt_int_main_1(x*x,r_par)) : 
+                           (x > T(0.0) ? T(1.0) - pt_int_main_2(T(1.0) + (x/r_par)*x,r_par) : 
+                           pt_int_main_2(T(1.0) + (x/r_par)*x,r_par)) );
 }
 
 template<typename T>
