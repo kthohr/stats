@@ -23,29 +23,29 @@ int main()
     int n_samp = 10000;
     int K = 3;
 
-    std::cout << "\n*** rinvwish: begin tests. ***\n" << std::endl;
+    std::cout << "\n*** rwish: begin tests. ***\n" << std::endl;
 
     //
 
     int nu = 10 + K + 1;
-    arma::mat Psi = arma::eye(K,K) * static_cast<double>(nu - K - 1);
+    arma::mat Psi = arma::eye(K,K) / nu;
 
     arma::mat X = arma::zeros(K,K);
 
     for (int i=0; i < n_samp; i++) {
-        X += stats::rinvwish(Psi,nu) / n_samp;
+        X += stats::rwish(Psi,nu) / n_samp;
     }
 
-    arma::cout << "true mean:\n" << Psi / static_cast<double>(nu - K - 1) << arma::endl;
+    arma::cout << "true mean:\n" << Psi * static_cast<double>(nu) << arma::endl;
     arma::cout << "sample mean:\n" << X << arma::endl;
 
-    double dinvwish_val = stats::dinvwish(X,Psi,nu,false);
+    double dinvwish_val = stats::dwish(X,Psi,nu,false);
 
     std::cout << "density value: " << dinvwish_val << std::endl;
 
     //
 
-    std::cout << "\n*** rinvwish: end tests. ***\n" << std::endl;
+    std::cout << "\n*** rwish: end tests. ***\n" << std::endl;
 
     return 0;
 }
