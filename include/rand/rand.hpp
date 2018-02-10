@@ -30,6 +30,7 @@
 #include "rcauchy.hpp"
 #include "rchisq.hpp"
 #include "rexp.hpp"
+#include "rf.hpp"
 #include "rinvgamma.hpp"
 #include "rinvwish.hpp"
 #include "rlaplace.hpp"

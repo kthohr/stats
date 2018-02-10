@@ -20,30 +20,30 @@
 
 int main()
 {
-    double alpha = 3;
-    double beta = 2;
+    double a_par = 16;
+    double b_par = 10;
 
-    double beta_mean = alpha/(alpha + beta);
-    double beta_var = alpha*beta/(std::pow(alpha + beta,2)*(alpha + beta + 1.0));
+    double f_mean = b_par / (b_par - 2.0);
+    double f_var = 2.0 * b_par*b_par*(a_par + b_par - 2.0) / ( a_par*std::pow(b_par - 2.0,2)*(b_par - 4.0) );
 
-    std::cout << "\n*** rbeta: begin tests. ***\n" << std::endl;
+    std::cout << "\n*** rf: begin tests. ***\n" << std::endl;
 
-    double beta_rand = stats::rbeta(alpha,beta);
+    double f_rand = stats::rf(a_par,b_par);
 
-    std::cout << "beta rv draw: " << beta_rand << std::endl;
+    std::cout << "f rv draw: " << f_rand << std::endl;
 
-    int n = 1000;
-    arma::vec beta_vec = stats::rbeta(n,alpha,beta);
+    int n = 10000;
+    arma::vec f_vec = stats::rf(n,a_par,b_par);
 
-    std::cout << "beta rv mean: " << arma::mean(beta_vec) << ". Should be close to: " << beta_mean << std::endl;
-    std::cout << "beta rv variance: " << arma::var(beta_vec) << ". Should be close to: " << beta_var << std::endl;
+    std::cout << "f rv mean: " << arma::mean(f_vec) << ". Should be close to: " << f_mean << std::endl;
+    std::cout << "f rv variance: " << arma::var(f_vec) << ". Should be close to: " << f_var << std::endl;
     
     //
     // coverage tests
 
-    stats::rbeta(100,100,alpha,beta);
+    stats::rf(100,100,a_par,b_par);
 
-    std::cout << "\n*** rbeta: end tests. ***\n" << std::endl;
+    std::cout << "\n*** rf: end tests. ***\n" << std::endl;
     
     return 0;
 }

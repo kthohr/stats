@@ -16,8 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -fconstexpr-depth=2000 dbeta.cpp -o dbeta.test -framework Accelerate
-
 #include <cmath>
 #include <iomanip>
 #include "stats.hpp"
@@ -28,50 +26,52 @@ int main()
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    double a_par = 2.0;
-    double b_par = 2.0;
+    double a_par = 10.0;
+    double b_par = 12.0;
 
-    std::cout << "\n*** dbeta: begin tests. ***\n" << std::endl;
+    std::cout << "\n*** df: begin tests. ***\n" << std::endl;
 
-    // x = 1
-    double x_1 = 0.5;
-    double val_1 = 1.5;
-    double dens_1 = stats::dbeta(x_1,a_par,b_par,false);
+    //
+
+    double x_1 = 1.5;
+    double val_1 = 0.3426271;
+    double dens_1 = stats::df(x_1,a_par,b_par,false);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbeta(" << x_1 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "df(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
-    // x = 1, return log
-    double x_2 = 0.5;
+    // return log
+
+    double x_2 = 1.5;
     double val_2 = std::log(val_1);
-    double dens_2 = stats::dbeta(x_2,a_par,b_par,true);
+    double dens_2 = stats::df(x_2,a_par,b_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbeta(" << x_2 << ",log=true): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "df(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        std::cout << "\n*** dbeta: all tests passed. ***\n" << std::endl;
+        std::cout << "\n*** df: all tests passed. ***\n" << std::endl;
     } else {
-        std::cout << "\n*** dbeta: some tests FAILED. ***\n" << std::endl;
+        std::cout << "\n*** df: some tests FAILED. ***\n" << std::endl;
     }
 
     //
     // coverage tests
 
-    stats::dbeta(x_1);
-    stats::dbeta(x_1,true);
-    stats::dbeta(x_1,a_par,b_par);
+    stats::df(x_1);
+    stats::df(x_1,true);
+    stats::df(x_1,a_par,b_par);
 
     arma::mat x_mat(2,1);
-    x_mat(0,0) = 0.4;
-    x_mat(1,0) = 0.5;
+    x_mat(0,0) = 1.0;
+    x_mat(1,0) = 2.0;
 
-    stats::dbeta(x_mat);
-    stats::dbeta(x_mat,true);
-    stats::dbeta(x_mat,a_par,b_par);
-    stats::dbeta(x_mat,a_par,b_par,true);
+    stats::df(x_mat);
+    stats::df(x_mat,true);
+    stats::df(x_mat,a_par,b_par);
+    stats::df(x_mat,a_par,b_par,true);
 
     return 0;
 }

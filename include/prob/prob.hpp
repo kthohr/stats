@@ -25,6 +25,7 @@
 #include "pcauchy.hpp"
 #include "pchisq.hpp"
 #include "pexp.hpp"
+#include "pf.hpp"
 #include "pgamma.hpp"
 #include "pinvgamma.hpp"
 #include "plaplace.hpp"
