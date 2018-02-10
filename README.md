@@ -62,7 +62,7 @@ stats::pgamma(<value>,<shape parameter>,<scale parameter>);
 ``` cpp
 stats::qbeta(<value>,<a parameter>,<b parameter>);
 ```
-* randomization: `stats::r*`. For example, to generate a single draw from the Logistic distribution:
+* random sampling: `stats::r*`. For example, to generate a single draw from the Logistic distribution:
 ``` cpp
 stats::rlogis(<location parameter>,<scale parameter>);
 ```
