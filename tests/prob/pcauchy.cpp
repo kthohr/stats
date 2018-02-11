@@ -31,7 +31,8 @@ int main()
 
     std::cout << "\n*** pcauchy: begin tests. ***\n" << std::endl;
 
-    // x = 2
+    //
+
     double x_1 = 2;
     double val_1 = 0.6475836;
     double dens_1 = stats::pcauchy(x_1,mu,sigma);
@@ -40,7 +41,8 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "pcauchy(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
-    // x = 1, return log
+    //
+
     double x_2 = 1;
     double val_2 = -0.693147;
     double dens_2 = stats::pcauchy(x_2,mu,sigma,true);
@@ -49,7 +51,19 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "pcauchy(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
-    if (success_1 && success_2) {
+    //
+
+    double x_3 = 3.0;
+    double val_3 = 0.8975836;
+    double dens_3 = stats::pcauchy(x_3,0.0,1.0);
+
+    bool success_3 = (std::abs(dens_3 - val_3) < err_tol);
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "pcauchy(" << x_3 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_3 << ". Success = " << success_3 << std::endl;
+
+    //
+
+    if (success_1 && success_2 && success_3) {
         std::cout << "\n*** pcauchy: all tests passed. ***\n" << std::endl;
     } else {
         std::cout << "\n*** pcauchy: some tests FAILED. ***\n" << std::endl;
