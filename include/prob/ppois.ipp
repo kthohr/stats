@@ -26,7 +26,7 @@
 template<typename T>
 statslib_constexpr
 T
-ppois_int_recur(const int x, const T rate_par, const size_t r_count)
+ppois_int_recur(const uint_t x, const T rate_par, const size_t r_count)
 {   // note: integer overflow can happen when calculating factorial values
     return ( x == 0 ? T(1.0) : 
              x == 1 ? T(1.0) + rate_par : 
