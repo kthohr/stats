@@ -16,60 +16,61 @@
   ##
   ################################################################################*/
 
-#include <math.h>
+#include <cmath>
 #include <iomanip>
 #include "stats.hpp"
 
 int main()
 {
-    double err_tol = 1E-05;
+    double err_tol = 1E-06;
     int round_digits_1 = 3;
     int round_digits_2 = 5;
 
-    double mu = 1;
-    double sigma = 2;
+    double rate_par = 10.0;
+    
+    std::cout << "\n*** dpois: begin tests. ***\n" << std::endl;
 
-    std::cout << "\n*** dlogis: begin tests. ***\n" << std::endl;
+    //
 
-    // x = 2
-    double x_1 = 2;
-    double val_1 = 0.1175019;
-    double dens_1 = stats::dlogis(x_1,mu,sigma);
+    int x_1 = 8;
+    double val_1 = 0.112599;
+    double dens_1 = stats::dpois(x_1,rate_par,false);
 
     bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlogis(" << x_1 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dpois(" << x_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
 
-    // x = 1, return log
-    double x_2 = 1;
-    double val_2 = -2.079442;
-    double dens_2 = stats::dlogis(x_2,mu,sigma,true);
+    // return log
+
+    int x_2 = 8;
+    double val_2 = std::log(val_1);
+    double dens_2 = stats::dpois(x_2,rate_par,true);
 
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlogis(" << x_2 << ",log=true): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dpois(" << x_2 << ",log=true): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        std::cout << "\n*** dlogis: all tests passed. ***\n" << std::endl;
+        std::cout << "\n*** dpois: all tests passed. ***\n" << std::endl;
     } else {
-        std::cout << "\n*** dlogis: some tests FAILED. ***\n" << std::endl;
+        std::cout << "\n*** dpois: some tests FAILED. ***\n" << std::endl;
     }
 
     //
     // coverage tests
 
-    stats::dlogis(x_1);
-    stats::dlogis(x_1,true);
-    stats::dlogis(x_1,mu,sigma);
+    stats::dpois(x_1);
+    stats::dpois(x_1,true);
+    stats::dpois(x_1,rate_par);
 
     arma::mat x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 1.5;
+    x_mat(0,0) = 5;
+    x_mat(1,0) = 6;
 
-    stats::dlogis(x_mat);
-    stats::dlogis(x_mat,true);
-    stats::dlogis(x_mat,mu,sigma);
-    stats::dlogis(x_mat,mu,sigma,true);
+    stats::dpois(x_mat);
+    stats::dpois(x_mat,true);
+    stats::dpois(x_mat,rate_par);
+    stats::dpois(x_mat,rate_par,true);
 
     return 0;
 }

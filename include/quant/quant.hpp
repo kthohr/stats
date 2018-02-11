@@ -31,6 +31,7 @@
 #include "qlaplace.hpp"
 #include "qlogis.hpp"
 #include "qnorm.hpp"
+#include "qpois.hpp"
 #include "qt.hpp"
 #include "qunif.hpp"
 

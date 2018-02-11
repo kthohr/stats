@@ -31,6 +31,7 @@
 #include "plaplace.hpp"
 #include "plogis.hpp"
 #include "pnorm.hpp"
+#include "ppois.hpp"
 #include "pt.hpp"
 #include "punif.hpp"
 

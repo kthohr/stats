@@ -17,7 +17,7 @@
   ################################################################################*/
 
 /*
- * quantile function of the Binomial distribution
+ * quantile function of the Poisson distribution
  */
 
 //
@@ -26,38 +26,38 @@
 template<typename T>
 statslib_constexpr
 int
-qbinom_int(const T p, const int n_trials, const T prob_par, const T value, const int count)
+qpois_int(const T p, const T rate_par, const T value, const int count)
 {
-    return ( value <= p ? qbinom_int(p,n_trials,prob_par, pbinom(count,n_trials,prob_par,false), count + 1) : count - 1 );
+    return ( value <= p ? qpois_int(p,rate_par, ppois(count,rate_par,false), count + 1) : count - 1 );
 }
 
 template<typename T>
 statslib_constexpr
 int
-qbinom(const T p, const int n_trials, const T prob_par, const bool log_form)
+qpois(const T p, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qbinom_int(p,n_trials,prob_par,(T)0.0,0)) : qbinom_int(p,n_trials,prob_par,(T)0.0,0) );
+    return ( log_form == true ? stats_math::log(qpois_int(p,rate_par,(T)0.0,0)) : qpois_int(p,rate_par,(T)0.0,0) );
 }
 
 statslib_constexpr
 int
-qbinom(const double p)
+qpois(const double p)
 {
-    return qbinom(p,1,0.5,false);
+    return qpois(p,10.0,false);
 }
 
 statslib_constexpr
 int
-qbinom(const double p, const bool log_form)
+qpois(const double p, const bool log_form)
 {
-    return qbinom(p,1,0.5,log_form);
+    return qpois(p,10.0,log_form);
 }
 
 statslib_constexpr
 int
-qbinom(const double p, const int n_trials, const double prob_par)
+qpois(const double p, const double rate_par)
 {
-    return qbinom(p,n_trials,prob_par,false);
+    return qpois(p,rate_par,false);
 }
 
 //
@@ -67,10 +67,9 @@ qbinom(const double p, const int n_trials, const double prob_par)
 
 inline
 arma::mat
-qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_inp, const bool log_form)
+qpois_int(const arma::mat& p, const double* rate_par_inp, const bool log_form)
 {
-    const int n_trials = (n_trials_inp) ? *n_trials_inp : 1;
-    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
+    const double rate_par = (rate_par_inp) ? *rate_par_inp : 10.0;
 
     const uint_t n = p.n_rows;
     const uint_t k = p.n_cols;
@@ -87,7 +86,7 @@ qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_i
 #endif
     for (uint_t j=0; j < n*k; j++)
     {
-        ret_mem[j] = qbinom(inp_mem[j],n_trials,prob_par,log_form);
+        ret_mem[j] = qpois(inp_mem[j],rate_par,log_form);
     }
 
     //
@@ -97,30 +96,30 @@ qbinom_int(const arma::mat& p, const int* n_trials_inp, const double* prob_par_i
 
 inline
 arma::mat
-qbinom(const arma::mat& p)
+qpois(const arma::mat& p)
 {
-    return qbinom_int(p,nullptr,nullptr,false);
+    return qpois_int(p,nullptr,false);
 }
 
 inline
 arma::mat
-qbinom(const arma::mat& p, const bool log_form)
+qpois(const arma::mat& p, const bool log_form)
 {
-    return qbinom_int(p,nullptr,nullptr,log_form);
+    return qpois_int(p,nullptr,log_form);
 }
 
 inline
 arma::mat
-qbinom(const arma::mat& p, const int n_trials, const double prob_par)
+qpois(const arma::mat& p, const double rate_par)
 {
-    return qbinom_int(p,&n_trials,&prob_par,false);
+    return qpois_int(p,&rate_par,false);
 }
 
 inline
 arma::mat
-qbinom(const arma::mat& p, const int n_trials, const double prob_par, const bool log_form)
+qpois(const arma::mat& p, const double rate_par, const bool log_form)
 {
-    return qbinom_int(p,&n_trials,&prob_par,log_form);
+    return qpois_int(p,&rate_par,log_form);
 }
 
 #endif

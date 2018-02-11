@@ -20,32 +20,32 @@
 
 int main()
 {
-    double mu = 2.5;
-    double sigma = 1.5;
+    double rate_par = 5.0;
     
-    double normal_mean = mu;
-    double normal_var = sigma*sigma;
+    double pois_mean = rate_par;
+    double pois_var = rate_par;
 
-    std::cout << "\n*** rnorm: begin tests. ***\n" << std::endl;
+    std::cout << "\n*** rpois: begin tests. ***\n" << std::endl;
 
     //
 
-    double normal_rand = stats::rnorm(mu,sigma);
+    double pois_rand = stats::rpois(rate_par);
 
-    std::cout << "normal rv draw: " << normal_rand << std::endl;
+    std::cout << "pois rv draw: " << pois_rand << std::endl;
 
-    int n = 100000;
-    arma::vec normal_vec = stats::rnorm(n,mu,sigma);
+    int n = 10000;
+    arma::vec pois_vec = stats::rpois(n,rate_par);
 
-    std::cout << "normal rv mean: " << arma::mean(normal_vec) << ". Should be close to: " << normal_mean << std::endl;
-    std::cout << "normal rv variance: " << arma::var(normal_vec) << ". Should be close to: " << normal_var << std::endl;
+    std::cout << "pois rv mean: " << arma::mean(pois_vec) << ". Should be close to: " << pois_mean << std::endl;
+    std::cout << "pois rv variance: " << arma::var(pois_vec) << ". Should be close to: " << pois_var << std::endl;
 
     //
     // coverage tests
     
-    stats::rnorm(100,100,mu,sigma);
+    stats::rpois(100,100,rate_par);
+    stats::rpois(100,100,100);
 
-    std::cout << "\n*** rnorm: end tests. ***\n" << std::endl;
+    std::cout << "\n*** rpois: end tests. ***\n" << std::endl;
 
     return 0;
 }

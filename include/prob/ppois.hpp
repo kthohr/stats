@@ -16,36 +16,31 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+/*
+ * cdf of the Poisson distribution
+ */
 
-int main()
-{
-    double mu = 2.5;
-    double sigma = 1.5;
-    
-    double normal_mean = mu;
-    double normal_var = sigma*sigma;
+#ifndef _statslib_ppois_HPP
+#define _statslib_ppois_HPP
 
-    std::cout << "\n*** rnorm: begin tests. ***\n" << std::endl;
+// single input
+template<typename T>
+statslib_constexpr T ppois(const int x, const T rate_par, const bool log_form);
 
-    //
+statslib_constexpr double ppois(const int x);
+statslib_constexpr double ppois(const int x, const bool log_form);
+statslib_constexpr double ppois(const int x, const double rate_par);
 
-    double normal_rand = stats::rnorm(mu,sigma);
+// matrix/vector input
+#ifndef STATS_NO_ARMA
+arma::mat ppois_int(const arma::mat& x, const double* rate_par_inp, bool log_form);
 
-    std::cout << "normal rv draw: " << normal_rand << std::endl;
+arma::mat ppois(const arma::mat& x);
+arma::mat ppois(const arma::mat& x, const bool log_form);
+arma::mat ppois(const arma::mat& x, const double rate_par);
+arma::mat ppois(const arma::mat& x, const double rate_par, const bool log_form);
+#endif
 
-    int n = 100000;
-    arma::vec normal_vec = stats::rnorm(n,mu,sigma);
+#include "ppois.ipp"
 
-    std::cout << "normal rv mean: " << arma::mean(normal_vec) << ". Should be close to: " << normal_mean << std::endl;
-    std::cout << "normal rv variance: " << arma::var(normal_vec) << ". Should be close to: " << normal_var << std::endl;
-
-    //
-    // coverage tests
-    
-    stats::rnorm(100,100,mu,sigma);
-
-    std::cout << "\n*** rnorm: end tests. ***\n" << std::endl;
-
-    return 0;
-}
+#endif

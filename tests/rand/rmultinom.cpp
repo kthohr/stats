@@ -16,8 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rmultinom.cpp -o rmultinom.test -framework Accelerate
-
 #include "stats.hpp"
 
 int main()

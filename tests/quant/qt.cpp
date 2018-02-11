@@ -16,8 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -I./../../include -I/opt/local/include qt.cpp -o qt.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
 #include "stats.hpp"

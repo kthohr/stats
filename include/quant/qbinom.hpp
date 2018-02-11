@@ -17,7 +17,7 @@
   ################################################################################*/
 
 /*
- * quantile function of the univariate Binomial distribution
+ * quantile function of the Binomial distribution
  */
 
 #ifndef _statslib_qbinom_HPP

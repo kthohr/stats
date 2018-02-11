@@ -16,36 +16,21 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+/* 
+ * Sample from a Poisson distribution
+ */
 
-int main()
-{
-    double mu = 2.5;
-    double sigma = 1.5;
-    
-    double normal_mean = mu;
-    double normal_var = sigma*sigma;
+#ifndef _statslib_rpois_HPP
+#define _statslib_rpois_HPP
 
-    std::cout << "\n*** rnorm: begin tests. ***\n" << std::endl;
+template<typename T>
+T rpois(const T rate_par);
 
-    //
+#ifndef STATS_NO_ARMA
+arma::mat rpois(const uint_t n, const double rate_par);
+arma::mat rpois(const uint_t n, const uint_t k, const double rate_par);
+#endif
 
-    double normal_rand = stats::rnorm(mu,sigma);
+#include "rpois.ipp"
 
-    std::cout << "normal rv draw: " << normal_rand << std::endl;
-
-    int n = 100000;
-    arma::vec normal_vec = stats::rnorm(n,mu,sigma);
-
-    std::cout << "normal rv mean: " << arma::mean(normal_vec) << ". Should be close to: " << normal_mean << std::endl;
-    std::cout << "normal rv variance: " << arma::var(normal_vec) << ". Should be close to: " << normal_var << std::endl;
-
-    //
-    // coverage tests
-    
-    stats::rnorm(100,100,mu,sigma);
-
-    std::cout << "\n*** rnorm: end tests. ***\n" << std::endl;
-
-    return 0;
-}
+#endif

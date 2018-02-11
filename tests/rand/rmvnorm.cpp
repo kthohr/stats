@@ -16,9 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include rmvnorm.cpp -o rmvnorm.test -framework Accelerate
-
-#include "armadillo"
 #include "stats.hpp"
 
 int main()

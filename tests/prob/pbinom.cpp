@@ -16,11 +16,8 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include pbinom.cpp -o pbinom.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
-#include "armadillo"
 #include "stats.hpp"
 
 int main()

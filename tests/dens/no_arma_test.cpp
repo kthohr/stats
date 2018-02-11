@@ -16,9 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include no_arma_test.cpp -o no_arma_test.test -framework Accelerate
-// g++-mp-7 -O3 -Wall -std=c++11 -DSTATS_NO_ARMA -I./../../include -I/opt/local/include no_arma_test.cpp -o no_arma_test.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
 #include "stats.hpp"

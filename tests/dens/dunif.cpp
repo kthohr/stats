@@ -16,9 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -fconstexpr-depth=2000 -I./../../include -I/opt/local/include dunif.cpp -o dunif.test -framework Accelerate
-// g++-mp-7 -O2 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dunif.cpp -o dunif.test -framework Accelerate
-
 #include <cmath>
 #include <iomanip>
 #include "stats.hpp"

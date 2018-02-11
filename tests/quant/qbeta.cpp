@@ -16,8 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -DSTATS_GO_INLINE qbeta.cpp -o qbeta.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
 #include "stats.hpp"
@@ -123,18 +121,18 @@ int main()
     //
     // coverage tests
 
-    stats::pbeta(val_6);
-    stats::pbeta(val_6,true);
-    stats::pbeta(val_6,alpha_par,beta_par);
+    stats::qbeta(val_6);
+    stats::qbeta(val_6,true);
+    stats::qbeta(val_6,alpha_par,beta_par);
 
     arma::mat x_mat(2,1);
     x_mat(0,0) = 0.7;
     x_mat(1,0) = 0.8;
 
-    stats::pbeta(x_mat);
-    stats::pbeta(x_mat,true);
-    stats::pbeta(x_mat,alpha_par,beta_par);
-    stats::pbeta(x_mat,alpha_par,beta_par,true);
+    stats::qbeta(x_mat);
+    stats::qbeta(x_mat,true);
+    stats::qbeta(x_mat,alpha_par,beta_par);
+    stats::qbeta(x_mat,alpha_par,beta_par,true);
 
     return 0;
 }

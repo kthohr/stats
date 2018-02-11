@@ -38,6 +38,7 @@
 #include "rlogis.hpp"
 #include "rmultinom.hpp"
 #include "rmvnorm.hpp"
+#include "rpois.hpp"
 #include "rt.hpp"
 #include "rwish.hpp"
 

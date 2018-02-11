@@ -16,11 +16,8 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include punif_test.cpp -o punif.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
-#include "armadillo"
 #include "stats.hpp"
 
 int main()

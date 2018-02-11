@@ -16,36 +16,33 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+/* 
+ * Sample from a Poisson distribution
+ */
 
-int main()
+template<typename T>
+T
+rpois(const T rate_par)
 {
-    double mu = 2.5;
-    double sigma = 1.5;
-    
-    double normal_mean = mu;
-    double normal_var = sigma*sigma;
-
-    std::cout << "\n*** rnorm: begin tests. ***\n" << std::endl;
-
-    //
-
-    double normal_rand = stats::rnorm(mu,sigma);
-
-    std::cout << "normal rv draw: " << normal_rand << std::endl;
-
-    int n = 100000;
-    arma::vec normal_vec = stats::rnorm(n,mu,sigma);
-
-    std::cout << "normal rv mean: " << arma::mean(normal_vec) << ". Should be close to: " << normal_mean << std::endl;
-    std::cout << "normal rv variance: " << arma::var(normal_vec) << ". Should be close to: " << normal_var << std::endl;
-
-    //
-    // coverage tests
-    
-    stats::rnorm(100,100,mu,sigma);
-
-    std::cout << "\n*** rnorm: end tests. ***\n" << std::endl;
-
-    return 0;
+    return qpois(runif<T>(T(0.0),T(1.0)),rate_par,false);
 }
+
+#ifndef STATS_NO_ARMA
+
+inline
+arma::mat
+rpois(const uint_t n, const double rate_par)
+{
+    return rpois(n,1,rate_par);
+}
+
+inline
+arma::mat
+rpois(const uint_t n, const uint_t k, const double rate_par)
+{
+    arma::mat U = runif(n,k,0.0,1.0);
+
+    return qpois(U,rate_par);
+}
+
+#endif

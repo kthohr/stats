@@ -16,11 +16,8 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include qnorm_test.cpp -o qnorm.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
-#include "armadillo"
 #include "stats.hpp"
 
 int main()

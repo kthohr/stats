@@ -16,8 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -I./../../include -I/opt/local/include dnorm.cpp -o dnorm.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
 #include "stats.hpp"

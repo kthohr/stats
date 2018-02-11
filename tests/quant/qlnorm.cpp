@@ -16,11 +16,8 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include qlnorm.cpp -o qlnorm.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
-#include "armadillo"
 #include "stats.hpp"
 
 int main()

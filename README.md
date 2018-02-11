@@ -25,6 +25,7 @@ cdf, pdf, quantile and random sampling functions are available for the following
 * Logistic
 * Log-Normal
 * Normal (Gaussian)
+* Poisson
 * Student's t
 * Uniform
 

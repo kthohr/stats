@@ -16,8 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O2 -Wall -std=c++11 -fconstexpr-depth=2000 dbeta.cpp -o dbeta.test -framework Accelerate
-
 #include <cmath>
 #include <iomanip>
 #include "stats.hpp"

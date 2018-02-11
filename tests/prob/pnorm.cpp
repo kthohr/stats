@@ -16,11 +16,8 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include pnorm_test.cpp -o pnorm.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
-#include "armadillo"
 #include "stats.hpp"
 
 int main()

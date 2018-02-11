@@ -16,8 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-5 -O2 -Wall -std=c++11 -I./../../ -I/opt/local/include plogis_test.cpp -o plogis.test -framework Accelerate
-
 #include <math.h>
 #include <iomanip>
 #include "stats.hpp"

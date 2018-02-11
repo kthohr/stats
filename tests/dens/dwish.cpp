@@ -16,8 +16,6 @@
   ##
   ################################################################################*/
 
-// g++-mp-7 -O3 -Wall -std=c++11 -DSTATSLIB_GO_CONST -I./../../include -I/opt/local/include dwish.cpp -o dwish.test -framework Accelerate
-
 #include <cmath>
 #include <iomanip>
 #include "stats.hpp"
