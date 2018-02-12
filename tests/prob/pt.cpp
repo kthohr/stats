@@ -112,9 +112,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_9 << ". Success = " << success_9 << std::endl;
 
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        std::cout << "\n*** pt: all tests passed. ***\n" << std::endl;
+        std::cout << "\n*** pt: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
     } else {
-        std::cout << "\n*** pt: some tests FAILED. ***\n" << std::endl;
+        std::cout << "\n*** pt: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
     }
 
     //

@@ -52,9 +52,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        std::cout << "\n*** df: all tests passed. ***\n" << std::endl;
+        std::cout << "\n*** df: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
     } else {
-        std::cout << "\n*** df: some tests FAILED. ***\n" << std::endl;
+        std::cout << "\n*** df: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
     }
 
     //

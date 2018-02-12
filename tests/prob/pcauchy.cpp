@@ -64,9 +64,9 @@ int main()
     //
 
     if (success_1 && success_2 && success_3) {
-        std::cout << "\n*** pcauchy: all tests passed. ***\n" << std::endl;
+        std::cout << "\n*** pcauchy: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
     } else {
-        std::cout << "\n*** pcauchy: some tests FAILED. ***\n" << std::endl;
+        std::cout << "\n*** pcauchy: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
     }
 
     //

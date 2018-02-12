@@ -50,9 +50,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
-        std::cout << "\n*** qcauchy: all tests passed. ***\n" << std::endl;
+        std::cout << "\n*** qcauchy: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
     } else {
-        std::cout << "\n*** qcauchy: some tests FAILED. ***\n" << std::endl;
+        std::cout << "\n*** qcauchy: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
     }
 
     //

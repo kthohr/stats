@@ -59,9 +59,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_3 << ". Success = " << success_3 << std::endl;
 
     if (success_1 && success_2 && success_3) {
-        std::cout << "\n*** dbinom: all tests passed. ***\n" << std::endl;
+        std::cout << "\n*** dbinom: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
     } else {
-        std::cout << "\n*** dbinom: some tests FAILED. ***\n" << std::endl;
+        std::cout << "\n*** dbinom: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
     }
 
     //
