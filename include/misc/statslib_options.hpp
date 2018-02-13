@@ -16,6 +16,10 @@
   ##
   ################################################################################*/
 
+#if !defined(_OPENMP) && !defined(STATS_NO_OMP)
+    #define STATS_NO_OMP
+#endif
+
 #ifndef STATS_NO_ARMA
     #ifdef USE_RCPP_ARMADILLO
         #include <RcppArmadillo.h>
@@ -42,23 +46,6 @@
     #include <cmath>
     #define stats_math std
 #endif
-
-// #ifndef statslib_constexpr
-//     #if __cplusplus >= 201300
-//         #define statslib_constexpr constexpr
-//     #else 
-//         #define statslib_constexpr inline
-//     #endif
-// #endif
-
-// #ifndef stats_math
-//     #if __cplusplus >= 201300
-//         #define stats_math gcem
-//     #else
-//         #include <cmath>
-//         #define stats_math std
-//     #endif
-// #endif
 
 namespace stats {
     static const double inf = std::numeric_limits<double>::infinity();
