@@ -63,7 +63,17 @@ int main()
 
     //
 
-    if (success_1 && success_2 && success_3) {
+    double x_4 = 1001.0;
+    double val_4 = 0.999682;
+    double dens_4 = stats::pcauchy(x_4,0.0,1.0);
+
+    bool success_4 = (std::abs(dens_4 - val_4) < err_tol);
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "pcauchy(" << x_4 << "): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_4 << ". Success = " << success_4 << std::endl;
+
+    //
+
+    if (success_1 && success_2 && success_3 && success_4) {
         std::cout << "\n*** pcauchy: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
     } else {
         std::cout << "\n*** pcauchy: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
