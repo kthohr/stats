@@ -20,11 +20,11 @@
  * Sample from a t distribution
  */
 
-inline
-double
+template<typename T>
+T
 rt(const int dof_par)
 {
-    return rnorm() / std::sqrt( rchisq(dof_par) / static_cast<double>(dof_par) );
+    return rnorm<T>() / std::sqrt( rchisq<T>(dof_par) / static_cast<T>(dof_par) );
 }
 
 #ifndef STATS_NO_ARMA

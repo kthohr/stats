@@ -27,15 +27,14 @@ runif(const T a_par, const T b_par)
     std::mt19937_64 engine(std::random_device{}());
     std::uniform_real_distribution<T> unif_dist(std::nextafter(a_par, b_par),b_par); // converts from [a,b) to (a,b)
 
-    // return ( a_par + (b_par - a_par)*unif_dist(engine) ); 
-    return ( unif_dist(engine) ); 
+    return unif_dist(engine); 
 }
 
-inline
-double
+template<typename T>
+T
 runif()
 {
-    return runif(0.0,1.0);
+    return runif(T(0.0),T(1.0));
 }
 
 #ifndef STATS_NO_ARMA

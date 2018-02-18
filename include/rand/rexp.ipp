@@ -20,11 +20,11 @@
  * Sample from an exponential distribution
  */
 
-inline
-double
-rexp(const double rate_par)
+template<typename T>
+T
+rexp(const T rate_par)
 {
-    return qexp(runif(),rate_par);
+    return qexp<T>(runif<T>(),rate_par,false);
 }
 
 #ifndef STATS_NO_ARMA

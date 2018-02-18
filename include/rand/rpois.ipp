@@ -24,7 +24,7 @@ template<typename T>
 T
 rpois(const T rate_par)
 {
-    return qpois(runif<T>(T(0.0),T(1.0)),rate_par,false);
+    return qpois(runif<T>(),rate_par,false);
 }
 
 #ifndef STATS_NO_ARMA

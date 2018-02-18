@@ -26,7 +26,8 @@
 template<typename T>
 T rnorm(const T mu_par, const T sigma_par);
 
-double rnorm();
+template<typename T = double>
+T rnorm();
 
 #ifndef STATS_NO_ARMA
 arma::mat rnorm(const uint_t n, const double mu_par, const double sigma_par);

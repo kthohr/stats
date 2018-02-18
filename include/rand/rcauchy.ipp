@@ -24,7 +24,7 @@ template<typename T>
 T
 rcauchy(const T mu_par, const T sigma_par)
 {
-    return qcauchy(runif(),mu_par,sigma_par);
+    return qcauchy<T>(runif<T>(),mu_par,sigma_par,false);
 }
 
 #ifndef STATS_NO_ARMA

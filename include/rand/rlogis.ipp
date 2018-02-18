@@ -24,7 +24,7 @@ template<typename T>
 T
 rlogis(const T mu_par, const T sigma_par)
 {
-    return qlogis(runif(),mu_par,sigma_par);
+    return qlogis(runif<T>(),mu_par,sigma_par);
 }
 
 #ifndef STATS_NO_ARMA

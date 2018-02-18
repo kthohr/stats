@@ -23,7 +23,8 @@
 #ifndef _statslib_rt_HPP
 #define _statslib_rt_HPP
 
-double rt(const int dof_par);
+template<typename T = double>
+T rt(const int dof_par);
 
 #ifndef STATS_NO_ARMA
 arma::mat rt(const uint_t n, const int dof_par);

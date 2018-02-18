@@ -24,8 +24,8 @@ template<typename T>
 T
 rbeta(const T a_par, const T b_par)
 {
-    const T X = rgamma(a_par,1.0);
-    const T Y = rgamma(b_par,1.0);
+    const T X = rgamma(a_par,T(1.0));
+    const T Y = rgamma(b_par,T(1.0));
 
     //
     

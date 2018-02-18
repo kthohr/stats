@@ -28,17 +28,16 @@ T
 rnorm(const T mu_par, const T sigma_par)
 {
     std::mt19937_64 engine(std::random_device{}());
-    std::normal_distribution<double> norm_dist(0.0,1.0);
+    std::normal_distribution<T> norm_dist(T(0.0),T(1.0));
 
-    // return mu_par + sigma_par*arma::as_scalar(arma::randn(1));
     return mu_par + sigma_par*norm_dist(engine);
 }
 
-inline
-double
+template<typename T>
+T
 rnorm()
 {
-    return rnorm(0.0,1.0);
+    return rnorm(T(0.0),T(1.0));
 }
 
 #ifndef STATS_NO_ARMA

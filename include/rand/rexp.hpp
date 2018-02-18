@@ -23,7 +23,8 @@
 #ifndef _statslib_rexp_HPP
 #define _statslib_rexp_HPP
 
-double rexp(const double rate_par);
+template<typename T>
+T rexp(const T rate_par);
 
 #ifndef STATS_NO_ARMA
 arma::mat rexp(const uint_t n, const double rate_par);

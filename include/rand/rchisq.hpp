@@ -23,7 +23,8 @@
 #ifndef _statslib_rchisq_HPP
 #define _statslib_rchisq_HPP
 
-double rchisq(const int dof_par);
+template<typename T = double>
+T rchisq(const int dof_par);
 
 #ifndef STATS_NO_ARMA
 arma::mat rchisq(const uint_t n, const int dof_par);

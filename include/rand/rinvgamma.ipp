@@ -24,7 +24,7 @@ template<typename T>
 T
 rinvgamma(T shape_par, T rate_par)
 {
-    return 1.0/rgamma(shape_par,1.0/rate_par);
+    return T(1.0) / rgamma(shape_par,T(1.0)/rate_par);
 }
 
 #ifndef STATS_NO_ARMA

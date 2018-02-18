@@ -20,25 +20,26 @@
  * Sample from a Chi-Squared distribution
  */
 
-inline
-double
+template<typename T>
+T
 rchisq(const int dof_par)
 {
     double ret = 0;
     
     //
     
-    if (dof_par < 50) { // sum of squared (standard) normals
-        // arma::mat X = rnorm(dof_par,1,0.0,1.0);
-        // ret = arma::as_scalar(X.t() * X);
-
-        for (int i=0; i < dof_par; i++) {
-            double norm_val = rnorm();
+    if (dof_par < 50)
+    {   // sum of squared (standard) normals
+        for (int i=0; i < dof_par; i++)
+        {
+            T norm_val = rnorm<T>();
             ret += norm_val*norm_val;
         }
 
-    } else { // Fisher's asymptotic approximation
-        ret = 0.5 * std::pow(rnorm() + std::sqrt(static_cast<double>(2*dof_par - 1)), 2);
+    }
+    else
+    {   // Fisher's asymptotic approximation
+        ret = 0.5 * std::pow(rnorm<T>() + std::sqrt(static_cast<T>(2*dof_par - 1)), 2);
     }
     
     //

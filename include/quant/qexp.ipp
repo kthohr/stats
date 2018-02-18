@@ -36,7 +36,8 @@ statslib_constexpr
 T
 qexp(const T p, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? ( p <= 0.0 ? - stats::inf : stmath::log(qexp_int(p,rate_par)) ) : ( p <= 0.0 ? 0.0 : qexp_int(p,rate_par) ) );
+    return ( log_form == true ? ( p <= 0.0 ? - stats::inf : stmath::log(qexp_int(p,rate_par)) ) : 
+                                ( p <= 0.0 ? 0.0 : qexp_int(p,rate_par) ) );
 }
 
 statslib_constexpr

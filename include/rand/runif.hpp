@@ -24,9 +24,10 @@
 #define _statslib_runif_HPP
 
 template<typename T>
-T rnorm(const T a_par, const T b_par);
+T runif(const T a_par, const T b_par);
 
-double runif();
+template<typename T = double>
+T runif();
 
 #ifndef STATS_NO_ARMA
 arma::mat runif(const uint_t n, const double a_par, const double b_par);
