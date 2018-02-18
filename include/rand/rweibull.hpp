@@ -16,30 +16,21 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_dens_HPP
-#define _statslib_dens_HPP
+/* 
+ * Sample from a Weibull distribution
+ */
 
-#include "dbern.hpp"
-#include "dbeta.hpp"
-#include "dcauchy.hpp"
-#include "dchisq.hpp"
-#include "dexp.hpp"
-#include "df.hpp"
-#include "dgamma.hpp"
-#include "dinvgamma.hpp"
-#include "dinvwish.hpp"
-#include "dlaplace.hpp"
-#include "dlogis.hpp"
-#include "dmvnorm.hpp"
-#include "dnorm.hpp"
-#include "dpois.hpp"
-#include "dt.hpp"
-#include "dunif.hpp"
-#include "dweibull.hpp"
-#include "dwish.hpp"
+#ifndef _statslib_rweibull_HPP
+#define _statslib_rweibull_HPP
 
-// these depend on one of the above
-#include "dbinom.hpp"
-#include "dlnorm.hpp"
+template<typename T>
+T rweibull(const T shape_par, const T scale_par);
+
+#ifndef STATS_NO_ARMA
+arma::mat rweibull(const uint_t n, const double shape_par, const double scale_par);
+arma::mat rweibull(const uint_t n, const uint_t k, const double shape_par, const double scale_par);
+#endif
+
+#include "rweibull.ipp"
 
 #endif
