@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dbeta_int(const T x, const T a_par, const T b_par)
 {
-    return ( - (stats_math::lgamma(a_par) + stats_math::lgamma(b_par) - stats_math::lgamma(a_par+b_par)) + (a_par - 1.0)*stats_math::log(x) + (b_par - 1.0)*stats_math::log(1.0 - x) );
+    return ( - (stmath::lgamma(a_par) + stmath::lgamma(b_par) - stmath::lgamma(a_par+b_par)) + (a_par - 1.0)*stmath::log(x) + (b_par - 1.0)*stmath::log(1.0 - x) );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 dbeta(const T x, const T a_par, const T b_par, const bool log_form)
 {
-    return ( log_form == true ? dbeta_int(x,a_par,b_par) : stats_math::exp(dbeta_int(x,a_par,b_par)) );
+    return ( log_form == true ? dbeta_int(x,a_par,b_par) : stmath::exp(dbeta_int(x,a_par,b_par)) );
 }
 
 statslib_constexpr

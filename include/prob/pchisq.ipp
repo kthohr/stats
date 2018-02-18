@@ -36,7 +36,7 @@ statslib_constexpr
 T
 pchisq(const T x, const T dof_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pchisq_int(x,dof_par)) : pchisq_int(x,dof_par) );
+    return ( log_form == true ? stmath::log(pchisq_int(x,dof_par)) : pchisq_int(x,dof_par) );
 }
 
 statslib_constexpr

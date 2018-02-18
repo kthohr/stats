@@ -36,7 +36,7 @@ statslib_constexpr
 T
 pgamma(const T x, const T shape_par, const T scale_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pgamma_int(x,shape_par,scale_par)) : pgamma_int(x,shape_par,scale_par) );
+    return ( log_form == true ? stmath::log(pgamma_int(x,shape_par,scale_par)) : pgamma_int(x,shape_par,scale_par) );
 }
 
 statslib_constexpr

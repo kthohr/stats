@@ -36,7 +36,7 @@ statslib_constexpr
 int
 qbinom(const T p, const int n_trials, const T prob_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qbinom_int(p,n_trials,prob_par,(T)0.0,0)) : qbinom_int(p,n_trials,prob_par,(T)0.0,0) );
+    return ( log_form == true ? stmath::log(qbinom_int(p,n_trials,prob_par,(T)0.0,0)) : qbinom_int(p,n_trials,prob_par,(T)0.0,0) );
 }
 
 statslib_constexpr

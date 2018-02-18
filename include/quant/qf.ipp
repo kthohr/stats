@@ -44,7 +44,7 @@ statslib_constexpr
 T
 qf(const T p, const T df1_par, const T df2_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qf_int(p,df1_par/T(2.0),df2_par/T(2.0))) : qf_int(p,df1_par/T(2.0),df2_par/T(2.0)) );
+    return ( log_form == true ? stmath::log(qf_int(p,df1_par/T(2.0),df2_par/T(2.0))) : qf_int(p,df1_par/T(2.0),df2_par/T(2.0)) );
 }
 
 statslib_constexpr

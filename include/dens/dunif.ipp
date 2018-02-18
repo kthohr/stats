@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dunif(const T x, const T a_par, const T b_par, const bool log_form)
 {
-    return ( log_form == true ? - stats_math::log(b_par-a_par) : 1.0 / (b_par-a_par) );
+    return ( log_form == true ? - stmath::log(b_par-a_par) : 1.0 / (b_par-a_par) );
 }
 
 statslib_constexpr

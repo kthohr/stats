@@ -28,7 +28,7 @@ statslib_constexpr
 T
 plnorm(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( pnorm(stats_math::log(x),mu_par,sigma_par,log_form) );
+    return ( pnorm(stmath::log(x),mu_par,sigma_par,log_form) );
 }
 
 statslib_constexpr

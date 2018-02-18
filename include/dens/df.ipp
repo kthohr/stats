@@ -36,7 +36,7 @@ statslib_constexpr
 T
 df_int(const T x, const T a_par, const T b_par, const T abx, const bool log_form)
 {
-    return ( log_form == true ? dbeta(abx/(1+abx),a_par,b_par,true)  + stats_math::log(df_int_adj(x,(a_par/b_par)/(T(1.0) + abx))) :
+    return ( log_form == true ? dbeta(abx/(1+abx),a_par,b_par,true)  + stmath::log(df_int_adj(x,(a_par/b_par)/(T(1.0) + abx))) :
                                 dbeta(abx/(1+abx),a_par,b_par,false) * df_int_adj(x,(a_par/b_par)/(T(1.0) + abx)) );
 }
 

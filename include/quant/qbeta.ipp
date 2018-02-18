@@ -36,7 +36,7 @@ statslib_constexpr
 T
 qbeta(const T p, const T a_par, const T b_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qbeta_int(p,a_par,b_par)) : qbeta_int(p,a_par,b_par) );
+    return ( log_form == true ? stmath::log(qbeta_int(p,a_par,b_par)) : qbeta_int(p,a_par,b_par) );
 }
 
 statslib_constexpr

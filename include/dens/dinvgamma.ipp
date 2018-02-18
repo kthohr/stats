@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dinvgamma_int(const T x, const T shape_par, const T rate_par)
 {
-    return ( - stats_math::lgamma(shape_par) + shape_par*stats_math::log(rate_par) + (-shape_par-1)*stats_math::log(x) - rate_par/x );
+    return ( - stmath::lgamma(shape_par) + shape_par*stmath::log(rate_par) + (-shape_par-1)*stmath::log(x) - rate_par/x );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 dinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? dinvgamma_int(x,shape_par,rate_par) : stats_math::exp(dinvgamma_int(x,shape_par,rate_par)) );
+    return ( log_form == true ? dinvgamma_int(x,shape_par,rate_par) : stmath::exp(dinvgamma_int(x,shape_par,rate_par)) );
 }
 
 statslib_constexpr

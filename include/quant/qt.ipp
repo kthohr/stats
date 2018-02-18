@@ -60,7 +60,7 @@ statslib_constexpr
 long double
 qt_int_coef_d(const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c)
 {
-    return ( static_cast<long double>(dof_par) * stats_math::sqrt(coef_a) * GCEM_SQRT_HALF_PI * ( 1.0L + (-3.0L + 94.5L/(coef_b + coef_c))/coef_b ) );
+    return ( static_cast<long double>(dof_par) * stmath::sqrt(coef_a) * GCEM_SQRT_HALF_PI * ( 1.0L + (-3.0L + 94.5L/(coef_b + coef_c))/coef_b ) );
 }
 
 // initial y
@@ -69,7 +69,7 @@ statslib_constexpr
 long double
 qt_int_y_init(const long double p, const int dof_par, const long double coef_d)
 {
-    return ( stats_math::pow( coef_d*p , 2.0L/static_cast<long double>(dof_par) ) );
+    return ( stmath::pow( coef_d*p , 2.0L/static_cast<long double>(dof_par) ) );
 }
 
 // update y
@@ -81,7 +81,7 @@ qt_int_y_1_update(const int stage, const long double y, const long double x, con
     return ( stage == 1 ? x*x : 
              stage == 2 ? x * ( 1.0L + ( ( y * ( 36.0L + y * (6.3L + 0.4L*y) ) + 94.5)/coef_c - y - 3.0L ) / coef_b ) :
              stage == 3 ? coef_a * y * y :
-                          (y > 0.1L ? stats_math::exp(y) - 1.0L : y * (1.0L + y * (12.0L + y * (4.0L + y))/24.0L ) ) );
+                          (y > 0.1L ? stmath::exp(y) - 1.0L : y * (1.0L + y * (12.0L + y * (4.0L + y))/24.0L ) ) );
 }
 
 statslib_constexpr
@@ -113,7 +113,7 @@ statslib_constexpr
 long double
 qt_int_finish(const long double p, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
 {
-    return ( stats_math::sqrt( dof_par * qt_int_choose(p, qt_int_y_init(p,dof_par,coef_d), dof_par,coef_a,coef_b,coef_c,coef_d) ) );
+    return ( stmath::sqrt( dof_par * qt_int_choose(p, qt_int_y_init(p,dof_par,coef_d), dof_par,coef_a,coef_b,coef_c,coef_d) ) );
 }
 
 statslib_constexpr
@@ -138,8 +138,8 @@ statslib_constexpr
 long double
 qt_int(const long double p, const int dof_par)
 {
-    return ( dof_par == 1 ? stats_math::tan(GCEM_PI*(p - 0.5L)) : // Cauchy case
-             dof_par == 2 ? (2*p - 1.0L) / stats_math::sqrt(2*p*(1.0L - p)) :
+    return ( dof_par == 1 ? stmath::tan(GCEM_PI*(p - 0.5L)) : // Cauchy case
+             dof_par == 2 ? (2*p - 1.0L) / stmath::sqrt(2*p*(1.0L - p)) :
                             qt_int_main(p,dof_par) );
 }
 
@@ -150,7 +150,7 @@ statslib_constexpr
 T
 qt(const T p, const int dof_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qt_int(p,dof_par)) : qt_int(p,dof_par) );
+    return ( log_form == true ? stmath::log(qt_int(p,dof_par)) : qt_int(p,dof_par) );
 }
 
 statslib_constexpr

@@ -53,7 +53,7 @@ T
 pt_int(const T x, const int r_par)
 {
     return ( r_par == 1 ? pcauchy_int(x) :
-             r_par == 2 ? T(0.5) + x / (T(2.0) * stats_math::sqrt(x*x + T(2.0)) ) :
+             r_par == 2 ? T(0.5) + x / (T(2.0) * stmath::sqrt(x*x + T(2.0)) ) :
                           pt_int_main(x,T(r_par)) );
 }
 
@@ -62,7 +62,7 @@ statslib_constexpr
 T
 pt(const T x, const int dof_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pt_int(x, dof_par)) : pt_int(x, dof_par) );
+    return ( log_form == true ? stmath::log(pt_int(x, dof_par)) : pt_int(x, dof_par) );
 }
 
 statslib_constexpr

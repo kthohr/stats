@@ -36,7 +36,7 @@ statslib_constexpr
 T
 qgamma(const T p, const T shape_par, const T scale_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qgamma_int(p,shape_par,scale_par)) : qgamma_int(p,shape_par,scale_par) );
+    return ( log_form == true ? stmath::log(qgamma_int(p,shape_par,scale_par)) : qgamma_int(p,shape_par,scale_par) );
 }
 
 statslib_constexpr

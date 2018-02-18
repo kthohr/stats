@@ -28,7 +28,7 @@ statslib_constexpr
 T
 plaplace_int(const T x, const T mu_par, const T sigma_par)
 {
-    return ( 0.5 + 0.5*gcem::sgn(x - mu_par)*(1.0 - stats_math::exp(-stats_math::abs(x - mu_par) / sigma_par)) );
+    return ( 0.5 + 0.5*gcem::sgn(x - mu_par)*(1.0 - stmath::exp(-stmath::abs(x - mu_par) / sigma_par)) );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 plaplace(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(plaplace_int(x,mu_par,sigma_par)) : plaplace_int(x,mu_par,sigma_par) );
+    return ( log_form == true ? stmath::log(plaplace_int(x,mu_par,sigma_par)) : plaplace_int(x,mu_par,sigma_par) );
 }
 
 statslib_constexpr

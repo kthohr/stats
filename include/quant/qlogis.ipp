@@ -28,7 +28,7 @@ statslib_constexpr
 T
 qlogis_int(const T p, const T mu_par, const T sigma_par)
 {
-    return ( mu_par + sigma_par*stats_math::log(p/(1.0 - p)) );
+    return ( mu_par + sigma_par*stmath::log(p/(1.0 - p)) );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 qlogis(const T p, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qlogis_int(p,mu_par,sigma_par)) : qlogis_int(p,mu_par,sigma_par) );
+    return ( log_form == true ? stmath::log(qlogis_int(p,mu_par,sigma_par)) : qlogis_int(p,mu_par,sigma_par) );
 }
 
 statslib_constexpr

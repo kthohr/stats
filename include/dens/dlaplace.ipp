@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dlaplace_int(const T x, const T mu_par, const T sigma_par)
 {
-    return ( - stats_math::log(2*sigma_par) - stats_math::abs(x - mu_par) / sigma_par );
+    return ( - stmath::log(2*sigma_par) - stmath::abs(x - mu_par) / sigma_par );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 dlaplace(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? dlaplace_int(x,mu_par,sigma_par) : stats_math::exp(dlaplace_int(x,mu_par,sigma_par)) );
+    return ( log_form == true ? dlaplace_int(x,mu_par,sigma_par) : stmath::exp(dlaplace_int(x,mu_par,sigma_par)) );
 }
 
 statslib_constexpr

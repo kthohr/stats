@@ -36,7 +36,7 @@ statslib_constexpr
 int
 qpois(const T p, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qpois_int(p,rate_par,(T)0.0,0)) : qpois_int(p,rate_par,(T)0.0,0) );
+    return ( log_form == true ? stmath::log(qpois_int(p,rate_par,(T)0.0,0)) : qpois_int(p,rate_par,(T)0.0,0) );
 }
 
 statslib_constexpr

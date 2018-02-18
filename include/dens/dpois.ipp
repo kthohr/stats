@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dpois_int(const int x, const T rate_par)
 {
-    return ( x * stats_math::log(rate_par) - rate_par - stats_math::log( T(gcem::factorial(x)) ) );
+    return ( x * stmath::log(rate_par) - rate_par - stmath::log( T(gcem::factorial(x)) ) );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 dpois(const int x, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? dpois_int(x,rate_par) : stats_math::exp(dpois_int(x,rate_par)) );
+    return ( log_form == true ? dpois_int(x,rate_par) : stmath::exp(dpois_int(x,rate_par)) );
 }
 
 statslib_constexpr

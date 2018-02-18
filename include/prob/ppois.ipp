@@ -31,8 +31,8 @@ ppois_int_recur(const uint_t x, const T rate_par, const size_t r_count)
     return ( x == 0 ? T(1.0) : 
              x == 1 ? T(1.0) + rate_par : 
              r_count == 0 ? T(1.0) + ppois_int_recur(x,rate_par,r_count+1) :
-             r_count < x ? stats_math::pow(rate_par,r_count) / gcem::factorial(r_count) + ppois_int_recur(x,rate_par,r_count+1) :  
-                           stats_math::pow(rate_par,r_count) / gcem::factorial(r_count) );
+             r_count < x ? stmath::pow(rate_par,r_count) / gcem::factorial(r_count) + ppois_int_recur(x,rate_par,r_count+1) :  
+                           stmath::pow(rate_par,r_count) / gcem::factorial(r_count) );
 }
 
 template<typename T>
@@ -40,7 +40,7 @@ statslib_constexpr
 T
 ppois_int(const int x, const T rate_par)
 {
-    return ( stats_math::exp(-rate_par) * ppois_int_recur(x,rate_par,0) );
+    return ( stmath::exp(-rate_par) * ppois_int_recur(x,rate_par,0) );
 }
 
 template<typename T>
@@ -48,7 +48,7 @@ statslib_constexpr
 T
 ppois(const int x, const T rate_par, const bool log_form)
 {
-    return ( log_form == false ? ppois_int(x,rate_par) : stats_math::log(ppois_int(x,rate_par)) );
+    return ( log_form == false ? ppois_int(x,rate_par) : stmath::log(ppois_int(x,rate_par)) );
 }
 
 statslib_constexpr

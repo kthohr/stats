@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dgamma_int(const T x, const T shape_par, const T scale_par)
 {
-    return ( - stats_math::lgamma(shape_par) - shape_par*stats_math::log(scale_par) + (shape_par-1)*stats_math::log(x) - x/scale_par );
+    return ( - stmath::lgamma(shape_par) - shape_par*stmath::log(scale_par) + (shape_par-1)*stmath::log(x) - x/scale_par );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 dgamma(const T x, const T shape_par, const T scale_par, const bool log_form)
 {
-    return ( log_form == true ? dgamma_int(x,shape_par,scale_par) : stats_math::exp(dgamma_int(x,shape_par,scale_par)) );
+    return ( log_form == true ? dgamma_int(x,shape_par,scale_par) : stmath::exp(dgamma_int(x,shape_par,scale_par)) );
 }
 
 statslib_constexpr

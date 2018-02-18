@@ -36,7 +36,7 @@ statslib_constexpr
 int
 qbern(const T p, const T prob_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qbern_int(p,prob_par)) : qbern_int(p,prob_par) );
+    return ( log_form == true ? stmath::log(qbern_int(p,prob_par)) : qbern_int(p,prob_par) );
 }
 
 statslib_constexpr

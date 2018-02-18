@@ -40,11 +40,11 @@
 
 #ifndef STATS_GO_INLINE
     #define statslib_constexpr constexpr
-    #define stats_math gcem
+    #define stmath gcem
 #else
     #define statslib_constexpr inline
     #include <cmath>
-    #define stats_math std
+    #define stmath std
 #endif
 
 namespace stats {

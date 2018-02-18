@@ -36,7 +36,7 @@ statslib_constexpr
 T
 qinvgamma(const T p, const T shape_par, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qinvgamma_int(p,shape_par,rate_par)) : qinvgamma_int(p,shape_par,rate_par) );
+    return ( log_form == true ? stmath::log(qinvgamma_int(p,shape_par,rate_par)) : qinvgamma_int(p,shape_par,rate_par) );
 }
 
 statslib_constexpr

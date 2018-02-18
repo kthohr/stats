@@ -28,7 +28,7 @@ statslib_constexpr
 T
 qcauchy_int(const T p, const T mu_par, const T sigma_par)
 {
-    return ( mu_par + sigma_par*stats_math::tan(GCEM_PI*(p - T(0.5))) );
+    return ( mu_par + sigma_par*stmath::tan(GCEM_PI*(p - T(0.5))) );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 qcauchy(const T p, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qcauchy_int(p,mu_par,sigma_par)) : qcauchy_int(p,mu_par,sigma_par) );
+    return ( log_form == true ? stmath::log(qcauchy_int(p,mu_par,sigma_par)) : qcauchy_int(p,mu_par,sigma_par) );
 }
 
 statslib_constexpr

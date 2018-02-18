@@ -36,7 +36,7 @@ statslib_constexpr
 T
 dcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(dcauchy_int((x-mu_par)/sigma_par,sigma_par)) : dcauchy_int((x-mu_par)/sigma_par,sigma_par) );
+    return ( log_form == true ? stmath::log(dcauchy_int((x-mu_par)/sigma_par,sigma_par)) : dcauchy_int((x-mu_par)/sigma_par,sigma_par) );
 }
 
 statslib_constexpr

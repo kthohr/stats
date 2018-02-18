@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dlogis_int(const T z, const T sigma_par)
 {
-    return ( - z - stats_math::log(sigma_par) - 2.0*stats_math::log(1.0 + stats_math::exp(-z)) );
+    return ( - z - stmath::log(sigma_par) - 2.0*stmath::log(1.0 + stmath::exp(-z)) );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 dlogis(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? dlogis_int((x-mu_par)/sigma_par,sigma_par) : stats_math::exp(dlogis_int((x-mu_par)/sigma_par,sigma_par)) );
+    return ( log_form == true ? dlogis_int((x-mu_par)/sigma_par,sigma_par) : stmath::exp(dlogis_int((x-mu_par)/sigma_par,sigma_par)) );
 }
 
 statslib_constexpr

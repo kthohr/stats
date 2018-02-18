@@ -36,7 +36,7 @@ statslib_constexpr
 T
 qunif(const T p, const T a_par, const T b_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qunif_int(p,a_par,b_par)) : qunif_int(p,a_par,b_par) );
+    return ( log_form == true ? stmath::log(qunif_int(p,a_par,b_par)) : qunif_int(p,a_par,b_par) );
 }
 
 statslib_constexpr

@@ -28,7 +28,7 @@ statslib_constexpr
 T
 pcauchy_int(const T z)
 {
-    return ( T(0.5) + stats_math::atan(z) / GCEM_PI );
+    return ( T(0.5) + stmath::atan(z) / GCEM_PI );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 pcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pcauchy_int((x-mu_par)/sigma_par)) : pcauchy_int((x-mu_par)/sigma_par) );
+    return ( log_form == true ? stmath::log(pcauchy_int((x-mu_par)/sigma_par)) : pcauchy_int((x-mu_par)/sigma_par) );
 }
 
 statslib_constexpr

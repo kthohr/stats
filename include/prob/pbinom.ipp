@@ -36,7 +36,7 @@ statslib_constexpr
 T
 pbinom(const int x, const int n_trials_par, const T prob_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pbinom_int(x,n_trials_par,prob_par,0)) : pbinom_int(x,n_trials_par,prob_par,0) );
+    return ( log_form == true ? stmath::log(pbinom_int(x,n_trials_par,prob_par,0)) : pbinom_int(x,n_trials_par,prob_par,0) );
 }
 
 statslib_constexpr

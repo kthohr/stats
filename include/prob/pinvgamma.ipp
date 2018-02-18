@@ -36,7 +36,7 @@ statslib_constexpr
 T
 pinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pinvgamma_int(x,shape_par,rate_par)) : pinvgamma_int(x,shape_par,rate_par) );
+    return ( log_form == true ? stmath::log(pinvgamma_int(x,shape_par,rate_par)) : pinvgamma_int(x,shape_par,rate_par) );
 }
 
 statslib_constexpr

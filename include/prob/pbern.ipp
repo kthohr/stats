@@ -36,7 +36,7 @@ statslib_constexpr
 T
 pbern(const int x, const T prob_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pbern_int(x,prob_par)) : pbern_int(x,prob_par) );
+    return ( log_form == true ? stmath::log(pbern_int(x,prob_par)) : pbern_int(x,prob_par) );
 }
 
 statslib_constexpr

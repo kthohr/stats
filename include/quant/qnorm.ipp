@@ -36,7 +36,7 @@ statslib_constexpr
 T
 qnorm(const T p, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(qnorm_int(p,mu_par,sigma_par)) : qnorm_int(p,mu_par,sigma_par) );
+    return ( log_form == true ? stmath::log(qnorm_int(p,mu_par,sigma_par)) : qnorm_int(p,mu_par,sigma_par) );
 }
 
 statslib_constexpr

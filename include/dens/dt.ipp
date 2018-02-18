@@ -27,14 +27,14 @@ inline
 long double
 dt_int_mult(const long double z, const long double dof_par)
 {
-    return ( - (dof_par/2.0L + 0.5L) * stats_math::log(1.0L + (z/dof_par)*z) );
+    return ( - (dof_par/2.0L + 0.5L) * stmath::log(1.0L + (z/dof_par)*z) );
 }
 
 inline
 long double
 dt_int_cons(const long double z, const long double dof_par)
 {
-    return ( stats_math::lgamma(dof_par/2.0L + 0.5L) - 0.5*( stats_math::log(dof_par) + GCEM_LOG_PI ) - stats_math::lgamma(dof_par/2.0L) );
+    return ( stmath::lgamma(dof_par/2.0L + 0.5L) - 0.5*( stmath::log(dof_par) + GCEM_LOG_PI ) - stmath::lgamma(dof_par/2.0L) );
 }
 
 template<typename T>
@@ -50,7 +50,7 @@ statslib_constexpr
 T
 dt(const T x, const int dof_par, const bool log_form)
 {
-    return ( log_form == true ? dt_int(x, T(dof_par)) : stats_math::exp(dt_int(x, T(dof_par))) );
+    return ( log_form == true ? dt_int(x, T(dof_par)) : stmath::exp(dt_int(x, T(dof_par))) );
 }
 
 statslib_constexpr

@@ -28,7 +28,7 @@ statslib_constexpr
 T
 qlnorm(const T p, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? qnorm(p,mu_par,sigma_par,false) : stats_math::exp(qnorm(p,mu_par,sigma_par,false)) );
+    return ( log_form == true ? qnorm(p,mu_par,sigma_par,false) : stmath::exp(qnorm(p,mu_par,sigma_par,false)) );
 }
 
 statslib_constexpr

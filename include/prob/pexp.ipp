@@ -28,7 +28,7 @@ statslib_constexpr
 T
 pexp_int(const T x, const T rate_par)
 {
-    return ( 1.0 - stats_math::exp( - rate_par*x )  );
+    return ( 1.0 - stmath::exp( - rate_par*x )  );
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ statslib_constexpr
 T
 pexp(const T x, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? ( x < 0.0 ? - stats::inf : stats_math::log(pexp_int(x,rate_par)) ) : ( x < 0.0 ? 0.0 : pexp_int(x,rate_par) ) );
+    return ( log_form == true ? ( x < 0.0 ? - stats::inf : stmath::log(pexp_int(x,rate_par)) ) : ( x < 0.0 ? 0.0 : pexp_int(x,rate_par) ) );
 }
 
 statslib_constexpr

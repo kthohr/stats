@@ -28,8 +28,8 @@ statslib_constexpr
 T
 dbinom_int(const int x, const int n_trials_par, const T prob_par)
 {
-    return (x == 0 ? n_trials_par * stats_math::log(1.0 - prob_par) : x == n_trials_par ? x * stats_math::log(prob_par) : 
-            stats_math::log(gcem::binomial_coef(n_trials_par,x)) + x*stats_math::log(prob_par) + (n_trials_par - x)*stats_math::log(1.0 - prob_par) );
+    return (x == 0 ? n_trials_par * stmath::log(1.0 - prob_par) : x == n_trials_par ? x * stmath::log(prob_par) : 
+            stmath::log(gcem::binomial_coef(n_trials_par,x)) + x*stmath::log(prob_par) + (n_trials_par - x)*stmath::log(1.0 - prob_par) );
 }
 
 template<typename T>
@@ -37,7 +37,7 @@ statslib_constexpr
 T
 dbinom(const int x, const int n_trials_par, const T prob_par, const bool log_form)
 {
-    return (x > n_trials_par ? 0.0 : n_trials_par == 1 ? dbern(x,prob_par,log_form) : ( log_form == true ? dbinom_int(x,n_trials_par,prob_par) : stats_math::exp(dbinom_int(x,n_trials_par,prob_par)) ));
+    return (x > n_trials_par ? 0.0 : n_trials_par == 1 ? dbern(x,prob_par,log_form) : ( log_form == true ? dbinom_int(x,n_trials_par,prob_par) : stmath::exp(dbinom_int(x,n_trials_par,prob_par)) ));
 }
 
 statslib_constexpr

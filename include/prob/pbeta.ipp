@@ -36,7 +36,7 @@ statslib_constexpr
 T
 pbeta(const T x, const T a_par, const T b_par, const bool log_form)
 {
-    return ( log_form == true ? stats_math::log(pbeta_int(x,a_par,b_par)) : pbeta_int(x,a_par,b_par) );
+    return ( log_form == true ? stmath::log(pbeta_int(x,a_par,b_par)) : pbeta_int(x,a_par,b_par) );
 }
 
 statslib_constexpr
