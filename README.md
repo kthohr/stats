@@ -29,6 +29,7 @@ cdf, pdf, quantile and random sampling functions are available for the following
 * Poisson
 * Student's t
 * Uniform
+* Weibull
 
 In addition, pdf and randomization functions are available for several multivariate distributions:
 
