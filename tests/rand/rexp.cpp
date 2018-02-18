@@ -42,9 +42,8 @@ int main()
     //
     // coverage tests
     
-    stats::rexp(100);
+    stats::rexp(100,rate_par);
     stats::rexp(100,100,rate_par);
-    stats::rexp(100,100,100);
 
     std::cout << "\n*** rexp: end tests. ***\n" << std::endl;
 

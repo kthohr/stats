@@ -24,8 +24,15 @@ template<typename T>
 T
 runif(const T a_par, const T b_par)
 {
+    if (std::is_integral<T>::value)
+    {
+        return STLIM<T>::quiet_NaN();
+    }
+
+    //
+
     std::mt19937_64 engine(std::random_device{}());
-    
+
     T a_par_adj = std::nextafter(a_par, b_par); // converts from [a,b) to (a,b)
     std::uniform_real_distribution<T> unif_dist(a_par_adj,b_par);
 
