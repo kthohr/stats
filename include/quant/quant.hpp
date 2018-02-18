@@ -34,6 +34,7 @@
 #include "qpois.hpp"
 #include "qt.hpp"
 #include "qunif.hpp"
+#include "qweibull.hpp"
 
 // these depend on one of the above
 #include "qlnorm.hpp"

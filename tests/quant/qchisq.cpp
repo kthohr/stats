@@ -109,7 +109,9 @@ int main()
 
     bool success_9 = (std::abs(q_9 - x_9) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_9 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2-1) << q_9 << ". Success = " << success_8 << std::endl;
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2-1) << q_9 << ". Success = " << success_9 << std::endl;
+
+    //
 
     if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
         std::cout << "\n*** qchisq: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;

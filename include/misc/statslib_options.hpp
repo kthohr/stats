@@ -48,6 +48,9 @@
 #endif
 
 namespace stats {
-    static const double inf = std::numeric_limits<double>::infinity();
     using uint_t = unsigned int;
+    static const double inf = std::numeric_limits<double>::infinity();
+
+    template<class T>
+    using STLIM = std::numeric_limits<T>;
 }

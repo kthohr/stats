@@ -40,6 +40,7 @@
 #include "rmvnorm.hpp"
 #include "rpois.hpp"
 #include "rt.hpp"
+#include "rweibull.hpp"
 #include "rwish.hpp"
 
 #endif

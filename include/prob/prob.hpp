@@ -34,6 +34,7 @@
 #include "ppois.hpp"
 #include "pt.hpp"
 #include "punif.hpp"
+#include "pweibull.hpp"
 
 // these depend on one of the above
 #include "plnorm.hpp"
