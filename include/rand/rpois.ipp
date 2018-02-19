@@ -29,20 +29,18 @@ rpois(const T rate_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rpois(const uint_t n, const double rate_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rpois(const uint_t n, const Ta rate_par)
 {
-    return rpois(n,1,rate_par);
+    return rpois(n,1U,rate_par);
 }
 
-inline
-arma::mat
-rpois(const uint_t n, const uint_t k, const double rate_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rpois(const uint_t n, const uint_t k, const Ta rate_par)
 {
-    arma::mat U = runif(n,k,0.0,1.0);
-
-    return qpois(U,rate_par);
+    return qpois( runif(n,k,Ta(0.0),Ta(1.0)) , rate_par);
 }
 
 #endif

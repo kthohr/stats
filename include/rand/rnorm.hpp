@@ -30,8 +30,11 @@ template<typename T = double>
 T rnorm();
 
 #ifndef STATS_NO_ARMA
-arma::mat rnorm(const uint_t n, const double mu_par, const double sigma_par);
-arma::mat rnorm(const uint_t n, const uint_t k, const double mu_par, const double sigma_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rnorm(const uint_t n, const Ta mu_par, const Ta sigma_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rnorm(const uint_t n, const uint_t k, const Ta mu_par, const Ta sigma_par);
 #endif
 
 #include "rnorm.ipp"

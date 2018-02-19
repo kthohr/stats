@@ -27,8 +27,11 @@ template<typename T>
 int rbern(const T p);
 
 #ifndef STATS_NO_ARMA
-arma::mat rbern(const uint_t n, const double prob_par);
-arma::mat rbern(const uint_t n, const uint_t k, const double prob_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rbern(const uint_t n, const Ta prob_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rbern(const uint_t n, const uint_t k, const Ta prob_par);
 #endif
 
 #include "rbern.ipp"

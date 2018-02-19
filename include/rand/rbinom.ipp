@@ -21,13 +21,12 @@
  */
 
 template<typename T>
-int
-rbinom(const int n_trials_par, const T prob_par)
+uint_t
+rbinom(const uint_t n_trials_par, const T prob_par)
 {
-    // return arma::accu(rbern(n_trials_par,1,prob_par)); // removed for STATS_NO_ARMA
-    int ret = 0;
+    uint_t ret = 0U;
 
-    for (int i=0; i < n_trials_par; i++) {
+    for (uint_t i=0U; i < n_trials_par; i++) {
         ret += rbern(prob_par);
     }
 
@@ -36,27 +35,27 @@ rbinom(const int n_trials_par, const T prob_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rbinom(const uint_t n, const int n_trials_par, const double prob_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rbinom(const uint_t n, const uint_t n_trials_par, const Ta prob_par)
 {
-    return rbinom(n,1,n_trials_par,prob_par);
+    return rbinom<Ta,Tb>(n,1U,n_trials_par,prob_par);
 }
 
-inline
-arma::mat
-rbinom(const uint_t n, const uint_t k, const int n_trials_par, const double prob_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rbinom(const uint_t n, const uint_t k, const uint_t n_trials_par, const Ta prob_par)
 {
-    arma::mat ret(n,k);
+    arma::Mat<Tb> ret(n,k);
     
     //
 
-    double* ret_mem = ret.memptr();
+    Tb* ret_mem = ret.memptr();
 
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < n*k; j++)
     {
         ret_mem[j] = rbinom(n_trials_par,prob_par);
     }

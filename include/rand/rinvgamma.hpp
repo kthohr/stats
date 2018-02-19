@@ -27,8 +27,11 @@ template<typename T>
 T rinvgamma(const T shape_par, const T rate_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rinvgamma(const uint_t n, const double shape_par, const double rate_par);
-arma::mat rinvgamma(const uint_t n, const uint_t k, const double shape_par, const double rate_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rinvgamma(const uint_t n, const Ta shape_par, const Ta rate_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rinvgamma(const uint_t n, const uint_t k, const Ta shape_par, const Ta rate_par);
 #endif
 
 #include "rinvgamma.ipp"

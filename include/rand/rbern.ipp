@@ -29,31 +29,31 @@ rbern(const T prob_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rbern(const uint_t n, const double prob_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rbern(const uint_t n, const Ta prob_par)
 {
-    return rbern(n,1,prob_par);
+    return rbern<Ta,Tb>(n,1U,prob_par);
 }
 
-inline
-arma::mat
-rbern(const uint_t n, const uint_t k, const double prob_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rbern(const uint_t n, const uint_t k, const Ta prob_par)
 {
-    const arma::mat u = runif(n,k,0.0,1.0);
-    arma::mat ret(n,k);
+    const arma::Mat<Ta> U = runif(n,k,Ta(0.0),Ta(1.0));
+    arma::Mat<Tb> ret(n,k);
 
     //
 
-    const double* inp_mem = u.memptr();
-    double* ret_mem = ret.memptr();
+    const Ta* inp_mem = U.memptr();
+    Tb* ret_mem = ret.memptr();
 
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < n*k; j++)
     {
-        ret_mem[j] = (inp_mem[j] <= prob_par) ? 1 : 0;
+        ret_mem[j] = (inp_mem[j] <= prob_par) ? Tb(1) : Tb(0);
     }
 
     //

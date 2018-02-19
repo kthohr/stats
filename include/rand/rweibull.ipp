@@ -29,27 +29,27 @@ rweibull(const T shape_par, const T scale_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rweibull(const uint_t n, const double shape_par, const double scale_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rweibull(const uint_t n, const Ta shape_par, const Ta scale_par)
 {
-    return rweibull(n,1,shape_par,scale_par);
+    return rweibull(n,1U,shape_par,scale_par);
 }
 
-inline
-arma::mat
-rweibull(const uint_t n, const uint_t k, const double shape_par, const double scale_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rweibull(const uint_t n, const uint_t k, const Ta shape_par, const Ta scale_par)
 {
-    arma::mat ret(n,k);
+    arma::Mat<Tb> ret(n,k);
     
     //
 
-    double* ret_mem = ret.memptr();
+    Tb* ret_mem = ret.memptr();
 
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < n*k; j++)
     {
         ret_mem[j] = rweibull(shape_par,scale_par);
     }

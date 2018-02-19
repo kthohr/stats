@@ -29,18 +29,18 @@ rcauchy(const T mu_par, const T sigma_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rcauchy(const uint_t n, const double mu_par, const double sigma_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rcauchy(const uint_t n, const Ta mu_par, const Ta sigma_par)
 {
-    return rcauchy(n,1,mu_par,sigma_par);
+    return rcauchy(n,1U,mu_par,sigma_par);
 }
 
-inline
-arma::mat
-rcauchy(const uint_t n, const uint_t k, const double mu_par, const double sigma_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rcauchy(const uint_t n, const uint_t k, const Ta mu_par, const Ta sigma_par)
 {
-    arma::mat U = runif(n,k,0.0,1.0);
+    const arma::Mat<Ta> U = runif(n,k,Ta(0.0),Ta(1.0));
 
     return qcauchy(U,mu_par,sigma_par);
 }

@@ -25,7 +25,8 @@
 
 #ifndef STATS_NO_ARMA
 
-arma::mat rwish(const arma::mat& Psi_par, const int nu_par);
+template<typename T>
+T rwish(const T& Psi_par, const uint_t nu_par, const bool pre_chol = false);
 
 #include "rwish.ipp"
 

@@ -20,129 +20,53 @@
  * Sample from a multivariate normal distribution
  */
 
-inline
-arma::vec
-rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_chol)
+template<typename Ta, typename Tb>
+Ta
+rmvnorm(const Ta& mu_par, const Tb& Sigma_par, const bool pre_chol)
 {
-    int K = 0;
-    arma::vec ret;
+    Ta ret;
 
-    if (mu_inp) {
-        K = mu_inp->n_elem;
-    } else if (Sigma_inp) {
-        K = Sigma_inp->n_rows;
-    } else {
-        printf("rmvnorm: missing both mu and Sigma.\n");
-        
+    if (mu_par.n_elem != Sigma_par.n_rows) {
+        printf("rmvnorm: dimensions of mu.n_elem and Sigma.n_rows don't agree.\n");
         return ret;
     }
 
+    uint_t K = mu_par.n_elem;
+
     //
 
-    const arma::vec mu = (mu_inp) ? *mu_inp : arma::zeros(K,1);
+    const Tb A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par);
 
-    if (Sigma_inp) {
-        arma::mat A = (pre_chol) ? *Sigma_inp : arma::chol(*Sigma_inp);
-        ret = mu + A.t() * arma::randn(K,1); // transpose A to be lower triangular
-    } else {
-        ret = mu + arma::randn(K,1); // A = eye(K,K)
-    }
+    ret = mu_par + A.t() * arma::randn<Tb>(K,1);
 
     //
     
     return ret;
-}
-
-inline
-arma::vec
-rmvnorm(const arma::mat& Sigma)
-{
-    return rmvnorm_int(nullptr,&Sigma,false);
-}
-
-inline
-arma::vec
-rmvnorm(const arma::mat& Sigma, const bool pre_chol)
-{
-    return rmvnorm_int(nullptr,&Sigma,pre_chol);
-}
-
-inline
-arma::vec
-rmvnorm(const arma::mat& mu, const arma::mat& Sigma)
-{
-   return rmvnorm_int(&mu,&Sigma,false);
-}
-
-inline
-arma::vec
-rmvnorm(const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol)
-{
-   return rmvnorm_int(&mu,&Sigma,pre_chol);
 }
 
 //
 // n-samples
 
-inline
-arma::mat
-rmvnorm_int(const uint_t n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_chol)
+template<typename Ta, typename Tb>
+Tb
+rmvnorm(const uint_t n, const Ta& mu_par, const Tb& Sigma_par, const bool pre_chol)
 {
-    int K = 0;
-    arma::mat ret;
+    Tb ret;
 
-    if (mu_inp) {
-        K = mu_inp->n_elem;
-    } else if (Sigma_inp) {
-        K = Sigma_inp->n_rows;
-    } else {
-        printf("rmvnorm: missing both mu and Sigma.\n");
-        
+    if (mu_par.n_elem != Sigma_par.n_rows) {
+        printf("rmvnorm: dimensions of mu.n_elem and Sigma.n_rows don't agree.\n");
         return ret;
     }
 
+    uint_t K = mu_par.n_elem;
+
     //
 
-    if (Sigma_inp) {
-        const arma::mat A = (pre_chol) ? *Sigma_inp : arma::chol(*Sigma_inp);
-        ret = arma::randn(n,K) * A;
-    } else {
-        ret = arma::randn(n,K); // A = eye(K,K)
-    }
+    const Tb A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par);
 
-    if (mu_inp) {
-        ret += arma::repmat((*mu_inp).t(),n,1);
-    }
+    ret = arma::repmat(mu_par.t(),n,1) + arma::randn<Tb>(n,K) * A;
 
     //
     
     return ret;
-}
-
-inline
-arma::mat
-rmvnorm(const uint_t n, const arma::mat& Sigma)
-{
-    return rmvnorm_int(n,nullptr,&Sigma,false);
-}
-
-inline
-arma::mat
-rmvnorm(const uint_t n, const arma::mat& Sigma, const bool pre_chol)
-{
-    return rmvnorm_int(n,nullptr,&Sigma,pre_chol);
-}
-
-inline
-arma::mat
-rmvnorm(const uint_t n, const arma::mat& mu, const arma::mat& Sigma)
-{
-   return rmvnorm_int(n,&mu,&Sigma,false);
-}
-
-inline
-arma::mat
-rmvnorm(const uint_t n, const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol)
-{
-   return rmvnorm_int(n,&mu,&Sigma,pre_chol);
 }

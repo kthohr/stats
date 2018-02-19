@@ -22,25 +22,25 @@
 
 template<typename T>
 T
-rt(const int dof_par)
+rt(const uint_t dof_par)
 {
     return rnorm<T>() / std::sqrt( rchisq<T>(dof_par) / static_cast<T>(dof_par) );
 }
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rt(const uint_t n, const int dof_par)
+template<typename T>
+arma::Mat<T>
+rt(const uint_t n, const uint_t dof_par)
 {
-    return rt(n,1,dof_par);
+    return rt<T>(n,1U,dof_par);
 }
 
-inline
-arma::mat
-rt(const uint_t n, const uint_t k, const int dof_par)
+template<typename T>
+arma::Mat<T>
+rt(const uint_t n, const uint_t k, const uint_t dof_par)
 {
-    return ( arma::randn(n,k) / arma::sqrt( rchisq(n,k,dof_par) / static_cast<double>(dof_par) ) );
+    return ( arma::randn<arma::Mat<T>>(n,k) / arma::sqrt( rchisq<T>(n,k,dof_par) / static_cast<T>(dof_par) ) );
 }
 
 #endif

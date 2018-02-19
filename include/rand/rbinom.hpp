@@ -24,11 +24,14 @@
 #define _statslib_rbinom_HPP
 
 template<typename T>
-int rbinom(const int n_trials_par, const T prob_par);
+uint_t rbinom(const uint_t n_trials_par, const T prob_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rbinom(const uint_t n, const int n_trials_par, const double prob_par);
-arma::mat rbinom(const uint_t n, const uint_t k, const int n_trials_par, const double prob_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rbinom(const uint_t n, const uint_t n_trials_par, const Ta prob_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rbinom(const uint_t n, const uint_t k, const uint_t n_trials_par, const Ta prob_par);
 #endif
 
 #include "rbinom.ipp"

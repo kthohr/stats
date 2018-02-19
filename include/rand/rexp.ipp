@@ -29,20 +29,18 @@ rexp(const T rate_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rexp(const uint_t n, const double rate_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rexp(const uint_t n, const Ta rate_par)
 {
-    return rexp(n,1,rate_par);
+    return rexp<Ta,Tb>(n,1U,rate_par);
 }
 
-inline
-arma::mat
-rexp(const uint_t n, const uint_t k, const double rate_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rexp(const uint_t n, const uint_t k, const Ta rate_par)
 {
-    arma::mat U = runif(n,k,0.0,1.0);
-
-    return qexp(U,rate_par);
+    return qexp( runif(n,k,Ta(0.0),Ta(1.0)) , rate_par);
 }
 
 #endif

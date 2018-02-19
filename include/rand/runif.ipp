@@ -48,18 +48,18 @@ runif()
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-runif(const uint_t n, const double a_par, const double b_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+runif(const uint_t n, const Ta a_par, const Ta b_par)
 {
-    return runif(n,1,a_par,b_par);
+    return runif(n,1U,a_par,b_par);
 }
 
-inline
-arma::mat
-runif(const uint_t n, const uint_t k, const double a_par, const double b_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+runif(const uint_t n, const uint_t k, const Ta a_par, const Ta b_par)
 {
-    return ( a_par + (b_par - a_par)*arma::randu(n,k) );
+    return ( a_par + (b_par - a_par) * arma::randu<arma::Mat<Tb>>(n,k) );
 }
 
 #endif

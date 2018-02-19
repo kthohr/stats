@@ -27,8 +27,11 @@ template<typename T>
 T rpois(const T rate_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rpois(const uint_t n, const double rate_par);
-arma::mat rpois(const uint_t n, const uint_t k, const double rate_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rpois(const uint_t n, const Ta rate_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rpois(const uint_t n, const uint_t k, const Ta rate_par);
 #endif
 
 #include "rpois.ipp"

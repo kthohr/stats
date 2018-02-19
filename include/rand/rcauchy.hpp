@@ -27,8 +27,11 @@ template<typename T>
 T rcauchy(const T mu_par, const T sigma_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rcauchy(const uint_t n, const double mu_par, const double sigma_par);
-arma::mat rcauchy(const uint_t n, const uint_t k, const double mu_par, const double sigma_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rcauchy(const uint_t n, const Ta mu_par, const Ta sigma_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rcauchy(const uint_t n, const uint_t k, const Ta mu_par, const Ta sigma_par);
 #endif
 
 #include "rcauchy.ipp"

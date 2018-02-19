@@ -27,8 +27,11 @@ template<typename T>
 T rf(const T df1_par, const T df2_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rf(const uint_t n, const double df1_par, const double df2_par);
-arma::mat rf(const uint_t n, const uint_t k, const double df1_par, const double df2_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rf(const uint_t n, const Ta df1_par, const Ta df2_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rf(const uint_t n, const uint_t k, const Ta df1_par, const Ta df2_par);
 #endif
 
 #include "rf.ipp"

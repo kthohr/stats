@@ -27,8 +27,11 @@ template<typename T>
 T rexp(const T rate_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rexp(const uint_t n, const double rate_par);
-arma::mat rexp(const uint_t n, const uint_t k, const double rate_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rexp(const uint_t n, const Ta rate_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rexp(const uint_t n, const uint_t k, const Ta rate_par);
 #endif
 
 #include "rexp.ipp"

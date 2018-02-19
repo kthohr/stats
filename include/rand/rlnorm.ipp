@@ -29,18 +29,18 @@ rlnorm(const T mu_par, const T sigma_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rlnorm(const uint_t n, const double mu_par, const double sigma_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rlnorm(const uint_t n, const Ta mu_par, const Ta sigma_par)
 {
-    return rlnorm(n,1,mu_par,sigma_par);
+    return rlnorm(n,1U,mu_par,sigma_par);
 }
 
-inline
-arma::mat
-rlnorm(const uint_t n, const uint_t k, const double mu_par, const double sigma_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rlnorm(const uint_t n, const uint_t k, const Ta mu_par, const Ta sigma_par)
 {
-    return arma::exp( rnorm(n,k,mu_par,sigma_par) );
+    return arma::exp( rnorm<Ta,Tb>(n,k,mu_par,sigma_par) );
 }
 
 #endif

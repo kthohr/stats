@@ -27,8 +27,11 @@ template<typename T>
 T rbeta(const T a_par, const T b_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rbeta(const uint_t n, const double a_par, const double b_par);
-arma::mat rbeta(const uint_t n, const uint_t k, const double a_par, const double b_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rbeta(const uint_t n, const Ta a_par, const Ta b_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rbeta(const uint_t n, const uint_t k, const Ta a_par, const Ta b_par);
 #endif
 
 #include "rbeta.ipp"

@@ -34,27 +34,27 @@ rf(const T df1_par, const T df2_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rf(const uint_t n, const double df1_par, const double df2_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rf(const uint_t n, const Ta df1_par, const Ta df2_par)
 {
-    return rf(n,1,df1_par,df2_par);
+    return rf<Ta,Tb>(n,1U,df1_par,df2_par);
 }
 
-inline
-arma::mat
-rf(const uint_t n, const uint_t k, const double df1_par, const double df2_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rf(const uint_t n, const uint_t k, const Ta df1_par, const Ta df2_par)
 {
-    arma::mat ret(n,k);
+    arma::Mat<Tb> ret(n,k);
     
     //
 
-    double* ret_mem = ret.memptr();
+    Tb* ret_mem = ret.memptr();
 
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < n*k; j++)
     {
         ret_mem[j] = rf(df1_par,df2_par);
     }

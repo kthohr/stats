@@ -20,30 +20,40 @@
  * Sample from a multinomial distribution
  */
 
-inline
-arma::colvec
-rmultinom(const arma::vec& prob)
+template<typename T>
+T
+rmultinom(const T& prob)
 {
-    const int nprob = prob.n_elem;
-    int n_j = nprob;
-    double p_j = 1;
+    typedef typename T::elem_type eT;
+    const uint_t n_prob = prob.n_elem;
 
-    arma::colvec ret(nprob);
-    const arma::vec prob_csum = arma::cumsum(prob);
+    uint_t n_j = n_prob;
+
+    //
+
+    eT p_j = 1.0;
+
+    T ret(n_prob);
+    const T prob_csum = arma::cumsum(prob);
 
     p_j = prob(0);
     ret(0) = rbinom(n_j,p_j);
+
     //
-    int ret_sum = arma::as_scalar(ret(0));
+
+    uint_t ret_sum = arma::as_scalar(ret(0));
     
-    for (int j = 1; j < nprob; j++) {
-        p_j = prob(j)/(1 - arma::as_scalar(prob_csum(j-1)));
-        n_j = nprob - ret_sum;
+    for (uint_t j = 1U; j < n_prob; j++)
+    {
+        p_j = prob(j) / (eT(1.0) - prob_csum(j-1));
+        n_j = n_prob - ret_sum;
         
         ret(j) = rbinom(n_j,p_j);
-        //
-        ret_sum += arma::as_scalar(ret(j));
+        
+        ret_sum += ret(j);
     }
+
     //
+
     return ret;
 }

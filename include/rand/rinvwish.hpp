@@ -25,7 +25,8 @@
 
 #ifndef STATS_NO_ARMA
 
-arma::mat rinvwish(const arma::mat& Psi_par, const int nu_par);
+template<typename T>
+T rinvwish(const T& Psi_par, const uint_t nu_par, const bool pre_chol = false);
 
 #include "rinvwish.ipp"
 

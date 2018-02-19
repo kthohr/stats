@@ -30,8 +30,11 @@ template<typename T = double>
 T runif();
 
 #ifndef STATS_NO_ARMA
-arma::mat runif(const uint_t n, const double a_par, const double b_par);
-arma::mat runif(const uint_t n, const uint_t k, const double a_par, const double b_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> runif(const uint_t n, const Ta a_par, const Ta b_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> runif(const uint_t n, const uint_t k, const Ta a_par, const Ta b_par);
 #endif
 
 #include "runif.ipp"

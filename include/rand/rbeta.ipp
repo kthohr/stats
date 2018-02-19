@@ -34,27 +34,27 @@ rbeta(const T a_par, const T b_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rbeta(const uint_t n, const double a_par, const double b_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rbeta(const uint_t n, const Ta a_par, const Ta b_par)
 {
-    return rbeta(n,1,a_par,b_par);
+    return rbeta<Ta,Tb>(n,1U,a_par,b_par);
 }
 
-inline
-arma::mat
-rbeta(const uint_t n, const uint_t k, const double a_par, const double b_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rbeta(const uint_t n, const uint_t k, const Ta a_par, const Ta b_par)
 {
-    arma::mat ret(n,k);
+    arma::Mat<Tb> ret(n,k);
     
     //
 
-    double* ret_mem = ret.memptr();
+    Tb* ret_mem = ret.memptr();
 
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < n*k; j++)
     {
         ret_mem[j] = rbeta(a_par,b_par);
     }

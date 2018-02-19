@@ -43,7 +43,6 @@ int main()
     // coverage tests
     
     stats::rpois(100,100,rate_par);
-    stats::rpois(100,100,100);
 
     std::cout << "\n*** rpois: end tests. ***\n" << std::endl;
 

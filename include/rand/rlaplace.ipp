@@ -29,20 +29,18 @@ rlaplace(const T mu_par, const T sigma_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rlaplace(const uint_t n, const double mu_par, const double sigma_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rlaplace(const uint_t n, const Ta mu_par, const Ta sigma_par)
 {
-    return rlaplace(n,1,mu_par,sigma_par);
+    return rlaplace(n,1U,mu_par,sigma_par);
 }
 
-inline
-arma::mat
-rlaplace(const uint_t n, const uint_t k, const double mu_par, const double sigma_par)
+template<typename Ta, typename Tb>
+arma::Mat<Tb>
+rlaplace(const uint_t n, const uint_t k, const Ta mu_par, const Ta sigma_par)
 {
-    arma::mat U = runif(n,k,0.0,1.0);
-
-    return qlaplace(U,mu_par,sigma_par);
+    return qlaplace( runif(n,k,Ta(0.0),Ta(1.0)) , mu_par, sigma_par);
 }
 
 #endif

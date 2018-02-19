@@ -22,15 +22,15 @@
 
 template<typename T>
 T
-rchisq(const int dof_par)
+rchisq(const uint_t dof_par)
 {
-    double ret = 0;
+    T ret = 0;
     
     //
     
     if (dof_par < 50)
     {   // sum of squared (standard) normals
-        for (int i=0; i < dof_par; i++)
+        for (uint_t i=0U; i < dof_par; i++)
         {
             T norm_val = rnorm<T>();
             ret += norm_val*norm_val;
@@ -49,29 +49,29 @@ rchisq(const int dof_par)
 
 #ifndef STATS_NO_ARMA
 
-inline
-arma::mat
-rchisq(const uint_t n, const int dof_par)
+template<typename T>
+arma::Mat<T>
+rchisq(const uint_t n, const uint_t dof_par)
 {
-    return rchisq(n,1,dof_par);
+    return rchisq<T>(n,1U,dof_par);
 }
 
-inline
-arma::mat
-rchisq(const uint_t n, const uint_t k, const int dof_par)
+template<typename T>
+arma::Mat<T>
+rchisq(const uint_t n, const uint_t k, const uint_t dof_par)
 {
-    arma::mat ret(n,k);
+    arma::Mat<T> ret(n,k);
     
     //
 
-    double* ret_mem = ret.memptr();
+    T* ret_mem = ret.memptr();
 
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < n*k; j++)
     {
-        ret_mem[j] = rchisq(dof_par);
+        ret_mem[j] = rchisq<T>(dof_par);
     }
     
     //

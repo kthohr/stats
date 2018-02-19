@@ -27,8 +27,11 @@ template<typename T>
 T rweibull(const T shape_par, const T scale_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rweibull(const uint_t n, const double shape_par, const double scale_par);
-arma::mat rweibull(const uint_t n, const uint_t k, const double shape_par, const double scale_par);
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rweibull(const uint_t n, const Ta shape_par, const Ta scale_par);
+
+template<typename Ta, typename Tb = Ta>
+arma::Mat<Tb> rweibull(const uint_t n, const uint_t k, const Ta shape_par, const Ta scale_par);
 #endif
 
 #include "rweibull.ipp"

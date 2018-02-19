@@ -20,26 +20,32 @@
  * Sample from a Wishart distribution
  */
 
-inline
-arma::mat
-rwish(const arma::mat& Psi_par, const int nu_par)
+template<typename T>
+T
+rwish(const T& Psi_par, const uint_t nu_par, const bool pre_chol)
 {
-    const int K = Psi_par.n_rows;
+    typedef typename T::elem_type eT;
+    const uint_t K = Psi_par.n_rows;
     
-    arma::mat chol_Psi = arma::chol(Psi_par,"lower");
+    T chol_Psi;
+    if (pre_chol) {
+        chol_Psi = Psi_par.t();
+    } else {
+        chol_Psi = arma::chol(Psi_par,"lower");
+    }
 
     //
 
-    arma::mat A = arma::zeros(K,K);
+    T A = arma::zeros(K,K);
 
-    for (int i=1; i < K; i++) {
-        for (int j=0; j < i; j++) {
-            A(i,j) = rnorm();
+    for (uint_t i=1U; i < K; i++) {
+        for (uint_t j=0U; j < i; j++) {
+            A(i,j) = rnorm<eT>();
         }
     }
     
-    for (int i=0; i < K; i++) {
-        A(i,i) = std::sqrt(rchisq(nu_par-i));
+    for (uint_t i=0U; i < K; i++) {
+        A(i,i) = std::sqrt(rchisq<eT>(nu_par-i));
     }
 
     chol_Psi = chol_Psi*A;

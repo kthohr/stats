@@ -25,7 +25,8 @@
 
 #ifndef STATS_NO_ARMA
 
-arma::colvec rmultinom(const arma::vec& prob);
+template<typename T>
+T rmultinom(const T& prob);
 
 #include "rmultinom.ipp"
 

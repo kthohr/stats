@@ -25,20 +25,12 @@
 
 #ifndef STATS_NO_ARMA
 
-arma::vec rmvnorm_int(const arma::mat* mu_inp, const arma::mat* Sigma_inp, const bool pre_chol);
-
-arma::vec rmvnorm(const arma::mat& Sigma);
-arma::vec rmvnorm(const arma::mat& Sigma, const bool pre_chol);
-arma::vec rmvnorm(const arma::mat& mu, const arma::mat& Sigma);
-arma::vec rmvnorm(const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol);
+template<typename Ta, typename Tb>
+Ta rmvnorm(const Ta& mu_par, const Tb& Sigma_par, const bool pre_chol = false);
 
 // n samples
-arma::mat rmvnorm_int(const uint_t n, const arma::mat* mu_inp, const arma::mat* Sigma_inp, bool pre_chol);
-
-arma::mat rmvnorm(const uint_t n, const arma::mat& Sigma);
-arma::mat rmvnorm(const uint_t n, const arma::mat& Sigma, const bool pre_chol);
-arma::mat rmvnorm(const uint_t n, const arma::mat& mu, const arma::mat& Sigma);
-arma::mat rmvnorm(const uint_t n, const arma::mat& mu, const arma::mat& Sigma, const bool pre_chol);
+template<typename Ta, typename Tb>
+Tb rmvnorm(const uint_t n, const Ta& mu_par, const Tb& Sigma_par, const bool pre_chol = false);
 
 #include "rmvnorm.ipp"
 

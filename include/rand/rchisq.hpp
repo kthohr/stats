@@ -24,11 +24,14 @@
 #define _statslib_rchisq_HPP
 
 template<typename T = double>
-T rchisq(const int dof_par);
+T rchisq(const uint_t dof_par);
 
 #ifndef STATS_NO_ARMA
-arma::mat rchisq(const uint_t n, const int dof_par);
-arma::mat rchisq(const uint_t n, const uint_t k, const int dof_par);
+template<typename T = double>
+arma::Mat<T> rchisq(const uint_t n, const uint_t dof_par);
+
+template<typename T = double>
+arma::Mat<T> rchisq(const uint_t n, const uint_t k, const uint_t dof_par);
 #endif
 
 #include "rchisq.ipp"
