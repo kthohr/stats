@@ -40,9 +40,7 @@ template<typename Ta, typename Tb>
 arma::Mat<Tb>
 rcauchy(const uint_t n, const uint_t k, const Ta mu_par, const Ta sigma_par)
 {
-    const arma::Mat<Ta> U = runif(n,k,Ta(0.0),Ta(1.0));
-
-    return qcauchy(U,mu_par,sigma_par);
+    return qcauchy( runif(n,k,Ta(0.0),Ta(1.0)) , mu_par,sigma_par);
 }
 
 #endif
