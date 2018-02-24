@@ -17,29 +17,51 @@
   ################################################################################*/
 
 /*
- * pdf of the univariate Bernoulli distribution
+ * pdf of the Bernoulli distribution
  */
 
 #ifndef _statslib_dbern_HPP
 #define _statslib_dbern_HPP
 
+//
 // single input
+
 template<typename T>
-statslib_constexpr T dbern(const int x, const T prob_par, const bool log_form);
+statslib_constexpr T dbern(const int x, const T prob_par, const bool log_form = false);
 
-statslib_constexpr double dbern(const int x);
-statslib_constexpr double dbern(const int x, const bool log_form);
-statslib_constexpr double dbern(const int x, const double prob_par);
+template<typename T = double>
+statslib_constexpr T dbern(const int x);
 
+//
 // matrix/vector input
-#ifndef STATS_NO_ARMA
-arma::mat dbern_int(const arma::mat& x, const double* p_inp, const bool log_form);
 
-arma::mat dbern(const arma::mat& x);
-arma::mat dbern(const arma::mat& x, const bool log_form);
-arma::mat dbern(const arma::mat& x, const double p);
-arma::mat dbern(const arma::mat& x, const double p, const bool log_form);
+template<typename Ta, typename Tb, typename Tc = Tb>
+void dbern_int(const Ta* vals_in, const Tb prob_par, const bool log_form, Tc* vals_out, uint_t num_elem);
+
+#ifdef STATS_USE_ARMA
+
+template<typename Ta, typename Tb, typename Tc = Tb>
+arma::Mat<Tc> dbern(const arma::Mat<Ta>& X, const Tb prob_par, const bool log_form = false);
+
 #endif
+
+#ifdef STATS_USE_BLAZE
+
+template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+BlazeMat<Tc,To> dbern(const BlazeMat<Ta,To>& X, const Tb prob_par, const bool log_form = false);
+
+#endif
+
+#ifdef STATS_USE_EIGEN
+
+template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+EigMat<Tc,iTr,iTc>
+dbern(const EigMat<Ta,iTr,iTc>& X, const Tb prob_par, const bool log_form = false);
+
+#endif
+
+//
+// include implementation files
 
 #include "dbern.ipp"
 

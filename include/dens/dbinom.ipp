@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dbinom_int(const int x, const int n_trials_par, const T prob_par)
 {
-    return (x == 0 ? n_trials_par * stmath::log(1.0 - prob_par) : x == n_trials_par ? x * stmath::log(prob_par) : 
+    return (x == 0 ? n_trials_par * stmath::log(1.0 - prob_par) : x == n_trials_par ? x * stmath::log(prob_par) :
             stmath::log(gcem::binomial_coef(n_trials_par,x)) + x*stmath::log(prob_par) + (n_trials_par - x)*stmath::log(1.0 - prob_par) );
 }
 
@@ -86,13 +86,13 @@ dbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_p
 #ifndef STATS_NO_OMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < n*k; j++)
     {
         ret_mem[j] = dbinom(static_cast<int>(inp_mem[j]),n_trials_par,prob_par,log_form);
     }
 
     //
-    
+
     return ret;
 }
 

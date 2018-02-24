@@ -17,7 +17,7 @@
   ################################################################################*/
 
 /*
- * pdf of the univariate Bernoulli distribution
+ * pdf of the Bernoulli distribution
  */
 
 //
@@ -28,7 +28,7 @@ statslib_constexpr
 T
 dbern_int(const int x, const T prob_par)
 {
-    return ( x == 1 ? prob_par : 1.0 - prob_par );
+    return ( x == 1 ? prob_par : T(1.0) - prob_par );
 }
 
 template<typename T>
@@ -39,76 +39,71 @@ dbern(const int x, const T prob_par, const bool log_form)
     return ( log_form == true ? stmath::log(dbern_int(x,prob_par)) : dbern_int(x,prob_par) );
 }
 
+template<typename T>
 statslib_constexpr
-double
+T
 dbern(const int x)
 {
-    return dbern(x,0.5,false);
-}
-
-statslib_constexpr
-double
-dbern(const int x, const bool log_form)
-{
-    return dbern(x,0.5,log_form);
-}
-
-statslib_constexpr
-double
-dbern(const int x, const double prob_par)
-{
-    return dbern(x,prob_par,false);
+    return dbern<T>(x,T(0.5),false);
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-dbern_int(const arma::mat& x, const double* prob_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc = Tb>
+void
+dbern_int(const Ta* vals_in, const Tb prob_par, const bool log_form, Tc* vals_out, uint_t num_elem)
 {
-    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
-
-    //
-
-    arma::mat ret(x.n_rows,x.n_cols);
-    
-    (log_form) ? ret.fill(std::log(1.0 - prob_par)) : ret.fill(1.0 - prob_par);
-    (log_form) ? ret.elem(arma::find(x)).fill(std::log(prob_par)) : ret.elem(arma::find(x)).fill(prob_par);
-
-    //
-    
-    return ret;
+#ifdef STATS_USE_OPENMP
+    #pragma omp parallel for
+#endif
+    for (uint_t j=0U; j < num_elem; j++)
+    {
+        vals_out[j] = dbern(static_cast<int>(vals_in[j]),prob_par,log_form);
+    }
 }
 
-inline
-arma::mat
-dbern(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+dbern(const ArmaMat<T>& X, const Tb prob_par, const bool log_form)
 {
-    return dbern_int(x,nullptr,false);
+    arma::Mat<Tc> mat_out(X.n_rows,X.n_cols);
+
+    dbern_int<Ta,Tb,Tc>(X.memptr(),prob_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
 }
 
-inline
-arma::mat
-dbern(const arma::mat& x, const bool log_form)
+#endif
+
+#ifdef STATS_USE_BLAZE
+
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+dbern(const BlazeMat<Ta,To>& X, const Tb prob_par, const bool log_form)
 {
-    return dbern_int(x,nullptr,log_form);
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
+
+    dbern_int<Ta,Tb,Tc>(X.data(),prob_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
 }
 
-inline
-arma::mat
-dbern(const arma::mat& x, const double prob_par)
-{
-    return dbern_int(x,&prob_par,false);
-}
+#endif
 
-inline
-arma::mat
-dbern(const arma::mat& x, const double prob_par, const bool log_form)
+#ifdef STATS_USE_EIGEN
+
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+dbern(const EigMat<Ta,iTr,iTc>& X, const Tb prob_par, const bool log_form)
 {
-    return dbern_int(x,&prob_par,log_form);
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
+
+    dbern_int<Ta,Tb,Tc>(X.data(),prob_par,log_form,mat_out.data(),mat_out.size());
+
+    return mat_out;
 }
 
 #endif

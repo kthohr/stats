@@ -27,7 +27,7 @@ int main()
     int round_digits_2 = 5;
 
     double prob_par = 0.4;
-    
+
     std::cout << "\n*** dbern: begin tests. ***\n" << std::endl;
 
     // x = 1
@@ -58,15 +58,11 @@ int main()
     // coverage tests
 
     stats::dbern(x_1);
-    stats::dbern(x_1,true);
-    stats::dbern(x_1,prob_par);
 
     arma::mat x_mat(2,1);
     x_mat(0,0) = 0;
     x_mat(1,0) = 1;
 
-    stats::dbern(x_mat);
-    stats::dbern(x_mat,true);
     stats::dbern(x_mat,prob_par);
     stats::dbern(x_mat,prob_par,true);
 
