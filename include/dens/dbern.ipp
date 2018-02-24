@@ -4,15 +4,16 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -52,7 +53,8 @@ dbern(const int x)
 
 template<typename Ta, typename Tb, typename Tc = Tb>
 void
-dbern_int(const Ta* vals_in, const Tb prob_par, const bool log_form, Tc* vals_out, uint_t num_elem)
+dbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par, const bool log_form,
+                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
@@ -64,22 +66,19 @@ dbern_int(const Ta* vals_in, const Tb prob_par, const bool log_form, Tc* vals_ou
 }
 
 #ifdef STATS_USE_ARMA
-
 template<typename Ta, typename Tb, typename Tc>
 ArmaMat<Tc>
-dbern(const ArmaMat<T>& X, const Tb prob_par, const bool log_form)
+dbern(const ArmaMat<Ta>& X, const Tb prob_par, const bool log_form)
 {
-    arma::Mat<Tc> mat_out(X.n_rows,X.n_cols);
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
     dbern_int<Ta,Tb,Tc>(X.memptr(),prob_par,log_form,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
-
 #endif
 
 #ifdef STATS_USE_BLAZE
-
 template<typename Ta, typename Tb, typename Tc, bool To>
 BlazeMat<Tc,To>
 dbern(const BlazeMat<Ta,To>& X, const Tb prob_par, const bool log_form)
@@ -90,11 +89,9 @@ dbern(const BlazeMat<Ta,To>& X, const Tb prob_par, const bool log_form)
 
     return mat_out;
 }
-
 #endif
 
 #ifdef STATS_USE_EIGEN
-
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
 EigMat<Tc,iTr,iTc>
 dbern(const EigMat<Ta,iTr,iTc>& X, const Tb prob_par, const bool log_form)
@@ -105,5 +102,4 @@ dbern(const EigMat<Ta,iTr,iTc>& X, const Tb prob_par, const bool log_form)
 
     return mat_out;
 }
-
 #endif

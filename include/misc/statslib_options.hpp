@@ -85,3 +85,7 @@ namespace stats {
 
 #endif
 
+//
+
+#define __stats_pointer_settings__ __restrict__
+
