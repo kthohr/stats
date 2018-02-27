@@ -19,12 +19,13 @@
   ################################################################################*/
 
 /*
- * for internal use only; used to switch between different matrix libraries
+ * for internal use only; used to switch between the different matrix libraries
  */
 
-// get the number of rows in a matrix
-
 namespace mat_opts {
+
+//
+// get the number of rows in a matrix
 
 #ifdef STATS_USE_ARMA
 template<typename T>
@@ -53,6 +54,7 @@ get_n_rows(const EigMat<Ta,iTr,iTc>& X)
 }
 #endif
 
+//
 // matrix determinant
 
 #ifdef STATS_USE_ARMA
@@ -67,12 +69,43 @@ det(const ArmaMat<T>& X)
 #ifdef STATS_USE_BLAZE
 template<typename Ta, bool Tb>
 Ta
-trace(const BlazeMat<Ta,Tb>& X)
+det(const BlazeMat<Ta,Tb>& X)
 {
     return blaze::det(X);
 }
 #endif
 
+//
+// matrix inverse
+
+#ifdef STATS_USE_ARMA
+template<typename T>
+ArmaMat<T>
+inverse(const ArmaMat<T>& X)
+{
+    return arma::inv(X);
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+BlazeMat<Ta,Tb>
+inverse(const BlazeMat<Ta,Tb>& X)
+{
+    return blaze::inv(X);
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+EigMat<Ta,iTr,iTc>
+inverse(const EigMat<Ta,iTr,iTc>& X)
+{
+    return X.inverse();
+}
+#endif
+
+//
 // matrix trace
 
 #ifdef STATS_USE_ARMA
@@ -102,6 +135,7 @@ trace(const EigMat<Ta,iTr,iTc>& X)
 }
 #endif
 
+//
 // matrix 'solve': A*X = B
 
 #ifdef STATS_USE_ARMA
@@ -110,6 +144,45 @@ ArmaMat<T>
 solve(const ArmaMat<T>& A, const ArmaMat<T>& B)
 {
     return arma::solve(A,B);
+}
+#endif
+
+// #ifdef STATS_USE_EIGEN
+// template<typename Ta, int iTr, int iTc>
+// EigMat<Ta,iTc,iTr>
+// trans(const EigMat<Ta,iTr,iTc>& A, const EigMat<Ta,iTr,iTc> b)
+// {
+//     return A.colPivHouseholderQr().solve(b);
+// }
+// #endif
+
+//
+// matrix transpose
+
+#ifdef STATS_USE_ARMA
+template<typename T>
+ArmaMat<T>
+trans(const ArmaMat<T>& A)
+{
+    return A.t();
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+BlazeMat<Ta,Tb>
+trans(const BlazeMat<Ta,Tb>& X)
+{
+    return blaze::transpose(X);
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+EigMat<Ta,iTc,iTr>
+trans(const EigMat<Ta,iTr,iTc>& X)
+{
+    return X.transpose();
 }
 #endif
 

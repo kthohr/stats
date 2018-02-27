@@ -23,23 +23,36 @@
 #ifndef _statslib_dweibull_HPP
 #define _statslib_dweibull_HPP
 
+//
 // single input
+
 template<typename T>
-statslib_constexpr T dweibull(const T x, const T shape_par, const T scale_par, const bool log_form);
+statslib_constexpr T dweibull(const T x, const T shape_par, const T scale_par, const bool log_form = false);
 
-statslib_constexpr double dweibull(const double x);
-statslib_constexpr double dweibull(const double x, const bool log_form);
-statslib_constexpr double dweibull(const double x, const double shape_par, const double scale_par);
-
+//
 // matrix/vector input
-#ifndef STATS_NO_ARMA
-arma::mat dweibull_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, const bool log_form);
 
-arma::mat dweibull(const arma::mat& x);
-arma::mat dweibull(const arma::mat& x, const bool log_form);
-arma::mat dweibull(const arma::mat& x, const double shape_par, const double scale_par);
-arma::mat dweibull(const arma::mat& x, const double shape_par, const double scale_par, const bool log_form);
+template<typename Ta, typename Tb, typename Tc = Tb>
+void dweibull_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, const bool log_form, 
+                      Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc = Tb>
+ArmaMat<Tc> dweibull(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par, const bool log_form = false);
 #endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+BlazeMat<Tc,To> dweibull(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par, const bool log_form = false);
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+EigMat<Tc,iTr,iTc> dweibull(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb scale_par, const bool log_form = false);
+#endif
+
+//
+// include implementation files
 
 #include "dweibull.ipp"
 

@@ -44,88 +44,58 @@ dweibull(const T x, const T shape_par, const T scale_par, const bool log_form)
                                 stmath::exp(dweibull_int(x/scale_par,shape_par,scale_par)) );
 }
 
-statslib_constexpr
-double
-dweibull(const double x)
-{
-    return dweibull(x,1.0,1.0,false);
-}
-
-statslib_constexpr
-double
-dweibull(const double x, const bool log_form)
-{
-    return dweibull(x,1.0,1.0,log_form);
-}
-
-statslib_constexpr
-double
-dweibull(const double x, const double shape_par, const double scale_par)
-{
-    return dweibull(x,shape_par,scale_par,false);
-}
-
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-dweibull_int(const arma::mat& x, const double* shape_par_inp, const double* scale_par_inp, bool log_form)
+template<typename Ta, typename Tb, typename Tc = Tb>
+void
+dweibull_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, const bool log_form, 
+                   Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
-    const double scale_par = (scale_par_inp) ? *scale_par_inp : 1.0;
-
-    const uint_t n = x.n_rows;
-    const uint_t k = x.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = x.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = dweibull(inp_mem[j],shape_par,scale_par,log_form);
+        vals_out[j] = dweibull(vals_in[j],shape_par,scale_par,log_form);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-dweibull(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+dweibull(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par, const bool log_form)
 {
-    return dweibull_int(x,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-dweibull(const arma::mat& x, const bool log_form)
+    dweibull_int<Ta,Tb,Tc>(X.memptr(),shape_par,scale_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+dweibull(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par, const bool log_form)
 {
-    return dweibull_int(x,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-dweibull(const arma::mat& x, const double shape_par, const double scale_par)
+    dweibull_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+dweibull(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb scale_par, const bool log_form)
 {
-    return dweibull_int(x,&shape_par,&scale_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-dweibull(const arma::mat& x, const double shape_par, const double scale_par, const bool log_form)
-{
-    return dweibull_int(x,&shape_par,&scale_par,log_form);
-}
+    dweibull_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

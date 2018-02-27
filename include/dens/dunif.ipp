@@ -28,83 +28,69 @@ statslib_constexpr
 T
 dunif(const T x, const T a_par, const T b_par, const bool log_form)
 {
-    return ( log_form == true ? - stmath::log(b_par-a_par) : 1.0 / (b_par-a_par) );
+    return ( log_form == true ? - stmath::log(b_par - a_par) : T(1.0) / (b_par - a_par) );
 }
 
+template<typename T>
 statslib_constexpr
-double
-dunif(const double x)
+T
+dunif(const T x)
 {
-    return dunif(x,0.0,1.0,false);
-}
-
-statslib_constexpr
-double
-dunif(const double x, const bool log_form)
-{
-    return dunif(x,0.0,1.0,log_form);
-}
-
-statslib_constexpr
-double
-dunif(const double x, const double a_par, const double b_par)
-{
-    return dunif(x,a_par,b_par,false);
+    return dunif(x,T(0.0),T(1.0));
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-dunif_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc = Tb>
+void
+dunif_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, const bool log_form, 
+                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double a_par = (a_par_inp) ? *a_par_inp : 0.0;
-    const double b_par = (b_par_inp) ? *b_par_inp : 1.0;
-
-    //
-
-    arma::mat ret(x.n_rows,x.n_cols);
-
-    if (log_form) {
-        ret.fill(- std::log(b_par-a_par));
-    } else {
-        ret.fill(1.0/(b_par-a_par));
+#ifdef STATS_USE_OPENMP
+    #pragma omp parallel for
+#endif
+    for (uint_t j=0U; j < num_elem; j++)
+    {
+        vals_out[j] = dunif(vals_in[j],a_par,b_par,log_form);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-dunif(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+dunif(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {
-    return dunif_int(x,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-dunif(const arma::mat& x, const bool log_form)
+    dunif_int<Ta,Tb,Tc>(X.memptr(),a_par,b_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+dunif(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {
-    return dunif_int(x,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-dunif(const arma::mat& x, const double a_par, const double b_par)
+    dunif_int<Ta,Tb,Tc>(X.data(),a_par,b_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+dunif(const EigMat<Ta,iTr,iTc>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {
-    return dunif_int(x,&a_par,&b_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-dunif(const arma::mat& x, const double a_par, const double b_par, const bool log_form)
-{
-    return dunif_int(x,&a_par,&b_par,log_form);
-}
+    dunif_int<Ta,Tb,Tc>(X.data(),a_par,b_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

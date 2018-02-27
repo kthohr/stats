@@ -35,22 +35,22 @@ statslib_constexpr T dexp(const T x, const T rate_par, const bool log_form = fal
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc = Tb>
-void dchisq_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, const bool log_form, 
-                      Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+void dexp_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, const bool log_form, 
+                    Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
-ArmaMat<Tc> dchisq(const ArmaMat<Ta>& X, const Tb rate_par, const bool log_form = false);
+ArmaMat<Tc> dexp(const ArmaMat<Ta>& X, const Tb rate_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
-BlazeMat<Tc,To> dchisq(const BlazeMat<Ta,To>& X, const Tb rate_par, const bool log_form = false);
+BlazeMat<Tc,To> dexp(const BlazeMat<Ta,To>& X, const Tb rate_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
-EigMat<Tc,iTr,iTc> dchisq(const EigMat<Ta,iTr,iTc>& X, const Tb rate_par, const bool log_form = false);
+EigMat<Tc,iTr,iTc> dexp(const EigMat<Ta,iTr,iTc>& X, const Tb rate_par, const bool log_form = false);
 #endif
 
 //

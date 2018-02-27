@@ -20,20 +20,18 @@
  * pdf of the Multivariate Normal distribution
  */
 
-inline
-double
-dmvnorm_int(const arma::vec& x, const arma::vec* mu_par_inp, const arma::mat* Sigma_par_inp, const bool log_form)
+template<typename Ta, typename Te>
+Te
+dmvnorm(const Ta& X, const Ta& mu_par, const Ta& Sigma_par, bool log_form)
 {
-    const int K = x.n_rows;
-
-    const arma::vec mu_par = (mu_par_inp) ? *mu_par_inp : arma::zeros(K,1);
-    const arma::mat Sigma_par = (Sigma_par_inp) ? *Sigma_par_inp : arma::eye(K,K);
+    const uint_t K = mat_opts::get_n_rows(X);
 
     //
 
-    const double cons_term = -0.5*K*GCEM_LOG_2PI;
+    const Te cons_term = -Te(0.5)*K*GCEM_LOG_2PI;
+    const Ta quadratic_term = mat_opts::trans(x - mu_par) * mat_opts::inverse(Sigma_par) * (x - mu_par);
 
-    double ret = cons_term - 0.5 * ( std::log(arma::det(Sigma_par)) + arma::as_scalar((x - mu_par).t() * arma::inv(Sigma_par) * (x - mu_par)) );
+    Te ret = cons_term - Te(0.5) * ( std::log(mat_opts::det(Sigma_par)) + quadratic_term(0,0) );
 
     if (!log_form) {
         ret = std::exp(ret);
@@ -42,32 +40,4 @@ dmvnorm_int(const arma::vec& x, const arma::vec* mu_par_inp, const arma::mat* Si
     //
     
     return ret;
-}
-
-inline
-double
-dmvnorm(const arma::vec& x)
-{
-    return dmvnorm_int(x,nullptr,nullptr,false);
-}
-
-inline
-double
-dmvnorm(const arma::vec& x, const bool log_form)
-{
-    return dmvnorm_int(x,nullptr,nullptr,log_form);
-}
-
-inline
-double
-dmvnorm(const arma::vec& x, const arma::vec& mu_par, const arma::mat& Sigma_par)
-{
-    return dmvnorm_int(x,&mu_par,&Sigma_par,false);
-}
-
-inline
-double
-dmvnorm(const arma::vec& x, const arma::vec& mu_par, const arma::mat& Sigma_par, const bool log_form)
-{
-    return dmvnorm_int(x,&mu_par,&Sigma_par,log_form);
 }

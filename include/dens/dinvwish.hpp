@@ -25,8 +25,8 @@
 #ifndef _statslib_dinvwish_HPP
 #define _statslib_dinvwish_HPP
 
-template<typename T>
-double dinvwish_int(const T& X, const T& Psi_par, const uint_t nu_par, bool log_form = false);
+template<typename Ta, typename Te = double>
+Te dinvwish(const Ta& X, const Ta& Psi_par, const uint_t nu_par, bool log_form = false);
 
 #include "dinvwish.ipp"
 

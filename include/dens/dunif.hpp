@@ -23,23 +23,38 @@
 #ifndef _statslib_dunif_HPP
 #define _statslib_dunif_HPP
 
+//
 // single input
 template<typename T>
-statslib_constexpr T dunif(const T x, const T a_par, const T b_par, const bool log_form);
+statslib_constexpr T dunif(const T x, const T a_par, const T b_par, const bool log_form = false);
 
-statslib_constexpr double dunif(const double x);
-statslib_constexpr double dunif(const double x, const bool log_form);
-statslib_constexpr double dunif(const double x, const double a_par, const double b_par);
+template<typename T>
+statslib_constexpr T dunif(const T x);
 
+//
 // matrix/vector input
-#ifndef STATS_NO_ARMA
-arma::mat dunif_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form);
 
-arma::mat dunif(const arma::mat& x);
-arma::mat dunif(const arma::mat& x, const bool log_form);
-arma::mat dunif(const arma::mat& x, const double a_par, const double b_par);
-arma::mat dunif(const arma::mat& x, const double a_par, const double b_par, const bool log_form);
+template<typename Ta, typename Tb, typename Tc = Tb>
+void dunif_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, const bool log_form, 
+                     Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc = Tb>
+ArmaMat<Tc> dunif(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par, const bool log_form = false);
 #endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+BlazeMat<Tc,To> dunif(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par, const bool log_form = false);
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+EigMat<Tc,iTr,iTc> dunif(const EigMat<Ta,iTr,iTc>& X, const Tb a_par, const Tb b_par, const bool log_form = false);
+#endif
+
+//
+// include implementation files
 
 #include "dunif.ipp"
 
