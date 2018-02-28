@@ -65,7 +65,7 @@ dt(const T x, const uint_t dof_par, const bool log_form)
 template<typename Ta, typename Tb, typename Tc = Tb>
 void
 dt_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, const bool log_form, 
-                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+             Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
