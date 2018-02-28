@@ -4,20 +4,22 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
 /*
- * cdf of the univariate Binomial distribution
+ * cdf of the Binomial distribution
  */
 
 //
@@ -26,101 +28,73 @@
 template<typename T>
 statslib_constexpr
 T
-pbinom_int(const int x, const int n_trials_par, const T prob_par, const int count)
+pbinom_int(const uint_t x, const uint_t n_trials_par, const T prob_par, const uint_t count)
 {
-    return ( count == x ? dbinom(count,n_trials_par,prob_par,false) : dbinom(count,n_trials_par,prob_par,false) + pbinom_int(x,n_trials_par,prob_par,count+1) );
+    return ( count == x ? dbinom(count,n_trials_par,prob_par,false) : 
+                          dbinom(count,n_trials_par,prob_par,false) + pbinom_int(x,n_trials_par,prob_par,count+1) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-pbinom(const int x, const int n_trials_par, const T prob_par, const bool log_form)
+pbinom(const uint_t x, const uint_t n_trials_par, const T prob_par, const bool log_form)
 {
-    return ( log_form == true ? stmath::log(pbinom_int(x,n_trials_par,prob_par,0)) : pbinom_int(x,n_trials_par,prob_par,0) );
-}
-
-statslib_constexpr
-double
-pbinom(const int x)
-{
-    return pbinom(x,1,0.5,false);
-}
-
-statslib_constexpr
-double
-pbinom(const int x, const bool log_form)
-{
-    return pbinom(x,1,0.5,log_form);
-}
-
-statslib_constexpr
-double
-pbinom(const int x, const int n_trials_par, const double prob_par)
-{
-    return pbinom(x,n_trials_par,prob_par,false);
+    return ( log_form == true ? stmath::log(pbinom_int(x,n_trials_par,prob_par,0U)) :
+                                pbinom_int(x,n_trials_par,prob_par,0U) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-pbinom_int(const arma::mat& x, const int* n_trials_par_inp, const double* prob_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc = Tb>
+void
+pbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_par, const Tb prob_par, const bool log_form, 
+                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const int n_trials_par = (n_trials_par_inp) ? *n_trials_par_inp : 1;
-    const double prob_par = (prob_par_inp) ? *prob_par_inp : 0.5;
-
-    const uint_t n = x.n_rows;
-    const uint_t k = x.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = x.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = pbinom(static_cast<int>(inp_mem[j]),n_trials_par,prob_par,log_form);
+        vals_out[j] = pbinom(static_cast<uint_t>(vals_in[j]),n_trials_par,prob_par,log_form);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-pbinom(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+pbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
-    return pbinom_int(x,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-pbinom(const arma::mat& x, const bool log_form)
+    pbinom_int<Ta,Tb,Tc>(X.memptr(),n_trials_par,prob_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+pbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
-    return pbinom_int(x,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-pbinom(const arma::mat& x, const int n_trials_par, const double prob_par)
+    pbinom_int<Ta,Tb,Tc>(X.data(),n_trials_par,prob_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+pbinom(const EigMat<Ta,iTr,iTc>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
-    return pbinom_int(x,&n_trials_par,&prob_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-pbinom(const arma::mat& x, const int n_trials_par, const double prob_par, const bool log_form)
-{
-    return pbinom_int(x,&n_trials_par,&prob_par,log_form);
-}
+    pbinom_int<Ta,Tb,Tc>(X.data(),n_trials_par,prob_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

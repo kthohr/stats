@@ -29,17 +29,17 @@
 // single input
 
 template<typename T>
-statslib_constexpr T dbern(const int x, const T prob_par, const bool log_form = false);
+statslib_constexpr T dbern(const uint_t x, const T prob_par, const bool log_form = false);
 
 template<typename T = double>
-statslib_constexpr T dbern(const int x);
+statslib_constexpr T dbern(const uint_t x);
 
 //
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc = Tb>
 void dbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par, const bool log_form,
-                     Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+                     Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>

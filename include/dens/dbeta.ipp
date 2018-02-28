@@ -30,7 +30,8 @@ statslib_constexpr
 T
 dbeta_int(const T x, const T a_par, const T b_par)
 {
-    return ( - (stmath::lgamma(a_par) + stmath::lgamma(b_par) - stmath::lgamma(a_par+b_par)) + (a_par - 1.0)*stmath::log(x) + (b_par - 1.0)*stmath::log(1.0 - x) );
+    return ( - (stmath::lgamma(a_par) + stmath::lgamma(b_par) - stmath::lgamma(a_par+b_par)) \
+             + (a_par - T(1.0))*stmath::log(x) + (b_par - T(1.0))*stmath::log(T(1.0) - x) );
 }
 
 template<typename T>

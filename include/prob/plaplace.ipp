@@ -26,9 +26,9 @@
 template<typename T>
 statslib_constexpr
 T
-plaplace_int(const T x, const T mu_par, const T sigma_par)
+plaplace_int(const T x, const T sigma_par)
 {
-    return ( 0.5 + 0.5*gcem::sgn(x - mu_par)*(1.0 - stmath::exp(-stmath::abs(x - mu_par) / sigma_par)) );
+    return ( T(0.5) + T(0.5)*gcem::sgn(x)*(T(1.0) - stmath::exp(-stmath::abs(x) / sigma_par)) );
 }
 
 template<typename T>
@@ -36,91 +36,62 @@ statslib_constexpr
 T
 plaplace(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? stmath::log(plaplace_int(x,mu_par,sigma_par)) : plaplace_int(x,mu_par,sigma_par) );
-}
-
-statslib_constexpr
-double
-plaplace(const double x)
-{
-    return plaplace(x,0.0,1.0,false);
-}
-
-statslib_constexpr
-double
-plaplace(const double x, const bool log_form)
-{
-    return plaplace(x,0.0,1.0,log_form);
-}
-
-statslib_constexpr
-double
-plaplace(const double x, const double mu_par, const double sigma_par)
-{
-    return plaplace(x,mu_par,sigma_par,false);
+    return ( log_form == true ? stmath::log(plaplace_int(x - mu_par,sigma_par)) :
+                                plaplace_int(x - mu_par,sigma_par) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-plaplace_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc = Tb>
+void
+plaplace_int(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, const bool log_form, 
+                   Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
-    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
-    
-    const uint_t n = x.n_rows;
-    const uint_t k = x.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = x.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = plaplace(inp_mem[j],mu_par,sigma_par,log_form);
+        vals_out[j] = plaplace(vals_in[j],mu_par,sigma_par,log_form);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-plaplace(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+plaplace(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
 {
-    return plaplace_int(x,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-plaplace(const arma::mat& x, const bool log_form)
+    plaplace_int<Ta,Tb,Tc>(X.memptr(),mu_par,sigma_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+plaplace(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
 {
-    return plaplace_int(x,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-plaplace(const arma::mat& x, const double mu_par, const double sigma_par)
+    plaplace_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+plaplace(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
 {
-    return plaplace_int(x,&mu_par,&sigma_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-plaplace(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
-{
-    return plaplace_int(x,&mu_par,&sigma_par,log_form);
-}
+    plaplace_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

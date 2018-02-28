@@ -4,20 +4,22 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
 /*
- * cdf of the beta distribution
+ * cdf of the Beta distribution
  */
 
 //
@@ -28,7 +30,7 @@ statslib_constexpr
 T
 pbeta_int(const T x, const T a_par, const T b_par)
 {
-    return ( gcem::incomplete_beta(a_par,b_par,x) );
+    return gcem::incomplete_beta(a_par,b_par,x);
 }
 
 template<typename T>
@@ -36,91 +38,62 @@ statslib_constexpr
 T
 pbeta(const T x, const T a_par, const T b_par, const bool log_form)
 {
-    return ( log_form == true ? stmath::log(pbeta_int(x,a_par,b_par)) : pbeta_int(x,a_par,b_par) );
-}
-
-statslib_constexpr
-double
-pbeta(const double x)
-{
-    return pbeta(x,2.0,2.0,false);
-}
-
-statslib_constexpr
-double
-pbeta(const double x, const bool log_form)
-{
-    return pbeta(x,2.0,2.0,log_form);
-}
-
-statslib_constexpr
-double
-pbeta(const double x, const double a_par, const double b_par)
-{
-    return pbeta(x,a_par,b_par,false);
+    return ( log_form == true ? stmath::log(pbeta_int(x,a_par,b_par)) :
+                                pbeta_int(x,a_par,b_par) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-pbeta_int(const arma::mat& x, const double* a_par_inp, const double* b_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc = Tb>
+void
+pbeta_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, const bool log_form, 
+                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double a_par = (a_par_inp) ? *a_par_inp : 2.0; // shape parameter 'alpha'
-    const double b_par = (b_par_inp) ? *b_par_inp : 2.0; // scale parameter 'beta'
-
-    const uint_t n = x.n_rows;
-    const uint_t k = x.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = x.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = pbeta(inp_mem[j],a_par,b_par,log_form);
+        vals_out[j] = pbeta(vals_in[j],a_par,b_par,log_form);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-pbeta(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+pbeta(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {
-    return pbeta_int(x,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-pbeta(const arma::mat& x, const bool log_form)
+    pbeta_int<Ta,Tb,Tc>(X.memptr(),a_par,b_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+pbeta(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {
-    return pbeta_int(x,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-pbeta(const arma::mat& x, const double a_par, const double b_par)
+    pbeta_int<Ta,Tb,Tc>(X.data(),a_par,b_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+pbeta(const EigMat<Ta,iTr,iTc>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {
-    return pbeta_int(x,&a_par,&b_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-pbeta(const arma::mat& x, const double a_par, const double b_par, const bool log_form)
-{
-    return pbeta_int(x,&a_par,&b_par,log_form);
-}
+    pbeta_int<Ta,Tb,Tc>(X.data(),a_par,b_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

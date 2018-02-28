@@ -23,23 +23,36 @@
 #ifndef _statslib_pchisq_HPP
 #define _statslib_pchisq_HPP
 
+//
 // single input
+
 template<typename T>
-statslib_constexpr T pchisq(const T x, const T dof_par, const bool log_form);
+statslib_constexpr T pchisq(const T x, const T dof_par, const bool log_form = false);
 
-statslib_constexpr double pchisq(const double x);
-statslib_constexpr double pchisq(const double x, const bool log_form);
-statslib_constexpr double pchisq(const double x, const double dof_par);
-
+//
 // matrix/vector input
-#ifndef STATS_NO_ARMA
-arma::mat pchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form);
 
-arma::mat pchisq(const arma::mat& x);
-arma::mat pchisq(const arma::mat& x, const bool log_form);
-arma::mat pchisq(const arma::mat& x, const double dof_par);
-arma::mat pchisq(const arma::mat& x, const double dof_par, const bool log_form);
+template<typename Ta, typename Tb, typename Tc = Tb>
+void pchisq_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, const bool log_form, 
+                      Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
+
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc = Tb>
+ArmaMat<Tc> pchisq(const ArmaMat<Ta>& X, const Tb dof_par, const bool log_form = false);
 #endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+BlazeMat<Tc,To> pchisq(const BlazeMat<Ta,To>& X, const Tb dof_par, const bool log_form = false);
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+EigMat<Tc,iTr,iTc> pchisq(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par, const bool log_form = false);
+#endif
+
+//
+// include implementation files
 
 #include "pchisq.ipp"
 

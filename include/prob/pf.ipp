@@ -28,7 +28,7 @@ statslib_constexpr
 T
 pf_int(const T x, const T a_par, const T b_par)
 {
-    return ( gcem::incomplete_beta(a_par,b_par,x/(T(1.0) + x)) );
+    return gcem::incomplete_beta(a_par,b_par, x / (T(1.0) + x));
 }
 
 template<typename T>
@@ -40,88 +40,58 @@ pf(const T x, const T df1_par, const T df2_par, const bool log_form)
                                 pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0)) );
 }
 
-statslib_constexpr
-double
-pf(const double x)
-{
-    return pf(x,4.0,4.0,false);
-}
-
-statslib_constexpr
-double
-pf(const double x, const bool log_form)
-{
-    return pf(x,4.0,4.0,log_form);
-}
-
-statslib_constexpr
-double
-pf(const double x, const double df1_par, const double df2_par)
-{
-    return pf(x,df1_par,df2_par,false);
-}
-
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-pf_int(const arma::mat& x, const double* df1_par_inp, const double* df2_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc = Tb>
+void
+pf_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, const bool log_form, 
+                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double df1_par = (df1_par_inp) ? *df1_par_inp : 4.0; // degrees of freedom '1'
-    const double df2_par = (df2_par_inp) ? *df2_par_inp : 4.0; // degrees of freedom '2'
-
-    const uint_t n = x.n_rows;
-    const uint_t k = x.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = x.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = pf(inp_mem[j],df1_par,df2_par,log_form);
+        vals_out[j] = pf(vals_in[j],df1_par,df2_par,log_form);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-pf(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+pf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {
-    return pf_int(x,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-pf(const arma::mat& x, const bool log_form)
+    df_int<Ta,Tb,Tc>(X.memptr(),df1_par,df2_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+pf(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {
-    return pf_int(x,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-pf(const arma::mat& x, const double df1_par, const double df2_par)
+    df_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+pf(const EigMat<Ta,iTr,iTc>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {
-    return pf_int(x,&df1_par,&df2_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-pf(const arma::mat& x, const double df1_par, const double df2_par, const bool log_form)
-{
-    return pf_int(x,&df1_par,&df2_par,log_form);
-}
+    df_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

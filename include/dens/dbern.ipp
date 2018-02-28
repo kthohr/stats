@@ -28,17 +28,18 @@
 template<typename T>
 statslib_constexpr
 T
-dbern_int(const int x, const T prob_par)
+dbern_int(const uint_t x, const T prob_par)
 {
-    return ( x == 1 ? prob_par : T(1.0) - prob_par );
+    return ( x == 1U ? prob_par : T(1.0) - prob_par );
 }
 
 template<typename T>
 statslib_constexpr
 T
-dbern(const int x, const T prob_par, const bool log_form)
+dbern(const int uint_t, const T prob_par, const bool log_form)
 {
-    return ( log_form == true ? stmath::log(dbern_int(x,prob_par)) : dbern_int(x,prob_par) );
+    return ( log_form == true ? stmath::log(dbern_int(x,prob_par)) :
+                                dbern_int(x,prob_par) );
 }
 
 template<typename T>

@@ -28,7 +28,7 @@ statslib_constexpr
 T
 pinvgamma_int(const T x, const T shape_par, const T rate_par)
 {
-    return ( 1.0 - gcem::incomplete_gamma(shape_par,rate_par/x) );
+    return ( T(1.0) - gcem::incomplete_gamma(shape_par,rate_par/x) );
 }
 
 template<typename T>
@@ -36,91 +36,62 @@ statslib_constexpr
 T
 pinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? stmath::log(pinvgamma_int(x,shape_par,rate_par)) : pinvgamma_int(x,shape_par,rate_par) );
-}
-
-statslib_constexpr
-double
-pinvgamma(const double x)
-{
-    return pinvgamma(x,1.0,1.0,false);
-}
-
-statslib_constexpr
-double
-pinvgamma(const double x, const bool log_form)
-{
-    return pinvgamma(x,1.0,1.0,log_form);
-}
-
-statslib_constexpr
-double
-pinvgamma(const double x, const double shape_par, const double rate_par)
-{
-    return pinvgamma(x,shape_par,rate_par,false);
+    return ( log_form == true ? stmath::log(pinvgamma_int(x,shape_par,rate_par)) :
+                                pinvgamma_int(x,shape_par,rate_par) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-pinvgamma_int(const arma::mat& x, const double* shape_par_inp, const double* rate_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc = Tb>
+void
+pinvgamma_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb rate_par, const bool log_form, 
+                    Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
-    const double rate_par = (rate_par_inp) ? *rate_par_inp : 1.0;
-    
-    const uint_t n = x.n_rows;
-    const uint_t k = x.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = x.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = pinvgamma(inp_mem[j],shape_par,rate_par,log_form);
+        vals_out[j] = pinvgamma(vals_in[j],shape_par,rate_par,log_form);
     }
-
-    //
-
-    return ret;
 }
 
-inline
-arma::mat
-pinvgamma(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+pinvgamma(const ArmaMat<Ta>& X, const Tb shape_par, const Tb rate_par, const bool log_form)
 {
-    return pinvgamma_int(x,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-pinvgamma(const arma::mat& x, const bool log_form)
+    pinvgamma_int<Ta,Tb,Tc>(X.memptr(),shape_par,rate_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+pinvgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb rate_par, const bool log_form)
 {
-    return pinvgamma_int(x,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-pinvgamma(const arma::mat& x, const double shape_par, const double rate_par)
+    pinvgamma_int<Ta,Tb,Tc>(X.data(),shape_par,rate_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+pinvgamma(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb rate_par, const bool log_form)
 {
-    return pinvgamma_int(x,&shape_par,&rate_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-pinvgamma(const arma::mat& x, const double shape_par, const double rate_par, const bool log_form)
-{
-    return pinvgamma_int(x,&shape_par,&rate_par,log_form);
-}
+    pinvgamma_int<Ta,Tb,Tc>(X.data(),shape_par,rate_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

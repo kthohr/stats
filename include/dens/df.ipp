@@ -55,7 +55,7 @@ df(const T x, const T df1_par, const T df2_par, const bool log_form)
 
 template<typename Ta, typename Tb, typename Tc = Tb>
 void
-dbeta_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, const bool log_form, 
+df_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, const bool log_form, 
                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
@@ -63,18 +63,18 @@ dbeta_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const 
 #endif
     for (uint_t j=0U; j < num_elem; j++)
     {
-        vals_out[j] = dbeta(vals_in[j],df1_par,df2_par,log_form);
+        vals_out[j] = df(vals_in[j],df1_par,df2_par,log_form);
     }
 }
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
 ArmaMat<Tc>
-dbeta(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+df(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    dbeta_int<Ta,Tb,Tc>(X.memptr(),df1_par,df2_par,log_form,mat_out.memptr(),mat_out.n_elem);
+    df_int<Ta,Tb,Tc>(X.memptr(),df1_par,df2_par,log_form,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -83,11 +83,11 @@ dbeta(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par, const bool log_f
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
 BlazeMat<Tc,To>
-dbeta(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+df(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    dbeta_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),X.rows()*X.columns());
+    df_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),X.rows()*X.columns());
 
     return mat_out;
 }
@@ -96,11 +96,11 @@ dbeta(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par, const bool l
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
 EigMat<Tc,iTr,iTc>
-dbeta(const EigMat<Ta,iTr,iTc>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+df(const EigMat<Ta,iTr,iTc>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    dbeta_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),mat_out.size());
+    df_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

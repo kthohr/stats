@@ -23,23 +23,36 @@
 #ifndef _statslib_pinvgamma_HPP
 #define _statslib_pinvgamma_HPP
 
+//
 // single input
+
 template<typename T>
-statslib_constexpr T pinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form);
+statslib_constexpr T pinvgamma(const T x, const T shape_par, const T rate_par, const bool log_form = false);
 
-statslib_constexpr double pinvgamma(const double x);
-statslib_constexpr double pinvgamma(const double x, const bool log_form);
-statslib_constexpr double pinvgamma(const double x, const double shape_par, const double rate_par);
-
+//
 // matrix/vector input
-#ifndef STATS_NO_ARMA
-arma::mat pinvgamma_int(const arma::mat& x, const double* shape_inp, const double* rate_par_inp, const bool log_form);
 
-arma::mat pinvgamma(const arma::mat& x);
-arma::mat pinvgamma(const arma::mat& x, const bool log_form);
-arma::mat pinvgamma(const arma::mat& x, const double shape_par, const double rate_par);
-arma::mat pinvgamma(const arma::mat& x, const double shape_par, const double rate_par, const bool log_form);
+template<typename Ta, typename Tb, typename Tc = Tb>
+void pinvgamma_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb rate_par, const bool log_form, 
+                         Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
+
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc = Tb>
+ArmaMat<Tc> pinvgamma(const ArmaMat<Ta>& X, const Tb shape_par, const Tb rate_par, const bool log_form = false);
 #endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+BlazeMat<Tc,To> pinvgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb rate_par, const bool log_form = false);
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+EigMat<Tc,iTr,iTc> pinvgamma(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb rate_par, const bool log_form = false);
+#endif
+
+//
+// include implementation files
 
 #include "pinvgamma.ipp"
 
