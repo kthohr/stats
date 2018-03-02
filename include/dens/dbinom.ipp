@@ -28,12 +28,13 @@
 template<typename T>
 statslib_constexpr
 T
-dbinom_int(const int x, const uint_t n_trials_par, const T prob_par)
+dbinom_int(const uint_t x, const uint_t n_trials_par, const T prob_par)
 {
     return (x == 0 ? n_trials_par * stmath::log(1.0 - prob_par) :
             x == n_trials_par ? x * stmath::log(prob_par) :
             //
-            stmath::log(gcem::binomial_coef(n_trials_par,x)) + x*stmath::log(prob_par) + (n_trials_par - x)*stmath::log(1.0 - prob_par) );
+            stmath::log(gcem::binomial_coef(n_trials_par,x)) + x*stmath::log(prob_par) \
+                + (n_trials_par - x)*stmath::log(T(1.0) - prob_par) );
 }
 
 template<typename T>
