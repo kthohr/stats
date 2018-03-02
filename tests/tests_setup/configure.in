@@ -44,6 +44,10 @@ fi
 # get working directory
 WDIR=${PWD}
 
+# Matrix Linear Algebra Libraries
+STATS_MATLIB_FLAGS=
+STATS_MATLIB_PATH="."
+
 # look for Armadillo
 if [[ "${STATS_LIN_ALG_LIB}" == "arma" ]]; then
     if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
