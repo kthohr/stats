@@ -282,9 +282,9 @@ fill(BlazeMat<Ta,Tb>& X, const Ta fill_val)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 void
-fill(const EigMat<Ta,iTr,iTc>& X, const Ta fill_val)
+fill(EigMat<Ta,iTr,iTc>& X, const Ta fill_val)
 {
-    X = fill_val;
+    X.fill(fill_val);
 }
 #endif
 
@@ -487,6 +487,20 @@ sqsum(const BlazeMat<Ta,Tb>& X)
 }
 #endif
 
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+Ta
+sqsum(const EigMat<Ta,iTr,iTc>& X)
+{
+    const Ta* vals = X.data();
+    Ta out_val = Ta(0.0);
+    for (uint_t j=0U; j < n_elem(X); j++) {
+        out_val += vals[j]*vals[j];
+    }
+    return out_val;
+}
+#endif
+
 //
 // matrix transpose
 
@@ -607,7 +621,9 @@ template<typename Ta, int iTr, int iTc>
 Ta
 var(const EigMat<Ta,iTr,iTc>& X)
 {
-    return X.pow(2).sum() - std::pow(X.mean(),2);
+    Ta mean_val = mean(X);
+    Ta sq_val = sqsum(X) / static_cast<Ta>(n_elem(X));
+    return sq_val - mean_val*mean_val;
 }
 #endif
 
