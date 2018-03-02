@@ -15,6 +15,8 @@ done
 
 # compiler checks
 
+CXX_STD="-std=c++11"
+
 if [ -z ${CC+x} ]; then 
     CC=gcc
 fi
@@ -71,6 +73,17 @@ if [[ "${STATS_LIN_ALG_LIB}" == "arma" ]]; then
 
     STATS_MATLIB_FLAGS="-DSTATS_USE_ARMA -DARMA_NO_DEBUG"
     STATS_MATLIB_PATH=$ARMA_INCLUDE_PATH
+fi
+
+if [[ "${STATS_LIN_ALG_LIB}" == "blaze" ]]; then
+    STATS_MATLIB_FLAGS="-DSTATS_USE_BLAZE"
+    STATS_MATLIB_PATH=$BLAZE_INCLUDE_PATH
+    CXX_STD="-std=c++14"
+fi
+
+if [[ "${STATS_LIN_ALG_LIB}" == "eigen" ]]; then
+    STATS_MATLIB_FLAGS="-DSTATS_USE_EIGEN"
+    STATS_MATLIB_PATH=$EIGEN_INCLUDE_PATH
 fi
 
 echo "Stats tests: STATS_MATLIB_PATH set to ${STATS_MATLIB_PATH}"
@@ -142,6 +155,7 @@ echo ""
 sed -e "s|@CC@|${CC}|" \
     -e "s|@CXX@|${CXX}|" \
     -e "s|@FC@|${FC}|" \
+    -e "s|@CXX_STD@|${CXX_STD}|" \
     -e "s|@STATS_MATLIB_FLAGS@|${STATS_MATLIB_FLAGS}|" \
     -e "s|@STATS_MATLIB_PATH@|${STATS_MATLIB_PATH}|" \
     -e "s|@STATS_BLAS_LAPACK@|${STATS_BLAS_LAPACK}|" \

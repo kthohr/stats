@@ -61,7 +61,7 @@ int main()
     // coverage tests
 
 #ifdef STATS_TEST_MAT
-    arma::mat x_mat(2,1);
+    mat_obj x_mat(2,1);
     x_mat(0,0) = 5;
     x_mat(1,0) = 6;
 

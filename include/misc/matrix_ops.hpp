@@ -247,6 +247,15 @@ det(const BlazeMat<Ta,Tb>& X)
 }
 #endif
 
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+Ta
+det(const EigMat<Ta,iTr,iTc>& X)
+{
+    return X.determinant();
+}
+#endif
+
 //
 // Identity matrix
 
@@ -256,6 +265,29 @@ void
 eye(ArmaMat<T>& X, const uint_t n)
 {
     X = arma::eye<ArmaMat<T>>(n,n);
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+void
+eye(BlazeMat<Ta,Tb>& X, const uint_t n)
+{
+    X.resize(n,n);
+    X = Ta(0.0);
+    for (uint_t j=0; j < n; j++) {
+        X(j,j) = Ta(1.0);
+    }
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+void
+eye(EigMat<Ta,iTr,iTc>& X, const uint_t n)
+{
+    X.resize(n,n);
+    X.setIdentity();
 }
 #endif
 
@@ -376,14 +408,23 @@ solve(const ArmaMat<T>& A, const ArmaMat<T>& B)
 }
 #endif
 
-// #ifdef STATS_USE_EIGEN
-// template<typename Ta, int iTr, int iTc>
-// EigMat<Ta,iTc,iTr>
-// trans(const EigMat<Ta,iTr,iTc>& A, const EigMat<Ta,iTr,iTc> b)
-// {
-//     return A.colPivHouseholderQr().solve(b);
-// }
-// #endif
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+BlazeMat<Ta,Tb>
+solve(const BlazeMat<Ta,Tb>& A, const BlazeMat<Ta,Tb>& B)
+{
+    return B*blaze::inv(A);
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+EigMat<Ta,iTr,iTc>
+solve(const EigMat<Ta,iTr,iTc>& A, const EigMat<Ta,iTr,iTc> B)
+{
+    return A.colPivHouseholderQr().solve(B);
+}
+#endif
 
 //
 // matrix transpose
@@ -402,7 +443,7 @@ template<typename Ta, bool Tb>
 BlazeMat<Ta,Tb>
 trans(const BlazeMat<Ta,Tb>& X)
 {
-    return blaze::transpose(X);
+    return blaze::trans(X);
 }
 #endif
 
@@ -427,23 +468,25 @@ zeros(ArmaMat<T>& X, const uint_t n, const uint_t k)
 }
 #endif
 
-// #ifdef STATS_USE_BLAZE
-// template<typename Ta, bool Tb>
-// BlazeMat<Ta,Tb>
-// trans(const BlazeMat<Ta,Tb>& X)
-// {
-//     return blaze::transpose(X);
-// }
-// #endif
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+void
+zeros(BlazeMat<Ta,Tb>& X, const uint_t n, const uint_t k)
+{
+    X.resize(n,k);
+    X = Ta(0.0);
+}
+#endif
 
-// #ifdef STATS_USE_EIGEN
-// template<typename Ta, int iTr, int iTc>
-// EigMat<Ta,iTc,iTr>
-// trans(const EigMat<Ta,iTr,iTc>& X)
-// {
-//     return X.transpose();
-// }
-// #endif
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+void
+zeros(EigMat<Ta,iTr,iTc>& X, const uint_t n, const uint_t k)
+{
+    X.resize(n,k);
+    X.setZero();
+}
+#endif
 
 //
 // vector mean
@@ -457,14 +500,14 @@ mean(const ArmaMat<T>& X)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
-Ta
-mean(const BlazeMat<Ta,Tb>& X)
-{
-    return blaze::sum(X) / static_cast<Ta>(n_elem(X));
-}
-#endif
+// #ifdef STATS_USE_BLAZE
+// template<typename Ta, bool Tb>
+// Ta
+// mean(const BlazeMat<Ta,Tb>& X)
+// {
+//     return blaze::sum(X) / static_cast<Ta>(n_elem(X));
+// }
+// #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
@@ -487,14 +530,14 @@ var(const ArmaMat<T>& X)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
-Ta
-var(const BlazeMat<Ta,Tb>& X)
-{
-    return blaze::sum(X) / static_cast<Ta>(n_elem(X));
-}
-#endif
+// #ifdef STATS_USE_BLAZE
+// template<typename Ta, bool Tb>
+// Ta
+// var(const BlazeMat<Ta,Tb>& X)
+// {
+//     return blaze::sum(X) / static_cast<Ta>(n_elem(X));
+// }
+// #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>

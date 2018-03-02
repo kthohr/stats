@@ -68,7 +68,7 @@ rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol
 
     const T A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
 
-    ret = mat_ops::repmat(mat_ops::trans(mu_par),n,1) + arma::randn<T>(n,K) * mat_ops::trans(A);
+    ret = mat_ops::repmat(mat_ops::trans(mu_par),n,1) + rnorm<T>(n,K) * mat_ops::trans(A);
 
     //
     
