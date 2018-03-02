@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -20,24 +22,25 @@
  * Sample from a multivariate normal distribution
  */
 
-template<typename Ta, typename Tb>
-Ta
-rmvnorm(const Ta& mu_par, const Tb& Sigma_par, const bool pre_chol)
+template<typename T>
+T
+rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol)
 {
-    Ta ret;
+    T ret;
 
-    if (mu_par.n_elem != Sigma_par.n_rows) {
-        printf("rmvnorm: dimensions of mu.n_elem and Sigma.n_rows don't agree.\n");
+    const uint_t K = mat_ops::n_rows(Sigma_par);
+
+    if (mat_ops::n_elem(mu_par) != K)
+    {
+        printf("rmvnorm: dimensions of mu and Sigma don't agree.\n");
         return ret;
     }
 
-    uint_t K = mu_par.n_elem;
-
     //
 
-    const Tb A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par);
+    const T A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
 
-    ret = mu_par + A.t() * arma::randn<Tb>(K,1);
+    ret = mu_par + A * rnorm<T>(K,1);
 
     //
     
@@ -45,26 +48,27 @@ rmvnorm(const Ta& mu_par, const Tb& Sigma_par, const bool pre_chol)
 }
 
 //
-// n-samples
+// n-samples: results will be an n x K matrix
 
-template<typename Ta, typename Tb>
-Tb
-rmvnorm(const uint_t n, const Ta& mu_par, const Tb& Sigma_par, const bool pre_chol)
+template<typename T>
+T
+rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol)
 {
-    Tb ret;
+    T ret;
 
-    if (mu_par.n_elem != Sigma_par.n_rows) {
-        printf("rmvnorm: dimensions of mu.n_elem and Sigma.n_rows don't agree.\n");
+    const uint_t K = mat_ops::n_rows(Sigma_par);
+
+    if (mat_ops::n_elem(mu_par) != K)
+    {
+        printf("rmvnorm: dimensions of mu and Sigma don't agree.\n");
         return ret;
     }
 
-    uint_t K = mu_par.n_elem;
-
     //
 
-    const Tb A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par);
+    const T A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
 
-    ret = arma::repmat(mu_par.t(),n,1) + arma::randn<Tb>(n,K) * A;
+    ret = mat_ops::repmat(mat_ops::trans(mu_par),n,1) + rnorm<T>(n,K) * mat_ops::trans(A);
 
     //
     

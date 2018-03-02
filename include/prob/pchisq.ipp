@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -28,7 +30,7 @@ statslib_constexpr
 T
 pchisq_int(const T x, const T dof_par)
 {
-    return ( gcem::incomplete_gamma(dof_par/2.0,x/2.0) );
+    return gcem::incomplete_gamma(dof_par/T(2.0),x/T(2.0));
 }
 
 template<typename T>
@@ -36,90 +38,62 @@ statslib_constexpr
 T
 pchisq(const T x, const T dof_par, const bool log_form)
 {
-    return ( log_form == true ? stmath::log(pchisq_int(x,dof_par)) : pchisq_int(x,dof_par) );
-}
-
-statslib_constexpr
-double
-pchisq(const double x)
-{
-    return pchisq(x,1.0,false);
-}
-
-statslib_constexpr
-double
-pchisq(const double x, const bool log_form)
-{
-    return pchisq(x,1.0,log_form);
-}
-
-statslib_constexpr
-double
-pchisq(const double x, const double dof_par)
-{
-    return pchisq(x,dof_par,false);
+    return ( log_form == true ? stmath::log(pchisq_int(x,dof_par)) :
+                                pchisq_int(x,dof_par) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-pchisq_int(const arma::mat& x, const double* dof_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc>
+void
+pchisq_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, const bool log_form, 
+                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double dof_par = (dof_par_inp) ? *dof_par_inp : 1.0;
-    
-    const uint_t n = x.n_rows;
-    const uint_t k = x.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = x.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = pchisq(inp_mem[j],dof_par,log_form);
+        vals_out[j] = pchisq(vals_in[j],dof_par,log_form);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-pchisq(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+pchisq(const ArmaMat<Ta>& X, const Tb dof_par, const bool log_form)
 {
-    return pchisq_int(x,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-pchisq(const arma::mat& x, const bool log_form)
+    pchisq_int<Ta,Tb,Tc>(X.memptr(),dof_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+pchisq(const BlazeMat<Ta,To>& X, const Tb dof_par, const bool log_form)
 {
-    return pchisq_int(x,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-pchisq(const arma::mat& x, const double dof_par)
+    pchisq_int<Ta,Tb,Tc>(X.data(),dof_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+pchisq(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par, const bool log_form)
 {
-    return pchisq_int(x,&dof_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-pchisq(const arma::mat& x, const double dof_par, const bool log_form)
-{
-    return pchisq_int(x,&dof_par,log_form);
-}
+    pchisq_int<Ta,Tb,Tc>(X.data(),dof_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

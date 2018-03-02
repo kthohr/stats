@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -24,23 +26,31 @@ template<typename T>
 T
 rexp(const T rate_par)
 {
-    return qexp<T>(runif<T>(),rate_par,false);
+    return qexp<T>(runif<T>(),rate_par);
 }
 
-#ifndef STATS_NO_ARMA
-
-template<typename Ta, typename Tb>
-arma::Mat<Tb>
-rexp(const uint_t n, const Ta rate_par)
+template<typename T>
+void
+rexp_int(const T rate_par, T* vals_out, const uint_t num_elem)
 {
-    return rexp<Ta,Tb>(n,1U,rate_par);
+#ifdef STATS_USE_OPENMP
+    #pragma omp parallel for
+#endif
+    for (uint_t j=0U; j < num_elem; j++)
+    {
+        vals_out[j] = rexp(rate_par);
+    }
 }
 
-template<typename Ta, typename Tb>
-arma::Mat<Tb>
-rexp(const uint_t n, const uint_t k, const Ta rate_par)
+#ifdef STATS_WITH_MATRIX_LIB
+template<typename mT, typename eT>
+mT
+rexp(const uint_t n, const uint_t k, const eT rate_par)
 {
-    return qexp( runif(n,k,Ta(0.0),Ta(1.0)) , rate_par);
-}
+    mT mat_out(n,k);
 
+    rexp_int(rate_par,mat_ops::get_mem_ptr(mat_out),n*k);
+
+    return mat_out;
+}
 #endif

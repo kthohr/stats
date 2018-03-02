@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -23,23 +25,36 @@
 #ifndef _statslib_qlaplace_HPP
 #define _statslib_qlaplace_HPP
 
+//
 // single input
+
 template<typename T>
-statslib_constexpr T qlaplace(const T p, const T mu_par, const T sigma_par, const bool log_form);
+statslib_constexpr T qlaplace(const T x, const T mu_par, const T sigma_par);
 
-statslib_constexpr double qlaplace(const double p);
-statslib_constexpr double qlaplace(const double p, const bool log_form);
-statslib_constexpr double qlaplace(const double p, const double mu_par, const double sigma_par);
-
+//
 // matrix/vector input
-#ifndef STATS_NO_ARMA
-arma::mat qlaplace_int(const arma::mat& p, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form);
 
-arma::mat qlaplace(const arma::mat& p);
-arma::mat qlaplace(const arma::mat& p, const bool log_form);
-arma::mat qlaplace(const arma::mat& p, const double mu_par, const double sigma_par);
-arma::mat qlaplace(const arma::mat& p, const double mu_par, const double sigma_par, const bool log_form);
+template<typename Ta, typename Tb, typename Tc = Tb>
+void qlaplace_int(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, 
+                        Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
+
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc = Tb>
+ArmaMat<Tc> qlaplace(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par);
 #endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+BlazeMat<Tc,To> qlaplace(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par);
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+EigMat<Tc,iTr,iTc> qlaplace(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par);
+#endif
+
+//
+// include implementation files
 
 #include "qlaplace.ipp"
 

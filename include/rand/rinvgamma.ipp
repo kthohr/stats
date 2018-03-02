@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -27,36 +29,28 @@ rinvgamma(T shape_par, T rate_par)
     return T(1.0) / rgamma(shape_par,T(1.0)/rate_par);
 }
 
-#ifndef STATS_NO_ARMA
-
-template<typename Ta, typename Tb>
-arma::Mat<Tb>
-rinvgamma(const uint_t n, const Ta shape_par, const Ta rate_par)
+template<typename T>
+void
+rinvgamma_int(const T shape_par, const T rate_par, T* vals_out, const uint_t num_elem)
 {
-    return rinvgamma<Ta,Tb>(n,1U,shape_par,rate_par);
-}
-
-template<typename Ta, typename Tb>
-arma::Mat<Tb>
-rinvgamma(const uint_t n, const uint_t k, const Ta shape_par, const Ta rate_par)
-{
-    arma::Mat<Tb> ret(n,k);
-    
-    //
-
-    Tb* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0U; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = rinvgamma(shape_par,rate_par);
+        vals_out[j] = rinvgamma(shape_par,rate_par);
     }
-
-    //
-    
-    return ret;
 }
 
+#ifdef STATS_WITH_MATRIX_LIB
+template<typename mT, typename eT>
+mT
+rinvgamma(const uint_t n, const uint_t k, const eT shape_par, const eT rate_par)
+{
+    mT mat_out(n,k);
+
+    rinvgamma_int(shape_par,rate_par,mat_ops::get_mem_ptr(mat_out),n*k);
+
+    return mat_out;
+}
 #endif

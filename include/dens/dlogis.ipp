@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -28,7 +30,7 @@ statslib_constexpr
 T
 dlogis_int(const T z, const T sigma_par)
 {
-    return ( - z - stmath::log(sigma_par) - 2.0*stmath::log(1.0 + stmath::exp(-z)) );
+    return ( - z - stmath::log(sigma_par) - T(2.0)*stmath::log(T(1.0) + stmath::exp(-z)) );
 }
 
 template<typename T>
@@ -36,84 +38,62 @@ statslib_constexpr
 T
 dlogis(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return ( log_form == true ? dlogis_int((x-mu_par)/sigma_par,sigma_par) : stmath::exp(dlogis_int((x-mu_par)/sigma_par,sigma_par)) );
-}
-
-statslib_constexpr
-double
-dlogis(const double x)
-{
-    return dlogis(x,0.0,1.0,false);
-}
-
-statslib_constexpr
-double
-dlogis(const double x, const bool log_form)
-{
-    return dlogis(x,0.0,1.0,log_form);
-}
-
-statslib_constexpr
-double
-dlogis(const double x, const double mu_par, const double sigma_par)
-{
-    return dlogis(x,mu_par,sigma_par,false);
+    return ( log_form == true ? dlogis_int((x-mu_par)/sigma_par,sigma_par) : 
+                                stmath::exp(dlogis_int((x-mu_par)/sigma_par,sigma_par)) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-dlogis_int(const arma::mat& x, const double* mu_par_inp, const double* sigma_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc>
+void
+dlogis_int(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, const bool log_form, 
+                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double mu_par = (mu_par_inp) ? *mu_par_inp : 0.0;
-    const double sigma_par = (sigma_par_inp) ? *sigma_par_inp : 1.0;
-
-    //
-
-    const arma::mat numer_term = arma::exp(- (x - mu_par) / sigma_par);
-    const arma::mat denom_term = sigma_par * arma::pow(1.0 + numer_term,2);
-
-    arma::mat ret = numer_term / denom_term;
-
-    if (log_form) {
-        ret = arma::log(ret);
+#ifdef STATS_USE_OPENMP
+    #pragma omp parallel for
+#endif
+    for (uint_t j=0U; j < num_elem; j++)
+    {
+        vals_out[j] = dlogis(vals_in[j],mu_par,sigma_par,log_form);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-dlogis(const arma::mat& x)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+dlogis(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
 {
-    return dlogis_int(x,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-dlogis(const arma::mat& x, const bool log_form)
+    dlogis_int<Ta,Tb,Tc>(X.memptr(),mu_par,sigma_par,log_form,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+dlogis(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
 {
-    return dlogis_int(x,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-dlogis(const arma::mat& x, const double mu_par, const double sigma_par)
+    dlogis_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+dlogis(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
 {
-    return dlogis_int(x,&mu_par,&sigma_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-dlogis(const arma::mat& x, const double mu_par, const double sigma_par, const bool log_form)
-{
-    return dlogis_int(x,&mu_par,&sigma_par,log_form);
-}
+    dlogis_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

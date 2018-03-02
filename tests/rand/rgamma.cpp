@@ -4,19 +4,22 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
 #include "stats.hpp"
+#include "../stats_tests.hpp"
 
 int main()
 {
@@ -33,17 +36,15 @@ int main()
 
     std::cout << "gamma rv draw: " << gamma_rand << std::endl;
 
-    int n = 1000;
-    arma::vec gamma_vec = stats::rgamma(n,shape,scale);
+#ifdef STATS_TEST_MAT
+    int n = 10000;
+    mat_obj gamma_vec = stats::rgamma<mat_obj>(n,1,shape,scale);
 
-    std::cout << "gamma rv mean: " << arma::mean(gamma_vec) << ". Should be close to: " << gamma_mean << std::endl;
-    std::cout << "gamma rv variance: " << arma::var(gamma_vec) << ". Should be close to: " << gamma_var << std::endl;
+    std::cout << "gamma rv mean: " << stats::mat_ops::mean(gamma_vec) << ". Should be close to: " << gamma_mean << std::endl;
+    std::cout << "gamma rv variance: " << stats::mat_ops::var(gamma_vec) << ". Should be close to: " << gamma_var << std::endl;
+#endif
 
     //
-    // coverage tests
-
-    stats::rgamma(0.7,scale);
-    stats::rgamma(100,100,shape,scale);
 
     std::cout << "\n*** rgamma: end tests. ***\n" << std::endl;
 

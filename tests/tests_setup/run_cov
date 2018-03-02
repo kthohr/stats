@@ -18,7 +18,7 @@ declare -a DIRS=("dens" "prob" "quant" "rand")
 for i in "${DIRS[@]}"; do
     cd "$WDIR"/"$i"
 
-    ./configure -c -d
+    ./configure -c -d -l arma
     make
     sh ./../tests_setup/cov_check
 done
