@@ -4,7 +4,7 @@ StatsLib is a templated C++ library of statistical distribution functions.
 
 Features:
 * A header-only library of probability density functions, cumulative distribution functions, quantile functions, and random sampling methods.
-* Functions are written in C++11 `constexpr`-based format. 
+* Functions are written in a concise C++11 `constexpr`-based format.
     * Built on the [GCE-Math library](https://github.com/kthohr/gcem), StatsLib can equally operate as a compile-time or run-time computation engine.
 * A simple, **R**-like syntax.
 * Optional vector-matrix functionality with wrappers to support several popular linear algebra libraries, including:
