@@ -92,7 +92,12 @@ arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
 * The randomization functions (`r*`) can output random matrices of arbitrary dimensions. For example,</li>
 
 ```cpp
+# Armadillo:
 arma::mat gamma_rvs = stats::rgamma<arma::mat>(100,50,3.0,2.0);
+# Blaze:
+blaze::DynamicMatrix<double> gamma_rvs = stats::rgamma<blaze::DynamicMatrix<double>>(100,50,3.0,2.0);
+# Eigen:
+Eigen::MatrixXd gamma_rvs = stats::rgamma<Eigen::MatrixXd>(100,50,3.0,2.0);
 ```
 
 <!-- <ul style="list-style-type:none">
@@ -100,7 +105,7 @@ arma::mat gamma_rvs = stats::rgamma<arma::mat>(100,50,3.0,2.0);
 </ul> -->
 &nbsp; &nbsp; &nbsp; &nbsp; will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.
 
-* All matrix-based operations are parallelizable with OpenMP. For GCC and Clang, simply include the `-fopenmp` option during compilation.
+* All matrix-based operations are parallelizable with OpenMP. For GCC and Clang compilers, simply include the `-fopenmp` option during compilation.
 
 More examples with code:
 ```cpp
