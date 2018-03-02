@@ -32,7 +32,8 @@ int main()
 
     std::cout << "\n*** qlnorm: begin tests. ***\n" << std::endl;
 
-    // x = 2.0
+    //
+
     double x_1 = 2.0;
     double val_1 = 0.439031;
     double q_1 = stats::qlnorm(val_1,mu,sigma);
@@ -41,8 +42,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qlnorm(" << val_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2-1) << q_1 << ". Success = " << success_1 << std::endl;
 
-    // x = 2.0
-    double x_2 = 285.0589;
+    //
+
+    double x_2 = 285.0588779;
     double val_2 = 0.99;
     double q_2 = stats::qlnorm(val_2,mu,sigma);
 
