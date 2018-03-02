@@ -26,14 +26,15 @@ template<typename Ta, typename Te>
 Te
 dmvnorm(const Ta& X, const Ta& mu_par, const Ta& Sigma_par, bool log_form)
 {
-    const uint_t K = mat_opts::get_n_rows(X);
+    const uint_t K = mat_ops::n_rows(X);
 
     //
 
     const Te cons_term = -Te(0.5)*K*GCEM_LOG_2PI;
-    const Ta quadratic_term = mat_opts::trans(x - mu_par) * mat_opts::inverse(Sigma_par) * (x - mu_par);
+    const Ta X_cent = X - mu_par; // avoids issues like Mat vs eGlue in templates
+    const Ta quadratic_term = mat_ops::trans(X_cent) * mat_ops::inv(Sigma_par) * (X_cent);
 
-    Te ret = cons_term - Te(0.5) * ( std::log(mat_opts::det(Sigma_par)) + quadratic_term(0,0) );
+    Te ret = cons_term - Te(0.5) * ( std::log(mat_ops::det(Sigma_par)) + quadratic_term(0,0) );
 
     if (!log_form) {
         ret = std::exp(ret);

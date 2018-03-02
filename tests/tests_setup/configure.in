@@ -1,11 +1,12 @@
 #!/bin/bash
 ## Stats tests config script
 
-while getopts cdgm:o:p option; do
+while getopts cdgl:m:o:p option; do
     case "${option}" in
         c) STATS_COVERAGE="y";;
         d) STATS_BUILD="dev";;
         g) STATS_DEBUG="y";;
+        l) STATS_LIN_ALG_LIB=${OPTARG};;
         m) STATS_MATRIX_OPS=${OPTARG};;
         o) STATS_OPT=${OPTARG};;
         p) STATS_PARALLEL="y";;
@@ -33,37 +34,42 @@ GCC_COMPILER=$($CXX --version 2>&1 | grep -i -c -E "gcc")
 echo ""
 
 if [[ "${STATS_COVERAGE}" == "y" ]]; then 
-    echo "Optim: coverage build"
+    echo "Stats: coverage build"
 fi
 
 if [[ "${STATS_DEBUG}" == "y" ]]; then
-    echo "Optim: debug build"
+    echo "Stats: debug build"
 fi
 
 # get working directory
 WDIR=${PWD}
 
 # look for Armadillo
-if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
-    
-    declare -a ARMA_DIRS=("${WDIR}/../../include" "/usr/include" "/usr/local/include" "/opt/include" "/opt/local/include")
-    ARMA_INCLUDE_PATH=
+if [[ "${STATS_LIN_ALG_LIB}" == "arma" ]]; then
+    if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
+        
+        declare -a ARMA_DIRS=("${WDIR}/../../include" "/usr/include" "/usr/local/include" "/opt/include" "/opt/local/include")
+        ARMA_INCLUDE_PATH=
 
-    for i in "${ARMA_DIRS[@]}"; do
-        if [ -f "$i"/armadillo ]; then 
-            ARMA_INCLUDE_PATH="$i"
-            break
+        for i in "${ARMA_DIRS[@]}"; do
+            if [ -f "$i"/armadillo ]; then 
+                ARMA_INCLUDE_PATH="$i"
+                break
+            fi
+        done
+
+        if [[ $ARMA_INCLUDE_PATH == "" ]]; then
+            echo "Stats tests: cannot find the armadillo library."
+            echo ""
+            exit 1
         fi
-    done
-
-    if [[ $ARMA_INCLUDE_PATH == "" ]]; then
-        echo "Stats tests: cannot find the armadillo library."
-        echo ""
-        exit 1
     fi
+
+    STATS_MATLIB_FLAGS="-DSTATS_USE_ARMA -DARMA_NO_DEBUG"
+    STATS_MATLIB_PATH=$ARMA_INCLUDE_PATH
 fi
 
-echo "Stats tests: ARMA_INCLUDE_PATH set to ${ARMA_INCLUDE_PATH}"
+echo "Stats tests: STATS_MATLIB_PATH set to ${STATS_MATLIB_PATH}"
 
 # set optimization flags
 
@@ -74,13 +80,12 @@ elif [[ "${STATS_DEBUG}" == "y" ]]; then
     STATS_OPT_FLAGS="-g -O0 -DSTATS_NO_OMP"
 else
     if [[ "${STATS_OPT}" == "" ]]; then
-        STATS_OPT_FLAGS="-O3 -march=native -DARMA_NO_DEBUG"
+        STATS_OPT_FLAGS="-O3 -march=native"
     else
         STATS_OPT_FLAGS="${STATS_OPT}"
     fi
 
     if [[ "${STATS_PARALLEL}" == "y" ]]; then
-        # STATS_OPT_FLAGS="${STATS_OPT_FLAGS} -fopenmp -DSTATS_USE_OMP"
         STATS_OPT_FLAGS="${STATS_OPT_FLAGS} -fopenmp"
     fi
 fi
@@ -133,7 +138,8 @@ echo ""
 sed -e "s|@CC@|${CC}|" \
     -e "s|@CXX@|${CXX}|" \
     -e "s|@FC@|${FC}|" \
-    -e "s|@ARMA_INCLUDE_PATH@|${ARMA_INCLUDE_PATH}|" \
+    -e "s|@STATS_MATLIB_FLAGS@|${STATS_MATLIB_FLAGS}|" \
+    -e "s|@STATS_MATLIB_PATH@|${STATS_MATLIB_PATH}|" \
     -e "s|@STATS_BLAS_LAPACK@|${STATS_BLAS_LAPACK}|" \
     -e "s|@STATS_WARN_FLAGS@|${STATS_WARN_FLAGS}|" \
     -e "s|@STATS_OPT_FLAGS@|${STATS_OPT_FLAGS}|" \

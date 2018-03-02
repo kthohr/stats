@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -28,119 +30,71 @@
 
 // coefficients
 
+template<typename T>
 statslib_constexpr
-long double
-qt_int_coef_a(const int dof_par)
+T
+qt_int_coef_a(const T dof_par)
 {
-    return ( 1.0L / (dof_par - 0.5L) );
+    return ( T(1.0) / (dof_par - T(0.5)) );
 }
 
+template<typename T>
 statslib_constexpr
-long double
-qt_int_coef_b(const long double coef_a)
+T
+qt_int_coef_b(const T coef_a)
 {
-    return ( 48.0L / (coef_a * coef_a) );
+    return ( T(48.0) / (coef_a * coef_a) );
 }
 
+template<typename T>
 statslib_constexpr
-long double
-qt_int_coef_c(const long double coef_a, const long double coef_b)
+T
+qt_int_coef_c(const T coef_a, const T coef_b)
 {
-    return ( 96.36L + coef_a * ( - 16.0L + coef_a * ( - 98.0L + 20700.0L*coef_a/coef_b ) ) );
+    return ( T(96.36) + coef_a * ( - T(16.0) + coef_a * ( - T(98.0) + T(20700.0)*coef_a/coef_b ) ) );
 }
 
+template<typename T>
 statslib_constexpr
-long double
-qt_int_coef_c_update(const long double x, const long int dof_par, const long double coef_c)
+T
+qt_int_coef_c_update(const T x, const T dof_par, const T coef_c)
 {
-    return ( (dof_par < 5) ? coef_c + 0.3L*(dof_par - 4.5L)*(x + 0.6L) : coef_c );
+    return ( (dof_par < T(5.0)) ? coef_c + T(0.3)*(dof_par - T(4.5))*(x + T(0.6)) :
+                                  coef_c );
 }
 
+template<typename T>
 statslib_constexpr
-long double
-qt_int_coef_d(const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c)
+T
+qt_int_coef_d(const T dof_par, const T coef_a, const T coef_b, const T coef_c)
 {
-    return ( static_cast<long double>(dof_par) * stmath::sqrt(coef_a) * GCEM_SQRT_HALF_PI * ( 1.0L + (-3.0L + 94.5L/(coef_b + coef_c))/coef_b ) );
+    return ( dof_par * stmath::sqrt(coef_a) * GCEM_SQRT_HALF_PI * \
+                ( T(1.0) + (-T(3.0) + T(94.5)/(coef_b + coef_c))/coef_b ) );
 }
 
 // initial y
 
+template<typename T>
 statslib_constexpr
-long double
-qt_int_y_init(const long double p, const int dof_par, const long double coef_d)
+T
+qt_int_y_init(const T p, const T dof_par, const T coef_d)
 {
-    return ( stmath::pow( coef_d*p , 2.0L/static_cast<long double>(dof_par) ) );
+    return ( stmath::pow( coef_d*p , T(2.0)/dof_par ) );
 }
 
 // update y
 
+template<typename T>
 statslib_constexpr
-long double
-qt_int_y_1_update(const int stage, const long double y, const long double x, const long double coef_a, const long double coef_b, const long double coef_c)
+T
+qt_int_y_1_update(const int stage, const T y, const T x, const T coef_a, const T coef_b, const T coef_c)
 {
-    return ( stage == 1 ? x*x : 
-             stage == 2 ? x * ( 1.0L + ( ( y * ( 36.0L + y * (6.3L + 0.4L*y) ) + 94.5)/coef_c - y - 3.0L ) / coef_b ) :
+    return ( stage == 1 ? x*x :
+             stage == 2 ? x * ( T(1.0) + ( ( y * (T(36.0) + y * (T(6.3) + y*T(0.4))) + T(94.5) )/coef_c - y - T(3.0) ) / coef_b ) :
              stage == 3 ? coef_a * y * y :
-                          (y > 0.1L ? stmath::exp(y) - 1.0L : y * (1.0L + y * (12.0L + y * (4.0L + y))/24.0L ) ) );
-}
-
-statslib_constexpr
-long double
-qt_int_y_1(const int stage, const long double y, const long double x, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
-{
-    return ( stage == 0 ? qt_int_y_1(1,0.0,x,dof_par,coef_a,coef_b, qt_int_coef_c_update(x,dof_par,coef_c) ,coef_d) : 
-             stage == 1 ? qt_int_y_1(2,qt_int_y_1_update(1,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b, coef_b + coef_c + x * (- 2.0L + x * (- 7.0L + x * (-5.0L + x*coef_d*0.05))),coef_d) : 
-             stage == 2 ? qt_int_y_1(3,qt_int_y_1_update(2,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b,coef_c,coef_d) :
-             stage == 3 ? qt_int_y_1(4,qt_int_y_1_update(3,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b,coef_c,coef_d) :
-                          qt_int_y_1_update(4,y,x,coef_a,coef_b,coef_c) );
-}
-
-statslib_constexpr
-long double
-qt_int_y_2(const long double y, const int dof_par, const long double coef_b, const long double coef_c, const long double coef_d)
-{
-    return ( (1.0L/y) + (dof_par + 1.0L) * ( (1.0L / (((dof_par + 6.0L) / (dof_par * y) - 0.089L*coef_d - 0.822L) * (dof_par + 2.0L) * 3.0L) + 0.5L / (dof_par + 4.0L)) * y - 1.0L) / (dof_par + 2.0L) );
-}
-
-statslib_constexpr
-long double
-qt_int_choose(const long double p, const long double y, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
-{
-    return ( y > 0.05 + coef_a ? qt_int_y_1(0,y,qnorm(0.5L*p),dof_par,coef_a,coef_b,coef_c,coef_d) : qt_int_y_2(y,dof_par,coef_b,coef_c,coef_d) );
-}
-
-statslib_constexpr
-long double
-qt_int_finish(const long double p, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
-{
-    return ( stmath::sqrt( dof_par * qt_int_choose(p, qt_int_y_init(p,dof_par,coef_d), dof_par,coef_a,coef_b,coef_c,coef_d) ) );
-}
-
-statslib_constexpr
-long double
-qt_int_main_iter(const int stage, const long double p, const int dof_par, const long double coef_a, const long double coef_b, const long double coef_c, const long double coef_d)
-{
-    return ( stage == 0 ? qt_int_main_iter(1,p,dof_par,qt_int_coef_a(dof_par),0,0,0) :
-             stage == 1 ? qt_int_main_iter(2,p,dof_par,coef_a,qt_int_coef_b(coef_a),0,0) : 
-             stage == 2 ? qt_int_main_iter(3,p,dof_par,coef_a,coef_b,qt_int_coef_c(coef_a,coef_b),0) :
-             stage == 3 ? qt_int_main_iter(4,p,dof_par,coef_a,coef_b,coef_c,qt_int_coef_d(dof_par,coef_a,coef_b,coef_c)) :
-                          qt_int_finish(p,dof_par,coef_a,coef_b,coef_c,coef_d) );
-}
-
-statslib_constexpr
-long double
-qt_int_main(const long double p, const int dof_par)
-{
-    return ( p < 0.5 ? - qt_int_main_iter(0,2*p,dof_par,0,0,0,0) : qt_int_main_iter(0,2*p,dof_par,0,0,0,0) );
-}
-
-statslib_constexpr
-long double
-qt_int(const long double p, const int dof_par)
-{
-    return ( dof_par == 1 ? stmath::tan(GCEM_PI*(p - 0.5L)) : // Cauchy case
-             dof_par == 2 ? (2*p - 1.0L) / stmath::sqrt(2*p*(1.0L - p)) :
-                            qt_int_main(p,dof_par) );
+             //
+             y > T(0.1) ? stmath::exp(y) - T(1.0) :
+                          y * (T(1.0) + y * (T(12.0) + y * (T(4.0) + y))/T(24.0) ) );
 }
 
 //
@@ -148,92 +102,149 @@ qt_int(const long double p, const int dof_par)
 template<typename T>
 statslib_constexpr
 T
-qt(const T p, const int dof_par, const bool log_form)
+qt_int_y_1(const int stage, const T y, const T x, const T dof_par, const T coef_a, const T coef_b, const T coef_c, const T coef_d)
 {
-    return ( log_form == true ? stmath::log(qt_int(p,dof_par)) : qt_int(p,dof_par) );
+    return ( stage == 0 ? qt_int_y_1(1,0.0,x,dof_par,coef_a,coef_b, qt_int_coef_c_update(x,dof_par,coef_c) ,coef_d) : 
+             //
+             stage == 1 ? qt_int_y_1(2,qt_int_y_1_update(1,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b, 
+                                     coef_b + coef_c + x * (- T(2.0) + x * (- T(7.0) + x * (-T(5.0) + T(0.05)*x*coef_d))),coef_d) : 
+             //
+             stage == 2 ? qt_int_y_1(3,qt_int_y_1_update(2,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b,coef_c,coef_d) :
+             //
+             stage == 3 ? qt_int_y_1(4,qt_int_y_1_update(3,y,x,coef_a,coef_b,coef_c),x,dof_par,coef_a,coef_b,coef_c,coef_d) :
+             //
+                          qt_int_y_1_update(4,y,x,coef_a,coef_b,coef_c) );
 }
 
+//
+
+template<typename T>
 statslib_constexpr
-double
-qt(const double p)
+T
+qt_int_y_2_mterm(const T y, const T dof_par, const T coef_d)
 {
-    return qt(p,30,false);
+    return ( T(0.5) / (dof_par + T(4.0)) + T(1.0) / ( ((dof_par + T(6.0)) / (dof_par * y) - T(0.089)*coef_d - T(0.822)) * (dof_par + T(2.0)) * T(3.0) ) );
 }
 
+template<typename T>
 statslib_constexpr
-double
-qt(const double p, const bool log_form)
+T
+qt_int_y_2(const T y, const T dof_par, const T coef_d)
 {
-    return qt(p,1.0,log_form);
+    return ( (T(1.0)/y) + (dof_par + T(1.0)) * ( qt_int_y_2_mterm(y,dof_par,coef_d) * y - T(1.0)) / (dof_par + T(2.0)) );
 }
 
+//
+
+template<typename T>
 statslib_constexpr
-double
-qt(const double p, const int dof_par)
+T
+qt_int_choose(const T p, const T y, const T dof_par, const T coef_a, const T coef_b, const T coef_c, const T coef_d)
 {
-    return qt(p,dof_par,false);
+    return ( y > T(0.05) + coef_a ? qt_int_y_1(0.0,y,qnorm(T(0.5)*p),dof_par,coef_a,coef_b,coef_c,coef_d) :
+                                    qt_int_y_2(y,dof_par,coef_d) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+qt_int_finish(const T p, const T dof_par, const T coef_a, const T coef_b, const T coef_c, const T coef_d)
+{
+    return ( stmath::sqrt( dof_par * qt_int_choose(p, qt_int_y_init(p,dof_par,coef_d), dof_par,coef_a,coef_b,coef_c,coef_d) ) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+qt_int_main_iter(const uint_t stage, const T p, const T dof_par, const T coef_a, const T coef_b, const T coef_c, const T coef_d)
+{
+    return ( stage == 0U ? qt_int_main_iter(1U,p,dof_par,qt_int_coef_a(dof_par),0.0,0.0,0.0) :
+             stage == 1U ? qt_int_main_iter(2U,p,dof_par,coef_a,qt_int_coef_b(coef_a),0.0,0.0) :
+             stage == 2U ? qt_int_main_iter(3U,p,dof_par,coef_a,coef_b,qt_int_coef_c(coef_a,coef_b),0.0) :
+             stage == 3U ? qt_int_main_iter(4U,p,dof_par,coef_a,coef_b,coef_c,qt_int_coef_d(dof_par,coef_a,coef_b,coef_c)) :
+                           qt_int_finish(p,dof_par,coef_a,coef_b,coef_c,coef_d) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+qt_int_main(const T p, const T dof_par)
+{
+    return ( p < T(0.5) ? - qt_int_main_iter(0U,2*p,dof_par,0.0,0.0,0.0,0.0) : qt_int_main_iter(0U,2*p,dof_par,0.0,0.0,0.0,0.0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+qt_int(const T p, const T dof_par)
+{
+    return ( STLIM<T>::epsilon() > abs(T(1.0) - dof_par) ? stmath::tan(GCEM_PI*(p - T(0.5))) : // Cauchy case
+             STLIM<T>::epsilon() > abs(T(2.0) - dof_par) ? (2*p - T(1.0)) / stmath::sqrt(2*p*(T(1.0) - p)) :
+                                                           qt_int_main(p,dof_par) );
+}
+
+//
+
+template<typename T>
+statslib_constexpr
+T
+qt(const T p, const T dof_par)
+{
+    return ( qt_int(p,dof_par) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-qt_int(const arma::mat& p, const int* dof_par_inp, bool log_form)
+template<typename Ta, typename Tb, typename Tc>
+void
+qt_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, 
+             Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const int dof_par = (dof_par_inp) ? *dof_par_inp : 30;
-    
-    const uint_t n = p.n_rows;
-    const uint_t k = p.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = p.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = qt(inp_mem[j],dof_par,log_form);
+        vals_out[j] = qt(vals_in[j],dof_par);
     }
-
-    //
-
-    return ret;
 }
 
-inline
-arma::mat
-qt(const arma::mat& p)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+qt(const ArmaMat<Ta>& X, const Tb dof_par)
 {
-    return qt_int(p,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-qt(const arma::mat& p, const bool log_form)
+    qt_int<Ta,Tb,Tc>(X.memptr(),dof_par,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+qt(const BlazeMat<Ta,To>& X, const Tb dof_par)
 {
-    return qt_int(p,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-qt(const arma::mat& p, const int dof_par)
+    qt_int<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+qt(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par)
 {
-    return qt_int(p,&dof_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-qt(const arma::mat& p, const int dof_par, const bool log_form)
-{
-    return qt_int(p,&dof_par,log_form);
-}
+    qt_int<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

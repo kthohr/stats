@@ -4,26 +4,29 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
 #include "stats.hpp"
+#include "../stats_tests.hpp"
 
 int main()
 {
-    int dof_par = 11;
+    double dof_par = 11.0;
     
     double t_mean = 0.0;
-    double t_var = static_cast<double>(dof_par) / (static_cast<double>(dof_par) - 2.0) ;
+    double t_var = dof_par / (dof_par - 2.0) ;
 
     std::cout << "\n*** rt: begin tests. ***\n" << std::endl;
 
@@ -33,16 +36,15 @@ int main()
 
     std::cout << "t rv draw: " << t_rand << std::endl;
 
+#ifdef STATS_TEST_MAT
     int n = 100000;
-    arma::vec t_vec = stats::rt(n,dof_par);
+    mat_obj t_vec = stats::rt<mat_obj>(n,1,dof_par);
 
-    std::cout << "t rv mean: " << arma::mean(t_vec) << ". Should be close to: " << t_mean << std::endl;
-    std::cout << "t rv variance: " << arma::var(t_vec) << ". Should be close to: " << t_var << std::endl;
+    std::cout << "t rv mean: " << stats::mat_ops::mean(t_vec) << ". Should be close to: " << t_mean << std::endl;
+    std::cout << "t rv variance: " << stats::mat_ops::var(t_vec) << ". Should be close to: " << t_var << std::endl;
+#endif
 
     //
-    // coverage tests
-    
-    stats::rt(100,100,dof_par);
 
     std::cout << "\n*** rt: end tests. ***\n" << std::endl;
 

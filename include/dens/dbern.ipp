@@ -36,7 +36,7 @@ dbern_int(const uint_t x, const T prob_par)
 template<typename T>
 statslib_constexpr
 T
-dbern(const int uint_t, const T prob_par, const bool log_form)
+dbern(const uint_t x, const T prob_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(dbern_int(x,prob_par)) :
                                 dbern_int(x,prob_par) );
@@ -53,7 +53,7 @@ dbern(const int x)
 //
 // matrix/vector input
 
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename Ta, typename Tb, typename Tc>
 void
 dbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par, const bool log_form,
                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)

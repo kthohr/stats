@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -20,11 +22,10 @@
  * Sample from a multinomial distribution
  */
 
-template<typename T>
-T
-rmultinom(const T& prob)
+template<typename mT, typename eT>
+mT
+rmultinom(const mT& prob)
 {
-    typedef typename T::elem_type eT;
     const uint_t n_prob = prob.n_elem;
 
     uint_t n_j = n_prob;
@@ -33,15 +34,15 @@ rmultinom(const T& prob)
 
     eT p_j = 1.0;
 
-    T ret(n_prob);
-    const T prob_csum = arma::cumsum(prob);
+    mT ret(n_prob);
+    const mT prob_csum = mat_ops::cumsum(prob);
 
     p_j = prob(0);
     ret(0) = rbinom(n_j,p_j);
 
     //
 
-    uint_t ret_sum = arma::as_scalar(ret(0));
+    uint_t ret_sum = ret(0);
     
     for (uint_t j = 1U; j < n_prob; j++)
     {

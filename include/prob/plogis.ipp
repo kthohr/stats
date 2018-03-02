@@ -45,7 +45,7 @@ plogis(const T x, const T mu_par, const T sigma_par, const bool log_form)
 //
 // matrix/vector input
 
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename Ta, typename Tb, typename Tc>
 void
 plogis_int(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, const bool log_form, 
                  Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)

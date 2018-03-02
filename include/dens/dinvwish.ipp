@@ -26,16 +26,16 @@ template<typename Ta, typename Te>
 Te
 dinvwish(const Ta& X, const Ta& Psi_par, const uint_t nu_par, bool log_form)
 {
-    const uint_t K = mat_opts::get_n_rows(X);
+    const uint_t K = mat_ops::n_rows(X);
 
     const Te nu_par_d2 = static_cast<Te>(nu_par) / Te(2.0);
 
     //
 
     const Te lmg_term = gcem::log_multi_gamma(nu_par_d2, K);
-    const Te norm_term = nu_par_d2*std::log(mat_opts::det(Psi_par)) - nu_par_d2*K*GCEM_LOG_2 - lmg_term;
+    const Te norm_term = nu_par_d2*std::log(mat_ops::det(Psi_par)) - nu_par_d2*K*GCEM_LOG_2 - lmg_term;
 
-    Te ret = norm_term - 0.5*( (nu_par+K+1) * std::log(mat_opts::det(X)) + mat_opts::trace(mat_opts::solve(X,Psi_par)) );
+    Te ret = norm_term - 0.5*( (nu_par+K+1) * std::log(mat_ops::det(X)) + mat_ops::trace(mat_ops::solve(X,Psi_par)) );
 
     if (!log_form) {
         ret = std::exp(ret);

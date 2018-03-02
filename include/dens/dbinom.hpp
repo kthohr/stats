@@ -29,28 +29,28 @@
 // single input
 
 template<typename T>
-statslib_constexpr T dbinom(const uint_t x, const uint_t n_trials_par, const T prob_par, const bool log_form);
+statslib_constexpr T dbinom(const uint_t x, const uint_t n_trials_par, const T prob_par, const bool log_form = false);
 
 //
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc = Tb>
-void dbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_par, const Tb prob_par, const bool log_form, 
+void dbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_par, const Tb prob_par, const bool log_form,
                       Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
-ArmaMat<Tc> dbinom(const ArmaMat<Ta>& X, const Tb prob_par, const bool log_form = false);
+ArmaMat<Tc> dbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
-BlazeMat<Tc,To> dbinom(const BlazeMat<Ta,To>& X, const Tb prob_par, const bool log_form = false);
+BlazeMat<Tc,To> dbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
-EigMat<Tc,iTr,iTc> dbinom(const EigMat<Ta,iTr,iTc>& X, const Tb prob_par, const bool log_form = false);
+EigMat<Tc,iTr,iTc> dbinom(const EigMat<Ta,iTr,iTc>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form = false);
 #endif
 
 //

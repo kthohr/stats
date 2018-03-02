@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -23,103 +25,77 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-int
-qpois_int(const T p, const T rate_par, const T value, const int count)
+Tb
+qpois_int(const Ta p, const Ta rate_par, const Ta value, const Tb count)
 {
-    return ( value <= p ? qpois_int(p,rate_par, ppois(count,rate_par,false), count + 1) : count - 1 );
+    return ( value <= p ? qpois_int(p,rate_par, ppois(count,rate_par,false), count + 1) : 
+                          count - 1 );
 }
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-int
-qpois(const T p, const T rate_par, const bool log_form)
+Tb
+qpois(const Ta p, const Ta rate_par)
 {
-    return ( log_form == true ? stmath::log(qpois_int(p,rate_par,(T)0.0,0)) : qpois_int(p,rate_par,(T)0.0,0) );
-}
-
-statslib_constexpr
-int
-qpois(const double p)
-{
-    return qpois(p,10.0,false);
-}
-
-statslib_constexpr
-int
-qpois(const double p, const bool log_form)
-{
-    return qpois(p,10.0,log_form);
-}
-
-statslib_constexpr
-int
-qpois(const double p, const double rate_par)
-{
-    return qpois(p,rate_par,false);
+    return ( STLIM<Ta>::epsilon() > p ? Tb(0.0) :
+             //
+             qpois_int<Ta,Tb>(p,rate_par,Ta(0.0),0U) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-qpois_int(const arma::mat& p, const double* rate_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc>
+void
+qpois_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par,
+                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double rate_par = (rate_par_inp) ? *rate_par_inp : 10.0;
-
-    const uint_t n = p.n_rows;
-    const uint_t k = p.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = p.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = qpois(inp_mem[j],rate_par,log_form);
+        vals_out[j] = qpois(vals_in[j],rate_par);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-qpois(const arma::mat& p)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+qpois(const ArmaMat<Ta>& X, const Tb rate_par)
 {
-    return qpois_int(p,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-qpois(const arma::mat& p, const bool log_form)
+    qpois_int<Ta,Tb,Tc>(X.memptr(),rate_par,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+qpois(const BlazeMat<Ta,To>& X, const Tb rate_par)
 {
-    return qpois_int(p,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-qpois(const arma::mat& p, const double rate_par)
+    qpois_int<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+qpois(const EigMat<Ta,iTr,iTc>& X, const Tb rate_par)
 {
-    return qpois_int(p,&rate_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-qpois(const arma::mat& p, const double rate_par, const bool log_form)
-{
-    return qpois_int(p,&rate_par,log_form);
-}
+    qpois_int<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

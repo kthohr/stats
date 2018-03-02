@@ -30,7 +30,7 @@ statslib_constexpr
 T
 pchisq_int(const T x, const T dof_par)
 {
-    return gcem::incomplete_gamma(dof_par/2.0,x/2.0);
+    return gcem::incomplete_gamma(dof_par/T(2.0),x/T(2.0));
 }
 
 template<typename T>
@@ -45,7 +45,7 @@ pchisq(const T x, const T dof_par, const bool log_form)
 //
 // matrix/vector input
 
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename Ta, typename Tb, typename Tc>
 void
 pchisq_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, const bool log_form, 
                  Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)

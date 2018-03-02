@@ -25,10 +25,11 @@
 #ifndef _statslib_dmvnorm_HPP
 #define _statslib_dmvnorm_HPP
 
+#ifdef STATS_WITH_MATRIX_LIB
 template<typename Ta, typename Te = double>
 Te dmvnorm(const Ta& X, const Ta& mu_par, const Ta& Sigma_par, bool log_form = false);
 
-
 #include "dmvnorm.ipp"
+#endif
 
 #endif

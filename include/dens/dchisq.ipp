@@ -30,7 +30,8 @@ statslib_constexpr
 T
 dchisq_int(const T x, const T dof_par)
 {
-    return (- stmath::lgamma(0.5*dof_par) - 0.5*dof_par*GCEM_LOG_2 + (0.5*dof_par - 1.0)*stmath::log(x) - x / 2.0);
+    return ( - stmath::lgamma(0.5*dof_par) - T(0.5)*dof_par*GCEM_LOG_2 \
+                + (T(0.5)*dof_par - T(1.0))*stmath::log(x) - x / 2.0 );
 }
 
 template<typename T>
@@ -38,13 +39,14 @@ statslib_constexpr
 T
 dchisq(const T x, const T dof_par, const bool log_form)
 {
-    return ( log_form == true ? dchisq_int(x,dof_par) : stmath::exp(dchisq_int(x,dof_par)) );
+    return ( log_form == true ? dchisq_int(x,dof_par) : 
+                                stmath::exp(dchisq_int(x,dof_par)) );
 }
 
 //
 // matrix/vector input
 
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename Ta, typename Tb, typename Tc>
 void
 dchisq_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, const bool log_form, 
                  Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)

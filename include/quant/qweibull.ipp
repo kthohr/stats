@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -34,98 +36,67 @@ qweibull_int(const T p, const T shape_par, const T scale_par)
 template<typename T>
 statslib_constexpr
 T
-qweibull(const T p, const T shape_par, const T scale_par, const bool log_form)
+qweibull(const T p, const T shape_par, const T scale_par)
 {
     return ( ( (shape_par < STLIM<T>::epsilon()) || (scale_par < STLIM<T>::epsilon()) ) ? STLIM<T>::quiet_NaN() :
              //
-             p < STLIM<T>::epsilon() ? (log_form == false ? T(0.0) : - STLIM<T>::infinity()) :
+             p < STLIM<T>::epsilon() ? T(0.0) :
              //
-             log_form == false ? qweibull_int(p,shape_par,scale_par) : 
-                                 stmath::log(qweibull_int(p,shape_par,scale_par)) );
-}
-
-statslib_constexpr
-double
-qweibull(const double p)
-{
-    return qweibull(p,1.0,1.0,false);
-}
-
-statslib_constexpr
-double
-qweibull(const double p, const bool log_form)
-{
-    return qweibull(p,1.0,1.0,log_form);
-}
-
-statslib_constexpr
-double
-qweibull(const double p, const double shape_par, const double scale_par)
-{
-    return qweibull(p,shape_par,scale_par,false);
+             qweibull_int(p,shape_par,scale_par) );
 }
 
 //
 // matrix/vector input
 
-#ifndef STATS_NO_ARMA
-
-inline
-arma::mat
-qweibull_int(const arma::mat& p, const double* shape_par_inp, const double* scale_par_inp, const bool log_form)
+template<typename Ta, typename Tb, typename Tc>
+void
+qweibull_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, 
+                   Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
 {
-    const double shape_par = (shape_par_inp) ? *shape_par_inp : 1.0;
-    const double scale_par = (scale_par_inp) ? *scale_par_inp : 1.0;
-    
-    const uint_t n = p.n_rows;
-    const uint_t k = p.n_cols;
-
-    //
-
-    arma::mat ret(n,k);
-
-    const double* inp_mem = p.memptr();
-    double* ret_mem = ret.memptr();
-
-#ifndef STATS_NO_OMP
+#ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0; j < n*k; j++)
+    for (uint_t j=0U; j < num_elem; j++)
     {
-        ret_mem[j] = qweibull(inp_mem[j],shape_par,scale_par,log_form);
+        vals_out[j] = qweibull(vals_in[j],shape_par,scale_par);
     }
-
-    //
-    
-    return ret;
 }
 
-inline
-arma::mat
-qweibull(const arma::mat& p)
+#ifdef STATS_USE_ARMA
+template<typename Ta, typename Tb, typename Tc>
+ArmaMat<Tc>
+qweibull(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par)
 {
-    return qweibull_int(p,nullptr,nullptr,false);
-}
+    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-inline
-arma::mat
-qweibull(const arma::mat& p, const bool log_form)
+    qweibull_int<Ta,Tb,Tc>(X.memptr(),shape_par,scale_par,mat_out.memptr(),mat_out.n_elem);
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, typename Tb, typename Tc, bool To>
+BlazeMat<Tc,To>
+qweibull(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par)
 {
-    return qweibull_int(p,nullptr,nullptr,log_form);
-}
+    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-inline
-arma::mat
-qweibull(const arma::mat& p, const double shape_par, const double scale_par)
+    qweibull_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,mat_out.data(),X.rows()*X.columns());
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+EigMat<Tc,iTr,iTc>
+qweibull(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb scale_par)
 {
-    return qweibull_int(p,&shape_par,&scale_par,false);
-}
+    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-inline
-arma::mat
-qweibull(const arma::mat& p, const double shape_par, const double scale_par, const bool log_form)
-{
-    return qweibull_int(p,&shape_par,&scale_par,log_form);
-}
+    qweibull_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,mat_out.data(),mat_out.size());
 
+    return mat_out;
+}
 #endif

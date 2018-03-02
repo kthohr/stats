@@ -31,7 +31,7 @@ T
 pbern_int(const uint_t x, const T prob_par)
 {
     return ( x >= 1U ? T(1.0) :
-                       T(1.0) - prob_par) );
+                       T(1.0) - prob_par );
 }
 
 template<typename T>
@@ -46,7 +46,7 @@ pbern(const uint_t x, const T prob_par, const bool log_form)
 //
 // matrix/vector input
 
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename Ta, typename Tb, typename Tc>
 void
 pbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par, const bool log_form,
                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)

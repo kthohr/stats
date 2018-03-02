@@ -20,7 +20,7 @@
 
 // enable OpenMP
 
-#if defined(_OPENMP) && !defined(STATS_NO_OMP)
+#if defined(_OPENMP) && !defined(STATS_NO_OMP) && !defined(STATS_USE_OPENMP)
     #define STATS_USE_OPENMP
 #endif
 
@@ -47,6 +47,12 @@ namespace stats {
     template<class T>
     using STLIM = std::numeric_limits<T>;
 }
+
+//
+
+#if defined(STATS_USE_ARMA) || defined(STATS_USE_BLAZE) || defined(STATS_USE_EIGEN)
+    #define STATS_WITH_MATRIX_LIB
+#endif
 
 // Armadillo options
 

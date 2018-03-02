@@ -4,19 +4,22 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
 #include "stats.hpp"
+#include "../stats_tests.hpp"
 
 int main()
 {
@@ -34,16 +37,15 @@ int main()
 
     std::cout << "laplace rv draw: " << laplace_rand << std::endl;
 
+#ifdef STATS_TEST_MAT
     int n = 100000;
-    arma::vec laplace_vec = stats::rlaplace(n,mu,sigma);
+    mat_obj laplace_vec = stats::rlaplace<mat_obj>(n,1,mu,sigma);
 
-    std::cout << "laplace rv mean: " << arma::mean(laplace_vec) << ". Should be close to: " << laplace_mean << std::endl;
-    std::cout << "laplace rv variance: " << arma::var(laplace_vec) << ". Should be close to: " << laplace_var << std::endl;
+    std::cout << "laplace rv mean: " << stats::mat_ops::mean(laplace_vec) << ". Should be close to: " << laplace_mean << std::endl;
+    std::cout << "laplace rv variance: " << stats::mat_ops::var(laplace_vec) << ". Should be close to: " << laplace_var << std::endl;
+#endif
 
     //
-    // coverage tests
-    
-    stats::rlaplace(100,100,mu,sigma);
 
     std::cout << "\n*** rlaplace: end tests. ***\n" << std::endl;
 

@@ -4,20 +4,22 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
 /* 
- * Sample from a beta distribution
+ * Sample from a Beta distribution
  */
 
 #ifndef _statslib_rbeta_HPP
@@ -26,13 +28,11 @@
 template<typename T>
 T rbeta(const T a_par, const T b_par);
 
-#ifndef STATS_NO_ARMA
-template<typename Ta, typename Tb = Ta>
-arma::Mat<Tb> rbeta(const uint_t n, const Ta a_par, const Ta b_par);
+template<typename T>
+void rbeta_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem);
 
-template<typename Ta, typename Tb = Ta>
-arma::Mat<Tb> rbeta(const uint_t n, const uint_t k, const Ta a_par, const Ta b_par);
-#endif
+template<typename mT, typename eT>
+mT rbeta(const uint_t n, const uint_t k, const eT a_par, const eT b_par);
 
 #include "rbeta.ipp"
 

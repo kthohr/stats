@@ -40,17 +40,17 @@ void pbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_tri
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
-ArmaMat<Tc> pbinom(const ArmaMat<Ta>& X, const Tb prob_par, const bool log_form = false);
+ArmaMat<Tc> pbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
-BlazeMat<Tc,To> pbinom(const BlazeMat<Ta,To>& X, const Tb prob_par, const bool log_form = false);
+BlazeMat<Tc,To> pbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
-EigMat<Tc,iTr,iTc> pbinom(const EigMat<Ta,iTr,iTc>& X, const Tb prob_par, const bool log_form = false);
+EigMat<Tc,iTr,iTc> pbinom(const EigMat<Ta,iTr,iTc>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form = false);
 #endif
 
 //

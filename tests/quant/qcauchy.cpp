@@ -4,21 +4,22 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
-#include <math.h>
-#include <iomanip>
 #include "stats.hpp"
+#include "../stats_tests.hpp"
 
 int main()
 {
@@ -31,7 +32,8 @@ int main()
 
     std::cout << "\n*** qcauchy: begin tests. ***\n" << std::endl;
 
-    // x = 2
+    //
+
     double x_1 = 2;
     double val_1 = 0.6475836;
     double q_1 = stats::qcauchy(val_1,mu,sigma);
@@ -40,13 +42,14 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qcauchy(" << val_1 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_1 << ". Success = " << success_1 << std::endl;
 
-    // x = 1, return log
-    double x_2 = GCEM_LOG_2;
-    double val_2 = 0.6475836;
-    double q_2 = stats::qcauchy(val_2,mu,sigma,true);
+    //
+
+    double x_2 = 7.155367;
+    double val_2 = 0.9;
+    double q_2 = stats::qcauchy(val_2,mu,sigma);
 
     bool success_2 = (std::abs(q_2 - x_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qcauchy(" << val_2 << ",log=true): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qcauchy(" << val_2 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_2 << ". Success = " << success_2 << std::endl;
 
     if (success_1 && success_2) {
@@ -58,18 +61,13 @@ int main()
     //
     // coverage tests
 
-    stats::qcauchy(val_1);
-    stats::qcauchy(val_1,true);
-    stats::qcauchy(val_1,mu,sigma);
-
-    arma::mat x_mat(2,1);
+#ifdef STATS_TEST_MAT
+    mat_obj x_mat(2,1);
     x_mat(0,0) = 0.7;
     x_mat(1,0) = 0.8;
 
-    stats::qcauchy(x_mat);
-    stats::qcauchy(x_mat,true);
     stats::qcauchy(x_mat,mu,sigma);
-    stats::qcauchy(x_mat,mu,sigma,true);
+#endif
 
     return 0;
 }

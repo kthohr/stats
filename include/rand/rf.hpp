@@ -4,15 +4,17 @@
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
-  ##   StatsLib is free software: you can redistribute it and/or modify
-  ##   it under the terms of the GNU General Public License as published by
-  ##   the Free Software Foundation, either version 2 of the License, or
-  ##   (at your option) any later version.
+  ##   Licensed under the Apache License, Version 2.0 (the "License");
+  ##   you may not use this file except in compliance with the License.
+  ##   You may obtain a copy of the License at
   ##
-  ##   StatsLib is distributed in the hope that it will be useful,
-  ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ##   GNU General Public License for more details.
+  ##       http://www.apache.org/licenses/LICENSE-2.0
+  ##
+  ##   Unless required by applicable law or agreed to in writing, software
+  ##   distributed under the License is distributed on an "AS IS" BASIS,
+  ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ##   See the License for the specific language governing permissions and
+  ##   limitations under the License.
   ##
   ################################################################################*/
 
@@ -26,13 +28,11 @@
 template<typename T>
 T rf(const T df1_par, const T df2_par);
 
-#ifndef STATS_NO_ARMA
-template<typename Ta, typename Tb = Ta>
-arma::Mat<Tb> rf(const uint_t n, const Ta df1_par, const Ta df2_par);
+template<typename T>
+void rf_int(const T df1_par, const T df2_par, T* vals_out, const uint_t num_elem);
 
-template<typename Ta, typename Tb = Ta>
-arma::Mat<Tb> rf(const uint_t n, const uint_t k, const Ta df1_par, const Ta df2_par);
-#endif
+template<typename mT, typename eT>
+mT rf(const uint_t n, const uint_t k, const eT df1_par, const eT df2_par);
 
 #include "rf.ipp"
 

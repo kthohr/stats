@@ -18,25 +18,20 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
-#include "../stats_tests.hpp"
+#include <cmath>
+#include <iostream>
+#include <iomanip>
 
-int main()
-{
-#ifdef STATS_TEST_MAT
-    int K = 3;
-
-    std::cout << "\n*** dmvnorm: begin tests. ***\n" << std::endl;
-
-    mat_obj X, mu, Sigma;
-    stats::mat_ops::zeros(X,K,1);
-    stats::mat_ops::zeros(mu,K,1);
-    stats::mat_ops::eye(Sigma,K);
-    double dmvnorm_val = stats::dmvnorm(X,mu,Sigma,false);
-
-    std::cout << "density value: " << dmvnorm_val << "." << std::endl;
-
-    std::cout << "\n*** dmvnorm: tests finished. ***\n" << std::endl;
+#if defined(STATS_USE_ARMA) || defined(STATS_USE_BLAZE) || defined(STATS_USE_EIGEN)
+    #define STATS_TEST_MAT
 #endif
-    return 0;
-}
+
+#ifdef STATS_TEST_MAT
+    #if defined(STATS_USE_ARMA)
+        #define mat_obj arma::mat
+    #elif defined(STATS_USE_BLAZE)
+        #define mat_obj blaze::DynamicMatrix<double>
+    #else
+        #define mat_obj Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic>
+    #endif
+#endif
