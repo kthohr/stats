@@ -1,13 +1,17 @@
 # StatsLib &nbsp; [![Build Status](https://travis-ci.org/kthohr/stats.svg?branch=master)](https://travis-ci.org/kthohr/stats) [![Coverage Status](https://codecov.io/github/kthohr/stats/coverage.svg?branch=master)](https://codecov.io/github/kthohr/stats?branch=master)
 
-StatsLib is a templated C++ library designed for fast computation of statistical distribution functions.
+StatsLib is a templated C++ library of statistical distribution functions.
 
 Features:
-* A header-only library of probability density functions (pdfs), cumulative distribution functions (cdfs), quantile functions, as well as random sampling.
-* All distribution functions are compile-time computation-enabled with extensive use of C++11 `constexpr` functions, built on the [GCE-Math library](https://github.com/kthohr/gcem).
+* A header-only library of probability density functions, cumulative distribution functions, quantile functions, and random sampling methods.
+* Functions are written in C++11 `constexpr`-based format. 
+    * Built on the [GCE-Math library](https://github.com/kthohr/gcem), StatsLib can equally operate as a compile-time or run-time computation engine.
 * A simple, **R**-like syntax.
-* Optional vector-matrix functionality built on the [Armadillo C++ linear algebra library](http://arma.sourceforge.net/).
-* Matrix operations are parallelizable with OpenMP.
+* Optional vector-matrix functionality via wrappers to several popular linear algebra libraries, including:
+    * [Armadillo](http://arma.sourceforge.net/)
+    * [Blaze](https://bitbucket.org/blaze-lib/blaze)
+    * [Eigen](http://eigen.tuxfamily.org/index.php)
+* Matrix-based operations are parallelizable with OpenMP.
 
 ## Available Distributions
 
@@ -44,9 +48,14 @@ For inline-only functionality (i.e., no `constexpr` specifiers) use
 #define STATS_GO_INLINE
 ```
 
-To remove any Armadillo-related functionality use
+To use StatsLib with Armadillo:
 ```cpp
-#define STATS_NO_ARMA
+#define STATS_USE_ARMA
+```
+Similarly, for Blaze or Eigen:
+```cpp
+#define STATS_USE_BLAZE
+#define STATS_USE_EIGEN
 ```
 
 ## Syntax and Examples
@@ -72,7 +81,7 @@ stats::rlogis(<location parameter>,<scale parameter>);
 
 <br>
 
-All of these functions have matrix-based equivalents using Armadillo objects.
+All of these functions have matrix-based equivalents using Armadillo, Blaze, and Eigen dense matrices.
 
 * The pdf, cdf, and quantile functions can take matrix-valued arguments. For example,
 
@@ -83,7 +92,7 @@ arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
 * The randomization functions (`r*`) can output random matrices of arbitrary dimensions. For example,</li>
 
 ```cpp
-arma::mat gamma_rvs = stats::rgamma(100,50,3.0,2.0);
+arma::mat gamma_rvs = stats::rgamma<arma::mat>(100,50,3.0,2.0);
 ```
 
 <!-- <ul style="list-style-type:none">
@@ -111,18 +120,18 @@ double qval = stats::qlaplace(0.1,0.0,1.0);
 double rval = stats::rt(30);
 
 // matrix output
-arma::mat beta_rvs = stats::rbeta(100,100,3.0,2.0);
+arma::mat beta_rvs = stats::rbeta<arma::mat>(100,100,3.0,2.0);
 // matrix input
 arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 ```
 
 ## Installation
 
-StatsLib is a header-only library. Simply copy the contents of the include folder and add the header files to your project using `#include "stats.hpp"`.
+StatsLib is a header-only library. Just copy the contents of the include folder and add the header files to your project using `#include "stats.hpp"`.
 
 ## Compile-time computation
 
-In addition to being a standard run-time library, StatsLib can operate as a compile-time library. Compile-time features are enabled using the ```constexpr``` specifier:
+In addition to being a standard run-time library, StatsLib can also operate as a compile-time library. Compile-time features are enabled using the ```constexpr``` specifier:
 ```cpp
 #include "stats.hpp"
 
@@ -177,4 +186,4 @@ Keith O'Hara
 
 ## License
 
-GPL (>= 2)
+Apache Version 2
