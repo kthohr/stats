@@ -31,14 +31,15 @@ int main()
 
     //
 
-    arma::mat mu(K,1);
-    mu.fill(2);
+    mat_obj mu(K,1), Sigma;
+    stats::mat_ops::fill(mu,2.0);
 
-    arma::mat Sigma = arma::eye(K,K);
-    arma::mat mvnorm_vars = stats::rmvnorm(n,mu,Sigma,true);
+    stats::mat_ops::eye(Sigma,K);
 
-    arma::cout << "mu_hat:\n" << arma::mean(mvnorm_vars) << arma::endl;
-    arma::cout << "Sigma_hat:\n" << arma::cov(mvnorm_vars) << arma::endl;
+    mat_obj mvnorm_vars = stats::rmvnorm<mat_obj>(n,mu,Sigma,true);
+
+    // std::cout << "mu_hat:\n" << stats::mat_ops::mean(mvnorm_vars) << std::endl;
+    // std::cout << "Sigma_hat:\n" << stats::mat_ops::cov(mvnorm_vars) << std::endl;
 
     //
     // coverage tests

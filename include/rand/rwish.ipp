@@ -26,7 +26,7 @@ template<typename mT, typename eT>
 mT
 rwish(const mT& Psi_par, const eT nu_par, const bool pre_chol)
 {
-    const uint_t K = Psi_par.n_rows;
+    const uint_t K = mat_ops::n_rows(Psi_par);
     
     mT chol_Psi;
     if (pre_chol) {

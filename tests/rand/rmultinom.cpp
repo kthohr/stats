@@ -23,32 +23,34 @@
 
 int main()
 {
-    arma::vec prob_vec(5);
-    prob_vec(0) = 0.1;
-    prob_vec(1) = 0.15;
-    prob_vec(2) = 0.2;
-    prob_vec(3) = 0.25;
-    prob_vec(4) = 0.3;
+#ifdef STATS_TEST_MAT
+    mat_obj prob_vec(5,1);
+    prob_vec(0,0) = 0.1;
+    prob_vec(1,0) = 0.15;
+    prob_vec(2,0) = 0.2;
+    prob_vec(3,0) = 0.25;
+    prob_vec(4,0) = 0.3;
 
     std::cout << "\n*** rmultinom: begin tests. ***\n" << std::endl;
 
     //
 
-    arma::cout << "rmultinom draw:\n" << stats::rmultinom(prob_vec) << arma::endl;
+    std::cout << "rmultinom draw:\n" << stats::rmultinom(prob_vec) << std::endl;
 
-    arma::mat X = arma::zeros(5,1);
+    mat_obj X;
+    stats::mat_ops::zeros(X,5,1);
 
     int n = 10000;
 
     for (int i=0; i < n; i++) {
-        X += stats::rmultinom(prob_vec) / n;
+        X += stats::rmultinom<mat_obj>(prob_vec) / n;
     }
 
-    arma::cout << "sample mean:\n" << X << arma::endl;
+    std::cout << "sample mean:\n" << X << std::endl;
 
     //
 
     std::cout << "\n*** rmultinom: end tests. ***\n" << std::endl;
-
+#endif
     return 0;
 }

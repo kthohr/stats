@@ -27,7 +27,7 @@ int main()
     double sigma = 2;
 
     double logis_mean = mu;
-    double logis_var = std::pow(arma::datum::pi*sigma,2) / 3.0;
+    double logis_var = std::pow(GCEM_PI*sigma,2) / 3.0;
 
     std::cout << "\n*** rlogis: begin tests. ***\n" << std::endl;
 

@@ -42,11 +42,12 @@ statslib_constexpr
 T
 dbinom(const uint_t x, const uint_t n_trials_par, const T prob_par, const bool log_form)
 {
-    return (x > n_trials_par ? 0.0 : 
-            n_trials_par == 1 ? dbern(x,prob_par,log_form) :
-            //
-            log_form == true ? dbinom_int(x,n_trials_par,prob_par) :
-                               stmath::exp(dbinom_int(x,n_trials_par,prob_par)) );
+    return ( x > n_trials_par ? T(0.0) :
+             //
+             n_trials_par == 1 ? dbern(x,prob_par,log_form) :
+             //
+             log_form == true ? dbinom_int(x,n_trials_par,prob_par) :
+                                stmath::exp(dbinom_int(x,n_trials_par,prob_par)) );
 }
 
 //

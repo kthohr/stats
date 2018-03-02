@@ -39,7 +39,7 @@ int main()
 
 #ifdef STATS_TEST_MAT
     int n = 10000;
-    arma::vec unif_vec = stats::runif<mat_obj>(n,1,a_par,b_par);
+    mat_obj unif_vec = stats::runif<mat_obj>(n,1,a_par,b_par);
 
     std::cout << "unif rv mean: " << stats::mat_ops::mean(unif_vec) << ". Should be close to: " << unif_mean << std::endl;
     std::cout << "unif rv variance: " << stats::mat_ops::var(unif_vec) << ". Should be close to: " << unif_var << std::endl;

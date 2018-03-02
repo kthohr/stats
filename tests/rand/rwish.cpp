@@ -31,16 +31,20 @@ int main()
     //
 
     double nu = 10 + K + 1;
-    arma::mat Psi = arma::eye(K,K) / nu;
+    mat_obj Psi, X;
 
-    arma::mat X = arma::zeros(K,K);
+    stats::mat_ops::eye(Psi,K);
+
+    Psi /= nu;
+
+    stats::mat_ops::zeros(X,K,K);
 
     for (int i=0; i < n_samp; i++) {
-        X += stats::rwish(Psi,nu) / n_samp;
+        X += stats::rwish<mat_obj>(Psi,nu) / static_cast<double>(n_samp);
     }
 
-    arma::cout << "true mean:\n" << Psi * static_cast<double>(nu) << arma::endl;
-    arma::cout << "sample mean:\n" << X << arma::endl;
+    std::cout << "true mean:\n" << Psi * static_cast<double>(nu) << std::endl;
+    std::cout << "sample mean:\n" << X << std::endl;
 
     double dinvwish_val = stats::dwish(X,Psi,nu,false);
 

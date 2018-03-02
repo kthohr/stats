@@ -7,7 +7,7 @@ Features:
 * Functions are written in C++11 `constexpr`-based format. 
     * Built on the [GCE-Math library](https://github.com/kthohr/gcem), StatsLib can equally operate as a compile-time or run-time computation engine.
 * A simple, **R**-like syntax.
-* Optional vector-matrix functionality via wrappers to several popular linear algebra libraries, including:
+* Optional vector-matrix functionality with wrappers to support several popular linear algebra libraries, including:
     * [Armadillo](http://arma.sourceforge.net/)
     * [Blaze](https://bitbucket.org/blaze-lib/blaze)
     * [Eigen](http://eigen.tuxfamily.org/index.php)

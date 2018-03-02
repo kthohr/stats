@@ -165,7 +165,9 @@ template<typename Ta, bool Tb>
 BlazeMat<Ta,Tb>
 chol(const BlazeMat<Ta,Tb>& X)
 {
-    return blaze::potrf(X,'L');
+    BlazeMat<Ta,Tb> Y = X;
+    blaze::potrf(Y,'L');
+    return Y;
 }
 #endif
 
@@ -253,6 +255,36 @@ Ta
 det(const EigMat<Ta,iTr,iTc>& X)
 {
     return X.determinant();
+}
+#endif
+
+//
+// matrix fill
+
+#ifdef STATS_USE_ARMA
+template<typename T>
+void
+fill(ArmaMat<T>& X, const T fill_val)
+{
+    return X.fill(fill_val);
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+void
+fill(BlazeMat<Ta,Tb>& X, const Ta fill_val)
+{
+    X = fill_val;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+void
+fill(const EigMat<Ta,iTr,iTc>& X, const Ta fill_val)
+{
+    X = fill_val;
 }
 #endif
 
@@ -427,6 +459,35 @@ solve(const EigMat<Ta,iTr,iTc>& A, const EigMat<Ta,iTr,iTc> B)
 #endif
 
 //
+// sum
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+Ta
+sum(const BlazeMat<Ta,Tb>& X)
+{
+    const Ta* vals = X.data();
+    Ta out_val = Ta(0.0);
+    for (uint_t j=0U; j < n_elem(X); j++) {
+        out_val += vals[j];
+    }
+    return out_val;
+}
+
+template<typename Ta, bool Tb>
+Ta
+sqsum(const BlazeMat<Ta,Tb>& X)
+{
+    const Ta* vals = X.data();
+    Ta out_val = Ta(0.0);
+    for (uint_t j=0U; j < n_elem(X); j++) {
+        out_val += vals[j]*vals[j];
+    }
+    return out_val;
+}
+#endif
+
+//
 // matrix transpose
 
 #ifdef STATS_USE_ARMA
@@ -500,14 +561,14 @@ mean(const ArmaMat<T>& X)
 }
 #endif
 
-// #ifdef STATS_USE_BLAZE
-// template<typename Ta, bool Tb>
-// Ta
-// mean(const BlazeMat<Ta,Tb>& X)
-// {
-//     return blaze::sum(X) / static_cast<Ta>(n_elem(X));
-// }
-// #endif
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+Ta
+mean(const BlazeMat<Ta,Tb>& X)
+{
+    return sum(X) / static_cast<Ta>(n_elem(X));
+}
+#endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
@@ -530,14 +591,16 @@ var(const ArmaMat<T>& X)
 }
 #endif
 
-// #ifdef STATS_USE_BLAZE
-// template<typename Ta, bool Tb>
-// Ta
-// var(const BlazeMat<Ta,Tb>& X)
-// {
-//     return blaze::sum(X) / static_cast<Ta>(n_elem(X));
-// }
-// #endif
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+Ta
+var(const BlazeMat<Ta,Tb>& X)
+{
+    Ta mean_val = mean(X);
+    Ta sq_val = sqsum(X) / static_cast<Ta>(n_elem(X));
+    return sq_val - mean_val*mean_val;
+}
+#endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>

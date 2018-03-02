@@ -26,7 +26,7 @@ template<typename mT, typename eT>
 mT
 rmultinom(const mT& prob)
 {
-    const uint_t n_prob = prob.n_elem;
+    const uint_t n_prob = mat_ops::n_elem(prob);
 
     uint_t n_j = n_prob;
 
@@ -34,24 +34,24 @@ rmultinom(const mT& prob)
 
     eT p_j = 1.0;
 
-    mT ret(n_prob);
+    mT ret(n_prob,1);
     const mT prob_csum = mat_ops::cumsum(prob);
 
-    p_j = prob(0);
-    ret(0) = rbinom(n_j,p_j);
+    p_j = prob(0,0);
+    ret(0,0) = rbinom(n_j,p_j);
 
     //
 
-    uint_t ret_sum = ret(0);
+    uint_t ret_sum = ret(0,0);
     
     for (uint_t j = 1U; j < n_prob; j++)
     {
-        p_j = prob(j) / (eT(1.0) - prob_csum(j-1));
+        p_j = prob(j,0) / (eT(1.0) - prob_csum(j-1,0));
         n_j = n_prob - ret_sum;
         
-        ret(j) = rbinom(n_j,p_j);
+        ret(j,0) = rbinom(n_j,p_j);
         
-        ret_sum += ret(j);
+        ret_sum += ret(j,0);
     }
 
     //
