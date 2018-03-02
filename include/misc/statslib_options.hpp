@@ -18,6 +18,20 @@
   ##
   ################################################################################*/
 
+// version
+
+#ifndef STATS_VERSION_MAJOR
+    #define STATS_VERSION_MAJOR 1
+#endif
+
+#ifndef STATS_VERSION_MINOR
+    #define STATS_VERSION_MINOR 0
+#endif
+
+#ifndef STATS_VERSION_PATCH
+    #define STATS_VERSION_PATCH 0
+#endif
+
 // enable OpenMP
 
 #if defined(_OPENMP) && !defined(STATS_NO_OMP) && !defined(STATS_USE_OPENMP)
