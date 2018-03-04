@@ -266,7 +266,7 @@ template<typename T>
 void
 fill(ArmaMat<T>& X, const T fill_val)
 {
-    return X.fill(fill_val);
+    X.fill(fill_val);
 }
 #endif
 
