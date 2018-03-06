@@ -22,7 +22,12 @@
  * Sample from a Wishart distribution
  */
 
+#ifdef STATS_USE_ARMA
+template<typename mT, typename eT,
+         typename std::enable_if<!(std::is_same<mT,arma::mat>::value)>::type*>
+#else
 template<typename mT, typename eT>
+#endif
 mT
 rwish(const mT& Psi_par, const eT nu_par, const bool pre_chol)
 {
@@ -56,3 +61,34 @@ rwish(const mT& Psi_par, const eT nu_par, const bool pre_chol)
     
     return chol_Psi * mat_ops::trans(chol_Psi);
 }
+
+#ifdef STATS_USE_ARMA
+template<typename mT, typename eT>
+mT
+rwish(const ArmaMat<eT>& Psi_par, const eT nu_par, const bool pre_chol)
+{
+    const uint_t K = Psi_par.n_rows;
+    
+    ArmaMat<eT> chol_Psi = (pre_chol) ? Psi_par : arma::chol(Psi_par,"lower"); // should be lower-triangular
+
+    //
+
+    ArmaMat<eT> A = arma::zeros(K,K);
+
+    for (uint_t i=1U; i < K; i++) {
+        for (uint_t j=0U; j < i; j++) {
+            A(i,j) = rnorm<eT>();
+        }
+    }
+    
+    for (uint_t i=0U; i < K; i++) {
+        A(i,i) = std::sqrt(rchisq<eT>(nu_par-i));
+    }
+
+    chol_Psi = chol_Psi*A;
+
+    //
+    
+    return chol_Psi * chol_Psi.t();
+}
+#endif

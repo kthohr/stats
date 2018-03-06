@@ -22,7 +22,11 @@
  * Sample from a multivariate normal distribution
  */
 
+#ifdef STATS_USE_ARMA
+template<typename T, typename std::enable_if<!(std::is_same<T,arma::mat>::value)>::type*>
+#else
 template<typename T>
+#endif
 T
 rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol)
 {
@@ -47,10 +51,41 @@ rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol)
     return ret;
 }
 
+#ifdef STATS_USE_ARMA
+template<typename mT, typename eT>
+mT
+rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
+{   // mu is templated as it could be of type Col<eT> or Mat<eT>
+    mT ret;
+
+    const uint_t K = Sigma_par.n_rows;
+
+    if (mu_par.n_elem != K)
+    {
+        printf("rmvnorm: dimensions of mu and Sigma don't agree.\n");
+        return ret;
+    }
+
+    //
+
+    const ArmaMat<eT> A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par,"lower"); // should be lower-triangular
+
+    ret = mu_par + A * rnorm<mT>(K,1);
+
+    //
+    
+    return ret;
+}
+#endif
+
 //
 // n-samples: results will be an n x K matrix
 
+#ifdef STATS_USE_ARMA
+template<typename T, typename std::enable_if<!(std::is_same<T,arma::mat>::value)>::type*>
+#else
 template<typename T>
+#endif
 T
 rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol)
 {
@@ -74,3 +109,30 @@ rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol
     
     return ret;
 }
+
+#ifdef STATS_USE_ARMA
+template<typename mT, typename eT>
+mT
+rmvnorm(const uint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
+{   // mu is templated as it could be of type Col<eT> or Mat<eT>
+    ArmaMat<eT> ret;
+
+    const uint_t K = Sigma_par.n_rows;
+
+    if (mu_par.n_elem != K)
+    {
+        printf("rmvnorm: dimensions of mu and Sigma don't agree.\n");
+        return ret;
+    }
+
+    //
+
+    const ArmaMat<eT> A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par,"lower"); // should be lower-triangular
+
+    ret = arma::repmat(mu_par.t(),n,1) + rnorm<ArmaMat<eT>>(n,K) * A.t();
+
+    //
+    
+    return ret;
+}
+#endif
