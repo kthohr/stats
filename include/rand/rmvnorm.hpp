@@ -51,7 +51,7 @@ template<typename mT, typename eT>
 mT rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol = false);
 
 template<typename mT, typename eT>
-mT rmvnorm(const uint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol = false);
+ArmaMat<eT> rmvnorm(const uint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol = false);
 #endif
 
 #include "rmvnorm.ipp"

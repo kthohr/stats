@@ -24,7 +24,7 @@
 
 template<typename T>
 T
-rf(const T df1_par, const T df2_par)
+rf_int(const T df1_par, const T df2_par)
 {
     const T X = rchisq(df1_par);
     const T Y = rchisq(df2_par);
@@ -32,6 +32,13 @@ rf(const T df1_par, const T df2_par)
     //
     
     return (df2_par / df1_par) * X / Y;
+}
+
+template<typename T>
+return_t<T>
+rf(const T df1_par, const T df2_par)
+{
+    return rf_int(return_t<T>(df1_par),return_t<T>(df2_par));
 }
 
 template<typename T>

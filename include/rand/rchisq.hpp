@@ -26,7 +26,7 @@
 #define _statslib_rchisq_HPP
 
 template<typename T>
-T rchisq(const T dof_par);
+return_t<T> rchisq(const T dof_par);
 
 template<typename T>
 void rchisq_int(const T dof_par, T* vals_out, const uint_t num_elem);

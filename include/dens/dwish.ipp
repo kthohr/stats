@@ -18,7 +18,7 @@
   ##
   ################################################################################*/
 
-/* 
+/*
  * pdf of the Wishart distribution
  */
 
@@ -28,7 +28,7 @@ dwish(const Ta& X, const Ta& Psi_par, const Te nu_par, bool log_form)
 {
     const uint_t K = mat_ops::n_rows(X);
 
-    const Te nu_par_d2 = static_cast<Te>(nu_par) / Te(2.0);
+    const Te nu_par_d2 =  nu_par / Te(2.0);
 
     //
 
@@ -42,6 +42,6 @@ dwish(const Ta& X, const Ta& Psi_par, const Te nu_par, bool log_form)
     }
 
     //
-    
+
     return ret;
 }

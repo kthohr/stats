@@ -23,14 +23,15 @@
  */
 
 #ifdef STATS_USE_ARMA
-template<typename mT, typename eT,
+template<typename mT, typename pT,
          typename std::enable_if<!(std::is_same<mT,arma::mat>::value)>::type*>
 #else
-template<typename mT, typename eT>
+template<typename mT, typename pT>
 #endif
 mT
-rinvwish(const mT& Psi_par, const eT nu_par, const bool pre_chol)
+rinvwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
 {
+    typedef return_t<pT> eT;
     const uint_t K = mat_ops::n_rows(Psi_par);
     
     mT chol_Psi_inv;
@@ -52,7 +53,7 @@ rinvwish(const mT& Psi_par, const eT nu_par, const bool pre_chol)
     }
     
     for (uint_t i=0U; i < K; i++) {
-        A(i,i) = std::sqrt(rchisq<eT>(nu_par-i));
+        A(i,i) = std::sqrt(rchisq<eT>(eT(nu_par-i)));
     }
 
     chol_Psi_inv = chol_Psi_inv*A;
@@ -65,9 +66,9 @@ rinvwish(const mT& Psi_par, const eT nu_par, const bool pre_chol)
 }
 
 #ifdef STATS_USE_ARMA
-template<typename mT, typename eT>
+template<typename mT, typename eT, typename pT>
 mT
-rinvwish(const ArmaMat<eT>& Psi_par, const eT nu_par, const bool pre_chol)
+rinvwish(const ArmaMat<eT>& Psi_par, const pT nu_par, const bool pre_chol)
 {
     const uint_t K = Psi_par.n_rows;
     
@@ -84,7 +85,7 @@ rinvwish(const ArmaMat<eT>& Psi_par, const eT nu_par, const bool pre_chol)
     }
     
     for (uint_t i=0U; i < K; i++) {
-        A(i,i) = std::sqrt(rchisq<eT>(nu_par-i));
+        A(i,i) = std::sqrt(rchisq<eT>(eT(nu_par-i)));
     }
 
     chol_Psi = chol_Psi*A;

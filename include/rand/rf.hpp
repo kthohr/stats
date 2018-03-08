@@ -26,7 +26,7 @@
 #define _statslib_rf_HPP
 
 template<typename T>
-T rf(const T df1_par, const T df2_par);
+return_t<T> rf(const T df1_par, const T df2_par);
 
 template<typename T>
 void rf_int(const T df1_par, const T df2_par, T* vals_out, const uint_t num_elem);

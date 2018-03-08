@@ -112,7 +112,7 @@ rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol
 
 #ifdef STATS_USE_ARMA
 template<typename mT, typename eT>
-mT
+ArmaMat<eT>
 rmvnorm(const uint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 {   // mu is templated as it could be of type Col<eT> or Mat<eT>
     ArmaMat<eT> ret;

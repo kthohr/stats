@@ -46,9 +46,9 @@ int main()
     std::cout << "true mean:\n" << Psi * static_cast<double>(nu) << std::endl;
     std::cout << "sample mean:\n" << X << std::endl;
 
-    double dinvwish_val = stats::dwish(X,Psi,nu,false);
+    double dwish_val = stats::dwish(X,Psi,nu,false);
 
-    std::cout << "density value: " << dinvwish_val << std::endl;
+    std::cout << "density value: " << dwish_val << std::endl;
 
     //
 

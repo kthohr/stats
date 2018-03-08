@@ -26,7 +26,7 @@
 #define _statslib_rt_HPP
 
 template<typename T>
-T rt(const T dof_par);
+return_t<T> rt(const T dof_par);
 
 template<typename T>
 void rt_int(const T dof_par, T* vals_out, const uint_t num_elem);

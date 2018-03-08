@@ -18,7 +18,7 @@
   ##
   ################################################################################*/
 
-/* 
+/*
  * pdf of the Wishart distribution
  */
 
@@ -27,7 +27,7 @@
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename Ta, typename Te = double>
-Te dwish(const Ta& X, const Ta& Psi_par, const uint_t nu_par, bool log_form = false);
+Te dwish(const Ta& X, const Ta& Psi_par, const Te nu_par, bool log_form = false);
 
 #include "dwish.ipp"
 #endif

@@ -24,9 +24,16 @@
 
 template<typename T>
 T
-rt(const T dof_par)
+rt_int(const T dof_par)
 {
     return rnorm<T>() / std::sqrt( rchisq<T>(dof_par) / dof_par );
+}
+
+template<typename T>
+return_t<T>
+rt(const T dof_par)
+{
+    return rt_int(return_t<T>(dof_par));
 }
 
 template<typename T>

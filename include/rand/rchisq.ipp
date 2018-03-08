@@ -24,9 +24,16 @@
 
 template<typename T>
 T
-rchisq(const T dof_par)
+rchisq_int(const T dof_par)
 {
     return rgamma<T>(dof_par/T(2.0),T(2.0));
+}
+
+template<typename T>
+return_t<T>
+rchisq(const T dof_par)
+{
+    return rchisq_int(return_t<T>(dof_par));
 }
 
 template<typename T>

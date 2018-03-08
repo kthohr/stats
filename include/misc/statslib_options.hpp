@@ -60,6 +60,9 @@ namespace stats {
 
     template<class T>
     using STLIM = std::numeric_limits<T>;
+
+    template<typename T>
+    using return_t = typename std::conditional<std::is_integral<T>::value,double,T>::type;
 }
 
 //
