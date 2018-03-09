@@ -70,7 +70,8 @@ rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 
     const ArmaMat<eT> A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par,"lower"); // should be lower-triangular
 
-    ret = mu_par + A * rnorm<mT>(K,1);
+    // ret = mu_par + A * rnorm<mT>(K,1);
+    ret = mu_par + A * arma::randn<mT>(K,1);
 
     //
     
@@ -129,7 +130,8 @@ rmvnorm(const uint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bo
 
     const ArmaMat<eT> A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par,"lower"); // should be lower-triangular
 
-    ret = arma::repmat(mu_par.t(),n,1) + rnorm<ArmaMat<eT>>(n,K) * A.t();
+    // ret = arma::repmat(mu_par.t(),n,1) + rnorm<ArmaMat<eT>>(n,K) * A.t();
+    ret = arma::repmat(mu_par.t(),n,1) + arma::randn<ArmaMat<eT>>(n,K) * A.t();
 
     //
     
