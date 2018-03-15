@@ -25,7 +25,7 @@
 
 template<typename T>
 T
-rgamma(const T shape_par, const T scale_par)
+rgamma(const T shape_par, const T scale_par, rand_engine_t& engine)
 {
     T ret = 0;
 
@@ -33,8 +33,8 @@ rgamma(const T shape_par, const T scale_par)
 
     if (shape_par < T(1.0))
     {
-        const T U = runif<T>();
-        ret = rgamma(T(1.0) + shape_par, scale_par) * std::pow(U,T(1.0)/shape_par);
+        const T U = runif<T>(T(0.0),T(1.0),engine);
+        ret = rgamma(T(1.0) + shape_par, scale_par,engine) * std::pow(U,T(1.0)/shape_par);
     }
     else
     {
@@ -46,12 +46,12 @@ rgamma(const T shape_par, const T scale_par)
 
         while (keep_running)
         {
-            T Z = rnorm<T>();
+            T Z = rnorm<T>(T(0.0),T(1.0),engine);
             V = std::pow(T(1.0) + c*Z,3);
 
             if (V > 0)
             {
-                T U = runif<T>();
+                T U = runif<T>(T(0.0),T(1.0),engine);
 
                 T check_2 = T(0.5)*Z*Z + d*(T(1.0) - V + std::log(V));
 
@@ -69,6 +69,14 @@ rgamma(const T shape_par, const T scale_par)
     return ret;
 }
 
+template<typename T>
+T
+rgamma(const T shape_par, const T scale_par, uint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    return rgamma(shape_par,scale_par,engine);
+}
+
 //
 
 template<typename T>
@@ -76,12 +84,29 @@ void
 rgamma_int(const T shape_par, const T scale_par, T* vals_out, const uint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
+    uint_t n_threads = omp_get_max_threads();
+
+    std::vector<rand_engine_t> engines;
+
+    for (uint_t k=0; k < n_threads; k++)
+    {
+        engines.push_back(rand_engine_t(std::random_device{}()));
+    }
+
     #pragma omp parallel for
-#endif
     for (uint_t j=0U; j < num_elem; j++)
     {
-        vals_out[j] = rgamma(shape_par,scale_par);
+        uint_t thread_id = omp_get_thread_num();
+        vals_out[j] = rgamma(shape_par,scale_par,engines[thread_id]);
     }
+#else
+    rand_engine_t engine(std::random_device{}());
+
+    for (uint_t j=0U; j < num_elem; j++)
+    {
+        vals_out[j] = rgamma(shape_par,scale_par,engine);
+    }
+#endif
 }
 
 #ifdef STATS_WITH_MATRIX_LIB

@@ -24,10 +24,10 @@
 
 template<typename T>
 return_t<T>
-runif(const T a_par, const T b_par, std::mt19937_64& engine)
+runif(const T a_par, const T b_par, rand_engine_t& engine)
 {
     // convert from [a,b) to (a,b)
-    return_t<T> a_par_adj = std::nextafter(return_t<T>(a_par), return_t<T>(b_par)); 
+    return_t<T> a_par_adj = std::nextafter(return_t<T>(a_par), return_t<T>(b_par));
     std::uniform_real_distribution<T> unif_dist(a_par_adj, return_t<T>(b_par));
 
     return unif_dist(engine);
@@ -37,8 +37,8 @@ template<typename T>
 return_t<T>
 runif(const T a_par, const T b_par, uint_t seed_val)
 {
-    std::mt19937_64 engine(seed_val);
-    return runif(a_par, b_par, engine);
+    rand_engine_t engine(seed_val);
+    return runif(a_par,b_par,engine);
 }
 
 template<typename T>
@@ -55,11 +55,11 @@ runif_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
 #ifdef STATS_USE_OPENMP
     uint_t n_threads = omp_get_max_threads();
 
-    std::vector<std::mt19937_64> engines;
+    std::vector<rand_engine_t> engines;
 
     for (uint_t k=0; k < n_threads; k++)
     {
-        engines.push_back(std::mt19937_64(std::random_device{}()));
+        engines.push_back(rand_engine_t(std::random_device{}()));
     }
 
     #pragma omp parallel for
@@ -69,7 +69,7 @@ runif_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
         vals_out[j] = runif(a_par,b_par,engines[thread_id]);
     }
 #else
-    std::mt19937_64 engine(std::random_device{}());
+    rand_engine_t engine(std::random_device{}());
 
     for (uint_t j=0U; j < num_elem; j++)
     {

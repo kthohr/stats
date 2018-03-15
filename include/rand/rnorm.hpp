@@ -26,7 +26,7 @@
 #define _statslib_rnorm_HPP
 
 template<typename T>
-T rnorm(const T mu_par, const T sigma_par, std::mt19937_64& engine);
+T rnorm(const T mu_par, const T sigma_par, rand_engine_t& engine);
 
 template<typename T>
 T rnorm(const T mu_par, const T sigma_par, uint_t seed_val = std::random_device{}());

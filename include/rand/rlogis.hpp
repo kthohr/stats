@@ -26,13 +26,16 @@
 #define _statslib_rlogis_HPP
 
 template<typename T>
-T rlogis(const T mu_par, const T sigma_par);
+T rlogis(const T mu_par, const T sigma_par, rand_engine_t& engine);
 
 template<typename T>
-void rnorm_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem);
+T rlogis(const T mu_par, const T sigma_par, uint_t seed_val = std::random_device{}());
+
+template<typename T>
+void rlogis_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem);
 
 template<typename mT, typename eT>
-mT rnorm(const uint_t n, const uint_t k, const eT mu_par, const eT sigma_par);
+mT rlogis(const uint_t n, const uint_t k, const eT mu_par, const eT sigma_par);
 
 #include "rlogis.ipp"
 

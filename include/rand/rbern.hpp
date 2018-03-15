@@ -26,7 +26,10 @@
 #define _statslib_rbern_HPP
 
 template<typename T>
-int rbern(const T p);
+int rbern(const T prob_par, rand_engine_t& engine);
+
+template<typename T>
+int rbern(const T prob_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 void rbern_int(const T prob_par, T* vals_out, const uint_t num_elem);

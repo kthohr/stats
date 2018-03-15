@@ -26,7 +26,10 @@
 #define _statslib_rexp_HPP
 
 template<typename T>
-T rexp(const T rate_par);
+T rexp(const T rate_par, rand_engine_t& engine);
+
+template<typename T>
+T rexp(const T rate_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 void rexp_int(const T rate_par, T* vals_out, const uint_t num_elem);

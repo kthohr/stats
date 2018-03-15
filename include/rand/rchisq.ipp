@@ -24,16 +24,24 @@
 
 template<typename T>
 T
-rchisq_int(const T dof_par)
+rchisq_int(const T dof_par, rand_engine_t& engine)
 {
-    return rgamma<T>(dof_par/T(2.0),T(2.0));
+    return rgamma<T>(dof_par/T(2.0),T(2.0),engine);
 }
 
 template<typename T>
 return_t<T>
-rchisq(const T dof_par)
+rchisq(const T dof_par, rand_engine_t& engine)
 {
-    return rchisq_int(return_t<T>(dof_par));
+    return rchisq_int(return_t<T>(dof_par),engine);
+}
+
+template<typename T>
+return_t<T>
+rchisq(const T dof_par, uint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    return rchisq_int(return_t<T>(dof_par),engine);
 }
 
 template<typename T>
@@ -41,12 +49,29 @@ void
 rchisq_int(const T dof_par, T* vals_out, const uint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
+    uint_t n_threads = omp_get_max_threads();
+
+    std::vector<rand_engine_t> engines;
+
+    for (uint_t k=0; k < n_threads; k++)
+    {
+        engines.push_back(rand_engine_t(std::random_device{}()));
+    }
+
     #pragma omp parallel for
-#endif
     for (uint_t j=0U; j < num_elem; j++)
     {
-        vals_out[j] = rchisq(dof_par);
+        uint_t thread_id = omp_get_thread_num();
+        vals_out[j] = rchisq(dof_par,engines[thread_id]);
     }
+#else
+    rand_engine_t engine(std::random_device{}());
+
+    for (uint_t j=0U; j < num_elem; j++)
+    {
+        vals_out[j] = rchisq(dof_par,engine);
+    }
+#endif
 }
 
 #ifdef STATS_WITH_MATRIX_LIB

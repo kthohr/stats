@@ -26,7 +26,10 @@
 #define _statslib_rlnorm_HPP
 
 template<typename T>
-T rlnorm(const T mu_par, const T sigma_par);
+T rlnorm(const T mu_par, const T sigma_par, rand_engine_t& engine);
+
+template<typename T>
+T rlnorm(const T mu_par, const T sigma_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 void rlnorm_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem);

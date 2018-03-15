@@ -25,7 +25,7 @@
 #endif
 
 #ifndef STATS_VERSION_MINOR
-    #define STATS_VERSION_MINOR 0
+    #define STATS_VERSION_MINOR 1
 #endif
 
 #ifndef STATS_VERSION_PATCH
@@ -56,6 +56,7 @@
 
 namespace stats {
     using uint_t = unsigned int;
+    using rand_engine_t = std::mt19937_64;
     // static const double inf = std::numeric_limits<double>::infinity();
 
     template<class T>

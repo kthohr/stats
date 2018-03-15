@@ -26,7 +26,7 @@
 #define _statslib_runif_HPP
 
 template<typename T>
-return_t<T> runif(const T a_par, const T b_par, std::mt19937_64& engine);
+return_t<T> runif(const T a_par, const T b_par, rand_engine_t& engine);
 
 template<typename T>
 return_t<T> runif(const T a_par, const T b_par, uint_t seed_val = std::random_device{}());

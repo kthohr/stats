@@ -26,7 +26,10 @@
 #define _statslib_rchisq_HPP
 
 template<typename T>
-return_t<T> rchisq(const T dof_par);
+return_t<T> rchisq(const T dof_par, rand_engine_t& engine);
+
+template<typename T>
+return_t<T> rchisq(const T dof_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 void rchisq_int(const T dof_par, T* vals_out, const uint_t num_elem);
