@@ -26,7 +26,12 @@
 #define _statslib_rbeta_HPP
 
 template<typename T>
-T rbeta(const T a_par, const T b_par);
+T rbeta(const T a_par, const T b_par, 
+        rand_engine_t& engine);
+
+template<typename T>
+T rbeta(const T a_par, const T b_par, 
+        uint_t seed_val = std::random_device{}());
 
 template<typename T>
 void rbeta_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem);

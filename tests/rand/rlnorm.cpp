@@ -37,7 +37,7 @@ int main()
     std::cout << "lnorm rv draw: " << lnorm_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
-    int n = 10000;
+    int n = 100000;
     mat_obj lnorm_vec = stats::rlnorm<mat_obj>(n,1,mu,sigma);
 
     std::cout << "lnorm rv mean: " << stats::mat_ops::mean(lnorm_vec) << ". Should be close to: " << lnorm_mean << std::endl;

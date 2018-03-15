@@ -26,7 +26,10 @@
 #define _statslib_rpois_HPP
 
 template<typename T>
-T rpois(const T rate_par);
+T rpois(const T rate_par, rand_engine_t& engine);
+
+template<typename T>
+T rpois(const T rate_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 void rpois_int(const T rate_par, T* vals_out, const uint_t num_elem);

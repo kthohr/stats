@@ -24,9 +24,16 @@
 
 template<typename T>
 T
-rinvgamma(T shape_par, T rate_par)
+rinvgamma(T shape_par, T rate_par, rand_engine_t& engine)
 {
-    return T(1.0) / rgamma(shape_par,T(1.0)/rate_par);
+    return T(1.0) / rgamma(shape_par,T(1.0)/rate_par,engine);
+}
+
+template<typename T>
+T
+rinvgamma(T shape_par, T rate_par, uint_t seed_val)
+{
+    return T(1.0) / rgamma(shape_par,T(1.0)/rate_par,seed_val);
 }
 
 template<typename T>
@@ -34,12 +41,29 @@ void
 rinvgamma_int(const T shape_par, const T rate_par, T* vals_out, const uint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
+    uint_t n_threads = omp_get_max_threads();
+
+    std::vector<rand_engine_t> engines;
+
+    for (uint_t k=0; k < n_threads; k++)
+    {
+        engines.push_back(rand_engine_t(std::random_device{}()));
+    }
+
     #pragma omp parallel for
-#endif
     for (uint_t j=0U; j < num_elem; j++)
     {
-        vals_out[j] = rinvgamma(shape_par,rate_par);
+        uint_t thread_id = omp_get_thread_num();
+        vals_out[j] = rinvgamma(shape_par,rate_par,engines[thread_id]);
     }
+#else
+    rand_engine_t engine(std::random_device{}());
+
+    for (uint_t j=0U; j < num_elem; j++)
+    {
+        vals_out[j] = rinvgamma(shape_par,rate_par,engine);
+    }
+#endif
 }
 
 #ifdef STATS_WITH_MATRIX_LIB

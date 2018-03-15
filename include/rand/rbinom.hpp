@@ -26,7 +26,12 @@
 #define _statslib_rbinom_HPP
 
 template<typename T>
-uint_t rbinom(const uint_t n_trials_par, const T prob_par);
+uint_t rbinom(const uint_t n_trials_par, const T prob_par,
+              rand_engine_t& engine);
+
+template<typename T>
+uint_t rbinom(const uint_t n_trials_par, const T prob_par,
+              uint_t seed_val = std::random_device{}());
 
 template<typename T>
 void rbinom_int(const uint_t n_trials_par, const T prob_par, T* vals_out, const uint_t num_elem);

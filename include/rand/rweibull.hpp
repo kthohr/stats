@@ -26,7 +26,10 @@
 #define _statslib_rweibull_HPP
 
 template<typename T>
-T rweibull(const T shape_par, const T scale_par);
+T rweibull(const T shape_par, const T scale_par, rand_engine_t& engine);
+
+template<typename T>
+T rweibull(const T shape_par, const T scale_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 void rweibull_int(const T shape_par, const T scale_par, T* vals_out, const uint_t num_elem);
