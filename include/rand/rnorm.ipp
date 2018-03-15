@@ -27,9 +27,19 @@
 
 template<typename T>
 T
-rnorm(const T mu_par, const T sigma_par)
+rnorm(const T mu_par, const T sigma_par, std::mt19937_64& engine)
 {
-    std::mt19937_64 engine(std::random_device{}());
+    std::normal_distribution<T> norm_dist(T(0.0),T(1.0));
+
+    return mu_par + sigma_par*norm_dist(engine);
+}
+
+template<typename T>
+T
+rnorm(const T mu_par, const T sigma_par, uint_t seed_val)
+{
+    std::mt19937_64 engine(seed_val);
+
     std::normal_distribution<T> norm_dist(T(0.0),T(1.0));
 
     return mu_par + sigma_par*norm_dist(engine);
@@ -47,12 +57,29 @@ void
 rnorm_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
+    uint_t n_threads = omp_get_max_threads();
+
+    std::vector<std::mt19937_64> engines;
+
+    for (uint_t k=0; k < n_threads; k++)
+    {
+        engines.push_back(std::mt19937_64(std::random_device{}()));
+    }
+
     #pragma omp parallel for
-#endif
     for (uint_t j=0U; j < num_elem; j++)
     {
-        vals_out[j] = rnorm(mu_par,sigma_par);
+        uint_t thread_id = omp_get_thread_num();
+        vals_out[j] = rnorm(mu_par,sigma_par,engines[thread_id]);
     }
+#else
+    std::mt19937_64 engine(std::random_device{}());
+
+    for (uint_t j=0U; j < num_elem; j++)
+    {
+        vals_out[j] = rnorm(mu_par,sigma_par,engine);
+    }
+#endif
 }
 
 #ifdef STATS_WITH_MATRIX_LIB
