@@ -104,9 +104,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pnorm(" << x_8 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_8 << ". Success = " << success_8 << std::endl;
 
-    // x = +5.0
-    double x_9 = 5.0;
-    double val_9 = 0.9772499;
+    // x = +7.0
+    double x_9 = 7.0;
+    double val_9 = 0.9986501;
     double prob_9 = stats::pnorm(x_9,mu,sigma);
 
     bool success_9 = (std::abs(prob_9 - val_9) < err_tol);

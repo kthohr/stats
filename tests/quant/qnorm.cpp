@@ -104,9 +104,9 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qnorm(" << val_8 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_8 << ". Success = " << success_8 << std::endl;
 
-    // x = +5.0
-    double x_9 = 5.0;
-    double val_9 = 0.9772499;
+    // x = +7.0
+    double x_9 = 7.0;
+    double val_9 = 0.9986501;
     double q_9 = stats::qnorm(val_9,mu,sigma);
 
     bool success_9 = (std::abs(q_9 - x_9) < err_tol);
