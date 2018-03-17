@@ -4,7 +4,7 @@ StatsLib is a templated C++ library of statistical distribution functions.
 
 Features:
 * A header-only library of probability density functions, cumulative distribution functions, quantile functions, and random sampling methods.
-* Functions are written in a concise C++11 `constexpr`-based format.
+* Functions are written in C++11 `constexpr` format.
     * Built on the [GCE-Math library](https://github.com/kthohr/gcem), StatsLib can operate as a compile-time or run-time computation engine.
 * A simple, **R**-like syntax.
 * Optional vector-matrix functionality with wrappers to support several popular linear algebra libraries, including:
@@ -12,12 +12,13 @@ Features:
     * [Blaze](https://bitbucket.org/blaze-lib/blaze)
     * [Eigen](http://eigen.tuxfamily.org/index.php)
 * Matrix-based operations are parallelizable with OpenMP.
+* Released under a permissive, non-GPL license.
 
 ## Available Distributions
 
-cdf, pdf, quantile and random sampling functions are available for the following distributions:
+Functions to compute the cdf, pdf, and quantile, as well as random sampling methods, are available for the following distributions:
 
-* Bernoulli 
+* Bernoulli
 * Beta
 * Binomial
 * Cauchy
@@ -89,7 +90,7 @@ All of these functions have matrix-based equivalents using Armadillo, Blaze, and
 arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
 ```
 
-* The randomization functions (`r*`) can output random matrices of arbitrary dimensions. For example,</li>
+* The randomization functions (`r*`) can output random matrices of arbitrary size. For example,</li>
 
 ```cpp
 # Armadillo:
@@ -132,19 +133,19 @@ arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 
 ## Installation
 
-StatsLib is a header-only library. Just copy the contents of the include folder and add the header files to your project using `#include "stats.hpp"`.
+StatsLib is a header-only library. Simply copy the contents of the include folder and add the header files to your project using `#include "stats.hpp"`.
 
-## Compile-time computation
+## Compile-time Computation
 
-In addition to being a standard run-time library, StatsLib can also operate as a compile-time library. Compile-time features are enabled using the ```constexpr``` specifier:
+In addition to being a standard run-time library, StatsLib can operate as a compile-time computation engine. Compile-time features are enabled using the `constexpr` specifier:
 ```cpp
 #include "stats.hpp"
 
 int main()
 {
     
-    constexpr double dens_1 = stats::dlaplace(1.0,1.0,2.0);  // answer = 0.25
-    constexpr double prob_1 = stats::plaplace(1.0,1.0,2.0);  // answer = 0.5
+    constexpr double dens_1  = stats::dlaplace(1.0,1.0,2.0); // answer = 0.25
+    constexpr double prob_1  = stats::plaplace(1.0,1.0,2.0); // answer = 0.5
     constexpr double quant_1 = stats::qlaplace(0.1,1.0,2.0); // answer = -2.218875...
 
     return 0;

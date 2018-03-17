@@ -29,7 +29,7 @@
 // single input
 
 template<typename T>
-statslib_constexpr T dcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form = false);
+statslib_constexpr return_t<T> dcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form = false);
 
 //
 // matrix/vector input

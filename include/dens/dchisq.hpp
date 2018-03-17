@@ -28,8 +28,8 @@
 //
 // single input
 
-template<typename T>
-statslib_constexpr T dchisq(const T x, const T dof_par, const bool log_form = false);
+template<typename Ta, typename Tb>
+statslib_constexpr return_t<Ta> dchisq(const Ta x, const Tb dof_par, const bool log_form = false);
 
 //
 // matrix/vector input

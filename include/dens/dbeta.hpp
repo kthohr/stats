@@ -28,8 +28,8 @@
 //
 // single input
 
-template<typename T>
-statslib_constexpr T dbeta(const T x, const T a_par, const T b_par, const bool log_form = false);
+template<typename Ta, typename Tb>
+statslib_constexpr return_t<Ta> dbeta(const Ta x, const Tb a_par, const Tb b_par, const bool log_form = false);
 
 //
 // matrix/vector input

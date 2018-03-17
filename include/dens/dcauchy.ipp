@@ -36,10 +36,18 @@ dcauchy_int(const T z, const T sigma_par)
 template<typename T>
 statslib_constexpr
 T
-dcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form)
+dcauchy_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(dcauchy_int((x-mu_par)/sigma_par,sigma_par)) :
                                 dcauchy_int((x-mu_par)/sigma_par,sigma_par) );
+}
+
+template<typename T>
+statslib_constexpr
+return_t<T>
+dcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form)
+{
+    return dcauchy_check<return_t<T>>(x,mu_par,sigma_par,log_form);
 }
 
 //

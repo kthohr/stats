@@ -37,10 +37,18 @@ dchisq_int(const T x, const T dof_par)
 template<typename T>
 statslib_constexpr
 T
-dchisq(const T x, const T dof_par, const bool log_form)
+dchisq_check(const T x, const T dof_par, const bool log_form)
 {
     return ( log_form == true ? dchisq_int(x,dof_par) : 
                                 stmath::exp(dchisq_int(x,dof_par)) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+dchisq(const Ta x, const Tb dof_par, const bool log_form)
+{
+    return dchisq_check<return_t<Ta>>(x,dof_par,log_form);
 }
 
 //

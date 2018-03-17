@@ -54,9 +54,17 @@ dt_int(const T z, const T dof_par)
 template<typename T>
 statslib_constexpr
 T
-dt(const T x, const uint_t dof_par, const bool log_form)
+dt_check(const T x, const T dof_par, const bool log_form)
 {
-    return ( log_form == true ? dt_int(x, T(dof_par)) : stmath::exp(dt_int(x, T(dof_par))) );
+    return ( log_form == true ? dt_int(x, dof_par) : stmath::exp(dt_int(x, dof_par)) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+dt(const Ta x, const Tb dof_par, const bool log_form)
+{
+    return dt_check<return_t<Ta>>(x,dof_par,log_form);
 }
 
 //

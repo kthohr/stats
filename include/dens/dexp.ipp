@@ -36,10 +36,18 @@ dexp_int(const T x, const T rate_par)
 template<typename T>
 statslib_constexpr
 T
-dexp(const T x, const T rate_par, const bool log_form)
+dexp_check(const T x, const T rate_par, const bool log_form)
 {
     return ( log_form == true ? ( x < T(0.0) ? - STLIM<T>::infinity() : dexp_int(x,rate_par) ) :
                                 ( x < T(0.0) ? 0.0 : stmath::exp(dexp_int(x,rate_par)) ) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+dexp(const Ta x, const Tb rate_par, const bool log_form)
+{
+    return dexp_check<return_t<Ta>>(x,rate_par,log_form);
 }
 
 //

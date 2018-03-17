@@ -38,16 +38,27 @@ statslib_constexpr
 T
 df_int(const T x, const T a_par, const T b_par, const T abx, const bool log_form)
 {
-    return ( log_form == true ? dbeta(abx/(T(1.0)+abx),a_par,b_par,true)  + stmath::log(df_int_adj(x,(a_par/b_par)/(T(1.0) + abx))) :
-                                dbeta(abx/(T(1.0)+abx),a_par,b_par,false) * df_int_adj(x,(a_par/b_par)/(T(1.0) + abx)) );
+    return ( log_form == true ? \
+             // if
+                dbeta(abx/(T(1.0)+abx),a_par,b_par,true)  + stmath::log(df_int_adj(x,(a_par/b_par)/(T(1.0) + abx))) :
+             // else
+                dbeta(abx/(T(1.0)+abx),a_par,b_par,false) * df_int_adj(x,(a_par/b_par)/(T(1.0) + abx)) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-df(const T x, const T df1_par, const T df2_par, const bool log_form)
+df_check(const T x, const T df1_par, const T df2_par, const bool log_form)
 {
-    return ( df_int(x,df1_par/T(2.0),df2_par/T(2.0),df1_par*x/df2_par,log_form) );
+    return df_int(x,df1_par/T(2.0),df2_par/T(2.0),df1_par*x/df2_par,log_form);
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+df(const Ta x, const Tb df1_par, const Tb df2_par, const bool log_form)
+{
+    return df_check<return_t<Ta>>(x,df1_par,df2_par,log_form);
 }
 
 //

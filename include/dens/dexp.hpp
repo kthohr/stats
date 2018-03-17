@@ -28,8 +28,8 @@
 //
 // single input
 
-template<typename T>
-statslib_constexpr T dexp(const T x, const T rate_par, const bool log_form = false);
+template<typename Ta, typename Tb>
+statslib_constexpr return_t<Ta> dexp(const Ta x, const Tb rate_par, const bool log_form = false);
 
 //
 // matrix/vector input
