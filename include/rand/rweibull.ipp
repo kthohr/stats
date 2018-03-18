@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rweibull(const T shape_par, const T scale_par, rand_engine_t& engine)
 {
@@ -30,6 +31,7 @@ rweibull(const T shape_par, const T scale_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 T
 rweibull(const T shape_par, const T scale_par, uint_t seed_val)
 {
@@ -37,6 +39,7 @@ rweibull(const T shape_par, const T scale_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rweibull_int(const T shape_par, const T scale_par, T* vals_out, const uint_t num_elem)
 {
@@ -68,6 +71,7 @@ rweibull_int(const T shape_par, const T scale_par, T* vals_out, const uint_t num
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rweibull(const uint_t n, const uint_t k, const eT shape_par, const eT scale_par)
 {

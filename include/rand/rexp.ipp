@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rexp(const T rate_par, rand_engine_t& engine)
 {
@@ -30,6 +31,7 @@ rexp(const T rate_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 T
 rexp(const T rate_par, uint_t seed_val)
 {
@@ -37,6 +39,7 @@ rexp(const T rate_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rexp_int(const T rate_par, T* vals_out, const uint_t num_elem)
 {
@@ -68,6 +71,7 @@ rexp_int(const T rate_par, T* vals_out, const uint_t num_elem)
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rexp(const uint_t n, const uint_t k, const eT rate_par)
 {

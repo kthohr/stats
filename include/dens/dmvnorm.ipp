@@ -23,6 +23,7 @@
  */
 
 template<typename Ta, typename Te>
+statslib_inline
 Te
 dmvnorm(const Ta& X, const Ta& mu_par, const Ta& Sigma_par, bool log_form)
 {

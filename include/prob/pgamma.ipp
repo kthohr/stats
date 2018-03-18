@@ -46,6 +46,7 @@ pgamma(const T x, const T shape_par, const T scale_par, const bool log_form)
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 void
 pgamma_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, const bool log_form, 
                  Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
@@ -61,6 +62,7 @@ pgamma_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, con
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 ArmaMat<Tc>
 pgamma(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par, const bool log_form)
 {
@@ -74,6 +76,7 @@ pgamma(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par, const bool 
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
+statslib_inline
 BlazeMat<Tc,To>
 pgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par, const bool log_form)
 {
@@ -87,6 +90,7 @@ pgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par, const b
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+statslib_inline
 EigMat<Tc,iTr,iTc>
 pgamma(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb scale_par, const bool log_form)
 {

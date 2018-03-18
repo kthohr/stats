@@ -46,6 +46,7 @@ pbeta(const T x, const T a_par, const T b_par, const bool log_form)
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 void
 pbeta_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, const bool log_form, 
                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
@@ -61,6 +62,7 @@ pbeta_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 ArmaMat<Tc>
 pbeta(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {
@@ -74,6 +76,7 @@ pbeta(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par, const bool log_form)
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
+statslib_inline
 BlazeMat<Tc,To>
 pbeta(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {
@@ -87,6 +90,7 @@ pbeta(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par, const bool log_f
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+statslib_inline
 EigMat<Tc,iTr,iTc>
 pbeta(const EigMat<Ta,iTr,iTc>& X, const Tb a_par, const Tb b_par, const bool log_form)
 {

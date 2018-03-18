@@ -65,6 +65,7 @@ df(const Ta x, const Tb df1_par, const Tb df2_par, const bool log_form)
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 void
 df_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, const bool log_form,
              Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
@@ -80,6 +81,7 @@ df_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb 
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 ArmaMat<Tc>
 df(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {
@@ -93,6 +95,7 @@ df(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par, const bool log_form
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
+statslib_inline
 BlazeMat<Tc,To>
 df(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {
@@ -106,6 +109,7 @@ df(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par, const bool log_
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+statslib_inline
 EigMat<Tc,iTr,iTc>
 df(const EigMat<Ta,iTr,iTc>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
 {

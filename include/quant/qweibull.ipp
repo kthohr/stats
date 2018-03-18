@@ -49,6 +49,7 @@ qweibull(const T p, const T shape_par, const T scale_par)
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 void
 qweibull_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, 
                    Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
@@ -64,6 +65,7 @@ qweibull_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, c
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 ArmaMat<Tc>
 qweibull(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par)
 {
@@ -77,6 +79,7 @@ qweibull(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par)
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
+statslib_inline
 BlazeMat<Tc,To>
 qweibull(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par)
 {
@@ -90,6 +93,7 @@ qweibull(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par)
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+statslib_inline
 EigMat<Tc,iTr,iTc>
 qweibull(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb scale_par)
 {

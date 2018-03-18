@@ -26,6 +26,7 @@
 // single draw
 
 template<typename T>
+statslib_inline
 T
 rnorm(const T mu_par, const T sigma_par, rand_engine_t& engine)
 {
@@ -35,6 +36,7 @@ rnorm(const T mu_par, const T sigma_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 T
 rnorm(const T mu_par, const T sigma_par, uint_t seed_val)
 {
@@ -43,6 +45,7 @@ rnorm(const T mu_par, const T sigma_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 T
 rnorm()
 {
@@ -50,6 +53,7 @@ rnorm()
 }
 
 template<typename T>
+statslib_inline
 void
 rnorm_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem)
 {
@@ -81,6 +85,7 @@ rnorm_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem)
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rnorm(const uint_t n, const uint_t k, const eT mu_par, const eT sigma_par)
 {

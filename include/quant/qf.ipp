@@ -55,6 +55,7 @@ qf(const T p, const T df1_par, const T df2_par)
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 void
 qf_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, 
              Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
@@ -70,6 +71,7 @@ qf_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb 
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 ArmaMat<Tc>
 qf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par)
 {
@@ -83,6 +85,7 @@ qf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par)
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
+statslib_inline
 BlazeMat<Tc,To>
 qf(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par)
 {
@@ -96,6 +99,7 @@ qf(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par)
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+statslib_inline
 EigMat<Tc,iTr,iTc>
 qf(const EigMat<Ta,iTr,iTc>& X, const Tb df1_par, const Tb df2_par)
 {

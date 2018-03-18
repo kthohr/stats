@@ -26,18 +26,23 @@
 #define _statslib_rnorm_HPP
 
 template<typename T>
+statslib_inline
 T rnorm(const T mu_par, const T sigma_par, rand_engine_t& engine);
 
 template<typename T>
+statslib_inline
 T rnorm(const T mu_par, const T sigma_par, uint_t seed_val = std::random_device{}());
 
 template<typename T = double>
+statslib_inline
 T rnorm();
 
 template<typename T>
+statslib_inline
 void rnorm_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem);
 
 template<typename mT, typename eT = double>
+statslib_inline
 mT rnorm(const uint_t n, const uint_t k, const eT mu_par = eT(0.0), const eT sigma_par = eT(1.0));
 
 #include "rnorm.ipp"

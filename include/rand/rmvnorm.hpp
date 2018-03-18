@@ -33,8 +33,8 @@ template<typename T, typename std::enable_if<!(std::is_same<T,arma::mat>::value)
 #else
 template<typename T>
 #endif
-T
-rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
+statslib_inline
+T rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
 
 // n samples
 #ifdef STATS_USE_ARMA
@@ -42,15 +42,17 @@ template<typename T, typename std::enable_if<!(std::is_same<T,arma::mat>::value)
 #else
 template<typename T>
 #endif
-T
-rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
+statslib_inline
+T rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
 
 // specializations
 #ifdef STATS_USE_ARMA
 template<typename mT, typename eT>
+statslib_inline
 mT rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol = false);
 
 template<typename mT, typename eT>
+statslib_inline
 ArmaMat<eT> rmvnorm(const uint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol = false);
 #endif
 

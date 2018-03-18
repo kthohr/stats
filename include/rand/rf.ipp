@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rf_int(const T df1_par, const T df2_par, rand_engine_t& engine)
 {
@@ -33,6 +34,7 @@ rf_int(const T df1_par, const T df2_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 return_t<T>
 rf(const T df1_par, const T df2_par, rand_engine_t& engine)
 {
@@ -40,6 +42,7 @@ rf(const T df1_par, const T df2_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 return_t<T>
 rf(const T df1_par, const T df2_par, uint_t seed_val)
 {
@@ -48,6 +51,7 @@ rf(const T df1_par, const T df2_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rf_int(const T df1_par, const T df2_par, T* vals_out, const uint_t num_elem)
 {
@@ -79,6 +83,7 @@ rf_int(const T df1_par, const T df2_par, T* vals_out, const uint_t num_elem)
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rf(const uint_t n, const uint_t k, const eT df1_par, const eT df2_par)
 {

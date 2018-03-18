@@ -54,6 +54,7 @@ dexp(const Ta x, const Tb rate_par, const bool log_form)
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 void
 dexp_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, const bool log_form, 
                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
@@ -69,6 +70,7 @@ dexp_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, const 
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 ArmaMat<Tc>
 dexp(const ArmaMat<Ta>& X, const Tb rate_par, const bool log_form)
 {
@@ -82,6 +84,7 @@ dexp(const ArmaMat<Ta>& X, const Tb rate_par, const bool log_form)
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
+statslib_inline
 BlazeMat<Tc,To>
 dexp(const BlazeMat<Ta,To>& X, const Tb rate_par, const bool log_form)
 {
@@ -95,6 +98,7 @@ dexp(const BlazeMat<Ta,To>& X, const Tb rate_par, const bool log_form)
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+statslib_inline
 EigMat<Tc,iTr,iTc>
 dexp(const EigMat<Ta,iTr,iTc>& X, const Tb rate_par, const bool log_form)
 {

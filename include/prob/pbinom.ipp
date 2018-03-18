@@ -47,6 +47,7 @@ pbinom(const uint_t x, const uint_t n_trials_par, const T prob_par, const bool l
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 void
 pbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_par, const Tb prob_par, const bool log_form, 
                  Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
@@ -62,6 +63,7 @@ pbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_p
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 ArmaMat<Tc>
 pbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
@@ -75,6 +77,7 @@ pbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par, const
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
+statslib_inline
 BlazeMat<Tc,To>
 pbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
@@ -88,6 +91,7 @@ pbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par, c
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+statslib_inline
 EigMat<Tc,iTr,iTc>
 pbinom(const EigMat<Ta,iTr,iTc>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
 {

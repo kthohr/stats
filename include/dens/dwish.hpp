@@ -27,6 +27,7 @@
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename Ta, typename Te = double>
+statslib_inline
 Te dwish(const Ta& X, const Ta& Psi_par, const Te nu_par, bool log_form = false);
 
 #include "dwish.ipp"

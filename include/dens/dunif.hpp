@@ -29,30 +29,36 @@
 // single input
 
 template<typename Ta, typename Tb>
-statslib_constexpr return_t<Ta> dunif(const Ta x, const Tb a_par, const Tb b_par, const bool log_form = false);
+statslib_constexpr
+return_t<Ta> dunif(const Ta x, const Tb a_par, const Tb b_par, const bool log_form = false);
 
 template<typename T>
-statslib_constexpr T dunif(const T x);
+statslib_constexpr
+T dunif(const T x);
 
 //
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc = Tb>
+statslib_inline
 void dunif_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, const bool log_form,
                      Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
+statslib_inline
 ArmaMat<Tc> dunif(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+statslib_inline
 BlazeMat<Tc,To> dunif(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+statslib_inline
 EigMat<Tc,iTr,iTc> dunif(const EigMat<Ta,iTr,iTc>& X, const Tb a_par, const Tb b_par, const bool log_form = false);
 #endif
 

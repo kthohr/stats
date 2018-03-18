@@ -197,6 +197,7 @@ qt(const T p, const T dof_par)
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 void
 qt_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, 
              Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
@@ -212,6 +213,7 @@ qt_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par,
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc>
+statslib_inline
 ArmaMat<Tc>
 qt(const ArmaMat<Ta>& X, const Tb dof_par)
 {
@@ -225,6 +227,7 @@ qt(const ArmaMat<Ta>& X, const Tb dof_par)
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc, bool To>
+statslib_inline
 BlazeMat<Tc,To>
 qt(const BlazeMat<Ta,To>& X, const Tb dof_par)
 {
@@ -238,6 +241,7 @@ qt(const BlazeMat<Ta,To>& X, const Tb dof_par)
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+statslib_inline
 EigMat<Tc,iTr,iTc>
 qt(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par)
 {

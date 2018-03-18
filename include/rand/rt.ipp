@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rt_int(const T dof_par, rand_engine_t& engine)
 {
@@ -31,6 +32,7 @@ rt_int(const T dof_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 return_t<T>
 rt(const T dof_par, rand_engine_t& engine)
 {
@@ -38,6 +40,7 @@ rt(const T dof_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 return_t<T>
 rt(const T dof_par, uint_t seed_val)
 {
@@ -46,6 +49,7 @@ rt(const T dof_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rt_int(const T dof_par, T* vals_out, const uint_t num_elem)
 {
@@ -77,6 +81,7 @@ rt_int(const T dof_par, T* vals_out, const uint_t num_elem)
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rt(const uint_t n, const uint_t k, const eT dof_par)
 {

@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 return_t<T>
 runif(const T a_par, const T b_par, rand_engine_t& engine)
 {
@@ -34,6 +35,7 @@ runif(const T a_par, const T b_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 return_t<T>
 runif(const T a_par, const T b_par, uint_t seed_val)
 {
@@ -42,6 +44,7 @@ runif(const T a_par, const T b_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 T
 runif()
 {
@@ -49,6 +52,7 @@ runif()
 }
 
 template<typename T>
+statslib_inline
 void
 runif_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
 {
@@ -80,6 +84,7 @@ runif_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 runif(const uint_t n, const uint_t k, const eT a_par, const eT b_par)
 {

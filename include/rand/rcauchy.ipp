@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rcauchy(const T mu_par, const T sigma_par, rand_engine_t& engine)
 {
@@ -30,6 +31,7 @@ rcauchy(const T mu_par, const T sigma_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 T
 rcauchy(const T mu_par, const T sigma_par, uint_t seed_val)
 {
@@ -37,6 +39,7 @@ rcauchy(const T mu_par, const T sigma_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rcauchy_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem)
 {
@@ -68,6 +71,7 @@ rcauchy_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_ele
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rcauchy(const uint_t n, const uint_t k, const eT mu_par, const eT sigma_par)
 {

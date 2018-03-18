@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 int
 rbern(const T prob_par, rand_engine_t& engine)
 {    
@@ -30,6 +31,7 @@ rbern(const T prob_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 int
 rbern(const T prob_par, uint_t seed_val)
 {    
@@ -37,6 +39,7 @@ rbern(const T prob_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rbern_int(const T prob_par, T* vals_out, const uint_t num_elem)
 {
@@ -68,6 +71,7 @@ rbern_int(const T prob_par, T* vals_out, const uint_t num_elem)
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rbern(const uint_t n, const uint_t k, const eT prob_par)
 {

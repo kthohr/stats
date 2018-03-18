@@ -28,6 +28,7 @@
 #ifdef STATS_WITH_MATRIX_LIB
 
 template<typename mT, typename eT = double>
+statslib_inline
 mT rmultinom(const mT& prob);
 
 #include "rmultinom.ipp"

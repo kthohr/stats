@@ -29,27 +29,32 @@
 // single input
 
 template<typename T>
-statslib_constexpr T qcauchy(const T p, const T mu_par, const T sigma_par);
+statslib_constexpr
+T qcauchy(const T p, const T mu_par, const T sigma_par);
 
 //
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc = Tb>
+statslib_inline
 void qcauchy_int(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par,
                        Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
+statslib_inline
 ArmaMat<Tc> qcauchy(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par);
 #endif
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+statslib_inline
 BlazeMat<Tc,To> qcauchy(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par);
 #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+statslib_inline
 EigMat<Tc,iTr,iTc> qcauchy(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par);
 #endif
 

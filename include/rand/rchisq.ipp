@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rchisq_int(const T dof_par, rand_engine_t& engine)
 {
@@ -30,6 +31,7 @@ rchisq_int(const T dof_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 return_t<T>
 rchisq(const T dof_par, rand_engine_t& engine)
 {
@@ -37,6 +39,7 @@ rchisq(const T dof_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 return_t<T>
 rchisq(const T dof_par, uint_t seed_val)
 {

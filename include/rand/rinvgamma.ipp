@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rinvgamma(T shape_par, T rate_par, rand_engine_t& engine)
 {
@@ -30,6 +31,7 @@ rinvgamma(T shape_par, T rate_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 T
 rinvgamma(T shape_par, T rate_par, uint_t seed_val)
 {
@@ -37,6 +39,7 @@ rinvgamma(T shape_par, T rate_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rinvgamma_int(const T shape_par, const T rate_par, T* vals_out, const uint_t num_elem)
 {
@@ -68,6 +71,7 @@ rinvgamma_int(const T shape_par, const T rate_par, T* vals_out, const uint_t num
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rinvgamma(const uint_t n, const uint_t k, const eT shape_par, const eT rate_par)
 {

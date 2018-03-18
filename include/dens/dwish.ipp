@@ -23,6 +23,7 @@
  */
 
 template<typename Ta, typename Te>
+statslib_inline
 Te
 dwish(const Ta& X, const Ta& Psi_par, const Te nu_par, bool log_form)
 {

@@ -28,6 +28,7 @@ template<typename mT, typename pT,
 #else
 template<typename mT, typename pT>
 #endif
+statslib_inline
 mT
 rwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
 {
@@ -67,6 +68,7 @@ rwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
 
 #ifdef STATS_USE_ARMA
 template<typename mT, typename eT, typename pT>
+statslib_inline
 mT
 rwish(const ArmaMat<eT>& Psi_par, const pT nu_par, const bool pre_chol)
 {

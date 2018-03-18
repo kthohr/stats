@@ -26,15 +26,19 @@
 #define _statslib_rbern_HPP
 
 template<typename T>
+statslib_inline
 int rbern(const T prob_par, rand_engine_t& engine);
 
 template<typename T>
+statslib_inline
 int rbern(const T prob_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
+statslib_inline
 void rbern_int(const T prob_par, T* vals_out, const uint_t num_elem);
 
 template<typename mT, typename eT>
+statslib_inline
 mT rbern(const uint_t n, const uint_t k, const eT prob_par);
 
 #include "rbern.ipp"

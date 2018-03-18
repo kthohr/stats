@@ -36,9 +36,14 @@
 
 #if defined(_OPENMP) && !defined(STATS_NO_OMP) && !defined(STATS_USE_OPENMP)
     #define STATS_USE_OPENMP
+    #include <omp.h>
 #endif
 
 // switch between inline mode vs constexpr
+
+#ifndef statslib_inline
+    #define statslib_inline inline
+#endif
 
 #ifndef STATS_GO_INLINE
     #define statslib_constexpr constexpr

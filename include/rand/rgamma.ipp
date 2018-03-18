@@ -24,6 +24,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rgamma(const T shape_par, const T scale_par, rand_engine_t& engine)
 {
@@ -70,6 +71,7 @@ rgamma(const T shape_par, const T scale_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 T
 rgamma(const T shape_par, const T scale_par, uint_t seed_val)
 {
@@ -80,6 +82,7 @@ rgamma(const T shape_par, const T scale_par, uint_t seed_val)
 //
 
 template<typename T>
+statslib_inline
 void
 rgamma_int(const T shape_par, const T scale_par, T* vals_out, const uint_t num_elem)
 {
@@ -111,6 +114,7 @@ rgamma_int(const T shape_par, const T scale_par, T* vals_out, const uint_t num_e
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rgamma(const uint_t n, const uint_t k, const eT shape_par, const eT scale_par)
 {

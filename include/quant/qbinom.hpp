@@ -29,27 +29,32 @@
 // single input
 
 template<typename Ta, typename Tb = uint_t>
-statslib_constexpr Tb qbinom(const Ta p, const uint_t n_trials_par, const Ta prob_par);
+statslib_constexpr
+Tb qbinom(const Ta p, const uint_t n_trials_par, const Ta prob_par);
 
 //
 // matrix/vector input
 
 template<typename Ta, typename Tb, typename Tc = Tb>
+statslib_inline
 void qbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_par, const Tb prob_par, 
                       Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
+statslib_inline
 ArmaMat<Tc> qbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par);
 #endif
 
 #ifdef STATS_USE_BLAZE
 template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+statslib_inline
 BlazeMat<Tc,To> qbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par);
 #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+statslib_inline
 EigMat<Tc,iTr,iTc> qbinom(const EigMat<Ta,iTr,iTc>& X, const uint_t n_trials_par, const Tb prob_par);
 #endif
 

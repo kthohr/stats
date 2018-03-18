@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 uint_t
 rbinom(const uint_t n_trials_par, const T prob_par, rand_engine_t& engine)
 {
@@ -37,6 +38,7 @@ rbinom(const uint_t n_trials_par, const T prob_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 uint_t
 rbinom(const uint_t n_trials_par, const T prob_par, uint_t seed_val)
 {
@@ -45,6 +47,7 @@ rbinom(const uint_t n_trials_par, const T prob_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rbinom_int(const uint_t n_trials_par, const T prob_par, T* vals_out, const uint_t num_elem)
 {
@@ -77,6 +80,7 @@ rbinom_int(const uint_t n_trials_par, const T prob_par, T* vals_out, const uint_
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rbinom(const uint_t n, const uint_t k, const uint_t n_trials_par, const eT prob_par)
 {

@@ -23,6 +23,7 @@
  */
 
 template<typename T>
+statslib_inline
 T
 rbeta(const T a_par, const T b_par, rand_engine_t& engine)
 {
@@ -33,6 +34,7 @@ rbeta(const T a_par, const T b_par, rand_engine_t& engine)
 }
 
 template<typename T>
+statslib_inline
 T
 rbeta(const T a_par, const T b_par, uint_t seed_val)
 {
@@ -41,6 +43,7 @@ rbeta(const T a_par, const T b_par, uint_t seed_val)
 }
 
 template<typename T>
+statslib_inline
 void
 rbeta_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
 {
@@ -72,6 +75,7 @@ rbeta_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
 
 #ifdef STATS_WITH_MATRIX_LIB
 template<typename mT, typename eT>
+statslib_inline
 mT
 rbeta(const uint_t n, const uint_t k, const eT a_par, const eT b_par)
 {

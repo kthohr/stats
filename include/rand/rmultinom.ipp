@@ -23,6 +23,7 @@
  */
 
 template<typename mT, typename eT>
+statslib_inline
 mT
 rmultinom(const mT& prob)
 {
