@@ -27,12 +27,7 @@
 
 #ifdef STATS_WITH_MATRIX_LIB
 
-#ifdef STATS_USE_ARMA
-template<typename mT, typename pT,
-         typename std::enable_if<!(std::is_same<mT,arma::mat>::value)>::type* = nullptr>
-#else
-template<typename mT, typename pT>
-#endif
+template<typename mT, typename pT, typename not_arma_mat<mT>::type* = nullptr>
 statslib_inline
 mT rwish(const mT& Psi_par, const pT nu_par, const bool pre_chol = false);
 
