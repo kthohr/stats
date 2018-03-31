@@ -1,8 +1,26 @@
 #!/bin/bash
 ## Stats tests config script
 
-while getopts cdgl:m:o:p option; do
+function print_help
+{ 
+    # echo "" ;
+    echo -e "\x1B[32mConfigure options:\033[0m" >&2 ;
+    echo "" ;
+    echo "-c    Coverage build" ;
+    echo "-d    Development build (install paths set to current directory)" ;
+    echo "-g    Debugging build (optimization flags set to -O0 -g)" ;
+    echo "-h    Print help" ;
+    echo "-l    Enable wrappers for a linear algebra library" ;
+    echo "        Examples: -l arma, -l blaze, or -l eigen" ;
+    echo "-m    Specify the BLAS and Lapack libraries to link against" ; 
+    echo "        Examples: -m \"-lopenblas\" or -m \"-framework Accelerate\"" ;
+    echo "-o    Compiler optimization options; defaults to -O3 -march=native" ;
+    echo "-p    enable OpenMP parallelization features" ;
+}
+
+while getopts hcdgl:m:o:p option; do
     case "${option}" in
+        h) print_help; exit 2;;
         c) STATS_COVERAGE="y";;
         d) STATS_BUILD="dev";;
         g) STATS_DEBUG="y";;
@@ -10,6 +28,7 @@ while getopts cdgl:m:o:p option; do
         m) STATS_MATRIX_OPS=${OPTARG};;
         o) STATS_OPT=${OPTARG};;
         p) STATS_PARALLEL="y";;
+        ?) print_help; exit 2;;
     esac
 done
 
