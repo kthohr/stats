@@ -22,21 +22,22 @@
  * pdf of the Wishart distribution
  */
 
-template<typename Ta, typename Te>
+template<typename Ta, typename pT>
 statslib_inline
-Te
-dwish(const Ta& X, const Ta& Psi_par, const Te nu_par, bool log_form)
+return_t<pT>
+dwish(const Ta& X, const Ta& Psi_par, const pT nu_par, bool log_form)
 {
-    const uint_t K = mat_ops::n_rows(X);
+    typedef return_t<pT> eT;
 
-    const Te nu_par_d2 =  nu_par / Te(2.0);
+    const uint_t K = mat_ops::n_rows(X);
+    const eT nu_par_d2 =  static_cast<eT>(nu_par) / eT(2.0);
 
     //
 
-    const Te lmg_term = gcem::log_multi_gamma(nu_par_d2, K);
-    const Te norm_term = - nu_par_d2*std::log(mat_ops::det(Psi_par)) - nu_par_d2*K*GCEM_LOG_2 - lmg_term;
+    const eT lmg_term = gcem::log_multi_gamma(nu_par_d2, K);
+    const eT norm_term = - nu_par_d2*std::log(mat_ops::det(Psi_par)) - nu_par_d2*K*GCEM_LOG_2 - lmg_term;
 
-    Te ret = norm_term + 0.5*( (nu_par-K-1) * std::log(mat_ops::det(X)) - mat_ops::trace(mat_ops::solve(X,Psi_par)) );
+    eT ret = norm_term + eT(0.5) * ( (nu_par-K-1) * std::log(mat_ops::det(X)) - mat_ops::trace(mat_ops::solve(X,Psi_par)) );
 
     if (!log_form) {
         ret = std::exp(ret);

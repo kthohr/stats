@@ -26,9 +26,9 @@
 #define _statslib_dinvwish_HPP
 
 #ifdef STATS_WITH_MATRIX_LIB
-template<typename Ta, typename Te = double>
+template<typename Ta, typename pT>
 statslib_inline
-Te dinvwish(const Ta& X, const Ta& Psi_par, const uint_t nu_par, bool log_form = false);
+return_t<pT> dinvwish(const Ta& X, const Ta& Psi_par, const pT nu_par, bool log_form = false);
 
 #include "dinvwish.ipp"
 #endif

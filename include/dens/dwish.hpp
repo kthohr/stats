@@ -26,9 +26,9 @@
 #define _statslib_dwish_HPP
 
 #ifdef STATS_WITH_MATRIX_LIB
-template<typename Ta, typename Te = double>
+template<typename Ta, typename pT>
 statslib_inline
-Te dwish(const Ta& X, const Ta& Psi_par, const Te nu_par, bool log_form = false);
+return_t<pT> dwish(const Ta& X, const Ta& Psi_par, const pT nu_par, bool log_form = false);
 
 #include "dwish.ipp"
 #endif
