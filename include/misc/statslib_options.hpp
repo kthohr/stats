@@ -93,6 +93,18 @@ namespace stats {
     using ArmaMat = arma::Mat<T>;
 #endif
 
+#ifdef STATS_USE_ARMA
+    template<typename T>
+    // using not_arma_mat = typename std::enable_if<!(std::is_same<T,arma::mat>::value)>::type;
+    using not_arma_mat = std::enable_if<!(std::is_same<T,arma::mat>::value)>;
+    // using not_arma_mat = std::enable_if<!(std::is_same<T,arma::mat>::value),int>;
+#else
+    template<typename T>
+    // using not_arma_mat = typename std::enable_if<!(std::is_same<T,char>::value)>;
+    using not_arma_mat = std::enable_if<!(std::is_same<T,char>::value)>;
+    // using not_arma_mat = std::enable_if<!(std::is_same<T,char>::value),int>;
+#endif
+
 // Blaze options
 
 #ifdef STATS_USE_BLAZE

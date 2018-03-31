@@ -26,11 +26,20 @@
 #define _statslib_dwish_HPP
 
 #ifdef STATS_WITH_MATRIX_LIB
-template<typename Ta, typename pT>
+
+template<typename mT, typename pT, typename not_arma_mat<mT>::type* = nullptr>
 statslib_inline
-return_t<pT> dwish(const Ta& X, const Ta& Psi_par, const pT nu_par, bool log_form = false);
+return_t<pT> dwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form = false);
+
+// specializations
+#ifdef STATS_USE_ARMA
+template<typename eT, typename pT>
+statslib_inline
+eT dwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, bool log_form = false);
+#endif
 
 #include "dwish.ipp"
+
 #endif
 
 #endif
