@@ -15,7 +15,7 @@ function print_help
     echo "-m    Specify the BLAS and Lapack libraries to link against" ; 
     echo "        Examples: -m \"-lopenblas\" or -m \"-framework Accelerate\"" ;
     echo "-o    Compiler optimization options; defaults to -O3 -march=native" ;
-    echo "-p    enable OpenMP parallelization features" ;
+    echo "-p    Enable OpenMP parallelization features" ;
 }
 
 while getopts hcdgl:m:o:p option; do
