@@ -60,12 +60,11 @@
 #include <random>
 
 namespace stats {
-    using uint_t = unsigned int;
-    using rand_engine_t = std::mt19937_64;
-    // static const double inf = std::numeric_limits<double>::infinity();
-
     template<class T>
     using STLIM = std::numeric_limits<T>;
+
+    using uint_t = unsigned int;
+    using rand_engine_t = std::mt19937_64;
 
     template<typename T>
     using return_t = typename std::conditional<std::is_integral<T>::value,double,T>::type;
@@ -95,14 +94,10 @@ namespace stats {
 
 #ifdef STATS_USE_ARMA
     template<typename T>
-    // using not_arma_mat = typename std::enable_if<!(std::is_same<T,arma::mat>::value)>::type;
     using not_arma_mat = std::enable_if<!(std::is_same<T,arma::mat>::value)>;
-    // using not_arma_mat = std::enable_if<!(std::is_same<T,arma::mat>::value),int>;
 #else
     template<typename T>
-    // using not_arma_mat = typename std::enable_if<!(std::is_same<T,char>::value)>;
     using not_arma_mat = std::enable_if<!(std::is_same<T,char>::value)>;
-    // using not_arma_mat = std::enable_if<!(std::is_same<T,char>::value),int>;
 #endif
 
 // Blaze options
