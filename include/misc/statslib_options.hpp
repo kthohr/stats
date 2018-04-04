@@ -29,7 +29,7 @@
 #endif
 
 #ifndef STATS_VERSION_PATCH
-    #define STATS_VERSION_PATCH 0
+    #define STATS_VERSION_PATCH 1
 #endif
 
 // enable OpenMP
