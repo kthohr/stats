@@ -83,7 +83,7 @@ qchisq(const BlazeMat<Ta,To>& X, const Tb dof_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qchisq_int<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),X.rows()*X.columns());
+    qchisq_int<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

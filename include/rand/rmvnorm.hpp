@@ -28,20 +28,12 @@
 #ifdef STATS_WITH_MATRIX_LIB
 
 // vector draw
-#ifdef STATS_USE_ARMA
-template<typename T, typename std::enable_if<!(std::is_same<T,arma::mat>::value)>::type* = nullptr>
-#else
-template<typename T>
-#endif
+template<typename T, typename not_arma_mat<T>::type* = nullptr>
 statslib_inline
 T rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
 
 // n samples
-#ifdef STATS_USE_ARMA
-template<typename T, typename std::enable_if<!(std::is_same<T,arma::mat>::value)>::type* = nullptr>
-#else
-template<typename T>
-#endif
+template<typename T, typename not_arma_mat<T>::type* = nullptr>
 statslib_inline
 T rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
 

@@ -84,7 +84,7 @@ rchisq(const uint_t n, const uint_t k, const eT dof_par)
 {
     mT mat_out(n,k);
 
-    rchisq_int(dof_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    rchisq_int(dof_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

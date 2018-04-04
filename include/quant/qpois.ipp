@@ -84,7 +84,7 @@ qpois(const BlazeMat<Ta,To>& X, const Tb rate_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qpois_int<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),X.rows()*X.columns());
+    qpois_int<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

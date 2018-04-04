@@ -81,7 +81,7 @@ qnorm(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qnorm_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,mat_out.data(),X.rows()*X.columns());
+    qnorm_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

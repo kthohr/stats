@@ -73,7 +73,7 @@ qbeta(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qbeta_int<Ta,Tb,Tc>(X.data(),a_par,b_par,mat_out.data(),X.rows()*X.columns());
+    qbeta_int<Ta,Tb,Tc>(X.data(),a_par,b_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

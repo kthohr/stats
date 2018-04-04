@@ -83,7 +83,7 @@ qinvgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb rate_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qinvgamma_int<Ta,Tb,Tc>(X.data(),shape_par,rate_par,mat_out.data(),X.rows()*X.columns());
+    qinvgamma_int<Ta,Tb,Tc>(X.data(),shape_par,rate_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

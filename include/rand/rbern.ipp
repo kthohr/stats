@@ -77,7 +77,7 @@ rbern(const uint_t n, const uint_t k, const eT prob_par)
 {
     mT mat_out(n,k);
 
-    rbern_int(prob_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    rbern_int(prob_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

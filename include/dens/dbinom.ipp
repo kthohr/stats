@@ -90,7 +90,7 @@ dbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par, c
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    dbinom_int<Ta,Tb,Tc>(X.data(),n_trials_par,prob_par,log_form,mat_out.data(),X.rows()*X.columns());
+    dbinom_int<Ta,Tb,Tc>(X.data(),n_trials_par,prob_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

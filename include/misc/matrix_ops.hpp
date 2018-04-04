@@ -161,6 +161,74 @@ n_elem(const EigMat<Ta,iTr,iTc>& X)
 #endif
 
 //
+// get the spacing dimensions
+
+#ifdef STATS_USE_ARMA
+template<typename T>
+statslib_inline
+uint_t
+spacing(const ArmaMat<T>& X)
+{
+    return n_cols(X);
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+statslib_inline
+uint_t
+spacing(const BlazeMat<Ta,Tb>& X)
+{
+    return X.spacing();
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+statslib_inline
+uint_t
+spacing(const EigMat<Ta,iTr,iTc>& X)
+{
+    return n_cols(X);
+}
+#endif
+
+//
+// row access
+
+#ifdef STATS_USE_ARMA
+template<typename T>
+statslib_inline
+arma::Row<T>
+get_row(const ArmaMat<T>& X, uint_t i)
+{
+    return X.row(i);
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+statslib_inline
+BlazeMat<Ta,Tb>
+get_row(const BlazeMat<Ta,Tb>& X, uint_t i)
+{
+    BlazeMat<Ta,Tb> out(1,X.columns());
+    row(out,0) = row(X,i); 
+    return out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+statslib_inline
+EigMat<Ta,1,iTc>
+get_row(const EigMat<Ta,iTr,iTc>& X, uint_t i)
+{
+    return X.row(i);
+}
+#endif
+
+//
 // Cholesky decomposition (lower triangular)
 
 #ifdef STATS_USE_ARMA

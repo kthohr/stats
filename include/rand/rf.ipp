@@ -89,7 +89,7 @@ rf(const uint_t n, const uint_t k, const eT df1_par, const eT df2_par)
 {
     mT mat_out(n,k);
 
-    rf_int(df1_par,df2_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    rf_int(df1_par,df2_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

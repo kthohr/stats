@@ -77,7 +77,7 @@ rpois(const uint_t n, const uint_t k, const eT rate_par)
 {
     mT mat_out(n,k);
 
-    rpois_int(rate_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    rpois_int(rate_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

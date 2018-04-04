@@ -77,7 +77,7 @@ rlogis(const uint_t n, const uint_t k, const eT mu_par, const eT sigma_par)
 {
     mT mat_out(n,k);
 
-    rlogis_int(mu_par,sigma_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    rlogis_int(mu_par,sigma_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

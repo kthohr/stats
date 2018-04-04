@@ -29,7 +29,7 @@
 #endif
 
 #ifndef STATS_VERSION_PATCH
-    #define STATS_VERSION_PATCH 1
+    #define STATS_VERSION_PATCH 2
 #endif
 
 // enable OpenMP
@@ -108,6 +108,9 @@ namespace stats {
 
     template<typename Ta, bool To = blaze::columnMajor>
     using BlazeMat = blaze::DynamicMatrix<Ta,To>;
+
+    template<typename Ta, bool To = blaze::rowMajor>
+    using BlazeRow = blaze::DynamicVector<Ta,To>;
 
 #endif
 

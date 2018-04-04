@@ -91,7 +91,7 @@ dbeta(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par, const bool log_f
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    dbeta_int<Ta,Tb,Tc>(X.data(),a_par,b_par,log_form,mat_out.data(),X.rows()*X.columns());
+    dbeta_int<Ta,Tb,Tc>(X.data(),a_par,b_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

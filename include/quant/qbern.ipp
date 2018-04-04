@@ -73,7 +73,7 @@ qbern(const BlazeMat<Ta,To>& X, const Tb prob_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qbern_int<Ta,Tb,Tc>(X.data(),prob_par,mat_out.data(),X.rows()*X.columns());
+    qbern_int<Ta,Tb,Tc>(X.data(),prob_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

@@ -77,7 +77,7 @@ rinvgamma(const uint_t n, const uint_t k, const eT shape_par, const eT rate_par)
 {
     mT mat_out(n,k);
 
-    rinvgamma_int(shape_par,rate_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    rinvgamma_int(shape_par,rate_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

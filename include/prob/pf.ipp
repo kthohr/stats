@@ -82,7 +82,7 @@ pf(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par, const bool log_
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    df_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),X.rows()*X.columns());
+    df_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

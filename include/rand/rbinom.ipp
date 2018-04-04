@@ -86,7 +86,7 @@ rbinom(const uint_t n, const uint_t k, const uint_t n_trials_par, const eT prob_
 {
     mT mat_out(n,k);
 
-    rbinom_int(n_trials_par,prob_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    rbinom_int(n_trials_par,prob_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

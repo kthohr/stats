@@ -36,10 +36,28 @@ int main()
 
     stats::mat_ops::eye(Sigma,K);
 
+    std::cout << "\nSigma:\n" << Sigma << std::endl;
+
     mat_obj mvnorm_vars = stats::rmvnorm<mat_obj>(n,mu,Sigma,true);
 
-    // std::cout << "mu_hat:\n" << stats::mat_ops::mean(mvnorm_vars) << std::endl;
-    // std::cout << "Sigma_hat:\n" << stats::mat_ops::cov(mvnorm_vars) << std::endl;
+    mat_obj mean_vec;
+    stats::mat_ops::zeros(mean_vec,1,K);
+
+    for (int i=0; i < n; i++)
+    {
+        mean_vec = mean_vec + stats::mat_ops::get_row(mvnorm_vars,i);
+    }
+
+    mean_vec = mean_vec * (1.0 / static_cast<double>(n));
+
+    mat_obj demeaned = mvnorm_vars - stats::mat_ops::repmat(mean_vec,n,1);
+
+    mean_vec = stats::mat_ops::trans(mean_vec);
+
+    mat_obj cov_mat = stats::mat_ops::trans(demeaned) * demeaned * (1.0 / static_cast<double>(n));
+
+    std::cout << "mu_hat:\n" << mean_vec << std::endl;
+    std::cout << "\nSigma_hat:\n" << cov_mat << std::endl;
 
     //
     // coverage tests

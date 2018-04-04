@@ -84,7 +84,7 @@ qbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qbinom_int<Ta,Tb,Tc>(X.data(),n_trials_par,prob_par,mat_out.data(),X.rows()*X.columns());
+    qbinom_int<Ta,Tb,Tc>(X.data(),n_trials_par,prob_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

@@ -82,7 +82,7 @@ dinvgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb rate_par, const
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    dinvgamma_int<Ta,Tb,Tc>(X.data(),shape_par,rate_par,log_form,mat_out.data(),X.rows()*X.columns());
+    dinvgamma_int<Ta,Tb,Tc>(X.data(),shape_par,rate_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

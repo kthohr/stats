@@ -90,7 +90,7 @@ runif(const uint_t n, const uint_t k, const eT a_par, const eT b_par)
 {
     mT mat_out(n,k);
 
-    runif_int(a_par,b_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    runif_int(a_par,b_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

@@ -74,7 +74,7 @@ dlnorm(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par, const bool
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    dlnorm_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),X.rows()*X.columns());
+    dlnorm_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

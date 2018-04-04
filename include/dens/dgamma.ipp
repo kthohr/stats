@@ -82,7 +82,7 @@ dgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par, const b
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    dgamma_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),X.rows()*X.columns());
+    dgamma_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }

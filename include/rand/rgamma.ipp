@@ -120,7 +120,7 @@ rgamma(const uint_t n, const uint_t k, const eT shape_par, const eT scale_par)
 {
     mT mat_out(n,k);
 
-    rgamma_int(shape_par,scale_par,mat_ops::get_mem_ptr(mat_out),n*k);
+    rgamma_int(shape_par,scale_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
 
     return mat_out;
 }

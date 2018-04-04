@@ -22,11 +22,7 @@
  * Sample from a multivariate normal distribution
  */
 
-#ifdef STATS_USE_ARMA
-template<typename T, typename std::enable_if<!(std::is_same<T,arma::mat>::value)>::type*>
-#else
-template<typename T>
-#endif
+template<typename T, typename not_arma_mat<T>::type*>
 statslib_inline
 T
 rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol)
@@ -84,11 +80,7 @@ rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 //
 // n-samples: results will be an n x K matrix
 
-#ifdef STATS_USE_ARMA
-template<typename T, typename std::enable_if<!(std::is_same<T,arma::mat>::value)>::type*>
-#else
-template<typename T>
-#endif
+template<typename T, typename not_arma_mat<T>::type*>
 statslib_inline
 T
 rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol)
