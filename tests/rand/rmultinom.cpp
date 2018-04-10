@@ -46,7 +46,7 @@ int main()
         X += stats::rmultinom<mat_obj>(prob_vec) / n;
     }
 
-    std::cout << "sample mean:\n" << X << std::endl;
+    std::cout << "sample mean:\n" << X / 5.0 << std::endl;
 
     //
 

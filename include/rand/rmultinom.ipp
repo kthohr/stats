@@ -33,12 +33,10 @@ rmultinom(const mT& prob)
 
     //
 
-    eT p_j = 1.0;
-
     mT ret(n_prob,1);
     const mT prob_csum = mat_ops::cumsum(prob);
 
-    p_j = prob(0,0);
+    eT p_j = prob(0,0);
     ret(0,0) = rbinom(n_j,p_j);
 
     //
