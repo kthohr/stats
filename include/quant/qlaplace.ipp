@@ -30,15 +30,15 @@ statslib_constexpr
 T
 qlaplace_int(const T p, const T mu_par, const T sigma_par)
 {
-    return ( mu_par - sigma_par*gcem::sgn(p - T(0.5))*stmath::log(T(1.0) - T(2.0)*stmath::abs(p - T(0.5))) );
+    return ( mu_par - sigma_par * gcem::sgn(p - T(0.5)) * stmath::log(T(1) - T(2)*stmath::abs(p - T(0.5))) );
 }
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T
-qlaplace(const T p, const T mu_par, const T sigma_par)
+Ta
+qlaplace(const Ta p, const Tb mu_par, const Tb sigma_par)
 {
-    return ( qlaplace_int(p,mu_par,sigma_par) );
+    return qlaplace_int<Ta>(p,mu_par,sigma_par);
 }
 
 //

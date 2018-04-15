@@ -224,7 +224,7 @@ qt_int(const T p, const T dof_par)
 
 template<typename Ta, typename Tb>
 statslib_constexpr
-return_t<Ta>
+Ta
 qt(const Ta p, const Tb dof_par)
 {
     return qt_int<return_t<Ta>>(p,dof_par);

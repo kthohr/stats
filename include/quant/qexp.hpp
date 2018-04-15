@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T qexp(const T p, const T dof_par);
+Ta qexp(const Ta p, const Tb rate_par);
 
 //
 // matrix/vector input

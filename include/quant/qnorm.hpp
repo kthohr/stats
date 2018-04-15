@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb = Ta>
 statslib_constexpr
-T qnorm(const T p, const T mu_par = T(0.0), const T sigma_par = T(1.0));
+Ta qnorm(const Ta p, const Tb mu_par = Tb(0), const Tb sigma_par = Tb(1));
 
 //
 // matrix/vector input

@@ -28,9 +28,17 @@
 template<typename T>
 statslib_constexpr
 T
-qbeta(const T p, const T a_par, const T b_par)
+qbeta_int(const T p, const T a_par, const T b_par)
 {
     return gcem::incomplete_beta_inv(a_par,b_par,p);
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+Ta
+qbeta(const Ta p, const Tb a_par, const Tb b_par)
+{
+    return qbeta_int<Ta>(p,a_par,b_par);
 }
 
 //

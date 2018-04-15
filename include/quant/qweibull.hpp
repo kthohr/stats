@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T qweibull(const T p, const T shape_par, const T scale_par);
+Ta qweibull(const Ta p, const Tb shape_par, const Tb scale_par);
 
 //
 // matrix/vector input

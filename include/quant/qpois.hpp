@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename Ta, typename Tb = uint_t>
+template<typename Ta, typename Tb, typename Tc = uint_t>
 statslib_constexpr
-Tb qpois(const Ta p, const Ta rate_par);
+Tc qpois(const Ta p, const Tb rate_par);
 
 //
 // matrix/vector input

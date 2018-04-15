@@ -30,15 +30,15 @@ statslib_constexpr
 T
 qnorm_int(const T p, const T mu_par, const T sigma_par)
 {
-    return ( mu_par + T(GCEM_SQRT_2)*sigma_par*gcem::erf_inv( T(2.0)*p - T(1.0) ) );
+    return ( mu_par + T(GCEM_SQRT_2)*sigma_par*gcem::erf_inv( T(2)*p - T(1) ) );
 }
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T
-qnorm(const T p, const T mu_par, const T sigma_par)
+Ta
+qnorm(const Ta p, const Tb mu_par, const Tb sigma_par)
 {
-    return ( qnorm_int(p,mu_par,sigma_par) );
+    return qnorm_int<Ta>(p,mu_par,sigma_par);
 }
 
 //

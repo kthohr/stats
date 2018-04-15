@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T qinvgamma(const T p, const T shape_par, const T rate_par);
+Ta qinvgamma(const Ta p, const Tb shape_par, const Tb rate_par);
 
 //
 // matrix/vector input

@@ -30,7 +30,7 @@ statslib_constexpr
 Tb
 qbern(const Ta p, const Ta prob_par)
 {
-    return ( p > (Ta(1.0) - prob_par) ? Tb(1) : Tb(0) );
+    return ( p > (Ta(1) - prob_par) ? Tb(1) : Tb(0) );
 }
 
 //

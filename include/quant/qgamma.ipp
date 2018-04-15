@@ -36,11 +36,19 @@ qgamma_int(const T p, const T shape_par, const T scale_par)
 template<typename T>
 statslib_constexpr
 T
-qgamma(const T p, const T shape_par, const T scale_par)
+qgamma_check(const T p, const T shape_par, const T scale_par)
 {
-    return ( STLIM<T>::epsilon() > p ? T(0.0) :
+    return ( STLIM<T>::epsilon() > p ? T(0) :
              //
              qgamma_int(p,shape_par,scale_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+Ta
+qgamma(const Ta p, const Tb shape_par, const Tb scale_par)
+{
+    return qgamma_check<Ta>(p,shape_par,scale_par);
 }
 
 //

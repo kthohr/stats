@@ -30,17 +30,25 @@ statslib_constexpr
 T
 qexp_int(const T p, const T rate_par)
 {
-    return ( - stmath::log( T(1.0) - p ) / rate_par );
+    return ( - stmath::log( T(1) - p ) / rate_par );
 }
 
 template<typename T>
 statslib_constexpr
 T
-qexp(const T p, const T rate_par)
+qexp_check(const T p, const T rate_par)
 {
-    return ( STLIM<T>::epsilon() > p ? T(0.0) :
+    return ( STLIM<T>::epsilon() > p ? T(0) :
              //
              qexp_int(p,rate_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+Ta
+qexp(const Ta p, const Tb rate_par)
+{
+    return qexp_check<Ta>(p,rate_par);
 }
 
 //

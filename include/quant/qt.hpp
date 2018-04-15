@@ -30,7 +30,7 @@
 
 template<typename Ta, typename Tb>
 statslib_constexpr
-return_t<Ta> qt(const Ta p, const Tb dof_par);
+Ta qt(const Ta p, const Tb dof_par);
 
 //
 // matrix/vector input

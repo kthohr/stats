@@ -33,12 +33,12 @@ qunif_int(const T p, const T a_par, const T b_par)
     return ( a_par + p*(b_par-a_par) );
 }
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T
-qunif(const T p, const T a_par, const T b_par)
+Ta
+qunif(const Ta p, const Tb a_par, const Tb b_par)
 {
-    return ( qunif_int(p,a_par,b_par) );
+    return qunif_int<Ta>(p,a_par,b_par);
 }
 
 //

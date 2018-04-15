@@ -30,15 +30,15 @@ statslib_constexpr
 T
 qlogis_int(const T p, const T mu_par, const T sigma_par)
 {
-    return ( mu_par + sigma_par*stmath::log(p/(T(1.0) - p)) );
+    return ( mu_par + sigma_par*stmath::log(p/(T(1) - p)) );
 }
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T
-qlogis(const T p, const T mu_par, const T sigma_par)
+Ta
+qlogis(const Ta p, const Tb mu_par, const Tb sigma_par)
 {
-    return ( qlogis_int(p,mu_par,sigma_par) );
+    return qlogis_int<Ta>(p,mu_par,sigma_par);
 }
 
 //

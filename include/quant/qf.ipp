@@ -30,7 +30,7 @@ statslib_constexpr
 T
 qf_int_adj(const T I_inv_val, const T ab_ratio)
 {
-    return ( I_inv_val / (ab_ratio*(T(1.0) - I_inv_val)) ) ;
+    return ( I_inv_val / (ab_ratio*(T(1) - I_inv_val)) ) ;
 }
 
 template<typename T>
@@ -44,11 +44,19 @@ qf_int(const T p, const T a_par, const T b_par)
 template<typename T>
 statslib_constexpr
 T
-qf(const T p, const T df1_par, const T df2_par)
+qf_check(const T p, const T df1_par, const T df2_par)
 {
-    return ( STLIM<T>::epsilon() > p ? T(0.0) :
+    return ( STLIM<T>::epsilon() > p ? T(0) :
              //
-             qf_int(p,df1_par/T(2.0),df2_par/T(2.0)) );
+             qf_int(p,df1_par/T(2),df2_par/T(2)) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+Ta
+qf(const Ta p, const Tb df1_par, const Tb df2_par)
+{
+    return qf_check<Ta>(p,df1_par,df2_par);
 }
 
 //

@@ -30,19 +30,27 @@ statslib_constexpr
 T
 qweibull_int(const T p, const T shape_par, const T scale_par)
 {
-    return ( scale_par*stmath::pow(- stmath::log(T(1.0) - p), T(1.0)/shape_par) );
+    return ( scale_par*stmath::pow(- stmath::log(T(1) - p), T(1)/shape_par) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-qweibull(const T p, const T shape_par, const T scale_par)
+qweibull_check(const T p, const T shape_par, const T scale_par)
 {
     return ( ( (shape_par < STLIM<T>::epsilon()) || (scale_par < STLIM<T>::epsilon()) ) ? STLIM<T>::quiet_NaN() :
              //
-             p < STLIM<T>::epsilon() ? T(0.0) :
+             p < STLIM<T>::epsilon() ? T(0) :
              //
              qweibull_int(p,shape_par,scale_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+Ta
+qweibull(const Ta p, const Tb shape_par, const Tb scale_par)
+{
+    return qweibull_check<Ta>(p,shape_par,scale_par);
 }
 
 //

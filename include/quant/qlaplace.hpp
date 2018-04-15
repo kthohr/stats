@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T qlaplace(const T x, const T mu_par, const T sigma_par);
+Ta qlaplace(const Ta p, const Tb mu_par, const Tb sigma_par);
 
 //
 // matrix/vector input

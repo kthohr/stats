@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T qf(const T p, const T df1_par, const T df2_par);
+Ta qf(const Ta p, const Tb df1_par, const Tb df2_par);
 
 //
 // matrix/vector input

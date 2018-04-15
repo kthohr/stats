@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T qunif(const T x, const T a_par, const T b_par);
+Ta qunif(const Ta p, const Tb a_par, const Tb b_par);
 
 //
 // matrix/vector input

@@ -33,12 +33,12 @@ qcauchy_int(const T p, const T mu_par, const T sigma_par)
     return ( mu_par + sigma_par*stmath::tan(GCEM_PI*(p - T(0.5))) );
 }
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T
-qcauchy(const T p, const T mu_par, const T sigma_par)
+Ta
+qcauchy(const Ta p, const Tb mu_par, const Tb sigma_par)
 {
-    return ( qcauchy_int(p,mu_par,sigma_par) );
+    return qcauchy_int<Ta>(p,mu_par,sigma_par);
 }
 
 //

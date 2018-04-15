@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T qchisq(const T p, const T dof_par);
+Ta qchisq(const Ta p, const Tb dof_par);
 
 //
 // matrix/vector input

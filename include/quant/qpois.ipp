@@ -37,11 +37,19 @@ qpois_int(const Ta p, const Ta rate_par, const Ta value, const Tb count)
 template<typename Ta, typename Tb>
 statslib_constexpr
 Tb
-qpois(const Ta p, const Ta rate_par)
+qpois_check(const Ta p, const Ta rate_par)
 {
-    return ( STLIM<Ta>::epsilon() > p ? Tb(0.0) :
+    return ( STLIM<Ta>::epsilon() > p ? Tb(0) :
              //
-             qpois_int<Ta,Tb>(p,rate_par,Ta(0.0),0U) );
+             qpois_int<Ta,Tb>(p,rate_par,Ta(0),0U) );
+}
+
+template<typename Ta, typename Tb, typename Tc>
+statslib_constexpr
+Tc
+qpois(const Ta p, const Tb rate_par)
+{
+    return qpois_check<Ta,Tc>(p,rate_par);
 }
 
 //
