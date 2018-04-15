@@ -44,7 +44,7 @@ int main()
     bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
 
     if (success_1 && success_2) {
-        printf("\ndnorm: \033[32mall tests PASSED.\033[0m\n");
+        printf("\nno_arma: \033[32mall tests PASSED.\033[0m\n");
     }
 
     return 0;
