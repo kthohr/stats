@@ -36,10 +36,18 @@ pgamma_int(const T x, const T shape_par, const T scale_par)
 template<typename T>
 statslib_constexpr
 T
-pgamma(const T x, const T shape_par, const T scale_par, const bool log_form)
+pgamma_check(const T x, const T shape_par, const T scale_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(pgamma_int(x,shape_par,scale_par)) :
                                 pgamma_int(x,shape_par,scale_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+pgamma(const Ta x, const Tb shape_par, const Tb scale_par, const bool log_form)
+{
+    return pgamma_check<return_t<Ta>>(x,shape_par,scale_par,log_form);
 }
 
 //

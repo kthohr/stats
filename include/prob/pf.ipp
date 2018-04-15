@@ -30,16 +30,24 @@ statslib_constexpr
 T
 pf_int(const T x, const T a_par, const T b_par)
 {
-    return gcem::incomplete_beta(a_par,b_par, x / (T(1.0) + x));
+    return gcem::incomplete_beta(a_par,b_par, x / (T(1) + x));
 }
 
 template<typename T>
 statslib_constexpr
 T
-pf(const T x, const T df1_par, const T df2_par, const bool log_form)
+pf_check(const T x, const T df1_par, const T df2_par, const bool log_form)
 {
-    return ( log_form == true ? stmath::log(pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0))) : 
-                                pf_int(df1_par*x/df2_par,df1_par/T(2.0),df2_par/T(2.0)) );
+    return ( log_form == true ? stmath::log(pf_int(df1_par*x/df2_par,df1_par/T(2),df2_par/T(2))) : 
+                                pf_int(df1_par*x/df2_par,df1_par/T(2),df2_par/T(2)) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+pf(const Ta x, const Tb df1_par, const Tb df2_par, const bool log_form)
+{
+    return pf_check<return_t<Ta>>(x,df1_par,df2_par,log_form);
 }
 
 //

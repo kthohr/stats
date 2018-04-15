@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T pf(const T x, const T df1_par, const T df2_par, const bool log_form = false);
+return_t<Ta> pf(const Ta x, const Tb df1_par, const Tb df2_par, const bool log_form = false);
 
 //
 // matrix/vector input

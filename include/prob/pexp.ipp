@@ -30,17 +30,25 @@ statslib_constexpr
 T
 pexp_int(const T x, const T rate_par)
 {
-    return ( x < T(0.0) ? T(0.0) :
-                          T(1.0) - stmath::exp( - rate_par*x )  );
+    return ( x < T(0) ? T(0) :
+                        T(1) - stmath::exp( - rate_par*x )  );
 }
 
 template<typename T>
 statslib_constexpr
 T
-pexp(const T x, const T rate_par, const bool log_form)
+pexp_check(const T x, const T rate_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(pexp_int(x,rate_par)) : 
                                 pexp_int(x,rate_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+pexp(const Ta x, const Tb rate_par, const bool log_form)
+{
+    return pexp_check<return_t<Ta>>(x,rate_par,log_form);
 }
 
 //

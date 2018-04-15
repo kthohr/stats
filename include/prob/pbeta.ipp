@@ -36,10 +36,18 @@ pbeta_int(const T x, const T a_par, const T b_par)
 template<typename T>
 statslib_constexpr
 T
-pbeta(const T x, const T a_par, const T b_par, const bool log_form)
+pbeta_check(const T x, const T a_par, const T b_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(pbeta_int(x,a_par,b_par)) :
                                 pbeta_int(x,a_par,b_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+pbeta(const Ta x, const Tb a_par, const Tb b_par, const bool log_form)
+{
+    return pbeta_check<return_t<Ta>>(x,a_par,b_par,log_form);
 }
 
 //

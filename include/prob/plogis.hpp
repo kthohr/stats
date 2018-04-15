@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T plogis(const T x, const T mu_par, const T sigma_par, const bool log_form = false);
+return_t<Ta> plogis(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form = false);
 
 //
 // matrix/vector input

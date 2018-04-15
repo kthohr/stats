@@ -30,16 +30,24 @@ statslib_constexpr
 T
 plogis_int(const T z)
 {
-    return ( T(1.0)/(T(1.0) + stmath::exp(-z)) );
+    return ( T(1)/(T(1) + stmath::exp(-z)) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-plogis(const T x, const T mu_par, const T sigma_par, const bool log_form)
+plogis_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(plogis_int((x-mu_par)/sigma_par)) :
                                 plogis_int((x-mu_par)/sigma_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+plogis(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
+{
+    return plogis_check<return_t<Ta>>(x,mu_par,sigma_par,log_form);
 }
 
 //

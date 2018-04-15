@@ -28,9 +28,17 @@
 template<typename T>
 statslib_constexpr
 T
-plnorm(const T x, const T mu_par, const T sigma_par, const bool log_form)
+plnorm_int(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return pnorm(stmath::log(x),mu_par,sigma_par,log_form);
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+plnorm(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
+{
+    return plnorm_int<return_t<Ta>>(x,mu_par,sigma_par,log_form);
 }
 
 //

@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T pexp(const T x, const T rate_par, const bool log_form = false);
+return_t<Ta> pexp(const Ta x, const Tb rate_par, const bool log_form = false);
 
 //
 // matrix/vector input

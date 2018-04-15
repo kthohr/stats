@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T pchisq(const T x, const T dof_par, const bool log_form = false);
+return_t<Ta> pchisq(const Ta x, const Tb dof_par, const bool log_form = false);
 
 //
 // matrix/vector input

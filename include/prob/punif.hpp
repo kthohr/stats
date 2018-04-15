@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T punif(const T x, const T a_par, const T b_par, const bool log_form = false);
+return_t<Ta> punif(const Ta x, const Tb a_par, const Tb b_par, const bool log_form = false);
 
 //
 // matrix/vector input

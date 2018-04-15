@@ -36,10 +36,18 @@ pcauchy_int(const T z)
 template<typename T>
 statslib_constexpr
 T
-pcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form)
+pcauchy_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(pcauchy_int((x-mu_par)/sigma_par)) :
                                 pcauchy_int((x-mu_par)/sigma_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+pcauchy(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
+{
+    return pcauchy_check<return_t<Ta>>(x,mu_par,sigma_par,log_form);
 }
 
 //

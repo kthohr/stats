@@ -30,16 +30,24 @@ statslib_constexpr
 T
 pchisq_int(const T x, const T dof_par)
 {
-    return gcem::incomplete_gamma(dof_par/T(2.0),x/T(2.0));
+    return gcem::incomplete_gamma(dof_par/T(2),x/T(2));
 }
 
 template<typename T>
 statslib_constexpr
 T
-pchisq(const T x, const T dof_par, const bool log_form)
+pchisq_check(const T x, const T dof_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(pchisq_int(x,dof_par)) :
                                 pchisq_int(x,dof_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+pchisq(const Ta x, const Tb dof_par, const bool log_form)
+{
+    return pchisq_check<return_t<Ta>>(x,dof_par,log_form);
 }
 
 //

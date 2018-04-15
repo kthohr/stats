@@ -30,7 +30,7 @@
 
 template<typename T>
 statslib_constexpr
-T ppois(const int x, const T rate_par, const bool log_form = false);
+return_t<T> ppois(const uint_t x, const T rate_par, const bool log_form = false);
 
 //
 // matrix/vector input

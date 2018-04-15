@@ -36,10 +36,18 @@ plaplace_int(const T x, const T sigma_par)
 template<typename T>
 statslib_constexpr
 T
-plaplace(const T x, const T mu_par, const T sigma_par, const bool log_form)
+plaplace_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(plaplace_int(x - mu_par,sigma_par)) :
                                 plaplace_int(x - mu_par,sigma_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+plaplace(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
+{
+    return plaplace_check<return_t<Ta>>(x,mu_par,sigma_par,log_form);
 }
 
 //
