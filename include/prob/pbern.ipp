@@ -30,8 +30,8 @@ statslib_constexpr
 T
 pbern_int(const uint_t x, const T prob_par)
 {
-    return ( x >= 1U ? T(1.0) :
-                       T(1.0) - prob_par );
+    return ( x >= 1U ? T(1) :
+                       T(1) - prob_par );
 }
 
 template<typename T>

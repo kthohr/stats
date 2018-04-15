@@ -93,8 +93,8 @@ qt_int_y_1_update(const int stage, const T y, const T x, const T coef_a, const T
              stage == 2 ? x * ( T(1) + ( ( y * (T(36) + y * (T(6.3) + y*T(0.4))) + T(94.5) )/coef_c - y - T(3) ) / coef_b ) :
              stage == 3 ? coef_a * y * y :
              //
-             y > T(0.1) ? stmath::exp(y) - T(1) :
-                          y * (T(1) + y * (T(12) + y * (T(4) + y))/T(24) ) );
+             y > T(0.1) ? stmath::exp(y) - T(1) : // see Remark on Algorithm 396
+                          y + y * y * (T(12) + y * (T(4) + y))/T(24) );
 }
 
 //

@@ -25,11 +25,11 @@
 #endif
 
 #ifndef STATS_VERSION_MINOR
-    #define STATS_VERSION_MINOR 1
+    #define STATS_VERSION_MINOR 2
 #endif
 
 #ifndef STATS_VERSION_PATCH
-    #define STATS_VERSION_PATCH 3
+    #define STATS_VERSION_PATCH 0
 #endif
 
 // enable OpenMP
