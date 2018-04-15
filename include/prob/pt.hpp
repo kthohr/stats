@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T pt(const T x, const uint_t dof_par, const bool log_form = false);
+return_t<Ta> pt(const Ta x, const Tb dof_par, const bool log_form = false);
 
 //
 // matrix/vector input

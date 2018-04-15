@@ -112,7 +112,17 @@ int main()
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qt(" << val_9 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_9 << ". Success = " << success_9 << std::endl;
 
-    if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
+    // test edge case
+    double x_10 = -1.846695528;
+    double val_10 = 0.1;
+    double q_10 = stats::qt(val_10,2.1);
+
+    bool success_10 = (std::abs(q_10 - x_10) < err_tol);
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "\nqt(" << val_10 << ",2.1): ";
+    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_10 << ". Success = " << success_10 << std::endl;
+
+    if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9 && success_10)
+    {
         std::cout << "\n*** qt: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
     } else {
         std::cout << "\n*** qt: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;

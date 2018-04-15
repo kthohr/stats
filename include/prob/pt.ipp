@@ -30,7 +30,7 @@ statslib_constexpr
 T
 pt_int_main_2(const T z, const T r_par)
 {
-    return ( pbeta(T(1.0)/z, r_par/T(2.0), T(0.5)) / T(2.0) );
+    return ( pbeta(T(1)/z, r_par/T(2), T(0.5)) / T(2) );
 }
 
 template<typename T>
@@ -38,7 +38,7 @@ statslib_constexpr
 T
 pt_int_main_1(const T z, const T r_par)
 {
-    return ( T(0.5) - pbeta(z/(r_par+z), T(0.5), r_par/T(2.0)) / T(2.0) );
+    return ( T(0.5) - pbeta(z/(r_par+z), T(0.5), r_par/T(2)) / T(2) );
 }
 
 template<typename T>
@@ -46,28 +46,36 @@ statslib_constexpr
 T
 pt_int_main(const T x, const T r_par)
 {
-    return ( r_par > x*x ? (x > T(0.0) ? T(1.0) - pt_int_main_1(x*x,r_par) : pt_int_main_1(x*x,r_par)) : 
-                           (x > T(0.0) ? T(1.0) - pt_int_main_2(T(1.0) + (x/r_par)*x,r_par) : 
-                           pt_int_main_2(T(1.0) + (x/r_par)*x,r_par)) );
+    return ( r_par > x*x ? (x > T(0) ? T(1) - pt_int_main_1(x*x,r_par) : pt_int_main_1(x*x,r_par)) : 
+                           (x > T(0) ? T(1) - pt_int_main_2(T(1) + (x/r_par)*x,r_par) : 
+                           pt_int_main_2(T(1) + (x/r_par)*x,r_par)) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-pt_int(const T x, const uint_t r_par)
+pt_int(const T x, const T r_par)
 {
-    return ( r_par == 1U ? pcauchy_int(x) :
-             r_par == 2U ? T(0.5) + x / (T(2.0) * stmath::sqrt(x*x + T(2.0)) ) :
+    return ( r_par == T(1) ? pcauchy_int(x) :
+             r_par == T(2) ? T(0.5) + x / (T(2) * stmath::sqrt(x*x + T(2)) ) :
              //
-                          pt_int_main(x,T(r_par)) );
+                             pt_int_main(x,T(r_par)) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-pt(const T x, const uint_t dof_par, const bool log_form)
+pt_check(const T x, const T dof_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(pt_int(x, dof_par)) : pt_int(x, dof_par) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+pt(const Ta x, const Tb dof_par, const bool log_form)
+{
+    return pt_check<return_t<Ta>>(x,dof_par,log_form);
 }
 
 //
