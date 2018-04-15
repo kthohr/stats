@@ -30,16 +30,24 @@ statslib_constexpr
 T
 dnorm_int(const T z, const T sigma_par)
 {
-    return ( - T(0.5)*GCEM_LOG_2PI - stmath::log(sigma_par) - z*z/T(2.0) );
+    return ( - T(0.5)*GCEM_LOG_2PI - stmath::log(sigma_par) - z*z/T(2) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-dnorm(const T x, const T mu_par, const T sigma_par, const bool log_form)
+dnorm_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? dnorm_int((x-mu_par)/sigma_par,sigma_par) :
                                 stmath::exp(dnorm_int((x-mu_par)/sigma_par,sigma_par)) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+dnorm(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
+{
+    return dnorm_check<return_t<Ta>>(x,mu_par,sigma_par,log_form);
 }
 
 //

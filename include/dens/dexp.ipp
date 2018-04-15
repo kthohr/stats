@@ -38,8 +38,8 @@ statslib_constexpr
 T
 dexp_check(const T x, const T rate_par, const bool log_form)
 {
-    return ( log_form == true ? ( x < T(0.0) ? - STLIM<T>::infinity() : dexp_int(x,rate_par) ) :
-                                ( x < T(0.0) ? 0.0 : stmath::exp(dexp_int(x,rate_par)) ) );
+    return ( log_form == true ? ( x < T(0) ? - STLIM<T>::infinity() : dexp_int(x,rate_par) ) :
+                                ( x < T(0) ? T(0) : stmath::exp(dexp_int(x,rate_par)) ) );
 }
 
 template<typename Ta, typename Tb>

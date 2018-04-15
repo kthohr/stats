@@ -30,7 +30,7 @@ statslib_constexpr
 T
 dcauchy_int(const T z, const T sigma_par)
 {
-    return ( T(1.0) / ( sigma_par*GCEM_PI*(T(1.0) + z*z) ) );
+    return ( T(1) / ( sigma_par*GCEM_PI*(T(1) + z*z) ) );
 }
 
 template<typename T>
@@ -42,12 +42,12 @@ dcauchy_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
                                 dcauchy_int((x-mu_par)/sigma_par,sigma_par) );
 }
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-return_t<T>
-dcauchy(const T x, const T mu_par, const T sigma_par, const bool log_form)
+return_t<Ta>
+dcauchy(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
 {
-    return dcauchy_check<return_t<T>>(x,mu_par,sigma_par,log_form);
+    return dcauchy_check<return_t<Ta>>(x,mu_par,sigma_par,log_form);
 }
 
 //

@@ -36,10 +36,18 @@ dgamma_int(const T x, const T shape_par, const T scale_par)
 template<typename T>
 statslib_constexpr
 T
-dgamma(const T x, const T shape_par, const T scale_par, const bool log_form)
+dgamma_check(const T x, const T shape_par, const T scale_par, const bool log_form)
 {
     return ( log_form == true ? dgamma_int(x,shape_par,scale_par) : 
                                 stmath::exp(dgamma_int(x,shape_par,scale_par)) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+dgamma(const Ta x, const Tb shape_par, const Tb scale_par, const bool log_form)
+{
+    return dgamma_check<return_t<Ta>>(x,shape_par,scale_par,log_form);
 }
 
 //

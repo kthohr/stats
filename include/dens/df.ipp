@@ -30,7 +30,7 @@ statslib_constexpr
 T
 df_int_adj(const T x, const T ratio_abx)
 {
-    return ( ratio_abx * (T(1.0) - x*ratio_abx) );
+    return ( ratio_abx * (T(1) - x*ratio_abx) );
 }
 
 template<typename T>
@@ -40,9 +40,9 @@ df_int(const T x, const T a_par, const T b_par, const T abx, const bool log_form
 {
     return ( log_form == true ? \
              // if
-                dbeta(abx/(T(1.0)+abx),a_par,b_par,true)  + stmath::log(df_int_adj(x,(a_par/b_par)/(T(1.0) + abx))) :
+                dbeta(abx/(T(1)+abx),a_par,b_par,true)  + stmath::log(df_int_adj(x,(a_par/b_par)/(T(1) + abx))) :
              // else
-                dbeta(abx/(T(1.0)+abx),a_par,b_par,false) * df_int_adj(x,(a_par/b_par)/(T(1.0) + abx)) );
+                dbeta(abx/(T(1)+abx),a_par,b_par,false) * df_int_adj(x,(a_par/b_par)/(T(1) + abx)) );
 }
 
 template<typename T>
@@ -50,7 +50,7 @@ statslib_constexpr
 T
 df_check(const T x, const T df1_par, const T df2_par, const bool log_form)
 {
-    return df_int(x,df1_par/T(2.0),df2_par/T(2.0),df1_par*x/df2_par,log_form);
+    return df_int(x,df1_par/T(2),df2_par/T(2),df1_par*x/df2_par,log_form);
 }
 
 template<typename Ta, typename Tb>

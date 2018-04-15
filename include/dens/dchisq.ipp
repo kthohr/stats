@@ -31,7 +31,7 @@ T
 dchisq_int(const T x, const T dof_par)
 {
     return ( - stmath::lgamma(0.5*dof_par) - T(0.5)*dof_par*GCEM_LOG_2 \
-                + (T(0.5)*dof_par - T(1.0))*stmath::log(x) - x / 2.0 );
+                + (T(0.5)*dof_par - T(1))*stmath::log(x) - x / 2.0 );
 }
 
 template<typename T>

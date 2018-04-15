@@ -30,7 +30,7 @@ statslib_constexpr
 T
 dt_int_mult_term(const T z, const T dof_par)
 {
-    return ( - (dof_par/T(2.0) + T(0.5)) * stmath::log(T(1.0) + (z/dof_par)*z) );
+    return ( - (dof_par/T(2) + T(0.5)) * stmath::log(T(1) + (z/dof_par)*z) );
 }
 
 template<typename T>
@@ -38,9 +38,9 @@ statslib_constexpr
 T
 dt_int_cons_term(const T z, const T dof_par)
 {
-    return ( stmath::lgamma(dof_par/T(2.0) + T(0.5)) \
+    return ( stmath::lgamma(dof_par/T(2) + T(0.5)) \
                 - T(0.5)*( stmath::log(dof_par) + GCEM_LOG_PI ) \
-                - stmath::lgamma(dof_par/T(2.0)) );
+                - stmath::lgamma(dof_par/T(2)) );
 }
 
 template<typename T>

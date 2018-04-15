@@ -30,16 +30,24 @@ statslib_constexpr
 T
 dlogis_int(const T z, const T sigma_par)
 {
-    return ( - z - stmath::log(sigma_par) - T(2.0)*stmath::log(T(1.0) + stmath::exp(-z)) );
+    return ( - z - stmath::log(sigma_par) - T(2)*stmath::log(T(1) + stmath::exp(-z)) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-dlogis(const T x, const T mu_par, const T sigma_par, const bool log_form)
+dlogis_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
     return ( log_form == true ? dlogis_int((x-mu_par)/sigma_par,sigma_par) : 
                                 stmath::exp(dlogis_int((x-mu_par)/sigma_par,sigma_par)) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+return_t<Ta>
+dlogis(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
+{
+    return dlogis_check<return_t<Ta>>(x,mu_par,sigma_par,log_form);
 }
 
 //

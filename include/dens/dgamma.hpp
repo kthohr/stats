@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename T>
+template<typename Ta, typename Tb>
 statslib_constexpr
-T dgamma(const T x, const T shape_par, const T scale_par, const bool log_form = false);
+return_t<Ta> dgamma(const Ta x, const Tb shape_par, const Tb scale_par, const bool log_form = false);
 
 //
 // matrix/vector input
