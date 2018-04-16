@@ -30,7 +30,7 @@ dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form)
     typedef return_t<pT> eT;
 
     const uint_t K = mat_ops::n_rows(X);
-    const eT nu_par_d2 = static_cast<eT>(nu_par) / eT(2.0);
+    const eT nu_par_d2 = static_cast<eT>(nu_par) / eT(2);
 
     //
 
@@ -55,7 +55,7 @@ eT
 dinvwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, bool log_form)
 {
     const uint_t K = X.n_rows;
-    const eT nu_par_d2 = static_cast<eT>(nu_par) / eT(2.0);
+    const eT nu_par_d2 = static_cast<eT>(nu_par) / eT(2);
 
     //
 
