@@ -34,7 +34,7 @@
 
 // enable OpenMP
 
-#if defined(_OPENMP) && !defined(STATS_NO_OMP) && !defined(STATS_USE_OPENMP)
+#if defined(_OPENMP) && !defined(STATS_DONT_USE_OPENMP) && !defined(STATS_USE_OPENMP)
     #define STATS_USE_OPENMP
     #include <omp.h>
 #endif
