@@ -39,9 +39,9 @@ statslib_constexpr
 Tb
 qbinom(const Ta p, const uint_t n_trials_par, const Ta prob_par)
 {
-    return ( STLIM<Ta>::epsilon() > p ? Tb(0.0) :
+    return ( STLIM<Ta>::epsilon() > p ? Tb(0) :
              //
-             qbinom_int<Ta,Tb>(p,n_trials_par,prob_par,Ta(0.0),0U) );
+             qbinom_int<Ta,Tb>(p,n_trials_par,prob_par,Ta(0),0U) );
 }
 
 //

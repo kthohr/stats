@@ -30,7 +30,7 @@ statslib_constexpr
 T
 plaplace_int(const T x, const T sigma_par)
 {
-    return ( T(0.5) + T(0.5)*gcem::sgn(x)*(T(1.0) - stmath::exp(-stmath::abs(x) / sigma_par)) );
+    return ( T(0.5) + T(0.5)*gcem::sgn(x)*(T(1) - stmath::exp(-stmath::abs(x) / sigma_par)) );
 }
 
 template<typename T>
