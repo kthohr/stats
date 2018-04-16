@@ -16,7 +16,7 @@ Features:
 
 ## Available Distributions
 
-Functions to compute the cdf, pdf, and quantile, as well as random sampling methods, are available for the following distributions:
+Functions to compute the cdf, pdf, and quantile, as well as random sampling, are available for the following distributions:
 
 * Bernoulli
 * Beta
@@ -36,7 +36,7 @@ Functions to compute the cdf, pdf, and quantile, as well as random sampling meth
 * Uniform
 * Weibull
 
-In addition, pdf and randomization functions are available for several multivariate distributions:
+In addition, pdf and random sampling functions are available for several multivariate distributions:
 
 * inverse-Wishart
 * Multivariate Normal
