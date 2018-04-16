@@ -27,7 +27,7 @@ statslib_inline
 T
 rt_int(const T dof_par, rand_engine_t& engine)
 {
-    T numer = rnorm<T>(T(0.0),T(1.0),engine);
+    T numer = rnorm<T>(T(0),T(1),engine);
     return numer / std::sqrt( rchisq<T>(dof_par,engine) / dof_par );
 }
 

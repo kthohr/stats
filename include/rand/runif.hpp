@@ -43,7 +43,7 @@ void runif_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
 
 template<typename mT, typename eT>
 statslib_inline
-mT runif(const uint_t n, const uint_t k, const eT a_par = eT(0.0), const eT b_par = eT(1.0));
+mT runif(const uint_t n, const uint_t k, const eT a_par = eT(0), const eT b_par = eT(1));
 
 #include "runif.ipp"
 

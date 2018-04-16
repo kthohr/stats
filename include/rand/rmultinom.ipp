@@ -45,7 +45,7 @@ rmultinom(const mT& prob)
     
     for (uint_t j = 1U; j < n_prob; j++)
     {
-        p_j = prob(j,0) / (eT(1.0) - prob_csum(j-1,0));
+        p_j = prob(j,0) / (eT(1) - prob_csum(j-1,0));
         n_j = n_prob - ret_sum;
         
         ret(j,0) = rbinom(n_j,p_j);

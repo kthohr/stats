@@ -27,11 +27,11 @@
 
 template<typename T>
 statslib_inline
-T rbeta(const T a_par, const T b_par, rand_engine_t& engine);
+return_t<T> rbeta(const T a_par, const T b_par, rand_engine_t& engine);
 
 template<typename T>
 statslib_inline
-T rbeta(const T a_par, const T b_par, uint_t seed_val = std::random_device{}());
+return_t<T> rbeta(const T a_par, const T b_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 statslib_inline 

@@ -25,18 +25,29 @@
 template<typename T>
 statslib_inline
 T
-rinvgamma(T shape_par, T rate_par, rand_engine_t& engine)
+rinvgamma_int(T shape_par, T rate_par, rand_engine_t& engine)
 {
-    return T(1.0) / rgamma(shape_par,T(1.0)/rate_par,engine);
+    return T(1) / rgamma(shape_par,T(1)/rate_par,engine);
 }
 
 template<typename T>
 statslib_inline
-T
-rinvgamma(T shape_par, T rate_par, uint_t seed_val)
+return_t<T>
+rinvgamma(const T shape_par, const T rate_par, rand_engine_t& engine)
 {
-    return T(1.0) / rgamma(shape_par,T(1.0)/rate_par,seed_val);
+    return rinvgamma_int<return_t<T>>(shape_par,rate_par,engine);
 }
+
+template<typename T>
+statslib_inline
+return_t<T>
+rinvgamma(const T shape_par, const T rate_par, uint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    return rinvgamma_int<return_t<T>>(shape_par,rate_par,engine);
+}
+
+//
 
 template<typename T>
 statslib_inline

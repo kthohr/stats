@@ -25,18 +25,29 @@
 template<typename T>
 statslib_inline
 T
-rlaplace(const T mu_par, const T sigma_par, rand_engine_t& engine)
+rlaplace_int(const T mu_par, const T sigma_par, rand_engine_t& engine)
 {
-    return qlaplace(runif<T>(T(0.0),T(1.0),engine),mu_par,sigma_par);
+    return qlaplace(runif<T>(T(0),T(1),engine),mu_par,sigma_par);
 }
 
 template<typename T>
 statslib_inline
-T
+return_t<T>
+rlaplace(const T mu_par, const T sigma_par, rand_engine_t& engine)
+{
+    return rlaplace_int<return_t<T>>(mu_par,sigma_par,engine);
+}
+
+template<typename T>
+statslib_inline
+return_t<T>
 rlaplace(const T mu_par, const T sigma_par, uint_t seed_val)
 {
-    return qlaplace(runif<T>(T(0.0),T(1.0),seed_val),mu_par,sigma_par);
+    rand_engine_t engine(seed_val);
+    return rlaplace_int<return_t<T>>(mu_par,sigma_par,engine);
 }
+
+//
 
 template<typename T>
 statslib_inline

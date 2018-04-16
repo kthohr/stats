@@ -25,18 +25,29 @@
 template<typename T>
 statslib_inline
 T
-rweibull(const T shape_par, const T scale_par, rand_engine_t& engine)
+rweibull_int(const T shape_par, const T scale_par, rand_engine_t& engine)
 {
-    return qweibull(runif<T>(T(0.0),T(1.0),engine),shape_par,scale_par);
+    return qweibull(runif<T>(T(0),T(1),engine),shape_par,scale_par);
 }
 
 template<typename T>
 statslib_inline
-T
+return_t<T>
+rweibull(const T shape_par, const T scale_par, rand_engine_t& engine)
+{
+    return rweibull_int<return_t<T>>(shape_par,scale_par,engine);
+}
+
+template<typename T>
+statslib_inline
+return_t<T>
 rweibull(const T shape_par, const T scale_par, uint_t seed_val)
 {
-    return qweibull(runif<T>(T(0.0),T(1.0),seed_val),shape_par,scale_par);
+    rand_engine_t engine(seed_val);
+    return rweibull_int<return_t<T>>(shape_par,scale_par,engine);
 }
+
+//
 
 template<typename T>
 statslib_inline

@@ -38,7 +38,7 @@ statslib_inline
 return_t<T>
 rf(const T df1_par, const T df2_par, rand_engine_t& engine)
 {
-    return rf_int(return_t<T>(df1_par),return_t<T>(df2_par),engine);
+    return rf_int<return_t<T>>(df1_par,df2_par,engine);
 }
 
 template<typename T>
@@ -47,8 +47,10 @@ return_t<T>
 rf(const T df1_par, const T df2_par, uint_t seed_val)
 {
     rand_engine_t engine(seed_val);
-    return rf_int(return_t<T>(df1_par),return_t<T>(df2_par),engine);
+    return rf_int<return_t<T>>(df1_par,df2_par,engine);
 }
+
+//
 
 template<typename T>
 statslib_inline

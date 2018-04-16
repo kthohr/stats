@@ -26,35 +26,35 @@
 template<typename T>
 statslib_inline
 T
-rgamma(const T shape_par, const T scale_par, rand_engine_t& engine)
+rgamma_int(const T shape_par, const T scale_par, rand_engine_t& engine)
 {
     T ret = 0;
 
     //
 
-    if (shape_par < T(1.0))
+    if (shape_par < T(1))
     {
-        const T U = runif<T>(T(0.0),T(1.0),engine);
-        ret = rgamma(T(1.0) + shape_par, scale_par,engine) * std::pow(U,T(1.0)/shape_par);
+        const T U = runif<T>(T(0),T(1),engine);
+        ret = rgamma(T(1) + shape_par, scale_par,engine) * std::pow(U,T(1)/shape_par);
     }
     else
     {
-        const T d = shape_par - T(1.0)/T(3.0);
-        const T c = T(1.0) / T(3.0) / std::sqrt(d);
-        T V = 1.0;
+        const T d = shape_par - T(1)/T(3);
+        const T c = T(1) / T(3) / std::sqrt(d);
+        T V = 1;
 
         bool keep_running = true;
 
         while (keep_running)
         {
-            T Z = rnorm<T>(T(0.0),T(1.0),engine);
-            V = std::pow(T(1.0) + c*Z,3);
+            T Z = rnorm<T>(T(0),T(1),engine);
+            V = std::pow(T(1) + c*Z,3);
 
             if (V > 0)
             {
-                T U = runif<T>(T(0.0),T(1.0),engine);
+                T U = runif<T>(T(0),T(1),engine);
 
-                T check_2 = T(0.5)*Z*Z + d*(T(1.0) - V + std::log(V));
+                T check_2 = T(0.5)*Z*Z + d*(T(1) - V + std::log(V));
 
                 if (std::log(U) < check_2) {
                     keep_running = false;
@@ -72,11 +72,19 @@ rgamma(const T shape_par, const T scale_par, rand_engine_t& engine)
 
 template<typename T>
 statslib_inline
-T
+return_t<T>
+rgamma(const T shape_par, const T scale_par, rand_engine_t& engine)
+{
+    return rgamma_int<return_t<T>>(shape_par,scale_par,engine);
+}
+
+template<typename T>
+statslib_inline
+return_t<T>
 rgamma(const T shape_par, const T scale_par, uint_t seed_val)
 {
     rand_engine_t engine(seed_val);
-    return rgamma(shape_par,scale_par,engine);
+    return rgamma_int<return_t<T>>(shape_par,scale_par,engine);
 }
 
 //

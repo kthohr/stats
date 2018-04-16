@@ -28,20 +28,28 @@
 template<typename T>
 statslib_inline
 T
-rnorm(const T mu_par, const T sigma_par, rand_engine_t& engine)
+rnorm_int(const T mu_par, const T sigma_par, rand_engine_t& engine)
 {
-    std::normal_distribution<T> norm_dist(T(0.0),T(1.0));
+    std::normal_distribution<T> norm_dist(T(0),T(1));
 
     return mu_par + sigma_par*norm_dist(engine);
 }
 
 template<typename T>
 statslib_inline
-T
+return_t<T>
+rnorm(const T mu_par, const T sigma_par, rand_engine_t& engine)
+{
+    return rnorm_int<return_t<T>>(mu_par,sigma_par,engine);
+}
+
+template<typename T>
+statslib_inline
+return_t<T>
 rnorm(const T mu_par, const T sigma_par, uint_t seed_val)
 {
     rand_engine_t engine(seed_val);
-    return rnorm(mu_par,sigma_par,engine);
+    return rnorm_int<return_t<T>>(mu_par,sigma_par,engine);
 }
 
 template<typename T>
@@ -49,7 +57,7 @@ statslib_inline
 T
 rnorm()
 {
-    return rnorm(T(0.0),T(1.0));
+    return rnorm(T(0),T(1));
 }
 
 template<typename T>

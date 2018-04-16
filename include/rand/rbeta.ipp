@@ -24,23 +24,33 @@
 
 template<typename T>
 statslib_inline
-T
-rbeta(const T a_par, const T b_par, rand_engine_t& engine)
+return_t<T>
+rbeta_int(const T a_par, const T b_par, rand_engine_t& engine)
 {
-    const T X = rgamma(a_par,T(1.0),engine);
-    const T Y = rgamma(b_par,T(1.0),engine);
+    const return_t<T> X = rgamma(a_par,T(1),engine);
+    const return_t<T> Y = rgamma(b_par,T(1),engine);
     
     return X / (X + Y);
 }
 
 template<typename T>
 statslib_inline
-T
+return_t<T>
+rbeta(const T a_par, const T b_par, rand_engine_t& engine)
+{
+    return rbeta_int<return_t<T>>(a_par,b_par,engine);
+}
+
+template<typename T>
+statslib_inline
+return_t<T>
 rbeta(const T a_par, const T b_par, uint_t seed_val)
 {
     rand_engine_t engine(seed_val);
-    return rbeta(a_par,b_par,engine);
+    return rbeta_int<return_t<T>>(a_par,b_par,engine);
 }
+
+//
 
 template<typename T>
 statslib_inline

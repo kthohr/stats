@@ -25,18 +25,29 @@
 template<typename T>
 statslib_inline
 T
-rpois(const T rate_par, rand_engine_t& engine)
+rpois_int(const T rate_par, rand_engine_t& engine)
 {
-    return qpois<T>(runif<T>(T(0.0),T(1.0),engine),rate_par);
+    return qpois<T>(runif<T>(T(0),T(1),engine),rate_par);
 }
 
 template<typename T>
 statslib_inline
-T
+return_t<T>
+rpois(const T rate_par, rand_engine_t& engine)
+{
+    return rpois_int<return_t<T>>(rate_par,engine);
+}
+
+template<typename T>
+statslib_inline
+return_t<T>
 rpois(const T rate_par, uint_t seed_val)
 {
-    return qpois<T>(runif<T>(T(0.0),T(1.0),seed_val),rate_par);
+    rand_engine_t engine(seed_val);
+    return rpois_int<return_t<T>>(rate_par,engine);
 }
+
+//
 
 template<typename T>
 statslib_inline

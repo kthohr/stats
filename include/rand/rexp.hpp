@@ -27,11 +27,11 @@
 
 template<typename T>
 statslib_inline
-T rexp(const T rate_par, rand_engine_t& engine);
+return_t<T> rexp(const T rate_par, rand_engine_t& engine);
 
 template<typename T>
 statslib_inline
-T rexp(const T rate_par, uint_t seed_val = std::random_device{}());
+return_t<T> rexp(const T rate_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 statslib_inline

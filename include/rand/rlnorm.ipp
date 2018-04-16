@@ -25,17 +25,26 @@
 template<typename T>
 statslib_inline
 T
-rlnorm(const T mu_par, const T sigma_par, rand_engine_t& engine)
+rlnorm_int(const T mu_par, const T sigma_par, rand_engine_t& engine)
 {
     return stmath::exp( rnorm(mu_par,sigma_par,engine) );
 }
 
 template<typename T>
 statslib_inline
-T
+return_t<T>
+rlnorm(const T mu_par, const T sigma_par, rand_engine_t& engine)
+{
+    return rlnorm_int<return_t<T>>(mu_par,sigma_par,engine);
+}
+
+template<typename T>
+statslib_inline
+return_t<T>
 rlnorm(const T mu_par, const T sigma_par, uint_t seed_val)
 {
-    return stmath::exp( rnorm(mu_par,sigma_par,seed_val) );
+    rand_engine_t engine(seed_val);
+    return rlnorm_int<return_t<T>>(mu_par,sigma_par,engine);
 }
 
 template<typename T>
