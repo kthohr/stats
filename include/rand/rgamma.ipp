@@ -32,15 +32,10 @@ rgamma_int(const T shape_par, const T scale_par, rand_engine_t& engine)
 
     //
 
-    if (shape_par < T(1))
-    {
-        const T U = runif<T>(T(0),T(1),engine);
-        ret = rgamma(T(1) + shape_par, scale_par,engine) * std::pow(U,T(1)/shape_par);
-    }
-    else
+    if (shape_par > T(1))
     {
         const T d = shape_par - T(1)/T(3);
-        const T c = T(1) / T(3) / std::sqrt(d);
+        const T c = (T(1) / T(3)) / std::sqrt(d);
         T V = 1;
 
         bool keep_running = true;
@@ -48,10 +43,10 @@ rgamma_int(const T shape_par, const T scale_par, rand_engine_t& engine)
         while (keep_running)
         {
             T Z = rnorm<T>(T(0),T(1),engine);
-            V = std::pow(T(1) + c*Z,3);
 
-            if (V > 0)
+            if (Z > -T(1)/c)
             {
+                V = std::pow(T(1) + c*Z,3);
                 T U = runif<T>(T(0),T(1),engine);
 
                 T check_2 = T(0.5)*Z*Z + d*(T(1) - V + std::log(V));
@@ -63,6 +58,11 @@ rgamma_int(const T shape_par, const T scale_par, rand_engine_t& engine)
         }
 
         ret = d * V * scale_par;
+    }
+    else
+    {
+        const T U = runif<T>(T(0),T(1),engine);
+        ret = rgamma(T(1) + shape_par, scale_par,engine) * std::pow(U,T(1)/shape_par);
     }
 
     //
