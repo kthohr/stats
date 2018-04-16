@@ -42,26 +42,41 @@ In addition, pdf and randomization functions are available for several multivari
 * Multivariate Normal
 * Wishart
 
+## Installation
+
+StatsLib is a header-only library. Simply copy the contents of the include folder and add the header files to your project using
+```cpp
+#include "stats.hpp"
+```
+
 ## Compiler Options
 
-For inline-only functionality (i.e., no `constexpr` specifiers) use
+* For inline-only functionality (i.e., no `constexpr` specifiers):
 ```cpp
 #define STATS_GO_INLINE
 ```
 
-To use StatsLib with Armadillo:
+* OpenMP functionality is enabled by default if the `_OPENMP` macro is detected (e.g., by invoking `-fopenmp` with a GCC or Clang compiler). To explicitly enable OpenMP features use:
+```cpp
+#define STATS_USE_OPENMP
+```
+
+* To disable OpenMP functionality:
+```cpp
+#define STATS_DONT_USE_OPENMP
+```
+
+* To use StatsLib with the Armadillo, Blaze or Eigen libraries:
 ```cpp
 #define STATS_USE_ARMA
-```
-Similarly, for Blaze or Eigen:
-```cpp
 #define STATS_USE_BLAZE
 #define STATS_USE_EIGEN
 ```
 
+
 ## Syntax and Examples
 
-Functions are called using an **R**-like syntax.
+Functions are called using an **R**-like syntax. Some general rules:
 
 * density functions: `stats::d*`. For example, the Normal (Gaussian) density is called using
 ``` cpp
@@ -77,7 +92,7 @@ stats::qbeta(<value>,<a parameter>,<b parameter>);
 ```
 * random sampling: `stats::r*`. For example, to generate a single draw from the Logistic distribution:
 ``` cpp
-stats::rlogis(<location parameter>,<scale parameter>);
+stats::rlogis(<location parameter>,<scale parameter>,<seed value or random number engine>);
 ```
 
 <br>
@@ -87,6 +102,7 @@ All of these functions have matrix-based equivalents using Armadillo, Blaze, and
 * The pdf, cdf, and quantile functions can take matrix-valued arguments. For example,
 
 ```cpp
+# Using Armadillo:
 arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
 ```
 
@@ -100,13 +116,25 @@ blaze::DynamicMatrix<double> gamma_rvs = stats::rgamma<blaze::DynamicMatrix<doub
 # Eigen:
 Eigen::MatrixXd gamma_rvs = stats::rgamma<Eigen::MatrixXd>(100,50,3.0,2.0);
 ```
-
-<!-- <ul style="list-style-type:none">
-    <li>will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.</li>
-</ul> -->
 &nbsp; &nbsp; &nbsp; &nbsp; will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.
 
 * All matrix-based operations are parallelizable with OpenMP. For GCC and Clang compilers, simply include the `-fopenmp` option during compilation.
+
+<br>
+
+Random number seeding is available in two forms: seed values or random number engines (preferred).
+
+* Seed values are passed as unsigned integers. For example, to generate a draw from a normal distribution N(1,2) with seed value 1776:
+``` cpp
+stats::rnorm(1,2,1776);
+```
+* Random engines in StatsLib use the 64-bit Mersenne-Twister generator (`std::mt19937_64`) and are passed by reference. Example:
+``` cpp
+std::mt19937_64 engine(1776);
+stats::rnorm(1,2,engine);
+```
+
+<br>
 
 More examples with code:
 ```cpp
@@ -130,10 +158,6 @@ arma::mat beta_rvs = stats::rbeta<arma::mat>(100,100,3.0,2.0);
 // matrix input
 arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 ```
-
-## Installation
-
-StatsLib is a header-only library. Simply copy the contents of the include folder and add the header files to your project using `#include "stats.hpp"`.
 
 ## Compile-time Computation
 
