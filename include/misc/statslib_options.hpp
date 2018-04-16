@@ -21,11 +21,11 @@
 // version
 
 #ifndef STATS_VERSION_MAJOR
-    #define STATS_VERSION_MAJOR 1
+    #define STATS_VERSION_MAJOR 2
 #endif
 
 #ifndef STATS_VERSION_MINOR
-    #define STATS_VERSION_MINOR 2
+    #define STATS_VERSION_MINOR 0
 #endif
 
 #ifndef STATS_VERSION_PATCH
