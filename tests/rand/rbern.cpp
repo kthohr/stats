@@ -25,9 +25,6 @@ int main()
 {
     double prob_par = 0.75;
 
-    double bern_mean = prob_par;
-    double bern_var = prob_par*(1.0 - prob_par);
-
     std::cout << "\n*** rbern: begin tests. ***\n" << std::endl;
 
     //
@@ -37,6 +34,9 @@ int main()
     std::cout << "bern rv draw: " << bern_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double bern_mean = prob_par;
+    double bern_var = prob_par*(1.0 - prob_par);
+
     int n = 10000;
     mat_obj bern_vec = stats::rbern<mat_obj>(n,1,prob_par);
 

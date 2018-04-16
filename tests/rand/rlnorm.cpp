@@ -25,8 +25,6 @@ int main()
 {
     double mu = 0.1;
     double sigma = 1;
-    double lnorm_mean = std::exp(mu + sigma*sigma / 2.0);
-    double lnorm_var = (std::exp(sigma*sigma) - 1.0) * std::exp(mu*2 + sigma*sigma);
 
     std::cout << "\n*** rlnorm: begin tests. ***\n" << std::endl;
 
@@ -37,7 +35,10 @@ int main()
     std::cout << "lnorm rv draw: " << lnorm_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
-    int n = 100000;
+    double lnorm_mean = std::exp(mu + sigma*sigma / 2.0);
+    double lnorm_var = (std::exp(sigma*sigma) - 1.0) * std::exp(2*mu + sigma*sigma);
+
+    int n = 200000;
     mat_obj lnorm_vec = stats::rlnorm<mat_obj>(n,1,mu,sigma);
 
     std::cout << "lnorm rv mean: " << stats::mat_ops::mean(lnorm_vec) << ". Should be close to: " << lnorm_mean << std::endl;

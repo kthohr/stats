@@ -26,9 +26,6 @@ int main()
     int n_trials = 5;
     double prob_par = 0.75;
 
-    double binom_mean = n_trials*prob_par;
-    double binom_var = n_trials*prob_par*(1.0 - prob_par);
-
     std::cout << "\n*** rbinom: begin tests. ***\n" << std::endl;
 
     //
@@ -38,6 +35,9 @@ int main()
     std::cout << "binom rv draw: " << binom_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double binom_mean = n_trials*prob_par;
+    double binom_var = n_trials*prob_par*(1.0 - prob_par);
+
     int n = 10000;
     mat_obj binom_vec = stats::rbinom<mat_obj>(n,1,n_trials,prob_par);
 

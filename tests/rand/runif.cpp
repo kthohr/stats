@@ -26,9 +26,6 @@ int main()
     double a_par = -1;
     double b_par = 3;
 
-    double unif_mean = (a_par + b_par) / 2.0;
-    double unif_var = (b_par - a_par)*(b_par - a_par) / 12.0;
-
     std::cout << "\n*** runif: begin tests. ***\n" << std::endl;
 
     //
@@ -38,6 +35,9 @@ int main()
     std::cout << "unif rv draw: " << unif_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double unif_mean = (a_par + b_par) / 2.0;
+    double unif_var = (b_par - a_par)*(b_par - a_par) / 12.0;
+
     int n = 10000;
     mat_obj unif_vec = stats::runif<mat_obj>(n,1,a_par,b_par);
 

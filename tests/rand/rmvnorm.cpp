@@ -69,6 +69,9 @@ int main()
     //
 
     std::cout << "\n*** rmvnorm: end tests. ***\n" << std::endl;
+#else
+    std::cout << "\n*** rmvnorm: no matrix library found. ***\n" << std::endl;
 #endif
+
     return 0;
 }

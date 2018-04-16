@@ -25,9 +25,6 @@ int main()
 {
     double dof = 3;
     
-    double chisq_mean = dof;
-    double chisq_var = 2*dof;
-
     std::cout << "\n*** rchisq: begin tests. ***\n" << std::endl;
 
     //
@@ -37,6 +34,9 @@ int main()
     std::cout << "chisq rv draw: " << chisq_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double chisq_mean = dof;
+    double chisq_var = 2*dof;
+
     int n = 100000;
     mat_obj chisq_vec = stats::rchisq<mat_obj>(n,1,dof);
 

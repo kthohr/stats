@@ -25,8 +25,6 @@ int main()
 {
     double shape = 3;
     double scale = 2;
-    double weibull_mean = scale*std::tgamma(1.0 + 1.0/shape);
-    double weibull_var = scale*scale * std::tgamma(1.0 + 2.0/shape) - std::pow(weibull_mean,2);
 
     std::cout << "\n*** rweibull: begin tests. ***\n" << std::endl;
 
@@ -37,7 +35,10 @@ int main()
     std::cout << "weibull rv draw: " << weibull_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
-    int n = 10000;
+    double weibull_mean = scale*std::tgamma(1.0 + 1.0/shape);
+    double weibull_var = scale*scale * std::tgamma(1.0 + 2.0/shape) - std::pow(weibull_mean,2);
+
+    int n = 100000;
     mat_obj weibull_vec = stats::rweibull<mat_obj>(n,1,shape,scale);
 
     std::cout << "weibull rv mean: " << stats::mat_ops::mean(weibull_vec) << ". Should be close to: " << weibull_mean << std::endl;

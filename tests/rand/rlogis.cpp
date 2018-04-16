@@ -26,9 +26,6 @@ int main()
     double mu = 2.5;
     double sigma = 2;
 
-    double logis_mean = mu;
-    double logis_var = std::pow(GCEM_PI*sigma,2) / 3.0;
-
     std::cout << "\n*** rlogis: begin tests. ***\n" << std::endl;
 
     //
@@ -37,6 +34,9 @@ int main()
     std::cout << "logis rv draw: " << logis_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double logis_mean = mu;
+    double logis_var = std::pow(GCEM_PI*sigma,2) / 3.0;
+
     int n = 100000;
     mat_obj logis_vec = stats::rlogis<mat_obj>(n,1,mu,sigma);
 

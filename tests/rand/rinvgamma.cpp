@@ -25,9 +25,6 @@ int main()
 {
     double shape = 4;
     double rate = 5;
-    
-    double invgamma_mean = rate / (shape - 1.0);
-    double invgamma_var = std::pow(invgamma_mean,2) / (shape - 2.0);
 
     std::cout << "\n*** rinvgamma: begin tests. ***\n" << std::endl;
 
@@ -38,6 +35,9 @@ int main()
     std::cout << "invgamma rv draw: " << invgamma_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double invgamma_mean = rate / (shape - 1.0);
+    double invgamma_var = std::pow(invgamma_mean,2) / (shape - 2.0);
+    
     int n = 100000;
     mat_obj invgamma_vec = stats::rinvgamma<mat_obj>(n,1,shape,rate);
 

@@ -25,9 +25,6 @@ int main()
 {
     double mu = 2.5;
     double sigma = 1.5;
-    
-    double normal_mean = mu;
-    double normal_var = sigma*sigma;
 
     std::cout << "\n*** rnorm: begin tests. ***\n" << std::endl;
 
@@ -38,6 +35,9 @@ int main()
     std::cout << "normal rv draw: " << normal_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double normal_mean = mu;
+    double normal_var = sigma*sigma;
+
     int n = 100000;
     mat_obj normal_vec = stats::rnorm<mat_obj>(n,1,mu,sigma);
 

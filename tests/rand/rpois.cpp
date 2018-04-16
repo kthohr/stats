@@ -24,9 +24,6 @@
 int main()
 {
     double rate_par = 5.0;
-    
-    double pois_mean = rate_par;
-    double pois_var = rate_par;
 
     std::cout << "\n*** rpois: begin tests. ***\n" << std::endl;
 
@@ -37,7 +34,10 @@ int main()
     std::cout << "pois rv draw: " << pois_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
-    int n = 10000;
+    double pois_mean = rate_par;
+    double pois_var = rate_par;
+
+    int n = 100000;
     mat_obj pois_vec = stats::rpois<mat_obj>(n,1,rate_par);
 
     std::cout << "pois rv mean: " << stats::mat_ops::mean(pois_vec) << ". Should be close to: " << pois_mean << std::endl;

@@ -23,6 +23,7 @@
 
 int main()
 {
+#ifdef STATS_TEST_MAT
     int n_samp = 10000;
     int K = 3;
 
@@ -53,6 +54,9 @@ int main()
     //
 
     std::cout << "\n*** rwish: end tests. ***\n" << std::endl;
+#else
+    std::cout << "\n*** rwish: no matrix library found. ***\n" << std::endl;
+#endif
 
     return 0;
 }

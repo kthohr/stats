@@ -25,9 +25,6 @@ int main()
 {
     double mu = 2.5;
     double sigma = 1.5;
-    
-    double laplace_mean = mu;
-    double laplace_var = 2.0*sigma*sigma;
 
     std::cout << "\n*** rlaplace: begin tests. ***\n" << std::endl;
     
@@ -38,6 +35,9 @@ int main()
     std::cout << "laplace rv draw: " << laplace_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double laplace_mean = mu;
+    double laplace_var = 2.0*sigma*sigma;
+
     int n = 100000;
     mat_obj laplace_vec = stats::rlaplace<mat_obj>(n,1,mu,sigma);
 

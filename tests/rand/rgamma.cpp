@@ -25,8 +25,6 @@ int main()
 {
     double shape = 3;
     double scale = 2;
-    double gamma_mean = shape*scale;
-    double gamma_var = gamma_mean*scale;
 
     std::cout << "\n*** rgamma: begin tests. ***\n" << std::endl;
 
@@ -37,7 +35,10 @@ int main()
     std::cout << "gamma rv draw: " << gamma_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
-    int n = 10000;
+    double gamma_mean = shape*scale;
+    double gamma_var = gamma_mean*scale;
+
+    int n = 100000;
     mat_obj gamma_vec = stats::rgamma<mat_obj>(n,1,shape,scale);
 
     std::cout << "gamma rv mean: " << stats::mat_ops::mean(gamma_vec) << ". Should be close to: " << gamma_mean << std::endl;

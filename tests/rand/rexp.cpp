@@ -24,9 +24,6 @@
 int main()
 {
     double rate_par = 0.8;
-    
-    double exp_mean = 1.0 / rate_par;
-    double exp_var = std::pow(rate_par,-2);
 
     std::cout << "\n*** rexp: begin tests. ***\n" << std::endl;
 
@@ -37,6 +34,9 @@ int main()
     std::cout << "exp rv draw: " << exp_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double exp_mean = 1.0 / rate_par;
+    double exp_var = std::pow(rate_par,-2);
+
     int n = 100000;
     mat_obj exp_vec = stats::rexp<mat_obj>(n,1,rate_par);
 

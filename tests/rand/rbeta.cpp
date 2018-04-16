@@ -26,9 +26,6 @@ int main()
     double alpha = 3;
     double beta = 2;
 
-    double beta_mean = alpha/(alpha + beta);
-    double beta_var = alpha*beta/(std::pow(alpha + beta,2)*(alpha + beta + 1.0));
-
     std::cout << "\n*** rbeta: begin tests. ***\n" << std::endl;
 
     double beta_rand = stats::rbeta(alpha,beta);
@@ -36,7 +33,10 @@ int main()
     std::cout << "beta rv draw: " << beta_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
-    int n = 1000;
+    double beta_mean = alpha/(alpha + beta);
+    double beta_var = alpha*beta/(std::pow(alpha + beta,2)*(alpha + beta + 1.0));
+
+    int n = 10000;
     mat_obj beta_vec = stats::rbeta<mat_obj>(n,1,alpha,beta);
 
     std::cout << "beta rv mean: " << stats::mat_ops::mean(beta_vec) << ". Should be close to: " << beta_mean << std::endl;

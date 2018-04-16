@@ -51,6 +51,9 @@ int main()
     //
 
     std::cout << "\n*** rmultinom: end tests. ***\n" << std::endl;
+#else
+    std::cout << "\n*** rmultinom: no matrix library found. ***\n" << std::endl;
 #endif
+
     return 0;
 }

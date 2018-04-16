@@ -26,21 +26,21 @@ int main()
     double a_par = 16;
     double b_par = 10;
 
-    double f_mean = b_par / (b_par - 2.0);
-    double f_var = 2.0 * b_par*b_par*(a_par + b_par - 2.0) / ( a_par*std::pow(b_par - 2.0,2)*(b_par - 4.0) );
-
     std::cout << "\n*** rf: begin tests. ***\n" << std::endl;
 
-    double f_rand = stats::rf(a_par,b_par);
+    double F_rand = stats::rf(a_par,b_par);
 
-    std::cout << "f rv draw: " << f_rand << std::endl;
+    std::cout << "F rv draw: " << F_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
-    int n = 10000;
-    mat_obj f_vec = stats::rf<mat_obj>(n,1,a_par,b_par);
+    double F_mean = b_par / (b_par - 2.0);
+    double F_var = 2.0 * b_par*b_par*(a_par + b_par - 2.0) / ( a_par*std::pow(b_par - 2.0,2)*(b_par - 4.0) );
 
-    std::cout << "f rv mean: " << stats::mat_ops::mean(f_vec) << ". Should be close to: " << f_mean << std::endl;
-    std::cout << "f rv variance: " << stats::mat_ops::var(f_vec) << ". Should be close to: " << f_var << std::endl;
+    int n = 100000;
+    mat_obj F_vec = stats::rf<mat_obj>(n,1,a_par,b_par);
+
+    std::cout << "F rv mean: " << stats::mat_ops::mean(F_vec) << ". Should be close to: " << F_mean << std::endl;
+    std::cout << "F rv variance: " << stats::mat_ops::var(F_vec) << ". Should be close to: " << F_var << std::endl;
 #endif
     
     //

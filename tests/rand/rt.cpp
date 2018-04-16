@@ -24,9 +24,6 @@
 int main()
 {
     double dof_par = 11.0;
-    
-    double t_mean = 0.0;
-    double t_var = dof_par / (dof_par - 2.0) ;
 
     std::cout << "\n*** rt: begin tests. ***\n" << std::endl;
 
@@ -37,6 +34,9 @@ int main()
     std::cout << "t rv draw: " << t_rand << std::endl;
 
 #ifdef STATS_TEST_MAT
+    double t_mean = 0.0;
+    double t_var = dof_par / (dof_par - 2.0) ;
+
     int n = 100000;
     mat_obj t_vec = stats::rt<mat_obj>(n,1,dof_par);
 
