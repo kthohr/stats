@@ -73,6 +73,10 @@ install:
       fi
 
 script:
+  - cd ..
+  - rm -rf stats
+  - git clone https://github.com/kthohr/stats ./stats
+  - cd stats
   - cd ./tests
   - ./setup && ./tests_setup/run_cov
   - cd ..
