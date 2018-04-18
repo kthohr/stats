@@ -215,9 +215,9 @@ statslib_constexpr
 T
 qt_int(const T p, const T dof_par)
 {
-    return ( STLIM<T>::epsilon() > abs(T(1) - dof_par) ? stmath::tan(GCEM_PI*(p - T(0.5))) : // Cauchy case
-             STLIM<T>::epsilon() > abs(T(2) - dof_par) ? (2*p - T(1)) / stmath::sqrt(2*p*(T(1) - p)) :
-                                                         qt_int_main(p,dof_par) );
+    return ( STLIM<T>::epsilon() > stmath::abs(T(1) - dof_par) ? stmath::tan(GCEM_PI*(p - T(0.5))) : // Cauchy case
+             STLIM<T>::epsilon() > stmath::abs(T(2) - dof_par) ? (2*p - T(1)) / stmath::sqrt(2*p*(T(1) - p)) :
+                                                                 qt_int_main(p,dof_par) );
 }
 
 //
