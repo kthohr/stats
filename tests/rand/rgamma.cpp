@@ -47,6 +47,8 @@ int main()
 
     //
 
+    stats::rgamma(0.9,2.0); // coverage
+
     std::cout << "\n*** rgamma: end tests. ***\n" << std::endl;
 
     return 0;
