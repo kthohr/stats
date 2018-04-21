@@ -102,18 +102,18 @@ All of these functions have matrix-based equivalents using Armadillo, Blaze, and
 * The pdf, cdf, and quantile functions can take matrix-valued arguments. For example,
 
 ```cpp
-# Using Armadillo:
+// Using Armadillo:
 arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
 ```
 
 * The randomization functions (`r*`) can output random matrices of arbitrary size. For example,</li>
 
 ```cpp
-# Armadillo:
+// Armadillo:
 arma::mat gamma_rvs = stats::rgamma<arma::mat>(100,50,3.0,2.0);
-# Blaze:
+// Blaze:
 blaze::DynamicMatrix<double> gamma_rvs = stats::rgamma<blaze::DynamicMatrix<double>>(100,50,3.0,2.0);
-# Eigen:
+// Eigen:
 Eigen::MatrixXd gamma_rvs = stats::rgamma<Eigen::MatrixXd>(100,50,3.0,2.0);
 ```
 &nbsp; &nbsp; &nbsp; &nbsp; will generate a 100-by-50 matrix of iid draws from a Gamma(3,2) distribution.
