@@ -49,7 +49,7 @@ StatsLib is a header-only library. Simply copy the contents of the include folde
 #include "stats.hpp"
 ```
 
-## Compiler Options
+## Compile-time Options
 
 * For inline-only functionality (i.e., no `constexpr` specifiers):
 ```cpp
@@ -72,7 +72,6 @@ StatsLib is a header-only library. Simply copy the contents of the include folde
 #define STATS_USE_BLAZE
 #define STATS_USE_EIGEN
 ```
-
 
 ## Syntax and Examples
 
