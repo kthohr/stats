@@ -1,30 +1,31 @@
 #!/bin/bash
-## Stats tests config script
+## StatsLib tests config script
 
 function print_help
 { 
     # echo "" ;
-    echo -e "\x1B[32mConfigure options:\033[0m" >&2 ;
+    echo -e "\x1B[32mStatsLib Tests configure options\033[0m" >&2 ;
     echo "" ;
     echo "-c    Coverage build" ;
-    echo "-d    Development build (install paths set to current directory)" ;
     echo "-g    Debugging build (optimization flags set to -O0 -g)" ;
     echo "-h    Print help" ;
+    echo "-i    StatsLib install path (default: build directory)" ;
     echo "-l    Enable wrappers for a linear algebra library" ;
     echo "        Examples: -l arma, -l blaze, or -l eigen" ;
     echo "-m    Specify the BLAS and Lapack libraries to link against" ; 
     echo "        Examples: -m \"-lopenblas\" or -m \"-framework Accelerate\"" ;
-    echo "-o    Compiler optimization options; defaults to -O3 -march=native" ;
+    echo "-o    Compiler optimization options; defaults to:" ;
+    echo "        -O3 -march=native -ffp-contract=fast" ;
     echo "-p    Enable OpenMP parallelization features" ;
 }
 
-while getopts hcdgl:m:o:p option; do
+while getopts hcgil:m:o:p option; do
     case "${option}" in
         h) print_help; exit 2;;
         c) STATS_COVERAGE="y";;
-        d) STATS_BUILD="dev";;
-        g) STATS_DEBUG="y";;
-        l) STATS_LIN_ALG_LIB=${OPTARG};;
+        g) STATS_DEBUG_BUILD="y";;
+        i) STATS_INSTALL_PATH=${OPTARG};;
+        l) STATS_LINEAR_ALG_LIB=${OPTARG};;
         m) STATS_MATRIX_OPS=${OPTARG};;
         o) STATS_OPT=${OPTARG};;
         p) STATS_PARALLEL="y";;
@@ -36,31 +37,19 @@ done
 
 CXX_STD="-std=c++11"
 
-if [ -z ${CC+x} ]; then 
-    CC=gcc
-fi
 if [ -z ${CXX+x} ]; then 
     CXX=g++
 fi
-if [ -z ${FC+x} ]; then 
-    FC=gfortran
-fi
+
+#
+
+echo ""
+echo -e "\x1B[32mStatsLib Test Configuration...\033[0m" >&2 ;
+echo ""
 
 IS_DARWIN=$($CXX -dumpmachine 2>&1 | grep -i -c "darwin")
 GCC_COMPILER=$($CXX --version 2>&1 | grep -i -c -E "gcc")
-# APPLE_COMPILER=$($CXX --version 2>&1 | grep -i -c -E 'apple llvm')
-
-# announcements
-
-echo ""
-
-if [[ "${STATS_COVERAGE}" == "y" ]]; then 
-    echo "Stats: coverage build"
-fi
-
-if [[ "${STATS_DEBUG}" == "y" ]]; then
-    echo "Stats: debug build"
-fi
+APPLE_COMPILER=$($CXX --version 2>&1 | grep -i -c -E 'apple llvm')
 
 # get working directory
 WDIR=${PWD}
@@ -70,7 +59,7 @@ STATS_MATLIB_FLAGS=
 STATS_MATLIB_PATH="."
 
 # look for Armadillo
-if [[ "${STATS_LIN_ALG_LIB}" == "arma" ]]; then
+if [[ "${STATS_LINEAR_ALG_LIB}" == "arma" ]]; then
     if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
         
         declare -a ARMA_DIRS=("${WDIR}/../../include" "/usr/include" "/usr/local/include" "/opt/include" "/opt/local/include")
@@ -84,7 +73,7 @@ if [[ "${STATS_LIN_ALG_LIB}" == "arma" ]]; then
         done
 
         if [[ $ARMA_INCLUDE_PATH == "" ]]; then
-            echo "Stats tests: cannot find the armadillo library."
+            echo -e "  \x1B[31m- error: cannot find the Armadillo library. Exiting.\033[0m" >&2 ;
             echo ""
             exit 1
         fi
@@ -92,31 +81,27 @@ if [[ "${STATS_LIN_ALG_LIB}" == "arma" ]]; then
 
     STATS_MATLIB_FLAGS="-DSTATS_USE_ARMA -DARMA_NO_DEBUG"
     STATS_MATLIB_PATH=$ARMA_INCLUDE_PATH
-fi
-
-if [[ "${STATS_LIN_ALG_LIB}" == "blaze" ]]; then
+elif [[ "${STATS_LINEAR_ALG_LIB}" == "blaze" ]]; then
     STATS_MATLIB_FLAGS="-DSTATS_USE_BLAZE"
     STATS_MATLIB_PATH=$BLAZE_INCLUDE_PATH
     CXX_STD="-std=c++14"
-fi
-
-if [[ "${STATS_LIN_ALG_LIB}" == "eigen" ]]; then
+elif [[ "${STATS_LINEAR_ALG_LIB}" == "eigen" ]]; then
     STATS_MATLIB_FLAGS="-DSTATS_USE_EIGEN"
     STATS_MATLIB_PATH=$EIGEN_INCLUDE_PATH
+else
+    STATS_LINEAR_ALG_LIB="none."
 fi
-
-echo "Stats tests: STATS_MATLIB_PATH set to ${STATS_MATLIB_PATH}"
 
 # set optimization flags
 
 if [[ "${STATS_COVERAGE}" == "y" ]]; then 
     echo "Stats tests: coverage build"
     STATS_OPT_FLAGS="-g -O0 --coverage -fno-inline -fno-inline-small-functions -fno-default-inline -DSTATS_DONT_USE_OPENMP"
-elif [[ "${STATS_DEBUG}" == "y" ]]; then
+elif [[ "${STATS_DEBUG_BUILD}" == "y" ]]; then
     STATS_OPT_FLAGS="-g -O0 -DSTATS_DONT_USE_OPENMP"
 else
     if [[ "${STATS_OPT}" == "" ]]; then
-        STATS_OPT_FLAGS="-O3 -march=native"
+        STATS_OPT_FLAGS="-O3 -march=native -ffp-contract=fast"
     else
         STATS_OPT_FLAGS="${STATS_OPT}"
     fi
@@ -130,15 +115,13 @@ STATS_WARN_FLAGS="-Wall"
 
 # dev build
 
-if [[ "${STATS_BUILD}" == "dev" ]]; then
+if [[ "${STATS_INSTALL_PATH}" == "" ]]; then
     cd ../..
-    STATS_INCLUDE_PATH=${PWD}/include
     STATS_INSTALL_PATH=${PWD}
+    STATS_INSTALL_INCLUDE_PATH=${PWD}/include
     cd ${WDIR}
 else
-    if [ -z ${STATS_INCLUDE_PATH+x} ]; then
-        STATS_INCLUDE_PATH="/usr/local/include"
-    fi
+    STATS_INSTALL_INCLUDE_PATH="${STATS_INSTALL_PATH}/include"
 fi
 
 # BLAS and LAPACK settings
@@ -153,33 +136,76 @@ else
     fi
 fi
 
+# final optimization checks
+
 if [ "$IS_DARWIN" -eq "1" ] && [ "$GCC_COMPILER" -eq "1" ]; then
-    echo ""
-    echo "Stats: To enable AVX features, your compiler will use the Apple LLVM assembler"
     STATS_OPT_FLAGS="-Wa,-q ${STATS_OPT_FLAGS}"
 fi
 
-# final optimization checks
+#
+# final print:
 
-if [[ "${STATS_DEBUG}" == "y" ]]; then
-    STATS_OPT_FLAGS="-O0 -g"
+echo "  - OS:            ${OSTYPE}"
+echo "  - C++ compiler:  ${CXX}"
+
+if [[ "${STATS_COVERAGE_BUILD}" == "y" ]]; then
+    echo "  - Build version: coverage"
+elif [[ "${STATS_DEBUG_BUILD}" == "y" ]]; then
+    echo "  - Build version: debug"
+else
+    echo "  - Build version: standard"
 fi
-
-echo "Stats: optimization flags set to: ${STATS_OPT_FLAGS}"
-
-# end
 
 echo ""
 
-sed -e "s|@CC@|${CC}|" \
-    -e "s|@CXX@|${CXX}|" \
-    -e "s|@FC@|${FC}|" \
+echo "  - STATS_LINEAR_ALG_LIB set to: ${STATS_LINEAR_ALG_LIB}"
+echo "  - STATS_MATLIB_PATH set to:"
+echo "    ${STATS_MATLIB_PATH}"
+echo "  - BLAS and Lapack libraries set to:"
+echo "    ${STATS_BLAS_LAPACK}"
+
+echo ""
+
+if [[ "${STATS_PARALLEL}" == "y" ]]; then
+    echo -e "  - OpenMP features: \x1B[32menabled\033[0m" >&2 ;
+else
+    echo -e "  - OpenMP features: \x1B[31mdisabled\033[0m" >&2 ;
+fi
+
+echo "  - optimization flags:"
+echo "    ${STATS_OPT_FLAGS}"
+
+echo ""
+
+echo "  - StatsLib install path:"
+echo "    ${STATS_INSTALL_PATH}"
+
+echo ""
+echo "  - Additional notes:"
+
+if [ "$APPLE_COMPILER" -eq "1" ] && [[ "${STATS_PARALLEL}" == "y" ]]; then
+    echo -e "    \x1B[31m- You have enabled OpenMP, but your C++ compiler does not\033[0m" >&2 ;
+    echo -e "    \x1B[31m  support this feature!\033[0m" >&2 ;
+fi
+
+if [ "$IS_DARWIN" -eq "1" ] && [ "$GCC_COMPILER" -eq "1" ]; then
+    echo "    - To enable AVX features, your compiler will use the Apple LLVM"
+    echo "      assembler"
+fi
+
+echo ""
+echo -e "\x1B[32mConfiguration completed. Creating Makefile... \c\033[0m" >&2 ;
+
+sed -e "s|@CXX@|${CXX}|" \
     -e "s|@CXX_STD@|${CXX_STD}|" \
     -e "s|@STATS_MATLIB_FLAGS@|${STATS_MATLIB_FLAGS}|" \
     -e "s|@STATS_MATLIB_PATH@|${STATS_MATLIB_PATH}|" \
     -e "s|@STATS_BLAS_LAPACK@|${STATS_BLAS_LAPACK}|" \
     -e "s|@STATS_WARN_FLAGS@|${STATS_WARN_FLAGS}|" \
     -e "s|@STATS_OPT_FLAGS@|${STATS_OPT_FLAGS}|" \
-    -e "s|@STATS_INCLUDE_PATH@|${STATS_INCLUDE_PATH}|" \
-    -e "s|@STATS_INSTALL_PATH@|${STATS_INSTALL_PATH}|" \
+    -e "s|@STATS_INSTALL_INCLUDE_PATH@|${STATS_INSTALL_INCLUDE_PATH}|" \
     Makefile.in > Makefile
+
+echo -e "\x1B[32mdone.\033[0m" >&2 ;
+echo ""
+
