@@ -20,5 +20,5 @@ for i in "${DIRS[@]}"; do
 
     ./configure -c -l arma
     make
-    sh ./../tests_setup/cov_check
+    sh ./../test_setup/cov_check
 done
