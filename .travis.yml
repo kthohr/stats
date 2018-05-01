@@ -76,7 +76,7 @@ script:
   - cd .. && rm -rf stats
   - git clone https://github.com/kthohr/stats ./stats
   - cd ./stats/tests
-  - ./setup && ./tests_setup/run_cov
+  - ./setup && ./test_setup/run_cov
   - cd ..
 
 after_success:
