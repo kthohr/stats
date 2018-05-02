@@ -22,7 +22,7 @@ function print_help
 while getopts hcgil:m:o:p option; do
     case "${option}" in
         h) print_help; exit 2;;
-        c) STATS_COVERAGE="y";;
+        c) STATS_COVERAGE_BUILD="y";;
         g) STATS_DEBUG_BUILD="y";;
         i) STATS_INSTALL_PATH=${OPTARG};;
         l) STATS_LINEAR_ALG_LIB=${OPTARG};;
@@ -94,7 +94,7 @@ fi
 
 # set optimization flags
 
-if [[ "${STATS_COVERAGE}" == "y" ]]; then 
+if [[ "${STATS_COVERAGE_BUILD}" == "y" ]]; then 
     echo "Stats tests: coverage build"
     STATS_OPT_FLAGS="-g -O0 --coverage -fno-inline -fno-inline-small-functions -fno-default-inline -DSTATS_DONT_USE_OPENMP"
 elif [[ "${STATS_DEBUG_BUILD}" == "y" ]]; then
