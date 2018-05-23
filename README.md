@@ -186,16 +186,8 @@ LCPI0_2:
 	.globl	_main
 	.p2align	4, 0x90
 _main:                                  ## @main
-	.cfi_startproc
-## BB#0:
 	push	rbp
-Lcfi0:
-	.cfi_def_cfa_offset 16
-Lcfi1:
-	.cfi_offset rbp, -16
 	mov	rbp, rsp
-Lcfi2:
-	.cfi_def_cfa_register rbp
 	xor	eax, eax
 	movsd	xmm0, qword ptr [rip + LCPI0_0] ## xmm0 = mem[0],zero
 	movsd	xmm1, qword ptr [rip + LCPI0_1] ## xmm1 = mem[0],zero
@@ -206,7 +198,6 @@ Lcfi2:
 	movsd	qword ptr [rbp - 32], xmm0
 	pop	rbp
 	ret
-	.cfi_endproc
 ```
 
 ## Author
