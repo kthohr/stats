@@ -14,7 +14,15 @@ Features:
 * Matrix-based operations are parallelizable with OpenMP.
 * Released under a permissive, non-GPL license.
 
-## Available Distributions
+### Contents:
+* [Distributions](#distributions) 
+* [Installation](#installation)
+* [Compile-time Options](#compile-time-options)
+* [Syntax and Examples](#syntax-and-examples)
+* [Compile-time Computation](#compile-time-computation)
+* [Author and License](#author)
+
+## Distributions
 
 Functions to compute the cdf, pdf, and quantile, as well as random sampling, are available for the following distributions:
 
