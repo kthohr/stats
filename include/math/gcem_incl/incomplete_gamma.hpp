@@ -25,13 +25,105 @@
 #ifndef _gcem_incomplete_gamma_HPP
 #define _gcem_incomplete_gamma_HPP
 
-// for the expansion, see:
-// http://functions.wolfram.com/GammaBetaErf/Gamma2/10/0009/
+// quadrature
 
 template<typename T>
 constexpr
 T
-incomplete_gamma_cf_coef(const T a, const T z, const int depth)
+incomplete_gamma_int_quad_inp_vals(const T lb, const T ub, const int counter)
+{
+    return( // 50 point Gauss-Legendre
+            (ub-lb) * gauss_legendre_50_points[counter] / T(2) + (ub + lb) / T(2) );
+}
+
+template<typename T>
+constexpr
+T
+incomplete_gamma_int_quad_weight_vals(const T lb, const T ub, const int counter)
+{
+    return( // 50 point Gauss-Legendre
+            (ub-lb) * gauss_legendre_50_weights[counter] / T(2));
+}
+
+template<typename T>
+constexpr
+T
+incomplete_gamma_int_quad_fn(const T x, const T a, const T lg_term)
+{
+    return exp( -x + (a-T(1))*log(x) - lg_term );
+}
+
+template<typename T>
+constexpr
+T
+incomplete_gamma_int_quad_recur(const T lb, const T ub, const T a, const T lg_term, const int counter)
+{
+    return( counter < 49 ? \
+            // if 
+                incomplete_gamma_int_quad_fn(incomplete_gamma_int_quad_inp_vals(lb,ub,counter),a,lg_term) \
+                    * incomplete_gamma_int_quad_weight_vals(lb,ub,counter) \
+                    + incomplete_gamma_int_quad_recur(lb,ub,a,lg_term,counter+1) :
+            // else
+                incomplete_gamma_int_quad_fn(incomplete_gamma_int_quad_inp_vals(lb,ub,counter),a,lg_term) \
+                    * incomplete_gamma_int_quad_weight_vals(lb,ub,counter) );
+}
+
+template<typename T>
+constexpr
+T
+incomplete_gamma_int_quad_lb(const T a, const T z)
+{
+    return( // break integration into ranges
+            a > T(1000) ? z - 10*sqrt(a) :
+            a > T(800)  ? z - 10*sqrt(a) :
+            a > T(500)  ? z -  9*sqrt(a) :
+            a > T(300)  ? z -  9*sqrt(a) : 
+            a > T(100)  ? z -  8*sqrt(a) :
+            a > T(90)   ? z -  8*sqrt(a) :
+            a > T(70)   ? z -  7*sqrt(a) :
+            a > T(50)   ? z -  6*sqrt(a) :
+            a > T(40)   ? z -  5*sqrt(a) :
+            a > T(30)   ? z -  4*sqrt(a) :
+            // else
+                max(T(0),z-2*sqrt(a)) );
+}
+
+template<typename T>
+constexpr
+T
+incomplete_gamma_int_quad_ub(const T a, const T z)
+{
+    return( // break integration into ranges
+            a > T(1000) ? min(z, a + 10*sqrt(a)) :
+            a > T(800)  ? min(z, a + 10*sqrt(a)) :
+            a > T(500)  ? min(z, a + 9*sqrt(a))  :
+            a > T(300)  ? min(z, a + 9*sqrt(a))  : 
+            a > T(100)  ? min(z, a + 8*sqrt(a))  :
+            a > T(90)   ? min(z, a + 8*sqrt(a))  :
+            a > T(70)   ? min(z, a + 7*sqrt(a))  :
+            a > T(50)   ? min(z, a + 6*sqrt(a))  :
+            a > T(40)   ? min(z, a + 5*sqrt(a))  :
+            // else
+                min(z, a + 4*sqrt(a)) );
+}
+
+template<typename T>
+constexpr
+T
+incomplete_gamma_int_quad(const T a, const T z)
+{
+    return incomplete_gamma_int_quad_recur(incomplete_gamma_int_quad_lb(a,z),
+                                           incomplete_gamma_int_quad_ub(a,z),
+                                           a,lgamma(a),0);
+}
+
+// cf expansion
+// see: http://functions.wolfram.com/GammaBetaErf/Gamma2/10/0009/
+
+template<typename T>
+constexpr
+T
+incomplete_gamma_int_cf_coef(const T a, const T z, const int depth)
 {
     return( is_odd(depth) ? - (a - 1 + T(depth+1)/T(2)) * z : T(depth)/T(2) * z );
 }
@@ -39,11 +131,11 @@ incomplete_gamma_cf_coef(const T a, const T z, const int depth)
 template<typename T>
 constexpr
 T
-incomplete_gamma_cf_int(const T a, const T z, const int depth)
+incomplete_gamma_int_cf_recur(const T a, const T z, const int depth)
 {
     return( depth < GCEM_INCML_GAMMA_MAX_ITER ? \
             // if
-                (a + depth - 1) + incomplete_gamma_cf_coef(a,z,depth)/incomplete_gamma_cf_int(a,z,depth+1) :
+                (a + depth - 1) + incomplete_gamma_int_cf_coef(a,z,depth)/incomplete_gamma_int_cf_recur(a,z,depth+1) :
             // else
                 (a + depth - 1) );
 }
@@ -51,10 +143,12 @@ incomplete_gamma_cf_int(const T a, const T z, const int depth)
 template<typename T>
 constexpr
 T
-incomplete_gamma_int(const T a, const T z)
+incomplete_gamma_int_cf(const T a, const T z)
 {   // lower (regularized) incomplete gamma function
-    return( exp(a*log(z) - z) / tgamma(a) / incomplete_gamma_cf_int(a,z,1) );
+    return( exp(a*log(z) - z) / tgamma(a) / incomplete_gamma_int_cf_recur(a,z,1) );
 }
+
+//
 
 template<typename T>
 constexpr
@@ -66,8 +160,11 @@ incomplete_gamma_check(const T a, const T z)
                 T(0) : 
             GCLIM<T>::epsilon() > a ? \
                 T(1) : 
+            // cf or quadrature
+            a < T(10) ?
+                incomplete_gamma_int_cf(a,z) :
             // else
-                incomplete_gamma_int(a,z) );
+                incomplete_gamma_int_quad(a,z) );
 }
 
 template<typename eT, typename pT>
