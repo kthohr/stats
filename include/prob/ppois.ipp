@@ -43,7 +43,11 @@ statslib_constexpr
 T
 ppois_int(const int x, const T rate_par)
 {
-    return ( stmath::exp(-rate_par) * ppois_int_recur(x,rate_par,0U) );
+    return( rate_par > T(10) ? \
+            // switch to incomplete gamma function
+                T(1) - gcem::incomplete_gamma(T(x+1),rate_par) :
+            // else
+                stmath::exp(-rate_par) * ppois_int_recur(x,rate_par,0U) );
 }
 
 template<typename T>
