@@ -50,8 +50,15 @@ Tb
 qpois_check(const Ta p, const Ta rate_par)
 {
     return( // edge cases
-            STLIM<Ta>::epsilon() > p ? Tb(0) :
-            STLIM<Ta>::epsilon() > rate_par ? Tb(0) :
+            STLIM<Ta>::epsilon() > p ? \
+                Tb(0) :
+            STLIM<Ta>::epsilon() > rate_par ? \
+                Tb(0) :
+            // boundary values at 1; note that Tb = <any integer> won't return a true inf or NaN
+            STLIM<Ta>::epsilon() > stmath::abs(Ta(1) - p) ? \
+                STLIM<Tb>::infinity() :
+            p - Ta(1) > Ta(0) ? \
+                STLIM<Tb>::quiet_NaN() :
             // rate < 11
             rate_par < Ta(11) ? \
                 qpois_int_right_search<Ta,Tb>(p,rate_par,Ta(0),0U) :
