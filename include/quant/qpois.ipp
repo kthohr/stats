@@ -28,10 +28,20 @@
 template<typename Ta, typename Tb>
 statslib_constexpr
 Tb
-qpois_int(const Ta p, const Ta rate_par, const Ta value, const Tb count)
+qpois_int_right_search(const Ta p, const Ta rate_par, const Ta value, const Tb count)
 {
-    return ( value <= p ? qpois_int(p,rate_par, ppois(count,rate_par,false), count + 1) : 
-                          count - 1 );
+    return( value <= p ? \
+                qpois_int_right_search(p,rate_par, ppois(count,rate_par,false), count + 1) : 
+            // else
+                count > Tb(0) ? count - 1 : Tb(0) );
+}
+
+template<typename Ta, typename Tb>
+statslib_constexpr
+Tb
+qpois_int_search_begin(const Ta p, const Ta rate_par, const Tb count)
+{
+    return qpois_int_right_search<Ta,Tb>(p,rate_par,ppois(count,rate_par,false),count);
 }
 
 template<typename Ta, typename Tb>
@@ -39,9 +49,14 @@ statslib_constexpr
 Tb
 qpois_check(const Ta p, const Ta rate_par)
 {
-    return ( STLIM<Ta>::epsilon() > p ? Tb(0) :
-             //
-             qpois_int<Ta,Tb>(p,rate_par,Ta(0),0U) );
+    return( // edge cases
+            STLIM<Ta>::epsilon() > p ? Tb(0) :
+            STLIM<Ta>::epsilon() > rate_par ? Tb(0) :
+            // rate < 11
+            rate_par < Ta(11) ? \
+                qpois_int_right_search<Ta,Tb>(p,rate_par,Ta(0),0U) :
+            // else use normal approximation
+                qpois_int_search_begin<Ta,Tb>(p,rate_par,Tb(stmath::max(Ta(0.0),qnorm(p,rate_par,stmath::sqrt(rate_par))-3))) );
 }
 
 template<typename Ta, typename Tb, typename Tc>

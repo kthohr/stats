@@ -120,6 +120,27 @@ int main()
     bool success_9 = (std::abs(q_9 - x_9) < err_tol);
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qpois(" << val_9 << "): ";
     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_9 << ". Success = " << success_9 << std::endl;
+    std::cout << std::endl;
+
+    //
+
+    std::cout << "qpois(0.01,11):     " << stats::qpois(0.01,11)     << std::endl;
+    std::cout << "qpois(0.001,11):    " << stats::qpois(0.001,11)    << std::endl;
+    std::cout << "qpois(0.0001,11):   " << stats::qpois(0.0001,11)   << std::endl;
+    std::cout << "qpois(0.000001,11): " << stats::qpois(0.000001,11) << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "qpois(0.50,11):     " << stats::qpois(0.50,11) << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "qpois(0.99,11):     " << stats::qpois(0.99,11)     << std::endl;
+    std::cout << "qpois(0.999,11):    " << stats::qpois(0.999,11)    << std::endl;
+    std::cout << "qpois(0.9999,11):   " << stats::qpois(0.9999,11)   << std::endl;
+    std::cout << "qpois(0.999999,11): " << stats::qpois(0.999999,11) << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "qpois(0.25,1000) =  " << stats::qpois(0.25,1000) << std::endl;
+    std::cout << "qpois(0.75,1500) =  " << stats::qpois(0.75,1500) << std::endl;
 
     //
 
