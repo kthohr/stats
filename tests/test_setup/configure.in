@@ -73,7 +73,7 @@ if [[ "${STATS_LINEAR_ALG_LIB}" == "arma" ]]; then
         done
 
         if [[ $ARMA_INCLUDE_PATH == "" ]]; then
-            echo -e "  \x1B[31m- error: cannot find the Armadillo library. Exiting.\033[0m" >&2 ;
+            echo -e "  \x1B[31m- error: cannot find the Armadillo library header files. Exiting.\033[0m" >&2 ;
             echo ""
             exit 1
         fi
@@ -95,8 +95,11 @@ fi
 # set optimization flags
 
 if [[ "${STATS_COVERAGE_BUILD}" == "y" ]]; then 
-    echo "Stats tests: coverage build"
-    STATS_OPT_FLAGS="-g -O0 --coverage -fno-inline -fno-inline-small-functions -fno-default-inline -DSTATS_DONT_USE_OPENMP"
+    if [ "$GCC_COMPILER" -eq "1" ]; then
+        STATS_OPT_FLAGS="-g -O0 --coverage -fno-inline -fno-inline-small-functions -fno-default-inline -DSTATS_DONT_USE_OPENMP"
+    else # clang:
+        STATS_OPT_FLAGS="-g -O0 --coverage -fno-inline -DSTATS_DONT_USE_OPENMP"
+    fi
 elif [[ "${STATS_DEBUG_BUILD}" == "y" ]]; then
     STATS_OPT_FLAGS="-g -O0 -DSTATS_DONT_USE_OPENMP"
 else
