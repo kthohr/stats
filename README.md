@@ -157,7 +157,7 @@ double pval = stats::pnorm(1.0,0.0,1.0);
 // evaluate the Laplacian quantile at p = 0.1, mu = 0, sigma = 1
 double qval = stats::qlaplace(0.1,0.0,1.0);
 
-// generate a t-distributed random variable with dof = 30
+// draw from a t-distribution dof = 30
 double rval = stats::rt(30);
 
 // matrix output
