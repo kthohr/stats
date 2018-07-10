@@ -26,9 +26,9 @@
 #define _statslib_dmvnorm_HPP
 
 #ifdef STATS_WITH_MATRIX_LIB
-template<typename Ta, typename Te = double>
+template<typename mT, typename eT = double>
 statslib_inline
-Te dmvnorm(const Ta& X, const Ta& mu_par, const Ta& Sigma_par, bool log_form = false);
+eT dmvnorm(const mT& X, const mT& mu_par, const mT& Sigma_par, bool log_form = false);
 
 #include "dmvnorm.ipp"
 #endif

@@ -28,9 +28,9 @@
 //
 // single input
 
-template<typename Ta, typename Tb = uint_t>
+template<typename Ta, typename Tb, typename Tc = uint_t>
 statslib_constexpr
-Tb qbern(const Ta p, const Ta prob_par);
+Tc qbern(const Ta p, const Tb prob_par);
 
 //
 // matrix/vector input

@@ -25,12 +25,12 @@
 //
 // single input
 
-template<typename Ta, typename Tb>
+template<typename Ta, typename Tb, typename Tc>
 statslib_constexpr
-Tb
-qbern(const Ta p, const Ta prob_par)
+Tc
+qbern(const Ta p, const Tb prob_par)
 {
-    return ( p > (Ta(1) - prob_par) ? Tb(1) : Tb(0) );
+    return ( p > (Ta(1) - Ta(prob_par)) ? Tc(1) : Tc(0) );
 }
 
 //

@@ -24,17 +24,17 @@
 
 template<typename T>
 statslib_inline
-int
+uint_t
 rbern(const T prob_par, rand_engine_t& engine)
-{    
+{
     return (runif<T>(T(0),T(1),engine) <= prob_par);
 }
 
 template<typename T>
 statslib_inline
-int
+uint_t
 rbern(const T prob_par, uint_t seed_val)
-{    
+{
     return (runif<T>(T(0),T(1),seed_val) <= prob_par);
 }
 

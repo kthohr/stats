@@ -27,11 +27,11 @@
 
 template<typename T>
 statslib_inline
-int rbern(const T prob_par, rand_engine_t& engine);
+uint_t rbern(const T prob_par, rand_engine_t& engine);
 
 template<typename T>
 statslib_inline
-int rbern(const T prob_par, uint_t seed_val = std::random_device{}());
+uint_t rbern(const T prob_par, uint_t seed_val = std::random_device{}());
 
 template<typename T>
 statslib_inline

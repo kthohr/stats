@@ -22,20 +22,20 @@
  * pdf of the Multivariate Normal distribution
  */
 
-template<typename Ta, typename Te>
+template<typename mT, typename eT>
 statslib_inline
-Te
-dmvnorm(const Ta& X, const Ta& mu_par, const Ta& Sigma_par, bool log_form)
+eT
+dmvnorm(const mT& X, const mT& mu_par, const mT& Sigma_par, bool log_form)
 {
     const uint_t K = mat_ops::n_rows(X);
 
     //
 
-    const Te cons_term = -Te(0.5)*K*GCEM_LOG_2PI;
-    const Ta X_cent = X - mu_par; // avoids issues like Mat vs eGlue in templates
-    const Ta quadratic_term = mat_ops::trans(X_cent) * mat_ops::inv(Sigma_par) * (X_cent);
+    const eT cons_term = -eT(0.5)*K*GCEM_LOG_2PI;
+    const mT X_cent = X - mu_par; // avoids issues like Mat vs eGlue in templates
+    const mT quadratic_term = mat_ops::trans(X_cent) * mat_ops::inv(Sigma_par) * (X_cent);
 
-    Te ret = cons_term - Te(0.5) * ( std::log(mat_ops::det(Sigma_par)) + quadratic_term(0,0) );
+    eT ret = cons_term - eT(0.5) * ( std::log(mat_ops::det(Sigma_par)) + quadratic_term(0,0) );
 
     if (!log_form) {
         ret = std::exp(ret);
