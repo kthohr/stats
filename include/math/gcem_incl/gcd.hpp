@@ -18,43 +18,33 @@
   ##
   ################################################################################*/
 
-/* 
- * compile-time binomial coefficient: 'n choose k'
+/*
+ * Euclidean algorithm to find the GCD
  */
-
-#ifndef _gcem_binomial_coef_HPP
-#define _gcem_binomial_coef_HPP
 
 namespace internal
 {
 
-template<typename pT, typename eT>
+template<typename T>
 constexpr
-eT
-binomial_coef_recur(const pT n, const pT k)
+T
+gcd_recur(T a, T b)
 {
-    return( // edge cases
-                (k == pT(0) || n == k) ? eT(1) : // deals with 0 choose 0 case
-                n == pT(0) ? eT(0) :
-            // else
-                binomial_coef_recur<pT,eT>(n-1,k-1) + binomial_coef_recur<pT,eT>(n-1,k) );
+    return b == T(0) ? a : gcd_recur(b, a % b);
 }
 
 }
 
-//
-// main function
-
-template<typename pT, typename eT = pT>
+template<typename T>
 constexpr
-eT
-binomial_coef(const pT n, const pT k)
+T
+gcd(T a, T b)
 {
-    return( std::is_integral<pT>::value ? \
-        // if
-            internal::binomial_coef_recur<pT,eT>(n,k) :
-        // else
-            internal::binomial_coef_recur<uint_t,uint_t>(n,k) );
+    return( (a < T(0) || b < T(0)) ? \
+            // sanity check
+                gcd(abs(a),abs(b)) :
+            //
+            std::is_integral<T>::value ? \
+                internal::gcd_recur(a,b) :
+                internal::gcd_recur<uint_t>(a,b) );
 }
-
-#endif

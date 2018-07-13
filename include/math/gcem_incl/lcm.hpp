@@ -18,43 +18,14 @@
   ##
   ################################################################################*/
 
-/* 
- * compile-time binomial coefficient: 'n choose k'
+/*
+ * Find the LCM
  */
 
-#ifndef _gcem_binomial_coef_HPP
-#define _gcem_binomial_coef_HPP
-
-namespace internal
-{
-
-template<typename pT, typename eT>
+template<typename T>
 constexpr
-eT
-binomial_coef_recur(const pT n, const pT k)
+T
+lcm(T a, T b)
 {
-    return( // edge cases
-                (k == pT(0) || n == k) ? eT(1) : // deals with 0 choose 0 case
-                n == pT(0) ? eT(0) :
-            // else
-                binomial_coef_recur<pT,eT>(n-1,k-1) + binomial_coef_recur<pT,eT>(n-1,k) );
+    return a * (b / gcd(a,b));
 }
-
-}
-
-//
-// main function
-
-template<typename pT, typename eT = pT>
-constexpr
-eT
-binomial_coef(const pT n, const pT k)
-{
-    return( std::is_integral<pT>::value ? \
-        // if
-            internal::binomial_coef_recur<pT,eT>(n,k) :
-        // else
-            internal::binomial_coef_recur<uint_t,uint_t>(n,k) );
-}
-
-#endif
