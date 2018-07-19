@@ -68,5 +68,8 @@ int main()
     stats::dnorm(x_mat,mu,sigma,true);
 #endif
 
+    // arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
+    // norm_pdf_vals = stats::dnorm(arma::zeros(10,20),1.0,2.0);
+
     return 0;
 }
