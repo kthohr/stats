@@ -44,6 +44,10 @@ void dexp_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, c
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 ArmaMat<Tc> dexp(const ArmaMat<Ta>& X, const Tb rate_par, const bool log_form = false);
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT dexp(const ArmaGen<mT,tT>& X, const Tb rate_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE

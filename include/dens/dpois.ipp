@@ -79,6 +79,14 @@ dpois(const ArmaMat<Ta>& X, const Tb rate_par, const bool log_form)
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+dpois(const ArmaGen<mT,tT>& X, const Tb rate_par, const bool log_form)
+{
+    return dpois(X.eval(),rate_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE

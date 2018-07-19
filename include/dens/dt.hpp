@@ -44,6 +44,10 @@ void dt_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, cons
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 ArmaMat<Tc> dt(const ArmaMat<Ta>& X, const Tb dof_par, const bool log_form = false);
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT dt(const ArmaGen<mT,tT>& X, const Tb dof_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE

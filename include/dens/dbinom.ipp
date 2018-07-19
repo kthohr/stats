@@ -80,6 +80,14 @@ dbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par, const
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+dbinom(const ArmaGen<mT,tT>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
+{
+    return dbinom(X.eval(),n_trials_par,prob_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE

@@ -80,6 +80,14 @@ dbern(const ArmaMat<Ta>& X, const Tb prob_par, const bool log_form)
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+dbern(const ArmaGen<mT,tT>& X, const Tb prob_par, const bool log_form)
+{
+    return dbern(X.eval(),prob_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE
