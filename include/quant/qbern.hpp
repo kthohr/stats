@@ -44,6 +44,10 @@ void qbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par,
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 ArmaMat<Tc> qbern(const ArmaMat<Ta>& X, const Tb prob_par);
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT qbern(const ArmaGen<mT,tT>& X, const Tb prob_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE

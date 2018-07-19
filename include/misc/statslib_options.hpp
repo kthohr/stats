@@ -25,7 +25,7 @@
 #endif
 
 #ifndef STATS_VERSION_MINOR
-    #define STATS_VERSION_MINOR 0
+    #define STATS_VERSION_MINOR 1
 #endif
 
 #ifndef STATS_VERSION_PATCH

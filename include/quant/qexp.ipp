@@ -81,6 +81,14 @@ qexp(const ArmaMat<Ta>& X, const Tb rate_par)
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+qexp(const ArmaGen<mT,tT>& X, const Tb rate_par, const bool log_form)
+{
+    return qexp(X.eval(),rate_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE

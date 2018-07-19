@@ -83,6 +83,14 @@ qweibull(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par)
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+qweibull(const ArmaGen<mT,tT>& X, const Tb shape_par, const Tb scale_par, const bool log_form)
+{
+    return qweibull(X.eval(),shape_par,scale_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE

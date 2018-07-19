@@ -44,6 +44,10 @@ void qbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_tri
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 ArmaMat<Tc> qbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par);
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT qbinom(const ArmaGen<mT,tT>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE

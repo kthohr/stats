@@ -44,6 +44,10 @@ void qcauchy_int(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, 
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 ArmaMat<Tc> qcauchy(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par);
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT qcauchy(const ArmaGen<mT,tT>& X, const Tb mu_par, const Tb sigma_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE

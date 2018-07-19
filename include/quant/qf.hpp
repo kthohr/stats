@@ -44,6 +44,10 @@ void qf_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, cons
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 ArmaMat<Tc> qf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par);
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT qf(const ArmaGen<mT,tT>& X, const Tb df1_par, const Tb df2_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE
