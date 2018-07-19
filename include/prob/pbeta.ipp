@@ -80,6 +80,14 @@ pbeta(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par, const bool log_form)
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+pbeta(const ArmaGen<mT,tT>& X, const Tb a_par, const Tb b_par, const bool log_form)
+{
+    return pbeta(X.eval(),a_par,b_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE

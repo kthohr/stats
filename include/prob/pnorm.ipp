@@ -80,6 +80,14 @@ pnorm(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par, const bool log_
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+pnorm(const ArmaGen<mT,tT>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
+{
+    return pnorm(X.eval(),mu_par,sigma_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE

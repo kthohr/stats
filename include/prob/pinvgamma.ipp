@@ -80,6 +80,14 @@ pinvgamma(const ArmaMat<Ta>& X, const Tb shape_par, const Tb rate_par, const boo
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+pinvgamma(const ArmaGen<mT,tT>& X, const Tb shape_par, const Tb rate_par, const bool log_form)
+{
+    return pinvgamma(X.eval(),shape_par,rate_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE

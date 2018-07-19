@@ -80,6 +80,14 @@ pf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par, const bool log_form
 
     return mat_out;
 }
+
+template<typename mT, typename tT, typename Tb>
+statslib_inline
+mT
+pf(const ArmaGen<mT,tT>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+{
+    return pf(X.eval(),df1_par,df2_par,log_form);
+}
 #endif
 
 #ifdef STATS_USE_BLAZE
