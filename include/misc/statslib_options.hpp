@@ -90,6 +90,9 @@ namespace stats {
 
     template<typename T>
     using ArmaMat = arma::Mat<T>;
+
+    template<typename mT, typename tT>
+    using ArmaGen = arma::Gen<mT,tT>;
 #endif
 
 #ifdef STATS_USE_ARMA
