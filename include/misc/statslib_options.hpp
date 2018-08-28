@@ -136,7 +136,7 @@ namespace stats {
 #ifndef __stats_pointer_settings__
     #if defined(__clang__) || defined(__GNUC__)
         #define __stats_pointer_settings__ __restrict__
-    #elif defined (_MSC_VER)
+    #elif defined(_MSC_VER)
         #define __stats_pointer_settings__ __restrict
     #else
         #define __stats_pointer_settings__
