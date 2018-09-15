@@ -749,5 +749,43 @@ var(const EigMat<Ta,iTr,iTc>& X)
 }
 #endif
 
+//
+
+// log of determinant
+
+#ifdef STATS_USE_ARMA
+template<typename T>
+statslib_inline
+T
+logDet(const ArmaMat<T>& X)
+{
+    ArmaMat<T> vec = mat_ops::chol(X).diag().for_each([](T& val){ val = 2.0 * std::log(val);});
+    return arma::as_scalar(arma::accu(vec));
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+statslib_inline
+Ta
+logDet(const BlazeMat<Ta,Tb>& X)
+{
+    
+    BlazeMat<Ta,Tb> vec1 = blaze::diagonal(mat_ops::chol(X)); //Diagonal of L
+    BlazeMat<Ta,Tb> vec2 = blaze::map( vec1, [](Ta val){ return 2.0 * std::log(val); } );
+    return blaze::sum(vec2);
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+statslib_inline
+Ta
+logDet(const EigMat<Ta,iTr,iTc>& X)
+{
+    return (mat_ops::chol(X).diagonal().array().log()*2.0).sum();
+}
+#endif
+
 } // namespace mat_ops
 #endif
