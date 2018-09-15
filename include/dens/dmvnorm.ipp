@@ -35,10 +35,21 @@ dmvnorm(const mT& X, const mT& mu_par, const mT& Sigma_par, bool log_form)
     const mT X_cent = X - mu_par; // avoids issues like Mat vs eGlue in templates
     const mT quadratic_term = mat_ops::trans(X_cent) * mat_ops::inv(Sigma_par) * (X_cent);
 
-    eT ret = cons_term - eT(0.5) * ( std::log(mat_ops::det(Sigma_par)) + quadratic_term(0,0) );
+    /*Direct determinant computation is not safe for high dimensional matrices: underflow or overflow*/
+    // eT ret = cons_term - eT(0.5) * ( std::log(mat_ops::det(Sigma_par)) + quadratic_term(0,0) );
+    
+    /*Safely Compute Logdeterminant using cholesky decomposition*/
+    Eigen::LLT<Eigen::MatrixXd> cholesky_sigma(Sigma_par);
+    Eigen::MatrixXd L = cholesky_sigma.matrixL();
+    double logDetSigma = (L.diagonal().array().log()*2.0).sum(); 
+    
+    eT ret = cons_term - eT(0.5) * ( logDetSigma + quadratic_term(0,0) );
 
     if (!log_form) {
         ret = std::exp(ret);
+        /*Handle overflow*/
+        if(std::isinf(ret))
+            ret = std::numeric_limits<eT>::max();
     }
 
     //
