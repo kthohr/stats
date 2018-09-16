@@ -22,31 +22,40 @@
  * for internal use only; used to switch between the different matrix libraries
  */
 
-#ifdef STATS_WITH_MATRIX_LIB
-namespace mat_ops {
-    
-    #include "mat_ops/get_mem_ptr.hpp"
-    #include "mat_ops/n_cols.hpp"
-    #include "mat_ops/n_elem.hpp"
-    #include "mat_ops/n_rows.hpp"
+//
+// identity matrix
 
-    #include "mat_ops/accu.hpp"
-    #include "mat_ops/chol.hpp"
-    #include "mat_ops/cumsum.hpp"
-    #include "mat_ops/det.hpp"
-    #include "mat_ops/eye.hpp"
-    #include "mat_ops/fill.hpp"
-    #include "mat_ops/get_row.hpp"
-    #include "mat_ops/inv.hpp"
-    #include "mat_ops/log_det.hpp"
-    #include "mat_ops/mean.hpp"
-    #include "mat_ops/repmat.hpp"
-    #include "mat_ops/solve.hpp"
-    #include "mat_ops/spacing.hpp"
-    #include "mat_ops/trace.hpp"
-    #include "mat_ops/trans.hpp"
-    #include "mat_ops/var.hpp"
-    #include "mat_ops/zeros.hpp"
+#ifdef STATS_USE_ARMA
+template<typename T>
+statslib_inline
+void
+eye(ArmaMat<T>& X, const uint_t n)
+{
+    X = arma::eye<ArmaMat<T>>(n,n);
+}
+#endif
 
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+statslib_inline
+void
+eye(BlazeMat<Ta,Tb>& X, const uint_t n)
+{
+    X.resize(n,n);
+    X = Ta(0.0);
+    for (uint_t j=0; j < n; j++) {
+        X(j,j) = Ta(1.0);
+    }
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+statslib_inline
+void
+eye(EigMat<Ta,iTr,iTc>& X, const uint_t n)
+{
+    X.resize(n,n);
+    X.setIdentity();
 }
 #endif

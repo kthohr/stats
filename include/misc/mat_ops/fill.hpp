@@ -22,31 +22,35 @@
  * for internal use only; used to switch between the different matrix libraries
  */
 
-#ifdef STATS_WITH_MATRIX_LIB
-namespace mat_ops {
-    
-    #include "mat_ops/get_mem_ptr.hpp"
-    #include "mat_ops/n_cols.hpp"
-    #include "mat_ops/n_elem.hpp"
-    #include "mat_ops/n_rows.hpp"
+//
+// matrix fill
 
-    #include "mat_ops/accu.hpp"
-    #include "mat_ops/chol.hpp"
-    #include "mat_ops/cumsum.hpp"
-    #include "mat_ops/det.hpp"
-    #include "mat_ops/eye.hpp"
-    #include "mat_ops/fill.hpp"
-    #include "mat_ops/get_row.hpp"
-    #include "mat_ops/inv.hpp"
-    #include "mat_ops/log_det.hpp"
-    #include "mat_ops/mean.hpp"
-    #include "mat_ops/repmat.hpp"
-    #include "mat_ops/solve.hpp"
-    #include "mat_ops/spacing.hpp"
-    #include "mat_ops/trace.hpp"
-    #include "mat_ops/trans.hpp"
-    #include "mat_ops/var.hpp"
-    #include "mat_ops/zeros.hpp"
+#ifdef STATS_USE_ARMA
+template<typename T>
+statslib_inline
+void
+fill(ArmaMat<T>& X, const T fill_val)
+{
+    X.fill(fill_val);
+}
+#endif
 
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+statslib_inline
+void
+fill(BlazeMat<Ta,Tb>& X, const Ta fill_val)
+{
+    X = fill_val;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+statslib_inline
+void
+fill(EigMat<Ta,iTr,iTc>& X, const Ta fill_val)
+{
+    X.fill(fill_val);
 }
 #endif

@@ -22,31 +22,50 @@
  * for internal use only; used to switch between the different matrix libraries
  */
 
-#ifdef STATS_WITH_MATRIX_LIB
-namespace mat_ops {
-    
-    #include "mat_ops/get_mem_ptr.hpp"
-    #include "mat_ops/n_cols.hpp"
-    #include "mat_ops/n_elem.hpp"
-    #include "mat_ops/n_rows.hpp"
+//
+// matrix repmat
 
-    #include "mat_ops/accu.hpp"
-    #include "mat_ops/chol.hpp"
-    #include "mat_ops/cumsum.hpp"
-    #include "mat_ops/det.hpp"
-    #include "mat_ops/eye.hpp"
-    #include "mat_ops/fill.hpp"
-    #include "mat_ops/get_row.hpp"
-    #include "mat_ops/inv.hpp"
-    #include "mat_ops/log_det.hpp"
-    #include "mat_ops/mean.hpp"
-    #include "mat_ops/repmat.hpp"
-    #include "mat_ops/solve.hpp"
-    #include "mat_ops/spacing.hpp"
-    #include "mat_ops/trace.hpp"
-    #include "mat_ops/trans.hpp"
-    #include "mat_ops/var.hpp"
-    #include "mat_ops/zeros.hpp"
+#ifdef STATS_USE_ARMA
+template<typename T>
+statslib_inline
+ArmaMat<T>
+repmat(const ArmaMat<T>& X, uint_t N, uint_t K)
+{
+    return arma::repmat(X,N,K);
+}
+#endif
 
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+statslib_inline
+BlazeMat<Ta,Tb>
+repmat(const BlazeMat<Ta,Tb>& X, uint_t N, uint_t K)
+{
+    uint_t X_rows = X.rows();
+    uint_t X_cols = X.columns();
+
+    BlazeMat<Ta,Tb> mat_out(X_rows*N,X_cols*K);
+
+    for (uint_t j=0U; j < N; j++) {
+        submatrix( mat_out, j*X_rows, 0U, X_rows,  X_cols ) = X;
+    }
+
+    if (K > 1U) {
+        for (uint_t j=0U; j < K; j++) {
+            submatrix( mat_out, 0U, j*X_cols, X_rows*N,  X_cols ) = submatrix( mat_out, 0U, X_cols, X_rows*N,  X_cols );
+        }
+    }
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+statslib_inline
+EigMat<Ta,iTr,iTc>
+repmat(const EigMat<Ta,iTr,iTc>& X, uint_t N, uint_t K)
+{
+    return X.replicate(N,K);
 }
 #endif

@@ -22,31 +22,44 @@
  * for internal use only; used to switch between the different matrix libraries
  */
 
-#ifdef STATS_WITH_MATRIX_LIB
-namespace mat_ops {
-    
-    #include "mat_ops/get_mem_ptr.hpp"
-    #include "mat_ops/n_cols.hpp"
-    #include "mat_ops/n_elem.hpp"
-    #include "mat_ops/n_rows.hpp"
+//
+// log-determinant
 
-    #include "mat_ops/accu.hpp"
-    #include "mat_ops/chol.hpp"
-    #include "mat_ops/cumsum.hpp"
-    #include "mat_ops/det.hpp"
-    #include "mat_ops/eye.hpp"
-    #include "mat_ops/fill.hpp"
-    #include "mat_ops/get_row.hpp"
-    #include "mat_ops/inv.hpp"
-    #include "mat_ops/log_det.hpp"
-    #include "mat_ops/mean.hpp"
-    #include "mat_ops/repmat.hpp"
-    #include "mat_ops/solve.hpp"
-    #include "mat_ops/spacing.hpp"
-    #include "mat_ops/trace.hpp"
-    #include "mat_ops/trans.hpp"
-    #include "mat_ops/var.hpp"
-    #include "mat_ops/zeros.hpp"
+#ifdef STATS_USE_ARMA
+template<typename T>
+statslib_inline
+T
+log_det(const ArmaMat<T>& X)
+{
+    ArmaMat<T> vec = mat_ops::chol(X).diag();
+    vec.for_each([](T& val){ val = std::log(val);});
+    return 2.0*arma::accu(vec);
+}
+#endif
 
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+statslib_inline
+Ta
+log_det(const BlazeMat<Ta,Tb>& X)
+{
+    BlazeMat<Ta,Tb> chol_sig = mat_ops::chol(X);
+    auto vec = blaze::diagonal(chol_sig);
+    Ta total = 0.0;
+    for (auto it=vec.cbegin(); it!=vec.cend(); ++it)
+    {
+        total += std::log(*it);
+    }
+    return 2.0*total;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+statslib_inline
+Ta
+log_det(const EigMat<Ta,iTr,iTc>& X)
+{
+    return (mat_ops::chol(X).diagonal().array().log()*2.0).sum();
 }
 #endif
