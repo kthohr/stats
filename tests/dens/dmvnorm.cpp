@@ -32,6 +32,10 @@ int main()
     stats::mat_ops::zeros(X,K,1);
     stats::mat_ops::zeros(mu,K,1);
     stats::mat_ops::eye(Sigma,K);
+    Sigma(0,0) = 1.3;
+    Sigma(1,1) = 1.2;
+    Sigma(2,2) = 1.1;
+
     double dmvnorm_val = stats::dmvnorm(X,mu,Sigma,false);
 
     std::cout << "density value: " << dmvnorm_val << "." << std::endl;
