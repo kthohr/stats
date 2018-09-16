@@ -21,6 +21,7 @@
 /*
  * for internal use only; used to switch between the different matrix libraries
  */
+
 #ifdef STATS_WITH_MATRIX_LIB
 namespace mat_ops {
 
@@ -550,7 +551,7 @@ statslib_inline
 BlazeMat<Ta,Tb>
 solve(const BlazeMat<Ta,Tb>& A, const BlazeMat<Ta,Tb>& B)
 {
-    return B*blaze::inv(A);
+    return blaze::inv(A)*B;
 }
 #endif
 
@@ -748,19 +749,17 @@ var(const EigMat<Ta,iTr,iTc>& X)
 }
 #endif
 
-//
-
 // log of determinant
 
 #ifdef STATS_USE_ARMA
 template<typename T>
 statslib_inline
 T
-logDet(const ArmaMat<T>& X)
+log_det(const ArmaMat<T>& X)
 {
     ArmaMat<T> vec = mat_ops::chol(X).diag();
-    vec.for_each([](T& val){ val = 2.0 * std::log(val);});
-    return arma::as_scalar(arma::accu(vec));
+    vec.for_each([](T& val){ val = std::log(val);});
+    return 2.0*arma::accu(vec);
 }
 #endif
 
@@ -768,16 +767,16 @@ logDet(const ArmaMat<T>& X)
 template<typename Ta, bool Tb>
 statslib_inline
 Ta
-logDet(const BlazeMat<Ta,Tb>& X)
+log_det(const BlazeMat<Ta,Tb>& X)
 {
     BlazeMat<Ta,Tb> chol_sig = mat_ops::chol(X);
-    auto vec = blaze::diagonal(chol_sig); //Diagonal of L
+    auto vec = blaze::diagonal(chol_sig);
     Ta total = 0.0;
-    for(auto it=vec.cbegin(); it!=vec.cend(); ++it )
+    for (auto it=vec.cbegin(); it!=vec.cend(); ++it)
     {
-        total += 2.0 * std::log(*it);
+        total += std::log(*it);
     }
-    return total;
+    return 2.0*total;
 }
 #endif
 
@@ -785,7 +784,7 @@ logDet(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta
-logDet(const EigMat<Ta,iTr,iTc>& X)
+log_det(const EigMat<Ta,iTr,iTc>& X)
 {
     return (mat_ops::chol(X).diagonal().array().log()*2.0).sum();
 }

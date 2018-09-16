@@ -33,24 +33,16 @@ dmvnorm(const mT& X, const mT& mu_par, const mT& Sigma_par, bool log_form)
 
     const eT cons_term = -eT(0.5)*K*GCEM_LOG_2PI;
     const mT X_cent = X - mu_par; // avoids issues like Mat vs eGlue in templates
-    const mT quadratic_term = mat_ops::trans(X_cent) * mat_ops::inv(Sigma_par) * (X_cent);
-
-    // eT ret = cons_term - eT(0.5) * ( std::log(mat_ops::det(Sigma_par)) + quadratic_term(0,0) );
-
-    // if (!log_form) {
-    //     ret = std::exp(ret);
-    // }
-
-    /*Safely Compute Logdeterminant using cholesky decomposition*/
-    eT logDetSigma = mat_ops::logDet(Sigma_par); 
+    const mT quadratic_term = mat_ops::trans(X_cent) * mat_ops::solve(Sigma_par,X_cent);
     
-    eT ret = cons_term - eT(0.5) * ( logDetSigma + quadratic_term(0,0) );
+    eT ret = cons_term - eT(0.5) * ( mat_ops::log_det(Sigma_par) + quadratic_term(0,0) );
 
     if (!log_form) {
         ret = std::exp(ret);
-        /*Handle overflow*/
-        if(std::isinf(ret))
+        
+        if (std::isinf(ret)) {
             ret = std::numeric_limits<eT>::max();
+        }
     }
 
     //
