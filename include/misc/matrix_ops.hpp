@@ -21,7 +21,6 @@
 /*
  * for internal use only; used to switch between the different matrix libraries
  */
-
 #ifdef STATS_WITH_MATRIX_LIB
 namespace mat_ops {
 
@@ -746,6 +745,49 @@ var(const EigMat<Ta,iTr,iTc>& X)
     Ta mean_val = mean(X);
     Ta sq_val = sqsum(X) / static_cast<Ta>(n_elem(X));
     return sq_val - mean_val*mean_val;
+}
+#endif
+
+//
+
+// log of determinant
+
+#ifdef STATS_USE_ARMA
+template<typename T>
+statslib_inline
+T
+logDet(const ArmaMat<T>& X)
+{
+    ArmaMat<T> vec = mat_ops::chol(X).diag();
+    vec.for_each([](T& val){ val = 2.0 * std::log(val);});
+    return arma::as_scalar(arma::accu(vec));
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename Ta, bool Tb>
+statslib_inline
+Ta
+logDet(const BlazeMat<Ta,Tb>& X)
+{
+    BlazeMat<Ta,Tb> chol_sig = mat_ops::chol(X);
+    auto vec = blaze::diagonal(chol_sig); //Diagonal of L
+    Ta total = 0.0;
+    for(auto it=vec.cbegin(); it!=vec.cend(); ++it )
+    {
+        total += 2.0 * std::log(*it);
+    }
+    return total;
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename Ta, int iTr, int iTc>
+statslib_inline
+Ta
+logDet(const EigMat<Ta,iTr,iTc>& X)
+{
+    return (mat_ops::chol(X).diagonal().array().log()*2.0).sum();
 }
 #endif
 
