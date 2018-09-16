@@ -21,7 +21,6 @@
 /*
  * for internal use only; used to switch between the different matrix libraries
  */
-
 #ifdef STATS_WITH_MATRIX_LIB
 namespace mat_ops {
 
@@ -759,7 +758,8 @@ statslib_inline
 T
 logDet(const ArmaMat<T>& X)
 {
-    ArmaMat<T> vec = mat_ops::chol(X).diag().for_each([](T& val){ val = 2.0 * std::log(val);});
+    ArmaMat<T> vec = mat_ops::chol(X).diag();
+    vec.for_each([](T& val){ val = 2.0 * std::log(val);});
     return arma::as_scalar(arma::accu(vec));
 }
 #endif
@@ -770,10 +770,14 @@ statslib_inline
 Ta
 logDet(const BlazeMat<Ta,Tb>& X)
 {
-    
-    BlazeMat<Ta,Tb> vec1 = blaze::diagonal(mat_ops::chol(X)); //Diagonal of L
-    BlazeMat<Ta,Tb> vec2 = blaze::map( vec1, [](Ta val){ return 2.0 * std::log(val); } );
-    return blaze::sum(vec2);
+    BlazeMat<Ta,Tb> chol_sig = mat_ops::chol(X);
+    auto vec = blaze::diagonal(chol_sig); //Diagonal of L
+    Ta total = 0.0;
+    for(auto it=vec.cbegin(); it!=vec.cend(); ++it )
+    {
+        total += 2.0 * std::log(*it);
+    }
+    return total;
 }
 #endif
 
