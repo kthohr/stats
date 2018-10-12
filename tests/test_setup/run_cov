@@ -4,7 +4,7 @@ WDIR=${PWD}
 
 cd ..
 if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
-    git clone -b unstable --single-branch https://gitlab.com/conradsnicta/armadillo-code.git ./arma_tmp
+    git clone --single-branch https://gitlab.com/conradsnicta/armadillo-code.git ./arma_tmp
     export ARMA_INCLUDE_PATH="$PWD/arma_tmp/include"
 fi
 
