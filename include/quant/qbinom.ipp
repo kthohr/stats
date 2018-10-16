@@ -28,7 +28,7 @@
 template<typename Ta, typename Tb>
 statslib_constexpr
 Tb
-qbinom_int(const Ta p, const uint_t n_trials_par, const Ta prob_par, const Ta value, const uint_t count)
+qbinom_int(const Ta p, const ullint_t n_trials_par, const Ta prob_par, const Ta value, const ullint_t count)
 {
     return ( value <= p ? qbinom_int<Ta,Tb>(p,n_trials_par,prob_par, pbinom(count,n_trials_par,prob_par), count + 1) :
                           count - 1 );
@@ -37,7 +37,7 @@ qbinom_int(const Ta p, const uint_t n_trials_par, const Ta prob_par, const Ta va
 template<typename Ta, typename Tb>
 statslib_constexpr
 Tb
-qbinom(const Ta p, const uint_t n_trials_par, const Ta prob_par)
+qbinom(const Ta p, const ullint_t n_trials_par, const Ta prob_par)
 {
     return ( STLIM<Ta>::epsilon() > p ? Tb(0) :
              //
@@ -50,13 +50,13 @@ qbinom(const Ta p, const uint_t n_trials_par, const Ta prob_par)
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-qbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_par, const Tb prob_par, 
-                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+qbinom_int(const Ta* __stats_pointer_settings__ vals_in, const ullint_t n_trials_par, const Tb prob_par, 
+                 Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
         vals_out[j] = qbinom(vals_in[j],n_trials_par,prob_par);
     }
@@ -66,7 +66,7 @@ qbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_p
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 ArmaMat<Tc>
-qbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par)
+qbinom(const ArmaMat<Ta>& X, const ullint_t n_trials_par, const Tb prob_par)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
@@ -78,7 +78,7 @@ qbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par)
 template<typename mT, typename tT, typename Tb>
 statslib_inline
 mT
-qbinom(const ArmaGen<mT,tT>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
+qbinom(const ArmaGen<mT,tT>& X, const ullint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
     return qbinom(X.eval(),n_trials_par,prob_par,log_form);
 }
@@ -88,7 +88,7 @@ qbinom(const ArmaGen<mT,tT>& X, const uint_t n_trials_par, const Tb prob_par, co
 template<typename Ta, typename Tb, typename Tc, bool To>
 statslib_inline
 BlazeMat<Tc,To>
-qbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par)
+qbinom(const BlazeMat<Ta,To>& X, const ullint_t n_trials_par, const Tb prob_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
@@ -102,7 +102,7 @@ qbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par)
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
 statslib_inline
 EigMat<Tc,iTr,iTc>
-qbinom(const EigMat<Ta,iTr,iTc>& X, const uint_t n_trials_par, const Tb prob_par)
+qbinom(const EigMat<Ta,iTr,iTc>& X, const ullint_t n_trials_par, const Tb prob_par)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 

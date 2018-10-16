@@ -41,7 +41,7 @@ rweibull(const T shape_par, const T scale_par, rand_engine_t& engine)
 template<typename T>
 statslib_inline
 return_t<T>
-rweibull(const T shape_par, const T scale_par, uint_t seed_val)
+rweibull(const T shape_par, const T scale_par, ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rweibull_int<return_t<T>>(shape_par,scale_par,engine);
@@ -52,28 +52,28 @@ rweibull(const T shape_par, const T scale_par, uint_t seed_val)
 template<typename T>
 statslib_inline
 void
-rweibull_int(const T shape_par, const T scale_par, T* vals_out, const uint_t num_elem)
+rweibull_int(const T shape_par, const T scale_par, T* vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
-    uint_t n_threads = omp_get_max_threads();
+    ullint_t n_threads = omp_get_max_threads();
 
     std::vector<rand_engine_t> engines;
 
-    for (uint_t k=0; k < n_threads; k++)
+    for (ullint_t k=0; k < n_threads; k++)
     {
         engines.push_back(rand_engine_t(std::random_device{}()));
     }
 
     #pragma omp parallel for
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
-        uint_t thread_id = omp_get_thread_num();
+        ullint_t thread_id = omp_get_thread_num();
         vals_out[j] = rweibull(shape_par,scale_par,engines[thread_id]);
     }
 #else
     rand_engine_t engine(std::random_device{}());
 
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
         vals_out[j] = rweibull(shape_par,scale_par,engine);
     }
@@ -84,7 +84,7 @@ rweibull_int(const T shape_par, const T scale_par, T* vals_out, const uint_t num
 template<typename mT, typename eT>
 statslib_inline
 mT
-rweibull(const uint_t n, const uint_t k, const eT shape_par, const eT scale_par)
+rweibull(const ullint_t n, const ullint_t k, const eT shape_par, const eT scale_par)
 {
     mT mat_out(n,k);
 

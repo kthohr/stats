@@ -28,7 +28,7 @@ mT
 rinvwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
 {
     typedef return_t<pT> eT;
-    const uint_t K = mat_ops::n_rows(Psi_par);
+    const ullint_t K = mat_ops::n_rows(Psi_par);
     
     mT chol_Psi_inv;
     if (pre_chol) {
@@ -44,13 +44,13 @@ rinvwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
     mT A;
     mat_ops::zeros(A,K,K);
 
-    for (uint_t i=1U; i < K; i++) {
-        for (uint_t j=0U; j < i; j++) {
+    for (ullint_t i=1U; i < K; i++) {
+        for (ullint_t j=0U; j < i; j++) {
             A(i,j) = rnorm<eT>(eT(0),eT(1),engine);
         }
     }
     
-    for (uint_t i=0U; i < K; i++) {
+    for (ullint_t i=0U; i < K; i++) {
         A(i,i) = std::sqrt(rchisq<eT>(eT(nu_par-i),engine));
     }
 
@@ -69,7 +69,7 @@ statslib_inline
 mT
 rinvwish(const ArmaMat<eT>& Psi_par, const pT nu_par, const bool pre_chol)
 {
-    const uint_t K = Psi_par.n_rows;
+    const ullint_t K = Psi_par.n_rows;
     
     ArmaMat<eT> chol_Psi = (pre_chol) ? Psi_par : arma::chol(arma::inv(Psi_par),"lower"); // should be lower-triangular
 
@@ -79,13 +79,13 @@ rinvwish(const ArmaMat<eT>& Psi_par, const pT nu_par, const bool pre_chol)
 
     ArmaMat<eT> A = arma::zeros(K,K);
 
-    for (uint_t i=1U; i < K; i++) {
-        for (uint_t j=0U; j < i; j++) {
+    for (ullint_t i=1U; i < K; i++) {
+        for (ullint_t j=0U; j < i; j++) {
             A(i,j) = rnorm<eT>(eT(0),eT(1),engine);
         }
     }
     
-    for (uint_t i=0U; i < K; i++) {
+    for (ullint_t i=0U; i < K; i++) {
         A(i,i) = std::sqrt(rchisq<eT>(eT(nu_par-i),engine));
     }
 

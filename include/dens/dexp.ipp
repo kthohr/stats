@@ -57,12 +57,12 @@ template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
 dexp_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, const bool log_form, 
-               Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+               Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
         vals_out[j] = dexp(vals_in[j],rate_par,log_form);
     }

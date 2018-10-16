@@ -27,9 +27,9 @@ statslib_inline
 mT
 rmultinom(const mT& prob)
 {
-    const uint_t n_prob = mat_ops::n_elem(prob);
+    const ullint_t n_prob = mat_ops::n_elem(prob);
 
-    uint_t n_j = n_prob;
+    ullint_t n_j = n_prob;
 
     //
 
@@ -41,9 +41,9 @@ rmultinom(const mT& prob)
 
     //
 
-    uint_t ret_sum = ret(0,0);
+    ullint_t ret_sum = ret(0,0);
     
-    for (uint_t j = 1U; j < n_prob; j++)
+    for (ullint_t j = 1U; j < n_prob; j++)
     {
         p_j = prob(j,0) / (eT(1) - prob_csum(j-1,0));
         n_j = n_prob - ret_sum;

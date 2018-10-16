@@ -29,7 +29,7 @@ rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol)
 {
     T ret;
 
-    const uint_t K = mat_ops::n_rows(Sigma_par);
+    const ullint_t K = mat_ops::n_rows(Sigma_par);
 
     if (mat_ops::n_elem(mu_par) != K)
     {
@@ -56,7 +56,7 @@ rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 {   // mu is templated as it could be of type Col<eT> or Mat<eT>
     mT ret;
 
-    const uint_t K = Sigma_par.n_rows;
+    const ullint_t K = Sigma_par.n_rows;
 
     if (mu_par.n_elem != K)
     {
@@ -83,11 +83,11 @@ rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 template<typename T, typename not_arma_mat<T>::type*>
 statslib_inline
 T
-rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol)
+rmvnorm(const ullint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol)
 {
     T ret;
 
-    const uint_t K = mat_ops::n_rows(Sigma_par);
+    const ullint_t K = mat_ops::n_rows(Sigma_par);
 
     if (mat_ops::n_elem(mu_par) != K)
     {
@@ -110,11 +110,11 @@ rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol
 template<typename mT, typename eT>
 statslib_inline
 ArmaMat<eT>
-rmvnorm(const uint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
+rmvnorm(const ullint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 {   // mu is templated as it could be of type Col<eT> or Mat<eT>
     ArmaMat<eT> ret;
 
-    const uint_t K = Sigma_par.n_rows;
+    const ullint_t K = Sigma_par.n_rows;
 
     if (mu_par.n_elem != K)
     {

@@ -31,7 +31,7 @@ return_t<T> runif(const T a_par, const T b_par, rand_engine_t& engine);
 
 template<typename T>
 statslib_inline
-return_t<T> runif(const T a_par, const T b_par, uint_t seed_val = std::random_device{}());
+return_t<T> runif(const T a_par, const T b_par, ullint_t seed_val = std::random_device{}());
 
 template<typename T = double>
 statslib_inline
@@ -39,11 +39,11 @@ T runif();
 
 template<typename T>
 statslib_inline
-void runif_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem);
+void runif_int(const T a_par, const T b_par, T* vals_out, const ullint_t num_elem);
 
 template<typename mT, typename eT>
 statslib_inline
-mT runif(const uint_t n, const uint_t k, const eT a_par = eT(0), const eT b_par = eT(1));
+mT runif(const ullint_t n, const ullint_t k, const eT a_par = eT(0), const eT b_par = eT(1));
 
 #include "runif.ipp"
 

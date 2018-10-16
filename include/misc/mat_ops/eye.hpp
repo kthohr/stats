@@ -29,7 +29,7 @@
 template<typename T>
 statslib_inline
 void
-eye(ArmaMat<T>& X, const uint_t n)
+eye(ArmaMat<T>& X, const ullint_t n)
 {
     X = arma::eye<ArmaMat<T>>(n,n);
 }
@@ -39,11 +39,11 @@ eye(ArmaMat<T>& X, const uint_t n)
 template<typename Ta, bool Tb>
 statslib_inline
 void
-eye(BlazeMat<Ta,Tb>& X, const uint_t n)
+eye(BlazeMat<Ta,Tb>& X, const ullint_t n)
 {
     X.resize(n,n);
     X = Ta(0.0);
-    for (uint_t j=0; j < n; j++) {
+    for (ullint_t j=0; j < n; ++j) {
         X(j,j) = Ta(1.0);
     }
 }
@@ -53,7 +53,7 @@ eye(BlazeMat<Ta,Tb>& X, const uint_t n)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 void
-eye(EigMat<Ta,iTr,iTc>& X, const uint_t n)
+eye(EigMat<Ta,iTr,iTc>& X, const ullint_t n)
 {
     X.resize(n,n);
     X.setIdentity();

@@ -197,7 +197,7 @@ if [ "$IS_DARWIN" -eq "1" ] && [ "$GCC_COMPILER" -eq "1" ]; then
 fi
 
 echo ""
-echo -e "\x1B[32mConfiguration completed. Creating Makefile... \c\033[0m" >&2 ;
+echo -e "\x1B[32mConfiguration completed. Generating Makefile... \c\033[0m" >&2 ;
 
 sed -e "s|@CXX@|${CXX}|" \
     -e "s|@CXX_STD@|${CXX_STD}|" \

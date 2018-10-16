@@ -51,7 +51,7 @@ accu(const BlazeMat<Ta,Tb>& X)
 {
     const Ta* vals = X.data();
     Ta out_val = Ta(0);
-    for (uint_t j=0U; j < n_elem(X); j++) {
+    for (ullint_t j=0U; j < n_elem(X); ++j) {
         out_val += vals[j];
     }
     return out_val;
@@ -64,7 +64,7 @@ sqaccu(const BlazeMat<Ta,Tb>& X)
 {
     const Ta* vals = X.data();
     Ta out_val = Ta(0);
-    for (uint_t j=0U; j < n_elem(X); j++) {
+    for (ullint_t j=0U; j < n_elem(X); ++j) {
         out_val += vals[j]*vals[j];
     }
     return out_val;
@@ -87,7 +87,7 @@ sqaccu(const EigMat<Ta,iTr,iTc>& X)
 {
     const Ta* vals = X.data();
     Ta out_val = Ta(0);
-    for (uint_t j=0U; j < n_elem(X); j++) {
+    for (ullint_t j=0U; j < n_elem(X); ++j) {
         out_val += vals[j]*vals[j];
     }
     return out_val;

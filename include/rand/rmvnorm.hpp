@@ -35,7 +35,7 @@ T rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
 // n samples
 template<typename T, typename not_arma_mat<T>::type* = nullptr>
 statslib_inline
-T rmvnorm(const uint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
+T rmvnorm(const ullint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
 
 // specializations
 #ifdef STATS_USE_ARMA
@@ -45,7 +45,7 @@ mT rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol =
 
 template<typename mT, typename eT>
 statslib_inline
-ArmaMat<eT> rmvnorm(const uint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol = false);
+ArmaMat<eT> rmvnorm(const ullint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol = false);
 #endif
 
 #include "rmvnorm.ipp"

@@ -25,7 +25,7 @@
 #endif
 
 #ifndef STATS_VERSION_MINOR
-    #define STATS_VERSION_MINOR 1
+    #define STATS_VERSION_MINOR 2
 #endif
 
 #ifndef STATS_VERSION_PATCH
@@ -64,6 +64,10 @@ namespace stats {
     using STLIM = std::numeric_limits<T>;
 
     using uint_t = unsigned int;
+    using ullint_t = unsigned long long int;
+
+    using llint_t = long long int;
+
     using rand_engine_t = std::mt19937_64;
 
     template<typename T>

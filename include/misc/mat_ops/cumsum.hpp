@@ -45,7 +45,7 @@ cumsum(const BlazeMat<Ta,Tb>& X)
 
     Ta* mem_out = mat_out.data();
 
-    for (uint_t j=1U; j < X.rows()*X.columns(); j++)
+    for (ullint_t j=1U; j < X.rows()*X.columns(); ++j)
     {
         mem_out[j] += mem_out[j-1];
     }
@@ -64,7 +64,7 @@ cumsum(const EigMat<Ta,iTr,iTc>& X)
 
     Ta* mem_out = mat_out.data();
 
-    for (uint_t j=1U; j < X.rows()*X.cols(); j++)
+    for (ullint_t j=1U; j < X.rows()*X.cols(); ++j)
     {
         mem_out[j] += mem_out[j-1];
     }

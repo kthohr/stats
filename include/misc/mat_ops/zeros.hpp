@@ -29,7 +29,7 @@
 template<typename T>
 statslib_inline
 void
-zeros(ArmaMat<T>& X, const uint_t n, const uint_t k)
+zeros(ArmaMat<T>& X, const ullint_t n, const ullint_t k)
 {
     X.zeros(n,k);
 }
@@ -39,7 +39,7 @@ zeros(ArmaMat<T>& X, const uint_t n, const uint_t k)
 template<typename Ta, bool Tb>
 statslib_inline
 void
-zeros(BlazeMat<Ta,Tb>& X, const uint_t n, const uint_t k)
+zeros(BlazeMat<Ta,Tb>& X, const ullint_t n, const ullint_t k)
 {
     X.resize(n,k);
     X = Ta(0.0);
@@ -50,7 +50,7 @@ zeros(BlazeMat<Ta,Tb>& X, const uint_t n, const uint_t k)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 void
-zeros(EigMat<Ta,iTr,iTc>& X, const uint_t n, const uint_t k)
+zeros(EigMat<Ta,iTr,iTc>& X, const ullint_t n, const ullint_t k)
 {
     X.resize(n,k);
     X.setZero();

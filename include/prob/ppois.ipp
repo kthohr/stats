@@ -28,7 +28,7 @@
 template<typename T>
 statslib_constexpr
 T
-ppois_int_recur(const uint_t x, const T rate_par, const size_t r_count)
+ppois_int_recur(const ullint_t x, const T rate_par, const size_t r_count)
 {   // note: integer overflow can happen when calculating factorial values
     return ( x == 0U ? T(1) :
              x == 1U ? T(1) + rate_par :
@@ -62,7 +62,7 @@ ppois_check(const int x, const T rate_par, const bool log_form)
 template<typename T>
 statslib_constexpr
 return_t<T>
-ppois(const uint_t x, const T rate_par, const bool log_form)
+ppois(const ullint_t x, const T rate_par, const bool log_form)
 {
     return ppois_check<return_t<T>>(x,rate_par,log_form);
 }
@@ -74,12 +74,12 @@ template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
 ppois_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, const bool log_form, 
-                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+                Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
         vals_out[j] = ppois(vals_in[j],rate_par,log_form);
     }

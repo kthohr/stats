@@ -28,7 +28,7 @@
 template<typename T>
 statslib_constexpr
 T
-pbern_int(const uint_t x, const T prob_par)
+pbern_int(const ullint_t x, const T prob_par)
 {
     return ( x >= 1U ? T(1) :
                        T(1) - prob_par );
@@ -37,7 +37,7 @@ pbern_int(const uint_t x, const T prob_par)
 template<typename T>
 statslib_constexpr
 T
-pbern(const uint_t x, const T prob_par, const bool log_form)
+pbern(const ullint_t x, const T prob_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(pbern_int(x,prob_par)) :
                                 pbern_int(x,prob_par) );
@@ -50,12 +50,12 @@ template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
 pbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par, const bool log_form,
-                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+                Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
         vals_out[j] = pbern(static_cast<int>(vals_in[j]),prob_par,log_form);
     }

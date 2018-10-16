@@ -28,7 +28,7 @@
 //
 // single input
 
-template<typename Ta, typename Tb, typename Tc = uint_t>
+template<typename Ta, typename Tb, typename Tc = ullint_t>
 statslib_constexpr
 Tc qbern(const Ta p, const Tb prob_par);
 
@@ -38,7 +38,7 @@ Tc qbern(const Ta p, const Tb prob_par);
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 void qbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par,
-                     Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
+                     Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>

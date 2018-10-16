@@ -193,7 +193,7 @@ qt_int_finish(const T p, const T dof_par, const T coef_a, const T coef_b, const 
 template<typename T>
 statslib_constexpr
 T
-qt_int_main_iter(const uint_t stage, const T p, const T dof_par, const T coef_a, const T coef_b, const T coef_c, const T coef_d)
+qt_int_main_iter(const ullint_t stage, const T p, const T dof_par, const T coef_a, const T coef_b, const T coef_c, const T coef_d)
 {
     return ( stage == 0U ? qt_int_main_iter(1U,p,dof_par,qt_int_coef_a(dof_par),T(0),T(0),T(0)) :
              stage == 1U ? qt_int_main_iter(2U,p,dof_par,coef_a,qt_int_coef_b(coef_a),T(0),T(0)) :
@@ -237,12 +237,12 @@ template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
 qt_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par,
-             Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+             Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
         vals_out[j] = qt(vals_in[j],dof_par);
     }

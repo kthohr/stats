@@ -146,8 +146,8 @@ int main()
 
     std::cout << "qpois(0.0,2.0) =  " << stats::qpois(0.0,2.0) << std::endl;
     std::cout << "qpois(0.5,0.0) =  " << stats::qpois(2.0,0.0) << std::endl;
-    std::cout << "qpois(1.0,3.0) =  " << stats::qpois<double,double,double>(1.0,3.0) << std::endl;
-    std::cout << "qpois(1.1,3.0) =  " << stats::qpois<double,double,double>(1.1,3.0) << std::endl;
+    std::cout << "qpois(1.0,3.0) =  " << stats::qpois(1.0,3.0) << std::endl;
+    std::cout << "qpois(1.1,3.0) =  " << stats::qpois(1.1,3.0) << std::endl;
 
     //
 

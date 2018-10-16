@@ -38,7 +38,7 @@ Ta qinvgamma(const Ta p, const Tb shape_par, const Tb rate_par);
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 void qinvgamma_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb rate_par,
-                         Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
+                         Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>

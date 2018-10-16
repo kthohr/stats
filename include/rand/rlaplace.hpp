@@ -31,15 +31,15 @@ return_t<T> rlaplace(const T mu_par, const T sigma_par, rand_engine_t& engine);
 
 template<typename T>
 statslib_inline
-return_t<T> rlaplace(const T mu_par, const T sigma_par, uint_t seed_val = std::random_device{}());
+return_t<T> rlaplace(const T mu_par, const T sigma_par, ullint_t seed_val = std::random_device{}());
 
 template<typename T>
 statslib_inline
-void rlaplace_int(const T mu_par, const T sigma_par, T* vals_out, const uint_t num_elem);
+void rlaplace_int(const T mu_par, const T sigma_par, T* vals_out, const ullint_t num_elem);
 
 template<typename mT, typename eT>
 statslib_inline
-mT rlaplace(const uint_t n, const uint_t k, const eT mu_par, const eT sigma_par);
+mT rlaplace(const ullint_t n, const ullint_t k, const eT mu_par, const eT sigma_par);
 
 #include "rlaplace.ipp"
 

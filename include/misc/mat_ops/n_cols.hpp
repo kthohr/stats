@@ -28,7 +28,7 @@
 #ifdef STATS_USE_ARMA
 template<typename T>
 statslib_inline
-uint_t
+ullint_t
 n_cols(const ArmaMat<T>& X)
 {
     return X.n_cols;
@@ -38,7 +38,7 @@ n_cols(const ArmaMat<T>& X)
 #ifdef STATS_USE_BLAZE
 template<typename Ta, bool Tb>
 statslib_inline
-uint_t
+ullint_t
 n_cols(const BlazeMat<Ta,Tb>& X)
 {
     return X.columns();
@@ -48,7 +48,7 @@ n_cols(const BlazeMat<Ta,Tb>& X)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 statslib_inline
-uint_t
+ullint_t
 n_cols(const EigMat<Ta,iTr,iTc>& X)
 {
     return X.cols();

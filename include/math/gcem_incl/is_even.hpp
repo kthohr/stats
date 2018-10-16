@@ -1,8 +1,8 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2016-2018 Keith O'Hara
   ##
-  ##   This file is part of the StatsLib C++ library.
+  ##   This file is part of the GCE-Math C++ library.
   ##
   ##   Licensed under the Apache License, Version 2.0 (the "License");
   ##   you may not use this file except in compliance with the License.
@@ -18,29 +18,18 @@
   ##
   ################################################################################*/
 
-/* 
- * Sample from a log-normal distribution
+/*
+ * compile-time check if integer is even
  */
 
-#ifndef _statslib_rlnorm_HPP
-#define _statslib_rlnorm_HPP
+#ifndef _gcem_is_even_HPP
+#define _gcem_is_even_HPP
 
-template<typename T>
-statslib_inline
-return_t<T> rlnorm(const T mu_par, const T sigma_par, rand_engine_t& engine);
-
-template<typename T>
-statslib_inline
-return_t<T> rlnorm(const T mu_par, const T sigma_par, ullint_t seed_val = std::random_device{}());
-
-template<typename T>
-statslib_inline
-void rlnorm_int(const T mu_par, const T sigma_par, T* vals_out, const ullint_t num_elem);
-
-template<typename mT, typename eT>
-statslib_inline
-mT rlnorm(const ullint_t n, const ullint_t k, const eT mu_par, const eT sigma_par);
-
-#include "rlnorm.ipp"
+constexpr
+bool
+is_even(const llint_t x)
+{
+    return !is_odd(x);
+}
 
 #endif

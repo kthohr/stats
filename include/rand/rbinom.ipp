@@ -24,12 +24,12 @@
 
 template<typename T>
 statslib_inline
-uint_t
-rbinom(const uint_t n_trials_par, const T prob_par, rand_engine_t& engine)
+ullint_t
+rbinom(const ullint_t n_trials_par, const T prob_par, rand_engine_t& engine)
 {
-    uint_t ret = 0U;
+    ullint_t ret = 0U;
 
-    for (uint_t i=0U; i < n_trials_par; i++)
+    for (ullint_t i=0U; i < n_trials_par; i++)
     {
         ret += rbern(prob_par,engine);
     }
@@ -39,8 +39,8 @@ rbinom(const uint_t n_trials_par, const T prob_par, rand_engine_t& engine)
 
 template<typename T>
 statslib_inline
-uint_t
-rbinom(const uint_t n_trials_par, const T prob_par, uint_t seed_val)
+ullint_t
+rbinom(const ullint_t n_trials_par, const T prob_par, ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rbinom(n_trials_par,prob_par,engine);
@@ -49,28 +49,28 @@ rbinom(const uint_t n_trials_par, const T prob_par, uint_t seed_val)
 template<typename T>
 statslib_inline
 void
-rbinom_int(const uint_t n_trials_par, const T prob_par, T* vals_out, const uint_t num_elem)
+rbinom_int(const ullint_t n_trials_par, const T prob_par, T* vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
-    uint_t n_threads = omp_get_max_threads();
+    ullint_t n_threads = omp_get_max_threads();
 
     std::vector<rand_engine_t> engines;
 
-    for (uint_t k=0; k < n_threads; k++)
+    for (ullint_t k=0; k < n_threads; k++)
     {
         engines.push_back(rand_engine_t(std::random_device{}()));
     }
 
     #pragma omp parallel for
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
-        uint_t thread_id = omp_get_thread_num();
+        ullint_t thread_id = omp_get_thread_num();
         vals_out[j] = rbinom(n_trials_par,prob_par,engines[thread_id]);
     }
 #else
     rand_engine_t engine(std::random_device{}());
 
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
         vals_out[j] = rbinom(n_trials_par,prob_par,engine);
     }
@@ -82,7 +82,7 @@ rbinom_int(const uint_t n_trials_par, const T prob_par, T* vals_out, const uint_
 template<typename mT, typename eT>
 statslib_inline
 mT
-rbinom(const uint_t n, const uint_t k, const uint_t n_trials_par, const eT prob_par)
+rbinom(const ullint_t n, const ullint_t k, const ullint_t n_trials_par, const eT prob_par)
 {
     mT mat_out(n,k);
 

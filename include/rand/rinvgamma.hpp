@@ -31,15 +31,15 @@ return_t<T> rinvgamma(const T shape_par, const T rate_par, rand_engine_t& engine
 
 template<typename T>
 statslib_inline
-return_t<T> rinvgamma(const T shape_par, const T rate_par, uint_t seed_val = std::random_device{}());
+return_t<T> rinvgamma(const T shape_par, const T rate_par, ullint_t seed_val = std::random_device{}());
 
 template<typename T>
 statslib_inline
-void rinvgamma_int(const T shape_par, const T rate_par, T* vals_out, const uint_t num_elem);
+void rinvgamma_int(const T shape_par, const T rate_par, T* vals_out, const ullint_t num_elem);
 
 template<typename mT, typename eT>
 statslib_inline
-mT rinvgamma(const uint_t n, const uint_t k, const eT shape_par, const eT rate_par);
+mT rinvgamma(const ullint_t n, const ullint_t k, const eT shape_par, const eT rate_par);
 
 #include "rinvgamma.ipp"
 

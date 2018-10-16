@@ -29,7 +29,7 @@
 template<typename T>
 statslib_inline
 arma::Row<T>
-get_row(const ArmaMat<T>& X, uint_t i)
+get_row(const ArmaMat<T>& X, ullint_t i)
 {
     return X.row(i);
 }
@@ -39,7 +39,7 @@ get_row(const ArmaMat<T>& X, uint_t i)
 template<typename Ta, bool Tb>
 statslib_inline
 BlazeMat<Ta,Tb>
-get_row(const BlazeMat<Ta,Tb>& X, uint_t i)
+get_row(const BlazeMat<Ta,Tb>& X, ullint_t i)
 {
     BlazeMat<Ta,Tb> out(1,X.columns());
     row(out,0) = row(X,i); 
@@ -51,7 +51,7 @@ get_row(const BlazeMat<Ta,Tb>& X, uint_t i)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 EigMat<Ta,1,iTc>
-get_row(const EigMat<Ta,iTr,iTc>& X, uint_t i)
+get_row(const EigMat<Ta,iTr,iTc>& X, ullint_t i)
 {
     return X.row(i);
 }

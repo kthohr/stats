@@ -28,7 +28,7 @@
 template<typename T>
 statslib_constexpr
 T
-pbinom_int(const uint_t x, const uint_t n_trials_par, const T prob_par, const uint_t count)
+pbinom_int(const ullint_t x, const ullint_t n_trials_par, const T prob_par, const ullint_t count)
 {
     return ( count == x ? dbinom(count,n_trials_par,prob_par,false) : 
                           dbinom(count,n_trials_par,prob_par,false) + pbinom_int(x,n_trials_par,prob_par,count+1) );
@@ -37,7 +37,7 @@ pbinom_int(const uint_t x, const uint_t n_trials_par, const T prob_par, const ui
 template<typename T>
 statslib_constexpr
 T
-pbinom(const uint_t x, const uint_t n_trials_par, const T prob_par, const bool log_form)
+pbinom(const ullint_t x, const ullint_t n_trials_par, const T prob_par, const bool log_form)
 {
     return ( log_form == true ? stmath::log(pbinom_int(x,n_trials_par,prob_par,0U)) :
                                 pbinom_int(x,n_trials_par,prob_par,0U) );
@@ -49,15 +49,15 @@ pbinom(const uint_t x, const uint_t n_trials_par, const T prob_par, const bool l
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-pbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_par, const Tb prob_par, const bool log_form, 
-                 Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+pbinom_int(const Ta* __stats_pointer_settings__ vals_in, const ullint_t n_trials_par, const Tb prob_par, const bool log_form, 
+                 Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
-        vals_out[j] = pbinom(static_cast<uint_t>(vals_in[j]),n_trials_par,prob_par,log_form);
+        vals_out[j] = pbinom(static_cast<ullint_t>(vals_in[j]),n_trials_par,prob_par,log_form);
     }
 }
 
@@ -65,7 +65,7 @@ pbinom_int(const Ta* __stats_pointer_settings__ vals_in, const uint_t n_trials_p
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 ArmaMat<Tc>
-pbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
+pbinom(const ArmaMat<Ta>& X, const ullint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
@@ -77,7 +77,7 @@ pbinom(const ArmaMat<Ta>& X, const uint_t n_trials_par, const Tb prob_par, const
 template<typename mT, typename tT, typename Tb>
 statslib_inline
 mT
-pbinom(const ArmaGen<mT,tT>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
+pbinom(const ArmaGen<mT,tT>& X, const ullint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
     return pbinom(X.eval(),n_trials_par,prob_par,log_form);
 }
@@ -87,7 +87,7 @@ pbinom(const ArmaGen<mT,tT>& X, const uint_t n_trials_par, const Tb prob_par, co
 template<typename Ta, typename Tb, typename Tc, bool To>
 statslib_inline
 BlazeMat<Tc,To>
-pbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
+pbinom(const BlazeMat<Ta,To>& X, const ullint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
@@ -101,7 +101,7 @@ pbinom(const BlazeMat<Ta,To>& X, const uint_t n_trials_par, const Tb prob_par, c
 template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
 statslib_inline
 EigMat<Tc,iTr,iTc>
-pbinom(const EigMat<Ta,iTr,iTc>& X, const uint_t n_trials_par, const Tb prob_par, const bool log_form)
+pbinom(const EigMat<Ta,iTr,iTc>& X, const ullint_t n_trials_par, const Tb prob_par, const bool log_form)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 

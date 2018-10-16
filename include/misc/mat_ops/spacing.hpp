@@ -28,7 +28,7 @@
 #ifdef STATS_USE_ARMA
 template<typename T>
 statslib_inline
-uint_t
+ullint_t
 spacing(const ArmaMat<T>& X)
 {
     return n_cols(X);
@@ -38,7 +38,7 @@ spacing(const ArmaMat<T>& X)
 #ifdef STATS_USE_BLAZE
 template<typename Ta, bool Tb>
 statslib_inline
-uint_t
+ullint_t
 spacing(const BlazeMat<Ta,Tb>& X)
 {
     return X.spacing();
@@ -48,7 +48,7 @@ spacing(const BlazeMat<Ta,Tb>& X)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 statslib_inline
-uint_t
+ullint_t
 spacing(const EigMat<Ta,iTr,iTc>& X)
 {
     return n_cols(X);

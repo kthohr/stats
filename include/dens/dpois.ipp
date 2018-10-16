@@ -28,7 +28,7 @@
 template<typename T>
 statslib_constexpr
 T
-dpois_int(const uint_t x, const T rate_par)
+dpois_int(const ullint_t x, const T rate_par)
 {
     return ( x * stmath::log(rate_par) - rate_par - stmath::log( T(gcem::factorial(x)) ) );
 }
@@ -36,7 +36,7 @@ dpois_int(const uint_t x, const T rate_par)
 template<typename T>
 statslib_constexpr
 T
-dpois_check(const uint_t x, const T rate_par, const bool log_form)
+dpois_check(const ullint_t x, const T rate_par, const bool log_form)
 {
     return ( log_form == true ? dpois_int(x,rate_par) : stmath::exp(dpois_int(x,rate_par)) );
 }
@@ -44,7 +44,7 @@ dpois_check(const uint_t x, const T rate_par, const bool log_form)
 template<typename T>
 statslib_constexpr
 return_t<T>
-dpois(const uint_t x, const T rate_par, const bool log_form)
+dpois(const ullint_t x, const T rate_par, const bool log_form)
 {
     return dpois_check<return_t<T>>(x,rate_par,log_form);
 }
@@ -56,14 +56,14 @@ template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
 dpois_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, const bool log_form, 
-                Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem)
+                Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
     #pragma omp parallel for
 #endif
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
-        vals_out[j] = dpois(uint_t(vals_in[j]),rate_par,log_form);
+        vals_out[j] = dpois(ullint_t(vals_in[j]),rate_par,log_form);
     }
 }
 

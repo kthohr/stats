@@ -44,7 +44,7 @@ rbeta(const T a_par, const T b_par, rand_engine_t& engine)
 template<typename T>
 statslib_inline
 return_t<T>
-rbeta(const T a_par, const T b_par, uint_t seed_val)
+rbeta(const T a_par, const T b_par, ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rbeta_int<return_t<T>>(a_par,b_par,engine);
@@ -55,28 +55,28 @@ rbeta(const T a_par, const T b_par, uint_t seed_val)
 template<typename T>
 statslib_inline
 void
-rbeta_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
+rbeta_int(const T a_par, const T b_par, T* vals_out, const ullint_t num_elem)
 {
 #ifdef STATS_USE_OPENMP
-    uint_t n_threads = omp_get_max_threads();
+    ullint_t n_threads = omp_get_max_threads();
 
     std::vector<rand_engine_t> engines;
 
-    for (uint_t k=0; k < n_threads; k++)
+    for (ullint_t k=0; k < n_threads; k++)
     {
         engines.push_back(rand_engine_t(std::random_device{}()));
     }
 
     #pragma omp parallel for
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
-        uint_t thread_id = omp_get_thread_num();
+        ullint_t thread_id = omp_get_thread_num();
         vals_out[j] = rbeta(a_par,b_par,engines[thread_id]);
     }
 #else
     rand_engine_t engine(std::random_device{}());
 
-    for (uint_t j=0U; j < num_elem; j++)
+    for (ullint_t j=0U; j < num_elem; j++)
     {
         vals_out[j] = rbeta(a_par,b_par,engine);
     }
@@ -87,7 +87,7 @@ rbeta_int(const T a_par, const T b_par, T* vals_out, const uint_t num_elem)
 template<typename mT, typename eT>
 statslib_inline
 mT
-rbeta(const uint_t n, const uint_t k, const eT a_par, const eT b_par)
+rbeta(const ullint_t n, const ullint_t k, const eT a_par, const eT b_par)
 {
     mT mat_out(n,k);
 

@@ -27,21 +27,21 @@
 
 template<typename T>
 statslib_inline
-uint_t rbinom(const uint_t n_trials_par, const T prob_par, 
+ullint_t rbinom(const ullint_t n_trials_par, const T prob_par, 
               rand_engine_t& engine);
 
 template<typename T>
 statslib_inline
-uint_t rbinom(const uint_t n_trials_par, const T prob_par, 
-              uint_t seed_val = std::random_device{}());
+ullint_t rbinom(const ullint_t n_trials_par, const T prob_par, 
+              ullint_t seed_val = std::random_device{}());
 
 template<typename T>
 statslib_inline
-void rbinom_int(const uint_t n_trials_par, const T prob_par, T* vals_out, const uint_t num_elem);
+void rbinom_int(const ullint_t n_trials_par, const T prob_par, T* vals_out, const ullint_t num_elem);
 
 template<typename mT, typename eT>
 statslib_inline
-mT rbinom(const uint_t n, const uint_t k, const uint_t n_trials_par, const eT prob_par);
+mT rbinom(const ullint_t n, const ullint_t k, const ullint_t n_trials_par, const eT prob_par);
 
 #include "rbinom.ipp"
 

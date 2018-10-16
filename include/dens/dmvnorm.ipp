@@ -27,7 +27,7 @@ statslib_inline
 eT
 dmvnorm(const mT& X, const mT& mu_par, const mT& Sigma_par, bool log_form)
 {
-    const uint_t K = mat_ops::n_rows(X);
+    const ullint_t K = mat_ops::n_rows(X);
 
     //
 

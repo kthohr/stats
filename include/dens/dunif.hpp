@@ -42,7 +42,7 @@ T dunif(const T x);
 template<typename Ta, typename Tb, typename Tc = Tb>
 statslib_inline
 void dunif_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, const bool log_form,
-                     Tc* __stats_pointer_settings__ vals_out, const uint_t num_elem);
+                     Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>

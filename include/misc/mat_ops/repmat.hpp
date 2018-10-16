@@ -29,7 +29,7 @@
 template<typename T>
 statslib_inline
 ArmaMat<T>
-repmat(const ArmaMat<T>& X, uint_t N, uint_t K)
+repmat(const ArmaMat<T>& X, ullint_t N, ullint_t K)
 {
     return arma::repmat(X,N,K);
 }
@@ -39,19 +39,19 @@ repmat(const ArmaMat<T>& X, uint_t N, uint_t K)
 template<typename Ta, bool Tb>
 statslib_inline
 BlazeMat<Ta,Tb>
-repmat(const BlazeMat<Ta,Tb>& X, uint_t N, uint_t K)
+repmat(const BlazeMat<Ta,Tb>& X, ullint_t N, ullint_t K)
 {
-    uint_t X_rows = X.rows();
-    uint_t X_cols = X.columns();
+    ullint_t X_rows = X.rows();
+    ullint_t X_cols = X.columns();
 
     BlazeMat<Ta,Tb> mat_out(X_rows*N,X_cols*K);
 
-    for (uint_t j=0U; j < N; j++) {
+    for (ullint_t j=0U; j < N; ++j) {
         submatrix( mat_out, j*X_rows, 0U, X_rows,  X_cols ) = X;
     }
 
     if (K > 1U) {
-        for (uint_t j=0U; j < K; j++) {
+        for (ullint_t j=0U; j < K; ++j) {
             submatrix( mat_out, 0U, j*X_cols, X_rows*N,  X_cols ) = submatrix( mat_out, 0U, X_cols, X_rows*N,  X_cols );
         }
     }
@@ -64,7 +64,7 @@ repmat(const BlazeMat<Ta,Tb>& X, uint_t N, uint_t K)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 EigMat<Ta,iTr,iTc>
-repmat(const EigMat<Ta,iTr,iTc>& X, uint_t N, uint_t K)
+repmat(const EigMat<Ta,iTr,iTc>& X, ullint_t N, ullint_t K)
 {
     return X.replicate(N,K);
 }
