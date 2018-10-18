@@ -18,6 +18,7 @@ Features:
 ### Contents:
 * [Distributions](#distributions) 
 * [Installation](#installation)
+* [Jupyter Notebook](#jupyter-notebook)
 * [Options](#Options)
 * [Syntax and Examples](#syntax-and-examples)
 * [Compile-time Computation Capabilities](#compile-time-computation-capabilities)
@@ -57,6 +58,13 @@ StatsLib is a header-only library. Simply add the header files to your project u
 ```cpp
 #include "stats.hpp"
 ```
+
+## Jupyter Notebook
+
+You can test the library online using an interactive Jupyter notebook: 
+
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/kthohr/stats/master?filepath=notebooks%2Fstats.ipynb)
+
 
 ## Options
 
