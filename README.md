@@ -53,7 +53,7 @@ In addition, pdf and random sampling functions are available for several multiva
 
 ## Installation
 
-StatsLib is a header-only library. Simply copy the contents of the include folder and add the header files to your project using
+StatsLib is a header-only library. Simply add the header files to your project using
 ```cpp
 #include "stats.hpp"
 ```
@@ -77,7 +77,7 @@ The following options should be declared **before** including the StatsLib heade
 #define STATS_DONT_USE_OPENMP
 ```
 
-* To use StatsLib with the Armadillo, Blaze or Eigen libraries:
+* To use StatsLib with Armadillo, Blaze or Eigen:
 ```cpp
 #define STATS_USE_ARMA
 #define STATS_USE_BLAZE
