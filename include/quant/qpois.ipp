@@ -25,71 +25,113 @@
 //
 // single input
 
-template<typename Ta, typename Tb>
+namespace internal
+{
+
+template<typename T>
 statslib_constexpr
-Tb
-qpois_int_right_search(const Ta p, const Ta rate_par, const Ta value, const Tb count)
+T
+qpois_compute_right_search(const T p, const T rate_par, const T value, const llint_t count)
+noexcept
 {
     return( value <= p ? \
-                qpois_int_right_search(p,rate_par, ppois(count,rate_par,false), count + 1) : 
+                qpois_compute_right_search(p,rate_par, ppois(count,rate_par,false), count + llint_t(1)) : 
             // else
-                count > Tb(0) ? count - 1 : Tb(0) );
+            count > llint_t(0) ? 
+                static_cast<T>(count - llint_t(1)) : 
+                T(0) );
 }
 
-template<typename Ta, typename Tb>
+template<typename T>
 statslib_constexpr
-Tb
-qpois_int_search_begin(const Ta p, const Ta rate_par, const Tb count)
+T
+qpois_compute_search_begin(const T p, const T rate_par, const llint_t count)
+noexcept
 {
-    return qpois_int_right_search<Ta,Tb>(p,rate_par,ppois(count,rate_par,false),count);
+    return qpois_compute_right_search(p,rate_par, ppois(count,rate_par,false), count);
 }
 
-template<typename Ta, typename Tb>
+template<typename T>
 statslib_constexpr
-Tb
-qpois_check(const Ta p, const Ta rate_par)
+llint_t
+qpois_trunc_normal_approx(const T p, const T rate_par)
+noexcept
 {
-    return( // edge cases
-            STLIM<Ta>::epsilon() > p ? \
-                Tb(0) :
-            STLIM<Ta>::epsilon() > rate_par ? \
-                Tb(0) :
-            // boundary values at 1; note that Tb = <any integer> won't return a true inf or NaN
-            STLIM<Ta>::epsilon() > stmath::abs(Ta(1) - p) ? \
-                STLIM<Tb>::infinity() :
-            p - Ta(1) > Ta(0) ? \
-                STLIM<Tb>::quiet_NaN() :
+    return static_cast<llint_t>( stmath::max( T(0), qnorm(p,rate_par,stmath::sqrt(rate_par)) - T(3) ) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+qpois_vals_check(const T p, const T rate_par)
+noexcept
+{
+    return( !pois_sanity_check(rate_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p < T(0) || p > T(1) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p == T(0) ? \
+                T(0) :
+            STLIM<T>::epsilon() > rate_par ? \
+                T(0) :
+            p == T(1) ? \
+                STLIM<T>::infinity() :
             // rate < 11
-            rate_par < Ta(11) ? \
-                qpois_int_right_search<Ta,llint_t>(p,rate_par,Ta(0),0U) :
-            // else use normal approximation
-                qpois_int_search_begin<Ta,llint_t>(p,rate_par,Tb(stmath::max(Ta(0.0),qnorm(p,rate_par,stmath::sqrt(rate_par))-3))) );
+            rate_par < T(11) ? \
+                qpois_compute_right_search(p,rate_par,T(0),llint_t(0)) :
+            // else use a normal approximation
+                qpois_compute_search_begin(p,rate_par,qpois_trunc_normal_approx(p,rate_par)) );
 }
 
-template<typename Ta, typename Tb, typename Tc>
+template<typename T1, typename T2, typename TC = common_return_t<T1,T2>>
 statslib_constexpr
-Tc
-qpois(const Ta p, const Tb rate_par)
+TC
+qpois_type_check(const T1 p, const T2 rate_par)
+noexcept
 {
-    return qpois_check<Ta,Tc>(p,rate_par);
+    return qpois_vals_check(static_cast<TC>(p),static_cast<TC>(rate_par));
+}
+
+}
+
+/**
+ * @brief Quantile function of the Poisson distribution
+ *
+ * @param p a real-valued input.
+ * @param rate_par the rate parameter, a real-valued input.
+ *
+ * @return the quantile function evaluated at \c p.
+ * 
+ * Example:
+ * \code{.cpp} stats::qpois(0.6,10.0); \endcode
+ */
+
+template<typename T1, typename T2>
+statslib_constexpr
+common_return_t<T1,T2>
+qpois(const T1 p, const T2 rate_par)
+noexcept
+{
+    return internal::qpois_type_check(p,rate_par);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-qpois_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par,
+qpois_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par,
                 Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = qpois(vals_in[j],rate_par);
-    }
+    EVAL_DIST_FN_VEC(qpois,vals_in,vals_out,num_elem,rate_par);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -100,7 +142,7 @@ qpois(const ArmaMat<Ta>& X, const Tb rate_par)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    qpois_int<Ta,Tb,Tc>(X.memptr(),rate_par,mat_out.memptr(),mat_out.n_elem);
+    internal::qpois_vec<Ta,Tb,Tc>(X.memptr(),rate_par,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -108,9 +150,9 @@ qpois(const ArmaMat<Ta>& X, const Tb rate_par)
 template<typename mT, typename tT, typename Tb>
 statslib_inline
 mT
-qpois(const ArmaGen<mT,tT>& X, const Tb rate_par, const bool log_form)
+qpois(const ArmaGen<mT,tT>& X, const Tb rate_par)
 {
-    return qpois(X.eval(),rate_par,log_form);
+    return qpois(X.eval(),rate_par);
 }
 #endif
 
@@ -122,7 +164,7 @@ qpois(const BlazeMat<Ta,To>& X, const Tb rate_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qpois_int<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),X.rows()*X.spacing());
+    internal::qpois_vec<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -136,7 +178,7 @@ qpois(const EigMat<Ta,iTr,iTc>& X, const Tb rate_par)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    qpois_int<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),mat_out.size());
+    internal::qpois_vec<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

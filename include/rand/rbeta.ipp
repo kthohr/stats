@@ -57,30 +57,7 @@ statslib_inline
 void
 rbeta_int(const T a_par, const T b_par, T* vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    ullint_t n_threads = omp_get_max_threads();
-
-    std::vector<rand_engine_t> engines;
-
-    for (ullint_t k=0; k < n_threads; k++)
-    {
-        engines.push_back(rand_engine_t(std::random_device{}()));
-    }
-
-    #pragma omp parallel for
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        ullint_t thread_id = omp_get_thread_num();
-        vals_out[j] = rbeta(a_par,b_par,engines[thread_id]);
-    }
-#else
-    rand_engine_t engine(std::random_device{}());
-
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = rbeta(a_par,b_par,engine);
-    }
-#endif
+    RAND_DIST_FN_VEC(rbeta,vals_out,num_elem,a_par,b_par);
 }
 
 #ifdef STATS_WITH_MATRIX_LIB

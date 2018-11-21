@@ -34,7 +34,7 @@ dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form)
 
     //
 
-    const eT lmg_term = gcem::log_multi_gamma(nu_par_d2, K);
+    const eT lmg_term = gcem::lmgamma(nu_par_d2, K);
     const eT norm_term = nu_par_d2*std::log(mat_ops::det(Psi_par)) - nu_par_d2*K*GCEM_LOG_2 - lmg_term;
 
     eT ret = norm_term - eT(0.5) * ( (nu_par+K+1) * std::log(mat_ops::det(X)) + mat_ops::trace(mat_ops::solve(X,Psi_par)) );
@@ -59,7 +59,7 @@ dinvwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, bool
 
     //
 
-    const eT lmg_term = gcem::log_multi_gamma(nu_par_d2, K);
+    const eT lmg_term = gcem::lmgamma(nu_par_d2, K);
     const eT norm_term = nu_par_d2*std::log(mat_ops::det(Psi_par)) - nu_par_d2*K*GCEM_LOG_2 - lmg_term;
 
     eT ret = norm_term - eT(0.5) * ( (nu_par+K+1) * std::log(mat_ops::det(X)) + mat_ops::trace(mat_ops::solve(X,Psi_par)) );

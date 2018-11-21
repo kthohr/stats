@@ -19,62 +19,101 @@
   ################################################################################*/
 
 /*
- * quantile function of the F distribution
+ * quantile function of the F-distribution
  */
 
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-qf_int_adj(const T I_inv_val, const T ab_ratio)
+qf_compute_adj(const T I_inv_val, const T ab_ratio)
+noexcept
 {
-    return ( I_inv_val / (ab_ratio*(T(1) - I_inv_val)) ) ;
+    return( I_inv_val / (ab_ratio*(T(1) - I_inv_val)) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-qf_int(const T p, const T a_par, const T b_par)
+qf_compute(const T p, const T a_par, const T b_par)
+noexcept
 {
-    return ( qf_int_adj(gcem::incomplete_beta_inv(a_par,b_par,p),a_par/b_par) );
+    return qf_compute_adj(gcem::incomplete_beta_inv(a_par,b_par,p),a_par/b_par);
 }
 
 template<typename T>
 statslib_constexpr
 T
-qf_check(const T p, const T df1_par, const T df2_par)
+qf_vals_check(const T p, const T df1_par, const T df2_par)
+noexcept
 {
-    return ( STLIM<T>::epsilon() > p ? T(0) :
-             //
-             qf_int(p,df1_par/T(2),df2_par/T(2)) );
+    return( !f_sanity_check(df1_par,df2_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p < T(0) || p > T(1) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p == T(0) ? \
+                T(0) :
+            p == T(1) ? \
+                STLIM<T>::infinity() :
+            //
+            qf_compute(p,df1_par/T(2),df2_par/T(2)) );
 }
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
 statslib_constexpr
-Ta
-qf(const Ta p, const Tb df1_par, const Tb df2_par)
+TC
+qf_type_check(const T1 x, const T2 df1_par, const T3 df2_par)
+noexcept
 {
-    return qf_check<Ta>(p,df1_par,df2_par);
+    return qf_vals_check(static_cast<TC>(x),static_cast<TC>(df1_par),static_cast<TC>(df2_par));
+}
+
+}
+
+/**
+ * @brief Quantile function of the F-distribution
+ *
+ * @param p a real-valued input.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ *
+ * @return the quantile function evaluated at \c p.
+ * 
+ * Example:
+ * \code{.cpp} stats::qf(0.5,10.0,12.0); \endcode
+ */
+
+template<typename T1, typename T2, typename T3>
+statslib_constexpr
+common_return_t<T1,T2,T3>
+qf(const T1 p, const T2 df1_par, const T3 df2_par)
+noexcept
+{
+    return internal::qf_type_check(p,df1_par,df2_par);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-qf_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, 
+qf_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, 
              Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = qf(vals_in[j],df1_par,df2_par);
-    }
+    EVAL_DIST_FN_VEC(qexp,vals_in,vals_out,num_elem,df1_par,df2_par);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -85,7 +124,7 @@ qf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    qf_int<Ta,Tb,Tc>(X.memptr(),df1_par,df2_par,mat_out.memptr(),mat_out.n_elem);
+    internal::qf_vec<Ta,Tb,Tc>(X.memptr(),df1_par,df2_par,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -93,9 +132,9 @@ qf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par)
 template<typename mT, typename tT, typename Tb>
 statslib_inline
 mT
-qf(const ArmaGen<mT,tT>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+qf(const ArmaGen<mT,tT>& X, const Tb df1_par, const Tb df2_par)
 {
-    return qf(X.eval(),df1_par,df2_par,log_form);
+    return qf(X.eval(),df1_par,df2_par);
 }
 #endif
 
@@ -107,7 +146,7 @@ qf(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qf_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,mat_out.data(),X.rows()*X.spacing());
+    internal::qf_vec<Ta,Tb,Tc>(X.data(),df1_par,df2_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -121,7 +160,7 @@ qf(const EigMat<Ta,iTr,iTc>& X, const Tb df1_par, const Tb df2_par)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    qf_int<Ta,Tb,Tc>(X.data(),df1_par,df2_par,mat_out.data(),mat_out.size());
+    internal::qf_vec<Ta,Tb,Tc>(X.data(),df1_par,df2_par,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

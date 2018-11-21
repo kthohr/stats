@@ -28,17 +28,13 @@
 //
 // single input
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename T3>
 statslib_constexpr
-Ta qweibull(const Ta p, const Tb shape_par, const Tb scale_par);
+common_return_t<T1,T2,T3>
+qweibull(const T1 x, const T2 shape_par, const T3 scale_par) noexcept;
 
 //
 // matrix/vector input
-
-template<typename Ta, typename Tb, typename Tc = Tb>
-statslib_inline
-void qweibull_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par,
-                        Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
@@ -47,7 +43,7 @@ ArmaMat<Tc> qweibull(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_pa
 
 template<typename mT, typename tT, typename Tb>
 statslib_inline
-mT qweibull(const ArmaGen<mT,tT>& X, const Tb shape_par, const Tb scale_par, const bool log_form = false);
+mT qweibull(const ArmaGen<mT,tT>& X, const Tb shape_par, const Tb scale_par);
 #endif
 
 #ifdef STATS_USE_BLAZE

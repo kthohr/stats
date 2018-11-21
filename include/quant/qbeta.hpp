@@ -28,17 +28,13 @@
 //
 // single input
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename T3>
 statslib_constexpr
-Ta qbeta(const Ta p, const Tb a_par, const Tb b_par);
+common_return_t<T1,T2,T3>
+qbeta(const T1 p, const T2 a_par, const T3 b_par) noexcept;
 
 //
 // matrix/vector input
-
-template<typename Ta, typename Tb, typename Tc = Tb>
-statslib_inline
-void qbeta_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par,
-                     Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
@@ -47,7 +43,7 @@ ArmaMat<Tc> qbeta(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par);
 
 template<typename mT, typename tT, typename Tb>
 statslib_inline
-mT qbeta(const ArmaGen<mT,tT>& X, const Tb a_par, const Tb b_par, const bool log_form = false);
+mT qbeta(const ArmaGen<mT,tT>& X, const Tb a_par, const Tb b_par);
 #endif
 
 #ifdef STATS_USE_BLAZE

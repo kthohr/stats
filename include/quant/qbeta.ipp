@@ -25,38 +25,81 @@
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-qbeta_int(const T p, const T a_par, const T b_par)
+qbeta_compute(const T p, const T a_par, const T b_par)
+noexcept
 {
     return gcem::incomplete_beta_inv(a_par,b_par,p);
 }
 
-template<typename Ta, typename Tb>
+template<typename T>
 statslib_constexpr
-Ta
-qbeta(const Ta p, const Tb a_par, const Tb b_par)
+T
+qbeta_vals_check(const T p, const T a_par, const T b_par)
+noexcept
 {
-    return qbeta_int<Ta>(p,a_par,b_par);
+    return( !beta_sanity_check(a_par,b_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p < T(0) || p > T(1) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            qbeta_compute(p,a_par,b_par) );
+}
+
+template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
+statslib_constexpr
+TC
+qbeta_type_check(const T1 p, const T2 a_par, const T3 b_par)
+noexcept
+{
+    return qbeta_compute(static_cast<TC>(p),static_cast<TC>(a_par),static_cast<TC>(b_par));
+}
+
+}
+
+/**
+ * @brief Quantile function of the Beta distribution
+ *
+ * @param p a real-valued input.
+ * @param a_par shape parameter, a real-valued input.
+ * @param b_par shape parameter, a real-valued input.
+ *
+ * @return the quantile function evaluated at \c p.
+ * 
+ * Example:
+ * \code{.cpp} stats::qbeta(0.5,3.0,2.0); \endcode
+ */
+
+template<typename T1, typename T2, typename T3>
+statslib_constexpr
+common_return_t<T1,T2,T3>
+qbeta(const T1 p, const T2 a_par, const T3 b_par)
+noexcept
+{
+    return internal::qbeta_type_check(p,a_par,b_par);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-qbeta_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, 
+qbeta_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, 
                 Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = qbeta(vals_in[j],a_par,b_par);
-    }
+    EVAL_DIST_FN_VEC(qbeta,vals_in,vals_out,num_elem,a_par,b_par);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -67,7 +110,7 @@ qbeta(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    qbeta_int<Ta,Tb,Tc>(X.memptr(),a_par,b_par,mat_out.memptr(),mat_out.n_elem);
+    internal::qbeta_vec<Ta,Tb,Tc>(X.memptr(),a_par,b_par,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -75,9 +118,9 @@ qbeta(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par)
 template<typename mT, typename tT, typename Tb>
 statslib_inline
 mT
-qbeta(const ArmaGen<mT,tT>& X, const Tb a_par, const Tb b_par, const bool log_form)
+qbeta(const ArmaGen<mT,tT>& X, const Tb a_par, const Tb b_par)
 {
-    return qbeta(X.eval(),a_par,b_par,log_form);
+    return qbeta(X.eval(),a_par,b_par);
 }
 #endif
 
@@ -89,7 +132,7 @@ qbeta(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qbeta_int<Ta,Tb,Tc>(X.data(),a_par,b_par,mat_out.data(),X.rows()*X.spacing());
+    internal::qbeta_vec<Ta,Tb,Tc>(X.data(),a_par,b_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -103,7 +146,7 @@ qbeta(const EigMat<Ta,iTr,iTc>& X, const Tb a_par, const Tb b_par)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    qbeta_int<Ta,Tb,Tc>(X.data(),a_par,b_par,mat_out.data(),mat_out.size());
+    internal::qbeta_vec<Ta,Tb,Tc>(X.data(),a_par,b_par,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

@@ -19,7 +19,7 @@
   ################################################################################*/
 
 /*
- * pdf of the F distribution
+ * pdf of the F-distribution
  */
 
 #ifndef _statslib_df_HPP
@@ -28,17 +28,13 @@
 //
 // single input
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename T3>
 statslib_constexpr
-return_t<Ta> df(const Ta x, const Tb df1_par, const Tb df2_par, const bool log_form = false);
+common_return_t<T1,T2,T3>
+df(const T1 x, const T2 df1_par, const T3 df2_par, const bool log_form = false) noexcept;
 
 //
 // matrix/vector input
-
-template<typename Ta, typename Tb, typename Tc = Tb>
-statslib_inline
-void df_int(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, const bool log_form, 
-                  Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>

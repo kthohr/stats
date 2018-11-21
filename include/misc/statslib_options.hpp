@@ -18,25 +18,24 @@
   ##
   ################################################################################*/
 
+#ifndef _statslib_options_HPP
+#define _statslib_options_HPP
+
+//
+// options and compiler directives
+
 // version
 
 #ifndef STATS_VERSION_MAJOR
-    #define STATS_VERSION_MAJOR 2
+    #define STATS_VERSION_MAJOR 3
 #endif
 
 #ifndef STATS_VERSION_MINOR
-    #define STATS_VERSION_MINOR 2
+    #define STATS_VERSION_MINOR 0
 #endif
 
 #ifndef STATS_VERSION_PATCH
     #define STATS_VERSION_PATCH 0
-#endif
-
-// enable OpenMP
-
-#if defined(_OPENMP) && !defined(STATS_DONT_USE_OPENMP) && !defined(STATS_USE_OPENMP)
-    #define STATS_USE_OPENMP
-    #include <omp.h>
 #endif
 
 // switch between inline mode vs constexpr
@@ -60,9 +59,6 @@
 #include <random>
 
 namespace stats {
-    template<class T>
-    using STLIM = std::numeric_limits<T>;
-
     using uint_t = unsigned int;
     using ullint_t = unsigned long long int;
 
@@ -70,9 +66,27 @@ namespace stats {
 
     using rand_engine_t = std::mt19937_64;
 
+    template<class T>
+    using STLIM = std::numeric_limits<T>;
+
     template<typename T>
     using return_t = typename std::conditional<std::is_integral<T>::value,double,T>::type;
+
+    template<typename ...T>
+    using common_t = typename std::common_type<T...>::type;
+
+    template<typename ...T>
+    using common_return_t = return_t<common_t<T...>>;
 }
+
+// enable OpenMP
+
+#if defined(_OPENMP) && !defined(STATS_DONT_USE_OPENMP) && !defined(STATS_USE_OPENMP)
+    #define STATS_USE_OPENMP
+    #include <omp.h>
+    #define STATS_OMP_N_BLOCKS ullint_t(4)
+    #define STATS_OMP_MIN_N_PER_BLOCK ullint_t(4)
+#endif
 
 //
 
@@ -145,4 +159,6 @@ namespace stats {
     #else
         #define __stats_pointer_settings__
     #endif
+#endif
+
 #endif

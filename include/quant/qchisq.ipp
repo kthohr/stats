@@ -25,48 +25,85 @@
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-qchisq_int(const T p, const T dof_par)
+qchisq_compute(const T p, const T dof_par)
+noexcept
 {
-    return ( 2*gcem::incomplete_gamma_inv(dof_par/T(2),p) );
+    return( T(2)*gcem::incomplete_gamma_inv(dof_par/T(2),p) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-qchisq_check(const T p, const T dof_par)
+qchisq_vals_check(const T p, const T dof_par)
+noexcept
 {
-    return ( STLIM<T>::epsilon() > p ? T(0) :
-             //
-             qchisq_int(p,dof_par) );
+    return( !chisq_sanity_check(dof_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p < T(0) || p > T(1) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p == T(0) ? \
+                T(0) :
+            p == T(1) ? \
+                STLIM<T>::infinity() :
+            //
+            qchisq_compute(p,dof_par) );
 }
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename TC = common_return_t<T1,T2>>
 statslib_constexpr
-Ta
-qchisq(const Ta p, const Tb dof_par)
+TC
+qchisq_type_check(const T1 p, const T2 dof_par)
+noexcept
 {
-    return qchisq_check<Ta>(p,dof_par);
+    return qchisq_vals_check(static_cast<TC>(p),static_cast<TC>(dof_par));
+}
+
+}
+
+/**
+ * @brief Quantile function of the Chi-Squared distribution
+ *
+ * @param p a real-valued input.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ *
+ * @return the quantile function evaluated at \c x.
+ * 
+ * Example:
+ * \code{.cpp} stats::qchisq(0.5,5); \endcode
+ */
+
+template<typename T1, typename T2>
+statslib_constexpr
+common_return_t<T1,T2>
+qchisq(const T1 p, const T2 dof_par)
+noexcept
+{
+    return internal::qchisq_type_check(p,dof_par);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-qchisq_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, 
+qchisq_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, 
                  Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = qchisq(vals_in[j],dof_par);
-    }
+    EVAL_DIST_FN_VEC(qchisq,vals_in,vals_out,num_elem,dof_par);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -77,7 +114,7 @@ qchisq(const ArmaMat<Ta>& X, const Tb dof_par)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    qchisq_int<Ta,Tb,Tc>(X.memptr(),dof_par,mat_out.memptr(),mat_out.n_elem);
+    internal::qchisq_vec<Ta,Tb,Tc>(X.memptr(),dof_par,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -99,7 +136,7 @@ qchisq(const BlazeMat<Ta,To>& X, const Tb dof_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qchisq_int<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),X.rows()*X.spacing());
+    internal::qchisq_vec<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -113,7 +150,7 @@ qchisq(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    qchisq_int<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),mat_out.size());
+    internal::qchisq_vec<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

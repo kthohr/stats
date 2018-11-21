@@ -21,12 +21,12 @@
 #ifndef _statslib_HPP
 #define _statslib_HPP
 
-#include "math/gcem.hpp"
+#include "gcem.hpp"
 #include "misc/statslib_options.hpp"
 
 namespace stats
 {
-    #include "misc/matrix_ops.hpp"
+    #include "misc/misc.hpp"
 
     #include "dens/dens.hpp"
 

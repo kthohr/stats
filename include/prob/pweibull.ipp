@@ -25,51 +25,83 @@
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-pweibull_int(const T x, const T shape_par, const T scale_par)
+pweibull_compute(const T x, const T shape_par)
+noexcept
 {
-    return ( T(1) - stmath::exp(-stmath::pow(x,shape_par)) );
+    return( - stmath::expm1(-stmath::pow(x,shape_par)) );
 }
 
 template<typename T>
 statslib_constexpr
 T
-pweibull_check(const T x, const T shape_par, const T scale_par, const bool log_form)
+pweibull_vals_check(const T x, const T shape_par, const T scale_par, const bool log_form)
+noexcept
 {
-    return ( ( (shape_par < STLIM<T>::epsilon()) || (scale_par < STLIM<T>::epsilon()) ) ? STLIM<T>::quiet_NaN() :
-             //
-             x < STLIM<T>::epsilon() ? (log_form == false ? T(0) : - STLIM<T>::infinity()) :
-             //
-             log_form == false ? pweibull_int(x/scale_par,shape_par,scale_par) : 
-                                 stmath::log(pweibull_int(x/scale_par,shape_par,scale_par)) );
+    return( !weibull_sanity_check(shape_par,scale_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            x < STLIM<T>::epsilon() ? \
+                log_if(T(0),log_form) :
+            //
+            log_if(pweibull_compute(x/scale_par,shape_par), log_form) );
 }
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
 statslib_constexpr
-return_t<Ta>
-pweibull(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
+TC
+pweibull_type_check(const T1 x, const T2 shape_par, const T3 scale_par, const bool log_form)
+noexcept
 {
-    return pweibull_check<return_t<Ta>>(x,mu_par,sigma_par,log_form);
+    return pweibull_vals_check(static_cast<TC>(x),static_cast<TC>(shape_par),
+                               static_cast<TC>(scale_par),log_form);
+}
+
+}
+
+/**
+ * @brief Distribution function of the Weibull distribution
+ *
+ * @param x a real-valued input.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return the cumulative distribution function evaluated at \c x.
+ * 
+ * Example:
+ * \code{.cpp} stats::pweibull(1.0,2.0,3.0,false); \endcode
+ */
+
+template<typename T1, typename T2, typename T3>
+statslib_constexpr
+common_return_t<T1,T2,T3>
+pweibull(const T1 x, const T2 shape_par, const T3 scale_par, const bool log_form)
+noexcept
+{
+    return internal::pweibull_type_check(x,shape_par,scale_par,log_form);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-pweibull_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, const bool log_form, 
+pweibull_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, const bool log_form, 
                    Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = pweibull(vals_in[j],shape_par,scale_par,log_form);
-    }
+    EVAL_DIST_FN_VEC(pweibull,vals_in,vals_out,num_elem,shape_par,scale_par,log_form);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -80,7 +112,7 @@ pweibull(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par, const boo
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    pweibull_int<Ta,Tb,Tc>(X.memptr(),shape_par,scale_par,log_form,mat_out.memptr(),mat_out.n_elem);
+    internal::pweibull_vec<Ta,Tb,Tc>(X.memptr(),shape_par,scale_par,log_form,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -102,7 +134,7 @@ pweibull(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par, const
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    pweibull_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),X.rows()*X.spacing());
+    internal::pweibull_vec<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -116,7 +148,7 @@ pweibull(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb scale_par, co
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    pweibull_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),mat_out.size());
+    internal::pweibull_vec<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

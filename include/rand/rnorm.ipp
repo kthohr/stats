@@ -25,6 +25,9 @@
 //
 // single draw
 
+namespace internal
+{
+
 template<typename T>
 statslib_inline
 T
@@ -35,13 +38,33 @@ rnorm_int(const T mu_par, const T sigma_par, rand_engine_t& engine)
     return mu_par + sigma_par*norm_dist(engine);
 }
 
+}
+
+/**
+ * Random sampling function for the Normal distribution
+ *
+ * @param mu_par the mean parameter, a real-valued input.
+ * @param sigma_par the standard deviation parameter, a real-valued input.
+ * @param engine pass a random engine by reference.
+ * @return a pseudo-random draw from the Normal distribution.
+ */
+
 template<typename T>
 statslib_inline
 return_t<T>
 rnorm(const T mu_par, const T sigma_par, rand_engine_t& engine)
 {
-    return rnorm_int<return_t<T>>(mu_par,sigma_par,engine);
+    return internal::rnorm_int<return_t<T>>(mu_par,sigma_par,engine);
 }
+
+/**
+ * Random sampling function for the Normal distribution
+ *
+ * @param mu_par the mean parameter, a real-valued input.
+ * @param sigma_par the standard deviation parameter, a real-valued input.
+ * @param seed_val initialize the random engine with a non-negative integral-valued seed.
+ * @return a pseudo-random draw from the Normal distribution.
+ */
 
 template<typename T>
 statslib_inline
@@ -49,7 +72,7 @@ return_t<T>
 rnorm(const T mu_par, const T sigma_par, ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
-    return rnorm_int<return_t<T>>(mu_par,sigma_par,engine);
+    return internal::rnorm_int<return_t<T>>(mu_par,sigma_par,engine);
 }
 
 template<typename T>
@@ -65,30 +88,7 @@ statslib_inline
 void
 rnorm_int(const T mu_par, const T sigma_par, T* vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    ullint_t n_threads = omp_get_max_threads();
-
-    std::vector<rand_engine_t> engines;
-
-    for (ullint_t k=0; k < n_threads; k++)
-    {
-        engines.push_back(rand_engine_t(std::random_device{}()));
-    }
-
-    #pragma omp parallel for
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        ullint_t thread_id = omp_get_thread_num();
-        vals_out[j] = rnorm(mu_par,sigma_par,engines[thread_id]);
-    }
-#else
-    rand_engine_t engine(std::random_device{}());
-
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = rnorm(mu_par,sigma_par,engine);
-    }
-#endif
+    RAND_DIST_FN_VEC(rnorm,vals_out,num_elem,mu_par,sigma_par);
 }
 
 #ifdef STATS_WITH_MATRIX_LIB

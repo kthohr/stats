@@ -28,21 +28,17 @@
 //
 // single input
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename T3>
 statslib_constexpr
-return_t<Ta> dunif(const Ta x, const Tb a_par, const Tb b_par, const bool log_form = false);
+common_return_t<T1,T2,T3>
+dunif(const T1 x, const T2 a_par, const T3 b_par, const bool log_form = false) noexcept;
 
 template<typename T>
 statslib_constexpr
-T dunif(const T x);
+return_t<T> dunif(const T x) noexcept;
 
 //
 // matrix/vector input
-
-template<typename Ta, typename Tb, typename Tc = Tb>
-statslib_inline
-void dunif_int(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, const bool log_form,
-                     Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>

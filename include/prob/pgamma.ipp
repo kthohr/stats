@@ -25,10 +25,14 @@
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-pgamma_int(const T x, const T shape_par, const T scale_par)
+pgamma_compute(const T x, const T shape_par, const T scale_par)
+noexcept
 {
     return gcem::incomplete_gamma(shape_par,x/scale_par);
 }
@@ -36,36 +40,65 @@ pgamma_int(const T x, const T shape_par, const T scale_par)
 template<typename T>
 statslib_constexpr
 T
-pgamma_check(const T x, const T shape_par, const T scale_par, const bool log_form)
+pgamma_vals_check(const T x, const T shape_par, const T scale_par, const bool log_form)
+noexcept
 {
-    return ( log_form == true ? stmath::log(pgamma_int(x,shape_par,scale_par)) :
-                                pgamma_int(x,shape_par,scale_par) );
+    return( !gamma_sanity_check(shape_par,scale_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            log_if(pgamma_compute(x,shape_par,scale_par), log_form) );
 }
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
 statslib_constexpr
-return_t<Ta>
-pgamma(const Ta x, const Tb shape_par, const Tb scale_par, const bool log_form)
+TC
+pgamma_type_check(const T1 x, const T2 shape_par, const T3 scale_par, const bool log_form)
+noexcept
 {
-    return pgamma_check<return_t<Ta>>(x,shape_par,scale_par,log_form);
+    return pgamma_vals_check(static_cast<TC>(x),static_cast<TC>(shape_par),
+                             static_cast<TC>(scale_par),log_form);
+}
+
+}
+
+/**
+ * @brief Distribution function of the Gamma distribution
+ *
+ * @param x a real-valued input.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return the cumulative distribution function evaluated at \c x.
+ *
+ * Example:
+ * \code{.cpp} stats::pgamma(2,2,3,false); \endcode
+ */
+
+template<typename T1, typename T2, typename T3>
+statslib_constexpr
+common_return_t<T1,T2,T3>
+pgamma(const T1 x, const T2 shape_par, const T3 scale_par, const bool log_form)
+noexcept
+{
+    return internal::pgamma_type_check(x,shape_par,scale_par,log_form);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-pgamma_int(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, const bool log_form, 
+pgamma_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, const bool log_form, 
                  Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = pgamma(vals_in[j],shape_par,scale_par,log_form);
-    }
+    EVAL_DIST_FN_VEC(pgamma,vals_in,vals_out,num_elem,shape_par,scale_par,log_form);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -76,7 +109,7 @@ pgamma(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par, const bool 
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    pgamma_int<Ta,Tb,Tc>(X.memptr(),shape_par,scale_par,log_form,mat_out.memptr(),mat_out.n_elem);
+    internal::pgamma_vec<Ta,Tb,Tc>(X.memptr(),shape_par,scale_par,log_form,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -98,7 +131,7 @@ pgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par, const b
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    pgamma_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),X.rows()*X.spacing());
+    internal::pgamma_vec<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -112,7 +145,7 @@ pgamma(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb scale_par, cons
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    pgamma_int<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),mat_out.size());
+    internal::pgamma_vec<Ta,Tb,Tc>(X.data(),shape_par,scale_par,log_form,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

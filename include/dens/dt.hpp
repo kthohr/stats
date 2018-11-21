@@ -28,17 +28,13 @@
 //
 // single input
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2>
 statslib_constexpr
-return_t<Ta> dt(const Ta x, const Tb dof_par, const bool log_form = false);
+common_return_t<T1,T2>
+dt(const T1 x, const T2 dof_par, const bool log_form = false) noexcept;
 
 //
 // matrix/vector input
-
-template<typename Ta, typename Tb, typename Tc = Tb>
-statslib_inline
-void dt_int(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, const bool log_form, 
-                  Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>

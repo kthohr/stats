@@ -25,40 +25,73 @@
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-pbern_int(const ullint_t x, const T prob_par)
+pbern_compute(const llint_t x, const T prob_par)
+noexcept
 {
-    return ( x >= 1U ? T(1) :
-                       T(1) - prob_par );
+    return( x >= llint_t(1) ? T(1) : T(1) - prob_par );
 }
 
 template<typename T>
 statslib_constexpr
 T
-pbern(const ullint_t x, const T prob_par, const bool log_form)
+pbern_vals_check(const llint_t x, const T prob_par, const bool log_form)
+noexcept
 {
-    return ( log_form == true ? stmath::log(pbern_int(x,prob_par)) :
-                                pbern_int(x,prob_par) );
+    return( !bern_sanity_check(prob_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            x < llint_t(0) ? \
+                log_if(T(0),log_form) :
+            //
+            log_if(pbern_compute(x,prob_par), log_form) );
+}
+
+}
+
+/**
+ * @brief Distribution function of the Bernoulli distribution
+ *
+ * @param x a value equal to 0 or 1.
+ * @param prob_par the probability parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return the cumulative distribution function evaluated at \c x.
+ * 
+ * Example:
+ * \code{.cpp} stats::pbern(1,0.6,false); \endcode
+ */
+
+template<typename T>
+statslib_constexpr
+T
+pbern(const llint_t x, const T prob_par, const bool log_form)
+noexcept
+{
+    return internal::pbern_vals_check(x,prob_par,log_form);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-pbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par, const bool log_form,
+pbern_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par, const bool log_form,
                 Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = pbern(static_cast<int>(vals_in[j]),prob_par,log_form);
-    }
+    // vals_out[j] = pbern(static_cast<int>(vals_in[j]),prob_par,log_form);
+    EVAL_DIST_FN_VEC(pbern,vals_in,vals_out,num_elem,prob_par,log_form);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -69,7 +102,7 @@ pbern(const ArmaMat<Ta>& X, const Tb prob_par, const bool log_form)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    pbern_int<Ta,Tb,Tc>(X.memptr(),prob_par,log_form,mat_out.memptr(),mat_out.n_elem);
+    internal::pbern_vec<Ta,Tb,Tc>(X.memptr(),prob_par,log_form,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -91,7 +124,7 @@ pbern(const BlazeMat<Ta,To>& X, const Tb prob_par, const bool log_form)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    pbern_int<Ta,Tb,Tc>(X.data(),prob_par,log_form,mat_out.data(),X.rows()*X.spacing());
+    internal::pbern_vec<Ta,Tb,Tc>(X.data(),prob_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -105,7 +138,7 @@ pbern(const EigMat<Ta,iTr,iTc>& X, const Tb prob_par, const bool log_form)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    pbern_int<Ta,Tb,Tc>(X.data(),prob_par,log_form,mat_out.data(),mat_out.size());
+    internal::pbern_vec<Ta,Tb,Tc>(X.data(),prob_par,log_form,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

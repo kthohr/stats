@@ -40,7 +40,7 @@
 #include "dweibull.hpp"
 #include "dwish.hpp"
 
-// these depend on one of the above
+// these depend on the above
 #include "dbinom.hpp"
 #include "dlnorm.hpp"
 

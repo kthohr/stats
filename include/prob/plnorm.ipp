@@ -25,38 +25,73 @@
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-plnorm_int(const T x, const T mu_par, const T sigma_par, const bool log_form)
+plnorm_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return pnorm(stmath::log(x),mu_par,sigma_par,log_form);
+    return( !lnorm_sanity_check(mu_par,sigma_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            STLIM<T>::epsilon() > x ? \
+                log_if(T(0),log_form) :
+            //
+            pnorm(stmath::log(x),mu_par,sigma_par,log_form) );
 }
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
 statslib_constexpr
-return_t<Ta>
-plnorm(const Ta x, const Tb mu_par, const Tb sigma_par, const bool log_form)
+TC
+plnorm_type_check(const T1 x, const T2 mu_par, const T3 sigma_par, const bool log_form)
+noexcept
 {
-    return plnorm_int<return_t<Ta>>(x,mu_par,sigma_par,log_form);
+    return plnorm_vals_check(static_cast<TC>(x),static_cast<TC>(mu_par),
+                             static_cast<TC>(sigma_par),log_form);
+}
+
+}
+
+/**
+ * @brief Distribution function of the Log-Normal distribution
+ *
+ * @param x a real-valued input.
+ * @param mu_par the mean parameter, a real-valued input.
+ * @param sigma_par the standard deviation parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return the cumulative distribution function evaluated at \c x.
+ * 
+ * Example:
+ * \code{.cpp} stats::plnorm(2.0,1.0,2.0,false); \endcode
+ */
+
+template<typename T1, typename T2, typename T3>
+statslib_constexpr
+common_return_t<T1,T2,T3>
+plnorm(const T1 x, const T2 mu_par, const T3 sigma_par, const bool log_form)
+noexcept
+{
+    return internal::plnorm_type_check(x,mu_par,sigma_par,log_form);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-plnorm_int(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, const bool log_form, 
+plnorm_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, const bool log_form, 
                  Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = plnorm(vals_in[j],mu_par,sigma_par,log_form);
-    }
+    EVAL_DIST_FN_VEC(plnorm,vals_in,vals_out,num_elem,mu_par,sigma_par,log_form);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -67,7 +102,7 @@ plnorm(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par, const bool log
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    plnorm_int<Ta,Tb,Tc>(X.memptr(),mu_par,sigma_par,log_form,mat_out.memptr(),mat_out.n_elem);
+    internal::plnorm_vec<Ta,Tb,Tc>(X.memptr(),mu_par,sigma_par,log_form,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -89,7 +124,7 @@ plnorm(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par, const bool
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    plnorm_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),X.rows()*X.spacing());
+    internal::plnorm_vec<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -103,7 +138,7 @@ plnorm(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par, const b
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    plnorm_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),mat_out.size());
+    internal::plnorm_vec<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

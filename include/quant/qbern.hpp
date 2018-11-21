@@ -28,17 +28,13 @@
 //
 // single input
 
-template<typename Ta, typename Tb, typename Tc = ullint_t>
+template<typename T1, typename T2>
 statslib_constexpr
-Tc qbern(const Ta p, const Tb prob_par);
+common_return_t<T1,T2>
+qbern(const T1 p, const T2 prob_par) noexcept;
 
 //
 // matrix/vector input
-
-template<typename Ta, typename Tb, typename Tc = Tb>
-statslib_inline
-void qbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par,
-                     Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>
@@ -47,7 +43,7 @@ ArmaMat<Tc> qbern(const ArmaMat<Ta>& X, const Tb prob_par);
 
 template<typename mT, typename tT, typename Tb>
 statslib_inline
-mT qbern(const ArmaGen<mT,tT>& X, const Tb prob_par, const bool log_form = false);
+mT qbern(const ArmaGen<mT,tT>& X, const Tb prob_par);
 #endif
 
 #ifdef STATS_USE_BLAZE

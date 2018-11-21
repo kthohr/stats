@@ -30,15 +30,10 @@
 
 template<typename T>
 statslib_constexpr
-T pbern(const ullint_t x, const T prob_par, const bool log_form = false);
+T pbern(const llint_t x, const T prob_par, const bool log_form = false) noexcept;
 
 //
 // matrix/vector input
-
-template<typename Ta, typename Tb, typename Tc = Tb>
-statslib_inline
-void pbern_int(const Ta* __stats_pointer_settings__ vals_in, const Tb prob_par, const bool log_form,
-                     Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem);
 
 #ifdef STATS_USE_ARMA
 template<typename Ta, typename Tb, typename Tc = Tb>

@@ -25,38 +25,86 @@
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-qlaplace_int(const T p, const T mu_par, const T sigma_par)
+qlaplace_compute(const T p, const T mu_par, const T sigma_par)
+noexcept
 {
-    return ( mu_par - sigma_par * gcem::sgn(p - T(0.5)) * stmath::log(T(1) - T(2)*stmath::abs(p - T(0.5))) );
+    return( mu_par - sigma_par * gcem::sgn(p - T(0.5)) * stmath::log(T(1) - T(2)*stmath::abs(p - T(0.5))) );
 }
 
-template<typename Ta, typename Tb>
+template<typename T>
 statslib_constexpr
-Ta
-qlaplace(const Ta p, const Tb mu_par, const Tb sigma_par)
+T
+qlaplace_vals_check(const T p, const T mu_par, const T sigma_par)
+noexcept
 {
-    return qlaplace_int<Ta>(p,mu_par,sigma_par);
+    return( !laplace_sanity_check(mu_par,sigma_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p < T(0) || p > T(1) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p == T(0) ? \
+                - STLIM<T>::infinity() :
+            p == T(1) ? \
+                STLIM<T>::infinity() :
+            //
+            qlaplace_compute(p,mu_par,sigma_par) );
+}
+
+template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
+statslib_constexpr
+TC
+qlaplace_type_check(const T1 p, const T2 mu_par, const T3 sigma_par)
+noexcept
+{
+    return qlaplace_vals_check(static_cast<TC>(p),static_cast<TC>(mu_par),static_cast<TC>(sigma_par));
+}
+
+}
+
+/**
+ * @brief Quantile function of the Laplace distribution
+ *
+ * @param p a real-valued input.
+ * @param mu_par the location parameter, a real-valued input.
+ * @param sigma_par the scale parameter, a real-valued input.
+ *
+ * @return the density function evaluated at \c p.
+ * 
+ * Example:
+ * \code{.cpp} stats::qlaplace(0.7,1.0,2.0); \endcode
+ */
+
+template<typename T1, typename T2, typename T3>
+statslib_constexpr
+common_return_t<T1,T2,T3>
+qlaplace(const T1 p, const T2 mu_par, const T3 sigma_par)
+noexcept
+{
+    return internal::qlaplace_type_check(p,mu_par,sigma_par);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-qlaplace_int(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, 
+qlaplace_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, 
                    Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = qlaplace(vals_in[j],mu_par,sigma_par);
-    }
+    EVAL_DIST_FN_VEC(qlaplace,vals_in,vals_out,num_elem,mu_par,sigma_par);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -67,7 +115,7 @@ qlaplace(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    qlaplace_int<Ta,Tb,Tc>(X.memptr(),mu_par,sigma_par,mat_out.memptr(),mat_out.n_elem);
+    internal::qlaplace_vec<Ta,Tb,Tc>(X.memptr(),mu_par,sigma_par,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -75,9 +123,9 @@ qlaplace(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par)
 template<typename mT, typename tT, typename Tb>
 statslib_inline
 mT
-qlaplace(const ArmaGen<mT,tT>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
+qlaplace(const ArmaGen<mT,tT>& X, const Tb mu_par, const Tb sigma_par)
 {
-    return qlaplace(X.eval(),mu_par,sigma_par,log_form);
+    return qlaplace(X.eval(),mu_par,sigma_par);
 }
 #endif
 
@@ -89,7 +137,7 @@ qlaplace(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qlaplace_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,mat_out.data(),X.rows()*X.spacing());
+    internal::qlaplace_vec<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -103,7 +151,7 @@ qlaplace(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    qlaplace_int<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,mat_out.data(),mat_out.size());
+    internal::qlaplace_vec<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

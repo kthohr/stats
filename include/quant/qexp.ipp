@@ -25,48 +25,85 @@
 //
 // single input
 
+namespace internal
+{
+
 template<typename T>
 statslib_constexpr
 T
-qexp_int(const T p, const T rate_par)
+qexp_compute(const T p, const T rate_par)
+noexcept
 {
-    return ( - stmath::log( T(1) - p ) / rate_par );
+    return( - stmath::log( T(1) - p ) / rate_par );
 }
 
 template<typename T>
 statslib_constexpr
 T
-qexp_check(const T p, const T rate_par)
+qexp_vals_check(const T p, const T rate_par)
+noexcept
 {
-    return ( STLIM<T>::epsilon() > p ? T(0) :
-             //
-             qexp_int(p,rate_par) );
+    return( !exp_sanity_check(rate_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p < T(0) || p > T(1) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            p == T(0) ? \
+                T(0) :
+            p == T(1) ? \
+                STLIM<T>::infinity() :
+            //
+            qexp_compute(p,rate_par) );
 }
 
-template<typename Ta, typename Tb>
+template<typename T1, typename T2, typename TC = common_return_t<T1,T2>>
 statslib_constexpr
-Ta
-qexp(const Ta p, const Tb rate_par)
+TC
+qexp_type_check(const T1 p, const T2 rate_par)
+noexcept
 {
-    return qexp_check<Ta>(p,rate_par);
+    return qexp_vals_check(static_cast<TC>(p),static_cast<TC>(rate_par));
+}
+
+}
+
+/**
+ * @brief Quantile function of the Exponential distribution
+ *
+ * @param p a real-valued input.
+ * @param rate_par the rate parameter, a real-valued input.
+ *
+ * @return the density function evaluated at \c p.
+ * 
+ * Example:
+ * \code{.cpp} stats::qexp(0.5,4.0); \endcode
+ */
+
+template<typename T1, typename T2>
+statslib_constexpr
+common_return_t<T1,T2>
+qexp(const T1 x, const T2 rate_par)
+noexcept
+{
+    return internal::qexp_type_check(x,rate_par);
 }
 
 //
 // matrix/vector input
 
+namespace internal
+{
+
 template<typename Ta, typename Tb, typename Tc>
 statslib_inline
 void
-qexp_int(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, 
+qexp_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb rate_par, 
                Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-#ifdef STATS_USE_OPENMP
-    #pragma omp parallel for
-#endif
-    for (ullint_t j=0U; j < num_elem; j++)
-    {
-        vals_out[j] = qexp(vals_in[j],rate_par);
-    }
+    EVAL_DIST_FN_VEC(qexp,vals_in,vals_out,num_elem,rate_par);
+}
+
 }
 
 #ifdef STATS_USE_ARMA
@@ -77,7 +114,7 @@ qexp(const ArmaMat<Ta>& X, const Tb rate_par)
 {
     ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
 
-    qexp_int<Ta,Tb,Tc>(X.memptr(),rate_par,mat_out.memptr(),mat_out.n_elem);
+    internal::qexp_vec<Ta,Tb,Tc>(X.memptr(),rate_par,mat_out.memptr(),mat_out.n_elem);
 
     return mat_out;
 }
@@ -85,9 +122,9 @@ qexp(const ArmaMat<Ta>& X, const Tb rate_par)
 template<typename mT, typename tT, typename Tb>
 statslib_inline
 mT
-qexp(const ArmaGen<mT,tT>& X, const Tb rate_par, const bool log_form)
+qexp(const ArmaGen<mT,tT>& X, const Tb rate_par)
 {
-    return qexp(X.eval(),rate_par,log_form);
+    return qexp(X.eval(),rate_par);
 }
 #endif
 
@@ -99,7 +136,7 @@ qexp(const BlazeMat<Ta,To>& X, const Tb rate_par)
 {
     BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
 
-    qexp_int<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),X.rows()*X.spacing());
+    internal::qexp_vec<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),X.rows()*X.spacing());
 
     return mat_out;
 }
@@ -113,7 +150,7 @@ qexp(const EigMat<Ta,iTr,iTc>& X, const Tb rate_par)
 {
     EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
 
-    qexp_int<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),mat_out.size());
+    internal::qexp_vec<Ta,Tb,Tc>(X.data(),rate_par,mat_out.data(),mat_out.size());
 
     return mat_out;
 }

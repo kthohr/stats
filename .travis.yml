@@ -93,6 +93,8 @@ install:
 
 script:
   - cd .. && rm -rf stats
+  - git clone https://github.com/kthohr/gcem ./gcem
+  - export GCEM_INCLUDE_PATH=$PWD/gcem/include
   - git clone https://github.com/kthohr/stats ./stats
   - cd ./stats/tests
   - ./setup && ./test_setup/run_cov
