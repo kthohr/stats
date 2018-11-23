@@ -18,23 +18,39 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/* 
+ * Sample from a Weibull distribution
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifndef _statslib_rweibull_HPP
+#define _statslib_rweibull_HPP
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+//
+// scalar ouput
 
-    #include "stats_incl/dens/dens.hpp"
+template<typename T1, typename T2>
+statslib_inline
+common_return_t<T1,T2>
+rweibull(const T1 shape_par, const T2 scale_par, rand_engine_t& engine);
 
-    #include "stats_incl/prob/prob.hpp"
+template<typename T1, typename T2>
+statslib_inline
+common_return_t<T1,T2>
+rweibull(const T1 shape_par, const T2 scale_par, ullint_t seed_val = std::random_device{}());
 
-    #include "stats_incl/quant/quant.hpp"
+//
+// matrix/vector output
 
-    #include "stats_incl/rand/rand.hpp"
-}
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename eT>
+statslib_inline
+mT
+rweibull(const ullint_t n, const ullint_t k, const eT shape_par, const eT scale_par);
+#endif
+
+//
+// include implementation files
+
+#include "rweibull.ipp"
 
 #endif

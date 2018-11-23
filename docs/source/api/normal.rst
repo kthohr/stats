@@ -25,10 +25,14 @@ The density function of the Normal (Gaussian) distribution:
 .. doxygenfunction:: qnorm(const T1, const T2, const T3)
    :project: statslib
 
-.. _rnorm-func-ref:
+.. _rnorm-func-ref1:
 .. doxygenfunction:: rnorm(const T1, const T2, ullint_t)
    :project: statslib
 
 .. _rnorm-func-ref2:
 .. doxygenfunction:: rnorm(const T1, const T2, rand_engine_t&)
+   :project: statslib
+
+.. _rnorm-func-ref3:
+.. doxygenfunction:: rnorm()
    :project: statslib

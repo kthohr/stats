@@ -18,23 +18,39 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/* 
+ * Sample from a F distribution
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifndef _statslib_rf_HPP
+#define _statslib_rf_HPP
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+//
+// scalar ouput
 
-    #include "stats_incl/dens/dens.hpp"
+template<typename T1, typename T2>
+statslib_inline
+common_return_t<T1,T2>
+rf(const T1 df1_par, const T2 df2_par, rand_engine_t& engine);
 
-    #include "stats_incl/prob/prob.hpp"
+template<typename T1, typename T2>
+statslib_inline
+common_return_t<T1,T2>
+rf(const T1 df1_par, const T2 df2_par, ullint_t seed_val = std::random_device{}());
 
-    #include "stats_incl/quant/quant.hpp"
+//
+// matrix/vector output
 
-    #include "stats_incl/rand/rand.hpp"
-}
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename eT>
+statslib_inline
+mT
+rf(const ullint_t n, const ullint_t k, const eT df1_par, const eT df2_par);
+#endif
+
+//
+// include implementation files
+
+#include "rf.ipp"
 
 #endif

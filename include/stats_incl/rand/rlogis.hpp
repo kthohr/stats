@@ -18,23 +18,36 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/* 
+ * Sample from a logistic distribution
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifndef _statslib_rlogis_HPP
+#define _statslib_rlogis_HPP
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+//
+// scalar ouput
 
-    #include "stats_incl/dens/dens.hpp"
+template<typename T1, typename T2>
+statslib_inline
+common_return_t<T1,T2>
+rlogis(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine);
 
-    #include "stats_incl/prob/prob.hpp"
+template<typename T1, typename T2>
+statslib_inline
+common_return_t<T1,T2>
+rlogis(const T1 mu_par, const T2 sigma_par, ullint_t seed_val = std::random_device{}());
 
-    #include "stats_incl/quant/quant.hpp"
+//
+// matrix/vector output
 
-    #include "stats_incl/rand/rand.hpp"
-}
+template<typename mT, typename eT = double>
+statslib_inline
+mT rlogis(const ullint_t n, const ullint_t k, const eT mu_par = eT(0), const eT sigma_par = eT(1));
+
+//
+// include implementation files
+
+#include "rlogis.ipp"
 
 #endif

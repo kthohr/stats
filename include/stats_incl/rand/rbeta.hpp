@@ -18,23 +18,39 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/* 
+ * Sample from a Beta distribution
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifndef _statslib_rbeta_HPP
+#define _statslib_rbeta_HPP
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+//
+// scalar ouput
 
-    #include "stats_incl/dens/dens.hpp"
+template<typename T1, typename T2>
+statslib_inline
+common_return_t<T1,T2>
+rbeta(const T1 a_par, const T2 b_par, rand_engine_t& engine);
 
-    #include "stats_incl/prob/prob.hpp"
+template<typename T1, typename T2>
+statslib_inline
+common_return_t<T1,T2>
+rbeta(const T1 a_par, const T2 b_par, ullint_t seed_val = std::random_device{}());
 
-    #include "stats_incl/quant/quant.hpp"
+//
+// matrix/vector output
 
-    #include "stats_incl/rand/rand.hpp"
-}
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename eT>
+statslib_inline
+mT
+rbeta(const ullint_t n, const ullint_t k, const eT a_par, const eT b_par);
+#endif
+
+//
+// include implementation files
+
+#include "rbeta.ipp"
 
 #endif

@@ -18,23 +18,21 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/*
+ * Sample from a multinomial distribution
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifndef _statslib_rmultinom_HPP
+#define _statslib_rmultinom_HPP
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+#ifdef STATS_ENABLE_MATRIX_FEATURES
 
-    #include "stats_incl/dens/dens.hpp"
+template<typename mT, typename eT = double>
+statslib_inline
+mT rmultinom(const mT& prob);
 
-    #include "stats_incl/prob/prob.hpp"
+#include "rmultinom.ipp"
 
-    #include "stats_incl/quant/quant.hpp"
-
-    #include "stats_incl/rand/rand.hpp"
-}
+#endif
 
 #endif

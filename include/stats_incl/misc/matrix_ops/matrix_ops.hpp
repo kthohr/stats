@@ -18,23 +18,35 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/*
+ * for internal use only; used to switch between the different matrix libraries
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+namespace mat_ops
+{    
+    #include "get_mem_ptr.hpp"
+    #include "n_cols.hpp"
+    #include "n_elem.hpp"
+    #include "n_rows.hpp"
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+    #include "accu.hpp"
+    #include "chol.hpp"
+    #include "cumsum.hpp"
+    #include "det.hpp"
+    #include "eye.hpp"
+    #include "fill.hpp"
+    #include "get_row.hpp"
+    #include "inv.hpp"
+    #include "log_det.hpp"
+    #include "mean.hpp"
+    #include "repmat.hpp"
+    #include "solve.hpp"
+    #include "spacing.hpp"
+    #include "trace.hpp"
+    #include "trans.hpp"
+    #include "var.hpp"
+    #include "zeros.hpp"
 
-    #include "stats_incl/dens/dens.hpp"
-
-    #include "stats_incl/prob/prob.hpp"
-
-    #include "stats_incl/quant/quant.hpp"
-
-    #include "stats_incl/rand/rand.hpp"
 }
-
 #endif

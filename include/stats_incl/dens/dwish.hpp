@@ -18,23 +18,28 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/*
+ * pdf of the Wishart distribution
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifndef _statslib_dwish_HPP
+#define _statslib_dwish_HPP
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+#ifdef STATS_ENABLE_MATRIX_FEATURES
 
-    #include "stats_incl/dens/dens.hpp"
+template<typename mT, typename pT, typename not_arma_mat<mT>::type* = nullptr>
+statslib_inline
+return_t<pT> dwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form = false);
 
-    #include "stats_incl/prob/prob.hpp"
+// specializations
+#ifdef STATS_USE_ARMA
+template<typename eT, typename pT>
+statslib_inline
+eT dwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, bool log_form = false);
+#endif
 
-    #include "stats_incl/quant/quant.hpp"
+#include "dwish.ipp"
 
-    #include "stats_incl/rand/rand.hpp"
-}
+#endif
 
 #endif

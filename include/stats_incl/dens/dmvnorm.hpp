@@ -18,23 +18,19 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/*
+ * pdf of the Multivariate Normal distribution
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifndef _statslib_dmvnorm_HPP
+#define _statslib_dmvnorm_HPP
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename eT = double>
+statslib_inline
+eT dmvnorm(const mT& X, const mT& mu_par, const mT& Sigma_par, bool log_form = false);
 
-    #include "stats_incl/dens/dens.hpp"
-
-    #include "stats_incl/prob/prob.hpp"
-
-    #include "stats_incl/quant/quant.hpp"
-
-    #include "stats_incl/rand/rand.hpp"
-}
+#include "dmvnorm.ipp"
+#endif
 
 #endif

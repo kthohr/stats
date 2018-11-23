@@ -18,23 +18,28 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_HPP
-#define _statslib_HPP
+/*
+ * Sample from a Wishart distribution
+ */
 
-#include "gcem.hpp"
-#include "stats_incl/misc/statslib_options.hpp"
+#ifndef _statslib_rwish_HPP
+#define _statslib_rwish_HPP
 
-namespace stats
-{
-    #include "stats_incl/misc/misc.hpp"
+#ifdef STATS_ENABLE_MATRIX_FEATURES
 
-    #include "stats_incl/dens/dens.hpp"
+template<typename mT, typename pT, typename not_arma_mat<mT>::type* = nullptr>
+statslib_inline
+mT rwish(const mT& Psi_par, const pT nu_par, const bool pre_chol = false);
 
-    #include "stats_incl/prob/prob.hpp"
+// specializations
+#ifdef STATS_USE_ARMA
+template<typename mT, typename eT, typename pT>
+statslib_inline
+mT rwish(const ArmaMat<eT>& Psi_par, const pT nu_par, const bool pre_chol = false);
+#endif
 
-    #include "stats_incl/quant/quant.hpp"
+#include "rwish.ipp"
 
-    #include "stats_incl/rand/rand.hpp"
-}
+#endif
 
 #endif

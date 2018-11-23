@@ -26,8 +26,8 @@
    }
    </style>
 
-Distribution functions
-======================
+Distributions
+=============
 
 .. toctree::
 
@@ -40,7 +40,7 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qbern <qbern-func-ref>`          | quantile function of the Bernoulli distribution              |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rbern <rbern-func-ref>`          | sampling function of the Bernoulli distribution              |
+| :ref:`rbern <rbern-func-ref1>`         | sampling function of the Bernoulli distribution              |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -54,7 +54,7 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qbeta <qbeta-func-ref>`          | quantile function of the Beta distribution                   |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rbeta <rbeta-func-ref>`          | sampling function of the Beta distribution                   |
+| :ref:`rbeta <rbeta-func-ref1>`         | sampling function of the Beta distribution                   |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -66,9 +66,9 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`pbinom <pbinom-func-ref>`        | distribution function of the Binomial distribution           |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`qbeta <qbinom-func-ref>`         | quantile function of the Binomial distribution               |
+| :ref:`qbinom <qbinom-func-ref>`        | quantile function of the Binomial distribution               |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rbinom <rbinom-func-ref>`        | sampling function of the Binomial distribution               |
+| :ref:`rbinom <rbinom-func-ref1>`       | sampling function of the Binomial distribution               |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -82,7 +82,7 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qcauchy <qcauchy-func-ref>`      | quantile function of the Cauchy distribution                 |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rcauchy <rcauchy-func-ref>`      | sampling function of the Cauchy distribution                 |
+| :ref:`rcauchy <rcauchy-func-ref1>`     | sampling function of the Cauchy distribution                 |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -96,7 +96,7 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qchisq <qchisq-func-ref>`        | quantile function of the Chi-squared distribution            |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rchisq <rchisq-func-ref>`        | sampling function of the Chi-squared distribution            |
+| :ref:`rchisq <rchisq-func-ref1>`       | sampling function of the Chi-squared distribution            |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -110,7 +110,7 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qexp <qexp-func-ref>`            | quantile function of the Exponential distribution            |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rexp <rexp-func-ref>`            | sampling function of the Exponential distribution            |
+| :ref:`rexp <rexp-func-ref1>`           | sampling function of the Exponential distribution            |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -228,7 +228,7 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qnorm <qnorm-func-ref>`          | quantile function of the Normal distribution                 |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rnorm <rnorm-func-ref>`          | sampling function of the Normal distribution                 |
+| :ref:`rnorm <rnorm-func-ref1>`         | sampling function of the Normal distribution                 |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -242,7 +242,7 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qpois <qpois-func-ref>`          | quantile function of the Poisson distribution                |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rpois <rpois-func-ref>`          | sampling function of the Poisson distribution                |
+| :ref:`rpois <rpois-func-ref1>`         | sampling function of the Poisson distribution                |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -270,7 +270,7 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qnorm <qunif-func-ref>`          | quantile function of the Uniform distribution                |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`runif <runif-func-ref>`          | sampling function of the Uniform distribution                |
+| :ref:`runif <runif-func-ref1>`         | sampling function of the Uniform distribution                |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::
@@ -294,5 +294,5 @@ Distribution functions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`dwish <dwish-func-ref>`          | density function of the Wishart distribution                 |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rwish <rwish-func-ref>`          | sampling function of the Wishart distribution                |
+| :ref:`rwish <rwish-func-ref1>`         | sampling function of the Wishart distribution                |
 +----------------------------------------+--------------------------------------------------------------+
