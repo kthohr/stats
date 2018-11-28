@@ -36,16 +36,16 @@ rbeta(const T1 a_par, const T2 b_par, rand_engine_t& engine);
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rbeta(const T1 a_par, const T2 b_par, ullint_t seed_val = std::random_device{}());
+rbeta(const T1 a_par, const T2 b_par, const ullint_t seed_val = std::random_device{}());
 
 //
-// matrix/vector output
+// vector/matrix output
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rbeta(const ullint_t n, const ullint_t k, const eT a_par, const eT b_par);
+rbeta(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par);
 #endif
 
 //

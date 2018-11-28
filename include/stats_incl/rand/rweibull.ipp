@@ -92,38 +92,52 @@ rweibull(const T1 shape_par, const T2 scale_par, rand_engine_t& engine)
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rweibull(const T1 shape_par, const T2 scale_par, ullint_t seed_val)
+rweibull(const T1 shape_par, const T2 scale_par, const ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rweibull(shape_par,scale_par,engine);
 }
 
 //
-// matrix/vector output
+// vector/matrix output
 
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rweibull_vec(const T shape_par, const T scale_par, T* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rweibull_vec(const T1 shape_par, const T2 scale_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rweibull,vals_out,num_elem,shape_par,scale_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Weibull distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the Weibull distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rweibull<arma::mat>(5,4,3.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rweibull(const ullint_t n, const ullint_t k, const eT shape_par, const eT scale_par)
+rweibull(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 scale_par)
 {
-    mT mat_out(n,k);
-
-    internal::rweibull_vec<eT>(shape_par,scale_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rweibull_vec,shape_par,scale_par);
 }
 #endif

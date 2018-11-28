@@ -22,10 +22,21 @@
  * pdf of the Wishart distribution
  */
 
+/**
+ * @brief Density function of the Wishart distribution
+ *
+ * @param X a positive semi-definite matrix.
+ * @param Psi_par a positive semi-definite scale matrix.
+ * @param nu_par the degrees of parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return the density function evaluated at \c X.
+ */
+
 template<typename mT, typename pT, typename not_arma_mat<mT>::type*>
 statslib_inline
 return_t<pT>
-dwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form)
+dwish(const mT& X, const mT& Psi_par, const pT nu_par, const bool log_form)
 {
     typedef return_t<pT> eT;
 
@@ -52,7 +63,7 @@ dwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form)
 template<typename eT, typename pT>
 statslib_inline
 eT
-dwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, bool log_form)
+dwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, const bool log_form)
 {
     const ullint_t K = X.n_rows;
     const eT nu_par_d2 = static_cast<eT>(nu_par) / eT(2);

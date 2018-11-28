@@ -69,10 +69,10 @@ noexcept
 template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
 statslib_constexpr
 TC
-qf_type_check(const T1 x, const T2 df1_par, const T3 df2_par)
+qf_type_check(const T1 p, const T2 df1_par, const T3 df2_par)
 noexcept
 {
-    return qf_vals_check(static_cast<TC>(x),static_cast<TC>(df1_par),static_cast<TC>(df2_par));
+    return qf_vals_check(static_cast<TC>(p),static_cast<TC>(df1_par),static_cast<TC>(df2_par));
 }
 
 }
@@ -100,68 +100,129 @@ noexcept
 }
 
 //
-// matrix/vector input
+// vector/matrix input
 
 namespace internal
 {
 
-template<typename Ta, typename Tb, typename Tc>
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
-qf_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, 
-             Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+qf_vec(const eT* __stats_pointer_settings__ vals_in, const T1 df1_par, const T2 df2_par, 
+             rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    EVAL_DIST_FN_VEC(qexp,vals_in,vals_out,num_elem,df1_par,df2_par);
+    EVAL_DIST_FN_VEC(qf,vals_in,vals_out,num_elem,df1_par,df2_par);
 }
 
 }
+
+/**
+ * @brief Quantile function of the F-distribution
+ *
+ * @param x a standard vector.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ *
+ * @return a vector of quantile function values corresponding to the elements of \c x.
+ * 
+ * Example:
+ * \code{.cpp}
+ * std::vector<double> x = {0.3, 0.5, 0.9};
+ * stats::qf(x,3.0,2.0,false);
+ * \endcode
+ */
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename T2, typename rT>
+statslib_inline
+std::vector<rT>
+qf(const std::vector<eT>& x, const T1 df1_par, const T2 df2_par)
+{
+    STDVEC_DIST_FN(qf_vec,df1_par,df2_par);
+}
+#endif
+
+/**
+ * @brief Quantile function of the F-distribution
+ *
+ * @param X a matrix of input values.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {0.2,  0.7,  0.1},
+ *                 {0.9,  0.3,  0.87} };
+ * stats::qf(X,3.0,2.0,false);
+ * \endcode
+ */
 
 #ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc>
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
-ArmaMat<Tc>
-qf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par)
+ArmaMat<rT>
+qf(const ArmaMat<eT>& X, const T1 df1_par, const T2 df2_par)
 {
-    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
-
-    internal::qf_vec<Ta,Tb,Tc>(X.memptr(),df1_par,df2_par,mat_out.memptr(),mat_out.n_elem);
-
-    return mat_out;
+    ARMA_DIST_FN(qf_vec,df1_par,df2_par);
 }
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1, typename T2>
 statslib_inline
 mT
-qf(const ArmaGen<mT,tT>& X, const Tb df1_par, const Tb df2_par)
+qf(const ArmaGen<mT,tT>& X, const T1 df1_par, const T2 df2_par)
 {
     return qf(X.eval(),df1_par,df2_par);
 }
 #endif
 
+/**
+ * @brief Quantile function of the F-distribution
+ *
+ * @param X a matrix of input values.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::qf(X,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc, bool To>
+template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
-BlazeMat<Tc,To>
-qf(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par)
+BlazeMat<rT,To>
+qf(const BlazeMat<eT,To>& X, const T1 df1_par, const T2 df2_par)
 {
-    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
-
-    internal::qf_vec<Ta,Tb,Tc>(X.data(),df1_par,df2_par,mat_out.data(),X.rows()*X.spacing());
-
-    return mat_out;
+    BLAZE_DIST_FN(qf_vec,df1_par,df2_par);
 }
 #endif
 
+/**
+ * @brief Quantile function of the F-distribution
+ *
+ * @param X a matrix of input values.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::qf(X,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
-EigMat<Tc,iTr,iTc>
-qf(const EigMat<Ta,iTr,iTc>& X, const Tb df1_par, const Tb df2_par)
+EigenMat<rT,iTr,iTc>
+qf(const EigenMat<eT,iTr,iTc>& X, const T1 df1_par, const T2 df2_par)
 {
-    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
-
-    internal::qf_vec<Ta,Tb,Tc>(X.data(),df1_par,df2_par,mat_out.data(),mat_out.size());
-
-    return mat_out;
+    EIGEN_DIST_FN(qf_vec,df1_par,df2_par);
 }
 #endif

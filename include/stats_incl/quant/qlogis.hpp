@@ -34,28 +34,39 @@ common_return_t<T1,T2,T3>
 qlogis(const T1 p, const T2 mu_par, const T3 sigma_par) noexcept;
 
 //
-// matrix/vector input
+// vector/matrix input
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>>
+statslib_inline
+std::vector<rT>
+qlogis(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par);
+#endif
 
 #ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>>
 statslib_inline
-ArmaMat<Tc> qlogis(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par);
+ArmaMat<rT>
+qlogis(const ArmaMat<eT>& X, const T1 mu_par, const T2 sigma_par);
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1, typename T2>
 statslib_inline
-mT qlogis(const ArmaGen<mT,tT>& X, const Tb mu_par, const Tb sigma_par);
+mT
+qlogis(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par);
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>, bool To = blaze::columnMajor>
 statslib_inline
-BlazeMat<Tc,To> qlogis(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par);
+BlazeMat<rT,To>
+qlogis(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par);
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
-EigMat<Tc,iTr,iTc> qlogis(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par);
+EigenMat<rT,iTr,iTc>
+qlogis(const EigenMat<eT,iTr,iTc>& X, const T1 mu_par, const T2 sigma_par);
 #endif
 
 //

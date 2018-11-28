@@ -29,13 +29,13 @@
 
 template<typename mT, typename pT, typename not_arma_mat<mT>::type* = nullptr>
 statslib_inline
-return_t<pT> dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form = false);
+return_t<pT> dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, const bool log_form = false);
 
 // specializations
 #ifdef STATS_USE_ARMA
 template<typename eT, typename pT>
 statslib_inline
-eT dinvwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, bool log_form = false);
+eT dinvwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, const bool log_form = false);
 #endif
 
 #include "dinvwish.ipp"

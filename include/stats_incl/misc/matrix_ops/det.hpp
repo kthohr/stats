@@ -49,7 +49,7 @@ det(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta
-det(const EigMat<Ta,iTr,iTc>& X)
+det(const EigenMat<Ta,iTr,iTc>& X)
 {
     return X.determinant();
 }

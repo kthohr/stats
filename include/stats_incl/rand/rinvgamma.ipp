@@ -89,38 +89,52 @@ rinvgamma(const T1 shape_par, const T2 rate_par, rand_engine_t& engine)
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rinvgamma(const T1 shape_par, const T2 rate_par, ullint_t seed_val)
+rinvgamma(const T1 shape_par, const T2 rate_par, const ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rinvgamma(shape_par,rate_par,engine);
 }
 
 //
-// matrix/vector output
+// vector/matrix output
 
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rinvgamma_vec(const T shape_par, const T rate_par, T* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rinvgamma_vec(const T1 shape_par, const T2 rate_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rinvgamma,vals_out,num_elem,shape_par,rate_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Inverse-Gamma distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param rate_par the rate parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the Inverse-Gamma distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rinvgamma<arma::mat>(5,4,3.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rinvgamma(const ullint_t n, const ullint_t k, const eT shape_par, const eT rate_par)
+rinvgamma(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 rate_par)
 {
-    mT mat_out(n,k);
-
-    internal::rinvgamma_vec<eT>(shape_par,rate_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rinvgamma_vec,shape_par,rate_par);
 }
 #endif

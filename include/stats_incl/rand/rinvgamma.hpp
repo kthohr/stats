@@ -36,16 +36,16 @@ rinvgamma(const T1 shape_par, const T2 rate_par, rand_engine_t& engine);
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rinvgamma(const T1 shape_par, const T2 rate_par, ullint_t seed_val = std::random_device{}());
+rinvgamma(const T1 shape_par, const T2 rate_par, const ullint_t seed_val = std::random_device{}());
 
 //
-// matrix/vector output
+// vector/matrix output
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rinvgamma(const ullint_t n, const ullint_t k, const eT shape_par, const eT rate_par);
+rinvgamma(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 rate_par);
 #endif
 
 //

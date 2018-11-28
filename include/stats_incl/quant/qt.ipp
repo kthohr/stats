@@ -311,68 +311,125 @@ noexcept
 }
 
 //
-// matrix/vector input
+// vector/matrix input
 
 namespace internal
 {
 
-template<typename Ta, typename Tb, typename Tc>
+template<typename eT, typename T1, typename rT>
 statslib_inline
 void
-qt_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par,
-             Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+qt_vec(const eT* __stats_pointer_settings__ vals_in, const T1 dof_par, 
+             rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     EVAL_DIST_FN_VEC(qt,vals_in,vals_out,num_elem,dof_par);
 }
 
 }
 
-#ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc>
+/**
+ * @brief Quantile function of the t-distribution
+ *
+ * @param x a standard vector.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ *
+ * @return a vector of quantile function values corresponding to the elements of \c x.
+ * 
+ * Example:
+ * \code{.cpp}
+ * std::vector<double> x = {0.3, 0.5, 0.8};
+ * stats::qt(x,4);
+ * \endcode
+ */
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename rT>
 statslib_inline
-ArmaMat<Tc>
-qt(const ArmaMat<Ta>& X, const Tb dof_par)
+std::vector<rT>
+qt(const std::vector<eT>& x, const T1 dof_par)
 {
-    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
+    STDVEC_DIST_FN(qt_vec,dof_par);
+}
+#endif
 
-    internal::qt_vec<Ta,Tb,Tc>(X.memptr(),dof_par,mat_out.memptr(),mat_out.n_elem);
+/**
+ * @brief Quantile function of the t-distribution
+ *
+ * @param X a matrix of input values.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {0.2, 0.7, 0.9},
+ *                 {0.1, 0.8, 0.3} };
+ * stats::qt(X,4);
+ * \endcode
+ */
 
-    return mat_out;
+#ifdef STATS_USE_ARMA
+template<typename eT, typename T1, typename rT>
+statslib_inline
+ArmaMat<rT>
+qt(const ArmaMat<eT>& X, const T1 dof_par)
+{
+    ARMA_DIST_FN(qt_vec,dof_par);
 }
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1>
 statslib_inline
 mT
-qt(const ArmaGen<mT,tT>& X, const Tb dof_par)
+qt(const ArmaGen<mT,tT>& X, const T1 dof_par)
 {
     return qt(X.eval(),dof_par);
 }
 #endif
 
+/**
+ * @brief Quantile function of the t-distribution
+ *
+ * @param X a matrix of input values.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::qt(X,4);
+ * \endcode
+ */
+
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc, bool To>
+template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
-BlazeMat<Tc,To>
-qt(const BlazeMat<Ta,To>& X, const Tb dof_par)
+BlazeMat<rT,To>
+qt(const BlazeMat<eT,To>& X, const T1 dof_par)
 {
-    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
-
-    internal::qt_vec<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),X.rows()*X.spacing());
-
-    return mat_out;
+    BLAZE_DIST_FN(qt_vec,dof_par);
 }
 #endif
 
+/**
+ * @brief Quantile function of the t-distribution
+ *
+ * @param X a matrix of input values.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::qt(X,4);
+ * \endcode
+ */
+
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+template<typename eT, typename T1, typename rT, int iTr, int iTc>
 statslib_inline
-EigMat<Tc,iTr,iTc>
-qt(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par)
+EigenMat<rT,iTr,iTc>
+qt(const EigenMat<eT,iTr,iTc>& X, const T1 dof_par)
 {
-    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
-
-    internal::qt_vec<Ta,Tb,Tc>(X.data(),dof_par,mat_out.data(),mat_out.size());
-
-    return mat_out;
+    EIGEN_DIST_FN(qt_vec,dof_par);
 }
 #endif

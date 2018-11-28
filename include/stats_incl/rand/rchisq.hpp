@@ -19,7 +19,7 @@
   ################################################################################*/
 
 /* 
- * Sample from a Chi-Squared distribution
+ * Sample from a Chi-squared distribution
  */
 
 #ifndef _statslib_rchisq_HPP
@@ -36,16 +36,16 @@ rchisq(const T dof_par, rand_engine_t& engine);
 template<typename T>
 statslib_inline
 return_t<T>
-rchisq(const T dof_par, ullint_t seed_val = std::random_device{}());
+rchisq(const T dof_par, const ullint_t seed_val = std::random_device{}());
 
 //
-// matrix/vector output
+// vector/matrix output
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1>
 statslib_inline
 mT
-rchisq(const ullint_t n, const ullint_t k, const eT dof_par);
+rchisq(const ullint_t n, const ullint_t k, const T1 dof_par);
 #endif
 
 //

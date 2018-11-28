@@ -53,7 +53,7 @@ eye(BlazeMat<Ta,Tb>& X, const ullint_t n)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 void
-eye(EigMat<Ta,iTr,iTc>& X, const ullint_t n)
+eye(EigenMat<Ta,iTr,iTc>& X, const ullint_t n)
 {
     X.resize(n,n);
     X.setIdentity();

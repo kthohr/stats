@@ -49,7 +49,7 @@ trace(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta
-trace(const EigMat<Ta,iTr,iTc>& X)
+trace(const EigenMat<Ta,iTr,iTc>& X)
 {
     return X.trace();
 }

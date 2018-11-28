@@ -50,8 +50,8 @@ get_row(const BlazeMat<Ta,Tb>& X, ullint_t i)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 statslib_inline
-EigMat<Ta,1,iTc>
-get_row(const EigMat<Ta,iTr,iTc>& X, ullint_t i)
+EigenMat<Ta,1,iTc>
+get_row(const EigenMat<Ta,iTr,iTc>& X, ullint_t i)
 {
     return X.row(i);
 }

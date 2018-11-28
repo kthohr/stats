@@ -34,28 +34,39 @@ common_return_t<T1,T2>
 qbinom(const T1 p, const llint_t n_trials_par, const T2 prob_par) noexcept;
 
 //
-// matrix/vector input
+// vector/matrix input
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
+statslib_inline
+std::vector<rT>
+qbinom(const std::vector<eT>& x, const T1 prob_par);
+#endif
 
 #ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
-ArmaMat<Tc> qbinom(const ArmaMat<Ta>& X, const ullint_t n_trials_par, const Tb prob_par);
+ArmaMat<rT>
+qbinom(const ArmaMat<eT>& X, const llint_t n_trials_par, const T1 prob_par);
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1>
 statslib_inline
-mT qbinom(const ArmaGen<mT,tT>& X, const ullint_t n_trials_par, const Tb prob_par);
+mT
+qbinom(const ArmaGen<mT,tT>& X, const llint_t n_trials_par, const T1 prob_par);
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, bool To = blaze::columnMajor>
 statslib_inline
-BlazeMat<Tc,To> qbinom(const BlazeMat<Ta,To>& X, const ullint_t n_trials_par, const Tb prob_par);
+BlazeMat<rT,To>
+qbinom(const BlazeMat<eT,To>& X, const llint_t n_trials_par, const T1 prob_par);
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
-EigMat<Tc,iTr,iTc> qbinom(const EigMat<Ta,iTr,iTc>& X, const ullint_t n_trials_par, const Tb prob_par);
+EigenMat<rT,iTr,iTc>
+qbinom(const EigenMat<eT,iTr,iTc>& X, const llint_t n_trials_par, const T1 prob_par);
 #endif
 
 //

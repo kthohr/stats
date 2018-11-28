@@ -51,7 +51,7 @@ get_mem_ptr(BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta*
-get_mem_ptr(EigMat<Ta,iTr,iTc>& X)
+get_mem_ptr(EigenMat<Ta,iTr,iTc>& X)
 {
     Ta* mem_out = X.data();
     return mem_out;

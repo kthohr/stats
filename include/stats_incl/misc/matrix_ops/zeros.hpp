@@ -50,7 +50,7 @@ zeros(BlazeMat<Ta,Tb>& X, const ullint_t n, const ullint_t k)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 void
-zeros(EigMat<Ta,iTr,iTc>& X, const ullint_t n, const ullint_t k)
+zeros(EigenMat<Ta,iTr,iTc>& X, const ullint_t n, const ullint_t k)
 {
     X.resize(n,k);
     X.setZero();

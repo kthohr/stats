@@ -57,10 +57,10 @@ cumsum(const BlazeMat<Ta,Tb>& X)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 statslib_inline
-EigMat<Ta,iTr,iTc>
-cumsum(const EigMat<Ta,iTr,iTc>& X)
+EigenMat<Ta,iTr,iTc>
+cumsum(const EigenMat<Ta,iTr,iTc>& X)
 {
-    EigMat<Ta,iTr,iTc> mat_out = X;
+    EigenMat<Ta,iTr,iTc> mat_out = X;
 
     Ta* mem_out = mat_out.data();
 

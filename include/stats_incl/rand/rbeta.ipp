@@ -58,8 +58,8 @@ rbeta_type_check(const T1 a_par, const T2 b_par, rand_engine_t& engine)
 /**
  * @brief Random sampling function for the Beta distribution
  *
- * @param a_par a shape parameter, a real-valued input.
- * @param b_par a shape parameter, a real-valued input.
+ * @param a_par a real-valued shape parameter.
+ * @param b_par a real-valued shape parameter.
  * @param engine a random engine, passed by reference.
  *
  * @return a pseudo-random draw from the Beta distribution.
@@ -82,8 +82,8 @@ rbeta(const T1 a_par, const T2 b_par, rand_engine_t& engine)
 /**
  * @brief Random sampling function for the Beta distribution
  *
- * @param a_par a shape parameter, a real-valued input.
- * @param b_par a shape parameter, a real-valued input.
+ * @param a_par a real-valued shape parameter.
+ * @param b_par a real-valued shape parameter.
  * @param seed_val initialize the random engine with a non-negative integral-valued seed.
  *
  * @return a pseudo-random draw from the Beta distribution.
@@ -97,38 +97,52 @@ rbeta(const T1 a_par, const T2 b_par, rand_engine_t& engine)
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2> 
-rbeta(const T1 a_par, const T2 b_par, ullint_t seed_val)
+rbeta(const T1 a_par, const T2 b_par, const ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rbeta(a_par,b_par,engine);
 }
 
 //
-// matrix/vector output
+// vector/matrix output
 
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rbeta_vec(const T a_par, const T b_par, T* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rbeta_vec(const T1 a_par, const T2 b_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rbeta,vals_out,num_elem,a_par,b_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Beta distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param a_par a real-valued shape parameter.
+ * @param b_par a real-valued shape parameter.
+ *
+ * @return a matrix of pseudo-random draws from the Beta distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rbeta<arma::mat>(5,4,3.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rbeta(const ullint_t n, const ullint_t k, const eT a_par, const eT b_par)
+rbeta(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par)
 {
-    mT mat_out(n,k);
-
-    internal::rbeta_vec<eT>(a_par,b_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rbeta_vec,a_par,b_par);
 }
 #endif

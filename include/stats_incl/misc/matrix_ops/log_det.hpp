@@ -58,7 +58,7 @@ log_det(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta
-log_det(const EigMat<Ta,iTr,iTc>& X)
+log_det(const EigenMat<Ta,iTr,iTc>& X)
 {
     return (mat_ops::chol(X).diagonal().array().log()*2.0).sum();
 }

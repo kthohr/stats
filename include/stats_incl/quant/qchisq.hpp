@@ -34,28 +34,39 @@ common_return_t<T1,T2>
 qchisq(const T1 p, const T2 dof_par) noexcept;
 
 //
-// matrix/vector input
+// vector/matrix input
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
+statslib_inline
+std::vector<rT>
+qchisq(const std::vector<eT>& x, const T1 dof_par);
+#endif
 
 #ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
-ArmaMat<Tc> qchisq(const ArmaMat<Ta>& X, const Tb dof_par);
+ArmaMat<rT>
+qchisq(const ArmaMat<eT>& X, const T1 dof_par);
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1>
 statslib_inline
-mT qchisq(const ArmaGen<mT,tT>& X, const Tb dof_par);
+mT 
+qchisq(const ArmaGen<mT,tT>& X, const T1 dof_par);
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, bool To = blaze::columnMajor>
 statslib_inline
-BlazeMat<Tc,To> qchisq(const BlazeMat<Ta,To>& X, const Tb dof_par);
+BlazeMat<rT,To>
+qchisq(const BlazeMat<eT,To>& X, const T1 dof_par);
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
-EigMat<Tc,iTr,iTc> qchisq(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par);
+EigenMat<rT,iTr,iTc>
+qchisq(const EigenMat<eT,iTr,iTc>& X, const T1 dof_par);
 #endif
 
 //

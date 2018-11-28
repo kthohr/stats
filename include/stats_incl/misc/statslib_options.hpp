@@ -22,7 +22,7 @@
 #define _statslib_options_HPP
 
 //
-// options and compiler directives
+// StatsLib options and compiler directives
 
 // version
 
@@ -58,7 +58,10 @@
 #include <limits>
 #include <random>
 
-namespace stats {
+// typedefs
+
+namespace stats
+{
     using uint_t = unsigned int;
     using ullint_t = unsigned long long int;
 
@@ -84,11 +87,25 @@ namespace stats {
 #if defined(_OPENMP) && !defined(STATS_DONT_USE_OPENMP) && !defined(STATS_USE_OPENMP)
     #define STATS_USE_OPENMP
     #include <omp.h>
+
     #define STATS_OMP_N_BLOCKS ullint_t(4)
     #define STATS_OMP_MIN_N_PER_BLOCK ullint_t(4)
 #endif
 
+// enable std::vector features
+
+#ifdef STATS_USE_STDVEC
+    #include <vector>
+#endif
+
+#ifndef STATS_USE_STDVEC
+    #if defined(_LIBCPP_VECTOR) || defined(_GLIBCXX_VECTOR)
+        #define STATS_USE_STDVEC
+    #endif
+#endif
+
 //
+// enable wrappers for linear algebra libraries
 
 #if defined(STATS_USE_ARMA) || defined(STATS_USE_BLAZE) || defined(STATS_USE_EIGEN)
     #define STATS_ENABLE_MATRIX_FEATURES
@@ -106,8 +123,8 @@ namespace stats {
         #include "armadillo"
     #endif
 
-    template<typename T>
-    using ArmaMat = arma::Mat<T>;
+    template<typename eT>
+    using ArmaMat = arma::Mat<eT>;
 
     template<typename mT, typename tT>
     using ArmaGen = arma::Gen<mT,tT>;
@@ -124,31 +141,27 @@ namespace stats {
 // Blaze options
 
 #ifdef STATS_USE_BLAZE
-
     #include "blaze/Blaze.h"
 
-    template<typename Ta, bool To = blaze::columnMajor>
-    using BlazeMat = blaze::DynamicMatrix<Ta,To>;
+    template<typename eT, bool To = blaze::columnMajor>
+    using BlazeMat = blaze::DynamicMatrix<eT,To>;
 
-    template<typename Ta, bool To = blaze::rowMajor>
-    using BlazeRow = blaze::DynamicVector<Ta,To>;
+    template<typename eT, bool To = blaze::rowMajor>
+    using BlazeRow = blaze::DynamicVector<eT,To>;
 
 #endif
 
 // Eigen Options
 
 #ifdef STATS_USE_EIGEN
-
     #include <Eigen/Dense>
 
-    // template<typename T>
-    // using EigDynMat = Eigen::Matrix<T,Eigen::Dynamic,Eigen::Dynamic>;
-
-    template<typename Ta, int Tb, int Tc>
-    using EigMat = Eigen::Matrix<Ta,Tb,Tc>;
+    template<typename eT, int iTr, int iTc>
+    using EigenMat = Eigen::Matrix<eT,iTr,iTc>;
 
 #endif
 
+//
 // compiler options
 
 #ifndef __stats_pointer_settings__

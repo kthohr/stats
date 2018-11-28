@@ -49,7 +49,7 @@ n_cols(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 ullint_t
-n_cols(const EigMat<Ta,iTr,iTc>& X)
+n_cols(const EigenMat<Ta,iTr,iTc>& X)
 {
     return X.cols();
 }

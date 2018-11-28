@@ -48,8 +48,8 @@ solve(const BlazeMat<Ta,Tb>& A, const BlazeMat<Ta,Tb>& B)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 statslib_inline
-EigMat<Ta,iTr,iTc>
-solve(const EigMat<Ta,iTr,iTc>& A, const EigMat<Ta,iTr,iTc> B)
+EigenMat<Ta,iTr,iTc>
+solve(const EigenMat<Ta,iTr,iTc>& A, const EigenMat<Ta,iTr,iTc> B)
 {
     return A.colPivHouseholderQr().solve(B);
 }

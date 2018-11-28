@@ -63,8 +63,8 @@ repmat(const BlazeMat<Ta,Tb>& X, ullint_t N, ullint_t K)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 statslib_inline
-EigMat<Ta,iTr,iTc>
-repmat(const EigMat<Ta,iTr,iTc>& X, ullint_t N, ullint_t K)
+EigenMat<Ta,iTr,iTc>
+repmat(const EigenMat<Ta,iTr,iTc>& X, ullint_t N, ullint_t K)
 {
     return X.replicate(N,K);
 }

@@ -36,7 +36,7 @@ rlogis_compute(const T mu_par, const T sigma_par, rand_engine_t& engine)
     return( !logis_sanity_check(mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            qlogis(runif<T>(T(0),T(1),engine),mu_par,sigma_par) );
+            qlogis(runif(T(0),T(1),engine),mu_par,sigma_par) );
 }
 
 template<typename T1, typename T2, typename TC = common_return_t<T1,T2>>
@@ -91,38 +91,52 @@ rlogis(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine)
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rlogis(const T1 mu_par, const T2 sigma_par, ullint_t seed_val)
+rlogis(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rlogis(mu_par,sigma_par,engine);
 }
 
 //
-// matrix/vector output
+// vector/matrix output
 
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rlogis_vec(const T mu_par, const T sigma_par, T* vals_out, const ullint_t num_elem)
+rlogis_vec(const T1 mu_par, const T2 sigma_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rlogis,vals_out,num_elem,mu_par,sigma_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Logistic distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param mu_par the location parameter, a real-valued input.
+ * @param sigma_par the scale parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the Logistic distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rlogis<arma::mat>(5,4,1.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rlogis(const ullint_t n, const ullint_t k, const eT mu_par, const eT sigma_par)
+rlogis(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par)
 {
-    mT mat_out(n,k);
-
-    internal::rlogis_vec<eT>(mu_par,sigma_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rlogis_vec,mu_par,sigma_par);
 }
 #endif

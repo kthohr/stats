@@ -61,7 +61,7 @@ STATS_MATLIB_PATH="."
 # look for GCEM
 if [ -z ${GCEM_INCLUDE_PATH+x} ]; then
     echo -e "  \x1B[31m- error: cannot find the GCEM library header files.\033[0m" >&2 ;
-    echo -e "  \x1B[31m-        Please set the GCEM_INCLUDE_PATH variable to the directory containing gcem.hpp. \033[0m" >&2 ;
+    echo -e "  \x1B[31m-        Please set the GCEM_INCLUDE_PATH variable to the directory of gcem.hpp. \033[0m" >&2 ;
     echo -e "  \x1B[31m-        Exiting.\033[0m" >&2 ;
     echo ""
     exit 1

@@ -22,6 +22,16 @@
  * Sample from an inverse-Wishart distribution
  */
 
+/**
+ * @brief Random sampling function for the Inverse-Wishart distribution
+ *
+ * @param Psi_par a positive semi-definite scale matrix.
+ * @param nu_par the degrees of parameter, a real-valued input.
+ * @param pre_chol indicate whether \c Psi_par is passed in lower triangular (Cholesky) format.
+ *
+ * @return a pseudo-random draw from the Inverse-Wishart distribution.
+ */
+
 template<typename mT, typename pT, typename not_arma_mat<mT>::type*>
 statslib_inline
 mT

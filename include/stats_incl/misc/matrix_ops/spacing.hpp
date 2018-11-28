@@ -49,7 +49,7 @@ spacing(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 ullint_t
-spacing(const EigMat<Ta,iTr,iTc>& X)
+spacing(const EigenMat<Ta,iTr,iTc>& X)
 {
     return n_cols(X);
 }

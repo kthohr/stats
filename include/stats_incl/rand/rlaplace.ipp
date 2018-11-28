@@ -36,7 +36,7 @@ rlaplace_compute(const T mu_par, const T sigma_par, rand_engine_t& engine)
     return( !laplace_sanity_check(mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            qlaplace(runif<T>(T(0),T(1),engine),mu_par,sigma_par) );
+            qlaplace(runif(T(0),T(1),engine),mu_par,sigma_par) );
 }
 
 template<typename T1, typename T2, typename TC = common_return_t<T1,T2>>
@@ -91,7 +91,7 @@ rlaplace(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine)
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rlaplace(const T1 mu_par, const T2 sigma_par, ullint_t seed_val)
+rlaplace(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rlaplace(mu_par,sigma_par,engine);
@@ -103,26 +103,40 @@ rlaplace(const T1 mu_par, const T2 sigma_par, ullint_t seed_val)
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rlaplace_vec(const T mu_par, const T sigma_par, T* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rlaplace_vec(const T1 mu_par, const T2 sigma_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rlaplace,vals_out,num_elem,mu_par,sigma_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Laplace distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param mu_par the location parameter, a real-valued input.
+ * @param sigma_par the scale parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the Laplace distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rlaplace<arma::mat>(5,4,1.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rlaplace(const ullint_t n, const ullint_t k, const eT mu_par, const eT sigma_par)
+rlaplace(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par)
 {
-    mT mat_out(n,k);
-
-    internal::rlaplace_vec<eT>(mu_par,sigma_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rlaplace_vec,mu_par,sigma_par);
 }
 #endif

@@ -49,7 +49,7 @@ mean(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta
-mean(const EigMat<Ta,iTr,iTc>& X)
+mean(const EigenMat<Ta,iTr,iTc>& X)
 {
     return X.mean();
 }

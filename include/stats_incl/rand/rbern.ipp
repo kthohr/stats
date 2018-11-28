@@ -68,38 +68,51 @@ rbern(const T prob_par, rand_engine_t& engine)
 template<typename T>
 statslib_inline
 return_t<T>
-rbern(const T prob_par, ullint_t seed_val)
+rbern(const T prob_par, const ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rbern(prob_par,engine);
 }
 
 //
-// matrix/vector output
+// vector/matrix output
 
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename rT>
 statslib_inline
 void
-rbern_vec(const T prob_par, T* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rbern_vec(const T1 prob_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rbern,vals_out,num_elem,prob_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Bernoulli distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param prob_par the probability parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the Bernoulli distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rbern<arma::mat>(5,4,0.7);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1>
 statslib_inline
 mT
-rbern(const ullint_t n, const ullint_t k, const eT prob_par)
+rbern(const ullint_t n, const ullint_t k, const T1 prob_par)
 {
-    mT mat_out(n,k);
-
-    internal::rbern_vec<eT>(prob_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rbern_vec,prob_par);
 }
 #endif

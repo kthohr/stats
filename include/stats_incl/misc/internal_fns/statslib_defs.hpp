@@ -19,8 +19,11 @@
   ################################################################################*/
 
 /*
- * macro functions to implement vectorized code
+ * macro functions
  */
+
+//
+// vector code
 
 #ifdef STATS_USE_OPENMP
 
@@ -35,21 +38,26 @@
                                                                                         \
     if (n_per_block > STATS_OMP_MIN_N_PER_BLOCK)                                        \
     {                                                                                   \
-    _Pragma("omp parallel for")                                                         \
-    for (ullint_t j=ullint_t(0); j < n_threads; ++j)                                    \
-    {                                                                                   \
-        ullint_t block_dim = j*n_per_block;                                             \
-        for (ullint_t i=ullint_t(0); i < n_per_block; ++i)                              \
+        _Pragma("omp parallel for")                                                     \
+        for (ullint_t j=ullint_t(0); j < n_threads; ++j)                                \
         {                                                                               \
-            vals_out[i+block_dim] = dist_name(vals_in[i+block_dim],args);               \
+            ullint_t block_dim = j*n_per_block;                                         \
+            for (ullint_t i=ullint_t(0); i < n_per_block; ++i)                          \
+            {                                                                           \
+                vals_out[i+block_dim] = dist_name(vals_in[i+block_dim],args);           \
+            }                                                                           \
         }                                                                               \
-    }                                                                                   \
-    }                                                                                   \
                                                                                         \
-    if (n_remainder > ullint_t(0))                                                      \
-    {                                                                                   \
-        ullint_t begin_ind = num_elem - n_remainder - ullint_t(1);                      \
-        for (ullint_t i=begin_ind; i < num_elem; ++i)                                   \
+        if (n_remainder > ullint_t(0))                                                  \
+        {                                                                               \
+            ullint_t begin_ind = num_elem - n_remainder - ullint_t(1);                  \
+            for (ullint_t i=begin_ind; i < num_elem; ++i)                               \
+            {                                                                           \
+                vals_out[i] = dist_name(vals_in[i],args);                               \
+            }                                                                           \
+        }                                                                               \
+    } else {                                                                            \
+        for (ullint_t i=ullint_t(0); i < num_elem; ++i)                                 \
         {                                                                               \
             vals_out[i] = dist_name(vals_in[i],args);                                   \
         }                                                                               \
@@ -67,37 +75,42 @@
     ullint_t n_per_block = num_elem / n_threads;                                        \
     ullint_t n_remainder = num_elem % n_threads;                                        \
                                                                                         \
-    std::vector<rand_engine_t> engines;                                                 \
-                                                                                        \
-    for (ullint_t k=ullint_t(0); k < n_threads; ++k)                                    \
-    {                                                                                   \
-        engines.push_back(rand_engine_t(std::random_device{}()));                       \
-    }                                                                                   \
-                                                                                        \
     if (n_per_block > STATS_OMP_MIN_N_PER_BLOCK)                                        \
     {                                                                                   \
-    _Pragma("omp parallel for")                                                         \
-    for (ullint_t j=ullint_t(0); j < n_threads; ++j)                                    \
-    {                                                                                   \
-        ullint_t block_dim = j*n_per_block;                                             \
-        for (ullint_t i=ullint_t(0); i < n_per_block; ++i)                              \
-        {                                                                               \
-            vals_out[i+block_dim] = dist_name(args,engines[j]);                         \
-        }                                                                               \
-    }                                                                                   \
-    }                                                                                   \
+        std::vector<rand_engine_t> engines;                                             \
                                                                                         \
-    if (n_remainder > ullint_t(0))                                                      \
-    {                                                                                   \
-        ullint_t begin_ind = num_elem - n_remainder - ullint_t(1);                      \
-        for (ullint_t i=begin_ind; i < num_elem; ++i)                                   \
+        for (ullint_t k=ullint_t(0); k < n_threads; ++k)                                \
         {                                                                               \
-            vals_out[i] = dist_name(args,engines[0]);                                   \
+            engines.push_back(rand_engine_t(std::random_device{}()));                   \
+        }                                                                               \
+                                                                                        \
+        _Pragma("omp parallel for")                                                     \
+        for (ullint_t j=ullint_t(0); j < n_threads; ++j)                                \
+        {                                                                               \
+            ullint_t block_dim = j*n_per_block;                                         \
+            for (ullint_t i=ullint_t(0); i < n_per_block; ++i)                          \
+            {                                                                           \
+                vals_out[i+block_dim] = dist_name(args,engines[j]);                     \
+            }                                                                           \
+        }                                                                               \
+                                                                                        \
+        if (n_remainder > ullint_t(0))                                                  \
+        {                                                                               \
+            ullint_t begin_ind = num_elem - n_remainder - ullint_t(1);                  \
+            for (ullint_t i=begin_ind; i < num_elem; ++i)                               \
+            {                                                                           \
+                vals_out[i] = dist_name(args,engines[0]);                               \
+            }                                                                           \
+        }                                                                               \
+    } else {                                                                            \
+        rand_engine_t engine(std::random_device{}());                                   \
+        for (ullint_t i=ullint_t(0); i < num_elem; ++i)                                 \
+        {                                                                               \
+            vals_out[i] = dist_name(args,engine);                                       \
         }                                                                               \
     }                                                                                   \
 }                                                                                       \
 
-//
 //
 
 #else
@@ -115,10 +128,63 @@
                          args...)                                                       \
 {                                                                                       \
     rand_engine_t engine(std::random_device{}());                                       \
-    for (ullint_t j=ullint_t(0); j < num_elem; j++)                                     \
+    for (ullint_t j=ullint_t(0); j < num_elem; ++j)                                     \
     {                                                                                   \
         vals_out[j] = dist_name(args,engine);                                           \
     }                                                                                   \
 }                                                                                       \
 
 #endif
+
+
+//
+// Vector/Matrix core code
+
+#define STDVEC_DIST_FN(dist_name_vec, args...)                                          \
+{                                                                                       \
+    std::vector<rT> vec_out(x.size());                                                  \
+                                                                                        \
+    internal::dist_name_vec(x.data(),args,vec_out.data(),x.size());                     \
+                                                                                        \
+    return vec_out;                                                                     \
+}
+
+#define ARMA_DIST_FN(dist_name_vec, args...)                                            \
+{                                                                                       \
+    ArmaMat<rT> mat_out(X.n_rows,X.n_cols);                                             \
+                                                                                        \
+    internal::dist_name_vec(X.memptr(),args,mat_out.memptr(),mat_out.n_elem);           \
+                                                                                        \
+    return mat_out;                                                                     \
+}
+
+#define BLAZE_DIST_FN(dist_name_vec, args...)                                           \
+{                                                                                       \
+    BlazeMat<rT,To> mat_out(X.rows(),X.columns());                                      \
+                                                                                        \
+    internal::dist_name_vec(X.data(),args,mat_out.data(),X.rows()*X.spacing());         \
+                                                                                        \
+    return mat_out;                                                                     \
+}
+
+#define EIGEN_DIST_FN(dist_name_vec, args...)                                           \
+{                                                                                       \
+    EigenMat<rT,iTr,iTc> mat_out(X.rows(),X.cols());                                    \
+                                                                                        \
+    internal::dist_name_vec(X.data(),args,mat_out.data(),mat_out.size());               \
+                                                                                        \
+    return mat_out;                                                                     \
+}
+
+//
+
+#define GEN_MAT_RAND_FN(dist_name_vec, args...)                                         \
+{                                                                                       \
+    mT mat_out(n,k);                                                                    \
+                                                                                        \
+    internal::dist_name_vec(args,mat_ops::get_mem_ptr(mat_out),                         \
+                            n*mat_ops::spacing(mat_out));                               \
+                                                                                        \
+    return mat_out;                                                                     \
+}
+

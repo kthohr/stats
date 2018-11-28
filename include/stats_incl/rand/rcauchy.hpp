@@ -36,16 +36,16 @@ rcauchy(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine);
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rcauchy(const T1 mu_par, const T2 sigma_par, ullint_t seed_val = std::random_device{}());
+rcauchy(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val = std::random_device{}());
 
 //
-// matrix/vector output
+// vector/matrix output
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rcauchy(const ullint_t n, const ullint_t k, const eT mu_par, const eT sigma_par);
+rcauchy(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par);
 #endif
 
 //

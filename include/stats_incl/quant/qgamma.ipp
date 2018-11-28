@@ -75,7 +75,7 @@ noexcept
  * @param shape_par the shape parameter, a real-valued input.
  * @param scale_par the scale parameter, a real-valued input.
  *
- * @return the density function evaluated at \c p.
+ * @return the quantile function evaluated at \c p.
  *
  * Example:
  * \code{.cpp} stats::qgamma(0.4,2,3); \endcode
@@ -91,68 +91,129 @@ noexcept
 }
 
 //
-// matrix/vector input
+// vector/matrix input
 
 namespace internal
 {
 
-template<typename Ta, typename Tb, typename Tc>
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
-qgamma_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb shape_par, const Tb scale_par, 
-                 Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+qgamma_vec(const eT* __stats_pointer_settings__ vals_in, const T1 shape_par, const T2 scale_par, 
+                 rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     EVAL_DIST_FN_VEC(qgamma,vals_in,vals_out,num_elem,shape_par,scale_par);
 }
 
 }
 
-#ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc>
+/**
+ * @brief Quantile function of the Gamma distribution
+ *
+ * @param x a standard vector.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ *
+ * @return a vector of quantile function values corresponding to the elements of \c x.
+ * 
+ * Example:
+ * \code{.cpp}
+ * std::vector<double> x = {0.3, 0.5, 0.9};
+ * stats::qgamma(x,3.0,2.0,false);
+ * \endcode
+ */
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
-ArmaMat<Tc>
-qgamma(const ArmaMat<Ta>& X, const Tb shape_par, const Tb scale_par)
+std::vector<rT>
+qgamma(const std::vector<eT>& x, const T1 shape_par, const T2 scale_par)
 {
-    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
+    STDVEC_DIST_FN(qgamma_vec,shape_par,scale_par);
+}
+#endif
 
-    internal::qgamma_vec<Ta,Tb,Tc>(X.memptr(),shape_par,scale_par,mat_out.memptr(),mat_out.n_elem);
+/**
+ * @brief Quantile function of the Gamma distribution
+ *
+ * @param X a matrix of input values.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {0.2,  0.7,  0.1},
+ *                 {0.9,  0.3,  0.87} };
+ * stats::qgamma(X,3.0,2.0,false);
+ * \endcode
+ */
 
-    return mat_out;
+#ifdef STATS_USE_ARMA
+template<typename eT, typename T1, typename T2, typename rT>
+statslib_inline
+ArmaMat<rT>
+qgamma(const ArmaMat<eT>& X, const T1 shape_par, const T2 scale_par)
+{
+    ARMA_DIST_FN(qgamma_vec,shape_par,scale_par);
 }
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1, typename T2>
 statslib_inline
 mT
-qgamma(const ArmaGen<mT,tT>& X, const Tb shape_par, const Tb scale_par)
+qgamma(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 scale_par)
 {
     return qgamma(X.eval(),shape_par,scale_par);
 }
 #endif
 
+/**
+ * @brief Quantile function of the Gamma distribution
+ *
+ * @param X a matrix of input values.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::qgamma(X,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc, bool To>
+template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
-BlazeMat<Tc,To>
-qgamma(const BlazeMat<Ta,To>& X, const Tb shape_par, const Tb scale_par)
+BlazeMat<rT,To>
+qgamma(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 scale_par)
 {
-    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
-
-    internal::qgamma_vec<Ta,Tb,Tc>(X.data(),shape_par,scale_par,mat_out.data(),X.rows()*X.spacing());
-
-    return mat_out;
+    BLAZE_DIST_FN(qgamma_vec,shape_par,scale_par);
 }
 #endif
 
+/**
+ * @brief Quantile function of the Gamma distribution
+ *
+ * @param X a matrix of input values.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::qgamma(X,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
-EigMat<Tc,iTr,iTc>
-qgamma(const EigMat<Ta,iTr,iTc>& X, const Tb shape_par, const Tb scale_par)
+EigenMat<rT,iTr,iTc>
+qgamma(const EigenMat<eT,iTr,iTc>& X, const T1 shape_par, const T2 scale_par)
 {
-    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
-
-    internal::qgamma_vec<Ta,Tb,Tc>(X.data(),shape_par,scale_par,mat_out.data(),mat_out.size());
-
-    return mat_out;
+    EIGEN_DIST_FN(qgamma_vec,shape_par,scale_par);
 }
 #endif

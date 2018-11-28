@@ -75,7 +75,7 @@ sqaccu(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta
-accu(const EigMat<Ta,iTr,iTc>& X)
+accu(const EigenMat<Ta,iTr,iTc>& X)
 {
     return X.sum();
 }
@@ -83,7 +83,7 @@ accu(const EigMat<Ta,iTr,iTc>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta
-sqaccu(const EigMat<Ta,iTr,iTc>& X)
+sqaccu(const EigenMat<Ta,iTr,iTc>& X)
 {
     const Ta* vals = X.data();
     Ta out_val = Ta(0);

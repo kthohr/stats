@@ -61,7 +61,7 @@ noexcept
 }
 
 /**
- * @brief Distribution function of the Chi-Squared distribution
+ * @brief Distribution function of the Chi-squared distribution
  *
  * @param x a real-valued input.
  * @param dof_par the degrees of freedom parameter, a real-valued input.
@@ -83,68 +83,129 @@ noexcept
 }
 
 //
-// matrix/vector input
+// vector/matrix input
 
 namespace internal
 {
 
-template<typename Ta, typename Tb, typename Tc>
+template<typename eT, typename T1, typename rT>
 statslib_inline
 void
-pchisq_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb dof_par, const bool log_form, 
-                 Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+pchisq_vec(const eT* __stats_pointer_settings__ vals_in, const T1 dof_par, const bool log_form, 
+                 rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     EVAL_DIST_FN_VEC(pchisq,vals_in,vals_out,num_elem,dof_par,log_form);
 }
 
 }
 
-#ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc>
+/**
+ * @brief Distribution function of the Chi-squared distribution
+ *
+ * @param x a standard vector.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return a vector of CDF values corresponding to the elements of \c x.
+ * 
+ * Example:
+ * \code{.cpp}
+ * std::vector<double> x = {1.8, 0.7, 4.2};
+ * stats::pchisq(x,4,false);
+ * \endcode
+ */
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename rT>
 statslib_inline
-ArmaMat<Tc>
-pchisq(const ArmaMat<Ta>& X, const Tb dof_par, const bool log_form)
+std::vector<rT>
+pchisq(const std::vector<eT>& x, const T1 dof_par, const bool log_form)
 {
-    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
+    STDVEC_DIST_FN(pchisq_vec,dof_par,log_form);
+}
+#endif
 
-    internal::pchisq_vec<Ta,Tb,Tc>(X.memptr(),dof_par,log_form,mat_out.memptr(),mat_out.n_elem);
+/**
+ * @brief Distribution function of the Chi-squared distribution
+ *
+ * @param X a matrix of input values.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return a matrix of CDF values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {1.8, 0.7, 4.2},
+ *                 {0.3, 5.3, 3.7} };
+ * stats::pchisq(X,4,false);
+ * \endcode
+ */
 
-    return mat_out;
+#ifdef STATS_USE_ARMA
+template<typename eT, typename T1, typename rT>
+statslib_inline
+ArmaMat<rT>
+pchisq(const ArmaMat<eT>& X, const T1 dof_par, const bool log_form)
+{
+    ARMA_DIST_FN(pchisq_vec,dof_par,log_form);
 }
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1>
 statslib_inline
 mT
-pchisq(const ArmaGen<mT,tT>& X, const Tb dof_par, const bool log_form)
+pchisq(const ArmaGen<mT,tT>& X, const T1 dof_par, const bool log_form)
 {
     return pchisq(X.eval(),dof_par,log_form);
 }
 #endif
 
+/**
+ * @brief Distribution function of the Chi-squared distribution
+ *
+ * @param X a matrix of input values.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return a matrix of CDF values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::pchisq(X,4,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc, bool To>
+template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
-BlazeMat<Tc,To>
-pchisq(const BlazeMat<Ta,To>& X, const Tb dof_par, const bool log_form)
+BlazeMat<rT,To>
+pchisq(const BlazeMat<eT,To>& X, const T1 dof_par, const bool log_form)
 {
-    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
-
-    internal::pchisq_vec<Ta,Tb,Tc>(X.data(),dof_par,log_form,mat_out.data(),X.rows()*X.spacing());
-
-    return mat_out;
+    BLAZE_DIST_FN(pchisq_vec,dof_par,log_form);
 }
 #endif
 
+/**
+ * @brief Distribution function of the Chi-squared distribution
+ *
+ * @param X a matrix of input values.
+ * @param dof_par the degrees of freedom parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return a matrix of CDF values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::pchisq(X,4,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+template<typename eT, typename T1, typename rT, int iTr, int iTc>
 statslib_inline
-EigMat<Tc,iTr,iTc>
-pchisq(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par, const bool log_form)
+EigenMat<rT,iTr,iTc>
+pchisq(const EigenMat<eT,iTr,iTc>& X, const T1 dof_par, const bool log_form)
 {
-    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
-
-    internal::pchisq_vec<Ta,Tb,Tc>(X.data(),dof_par,log_form,mat_out.data(),mat_out.size());
-
-    return mat_out;
+    EIGEN_DIST_FN(pchisq_vec,dof_par,log_form);
 }
 #endif

@@ -52,12 +52,12 @@ rgamma_compute(const T shape_par, const T scale_par, rand_engine_t& engine)
 
         while (keep_running)
         {
-            T Z = rnorm<T>(T(0),T(1),engine);
+            T Z = rnorm(T(0),T(1),engine);
 
             if (Z > -T(1)/c)
             {
                 V = std::pow(T(1) + c*Z,3);
-                T U = runif<T>(T(0),T(1),engine);
+                T U = runif(T(0),T(1),engine);
 
                 T check_2 = T(0.5)*Z*Z + d*(T(1) - V + std::log(V));
 
@@ -71,7 +71,7 @@ rgamma_compute(const T shape_par, const T scale_par, rand_engine_t& engine)
     }
     else
     {
-        const T U = runif<T>(T(0),T(1),engine);
+        const T U = runif(T(0),T(1),engine);
         ret = rgamma(T(1) + shape_par, scale_par,engine) * std::pow(U,T(1)/shape_par);
     }
 
@@ -140,31 +140,45 @@ rgamma(const T1 shape_par, const T2 scale_par, ullint_t seed_val)
 }
 
 //
-// matrix/vector output
+// vector/matrix output
 
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rgamma_vec(const T shape_par, const T scale_par, T* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rgamma_vec(const T1 shape_par, const T2 scale_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rgamma,vals_out,num_elem,shape_par,scale_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Gamma distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the Gamma distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rgamma<arma::mat>(5,4,3.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rgamma(const ullint_t n, const ullint_t k, const eT shape_par, const eT scale_par)
+rgamma(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 scale_par)
 {
-    mT mat_out(n,k);
-
-    internal::rgamma_vec<eT>(shape_par,scale_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rgamma_vec,shape_par,scale_par);
 }
 #endif

@@ -16,4 +16,8 @@ ENABLE_PREPROCESSING   = YES
 MACRO_EXPANSION        = YES
 EXPAND_ONLY_PREDEF     = YES
 PREDEFINED             = "statslib_constexpr=constexpr" \
-                         "statslib_inline=inline"
+                         "statslib_inline=inline" \
+                         "STATS_USE_STDVEC" \
+                         "STATS_USE_ARMA" \
+                         "STATS_USE_BLAZE" \
+                         "STATS_USE_EIGEN"

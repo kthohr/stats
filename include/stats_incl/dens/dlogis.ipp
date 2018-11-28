@@ -85,68 +85,133 @@ noexcept
 }
 
 //
-// matrix/vector input
+// vector/matrix input
 
 namespace internal
 {
 
-template<typename Ta, typename Tb, typename Tc>
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
-dlogis_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb mu_par, const Tb sigma_par, const bool log_form, 
-                 Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+dlogis_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const T2 sigma_par, const bool log_form, 
+                 rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     EVAL_DIST_FN_VEC(dlogis,vals_in,vals_out,num_elem,mu_par,sigma_par,log_form);
 }
 
 }
 
-#ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc>
+/**
+ * @brief Density function of the Logistic distribution
+ *
+ * @param x a standard vector.
+ * @param mu_par the location parameter, a real-valued input.
+ * @param sigma_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a vector of density function values corresponding to the elements of \c x.
+ * 
+ * Example:
+ * \code{.cpp}
+ * std::vector<double> x = {0.0, 1.0, 2.0};
+ * stats::dlogis(x,1.0,2.0,false);
+ * \endcode
+ */
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
-ArmaMat<Tc>
-dlogis(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
+std::vector<rT>
+dlogis(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par, const bool log_form)
 {
-    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
+    STDVEC_DIST_FN(dlogis_vec,mu_par,sigma_par,log_form);
+}
+#endif
 
-    internal::dlogis_vec<Ta,Tb,Tc>(X.memptr(),mu_par,sigma_par,log_form,mat_out.memptr(),mat_out.n_elem);
+/**
+ * @brief Density function of the Logistic distribution
+ *
+ * @param X a matrix of input values.
+ * @param mu_par the location parameter, a real-valued input.
+ * @param sigma_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a matrix of density function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {0.2, -1.7,  0.1},
+ *                 {0.9,  4.0, -0.3} };
+ * stats::dlogis(X,1.0,1.0,false);
+ * \endcode
+ */
 
-    return mat_out;
+#ifdef STATS_USE_ARMA
+template<typename eT, typename T1, typename T2, typename rT>
+statslib_inline
+ArmaMat<rT>
+dlogis(const ArmaMat<eT>& X, const T1 mu_par, const T2 sigma_par, const bool log_form)
+{
+    ARMA_DIST_FN(dlogis_vec,mu_par,sigma_par,log_form);
 }
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1, typename T2>
 statslib_inline
 mT
-dlogis(const ArmaGen<mT,tT>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
+dlogis(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par, const bool log_form)
 {
     return dlogis(X.eval(),mu_par,sigma_par,log_form);
 }
 #endif
 
+/**
+ * @brief Density function of the Logistic distribution
+ *
+ * @param X a matrix of input values.
+ * @param mu_par the location parameter, a real-valued input.
+ * @param sigma_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a matrix of density function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::dlogis(X,1.0,1.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc, bool To>
+template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
-BlazeMat<Tc,To>
-dlogis(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
+BlazeMat<rT,To>
+dlogis(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par, const bool log_form)
 {
-    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
-
-    internal::dlogis_vec<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),X.rows()*X.spacing());
-
-    return mat_out;
+    BLAZE_DIST_FN(dlogis_vec,mu_par,sigma_par,log_form);
 }
 #endif
 
+/**
+ * @brief Density function of the Logistic distribution
+ *
+ * @param X a matrix of input values.
+ * @param mu_par the location parameter, a real-valued input.
+ * @param sigma_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a matrix of density function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::dlogis(X,1.0,1.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
-EigMat<Tc,iTr,iTc>
-dlogis(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par, const bool log_form)
+EigenMat<rT,iTr,iTc>
+dlogis(const EigenMat<eT,iTr,iTc>& X, const T1 mu_par, const T2 sigma_par, const bool log_form)
 {
-    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
-
-    internal::dlogis_vec<Ta,Tb,Tc>(X.data(),mu_par,sigma_par,log_form,mat_out.data(),mat_out.size());
-
-    return mat_out;
+    EIGEN_DIST_FN(dlogis_vec,mu_par,sigma_par,log_form);
 }
 #endif

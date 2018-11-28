@@ -48,8 +48,8 @@ trans(const BlazeMat<Ta,Tb>& X)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 statslib_inline
-EigMat<Ta,iTc,iTr>
-trans(const EigMat<Ta,iTr,iTc>& X)
+EigenMat<Ta,iTc,iTr>
+trans(const EigenMat<Ta,iTr,iTc>& X)
 {
     return X.transpose();
 }

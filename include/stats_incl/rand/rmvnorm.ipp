@@ -22,12 +22,22 @@
  * Sample from a multivariate normal distribution
  */
 
-template<typename T, typename not_arma_mat<T>::type*>
+/**
+ * @brief Random sampling function for the Multivariate-Normal distribution
+ *
+ * @param mu_par mean vector.
+ * @param Sigma_par the covariance matrix.
+ * @param pre_chol indicate whether \c Sigma_par is passed in lower triangular (Cholesky) format.
+ *
+ * @return a pseudo-random draw from the Multivariate-Normal distribution.
+ */
+
+template<typename mT, typename not_arma_mat<mT>::type*>
 statslib_inline
-T
-rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol)
+mT
+rmvnorm(const mT& mu_par, const mT& Sigma_par, const bool pre_chol)
 {
-    T ret;
+    mT ret;
 
     const ullint_t K = mat_ops::n_rows(Sigma_par);
 
@@ -39,9 +49,9 @@ rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol)
 
     //
 
-    const T A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
+    const mT A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
 
-    ret = mu_par + A * rnorm<T>(K,1);
+    ret = mu_par + A * rnorm<mT>(K,1);
 
     //
     
@@ -80,12 +90,12 @@ rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 //
 // n-samples: results will be an n x K matrix
 
-template<typename T, typename not_arma_mat<T>::type*>
+template<typename mT, typename not_arma_mat<mT>::type*>
 statslib_inline
-T
-rmvnorm(const ullint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol)
+mT
+rmvnorm(const ullint_t n, const mT& mu_par, const mT& Sigma_par, const bool pre_chol)
 {
-    T ret;
+    mT ret;
 
     const ullint_t K = mat_ops::n_rows(Sigma_par);
 
@@ -97,9 +107,9 @@ rmvnorm(const ullint_t n, const T& mu_par, const T& Sigma_par, const bool pre_ch
 
     //
 
-    const T A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
+    const mT A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
 
-    ret = mat_ops::repmat(mat_ops::trans(mu_par),n,1) + rnorm<T>(n,K) * mat_ops::trans(A);
+    ret = mat_ops::repmat(mat_ops::trans(mu_par),n,1) + rnorm<mT>(n,K) * mat_ops::trans(A);
 
     //
     

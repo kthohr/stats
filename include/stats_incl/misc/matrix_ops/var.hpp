@@ -51,7 +51,7 @@ var(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 Ta
-var(const EigMat<Ta,iTr,iTc>& X)
+var(const EigenMat<Ta,iTr,iTc>& X)
 {
     Ta mean_val = mean(X);
     Ta sq_val = sqaccu(X) / static_cast<Ta>(n_elem(X));

@@ -31,31 +31,42 @@
 template<typename T1, typename T2>
 statslib_constexpr
 common_return_t<T1,T2>
-qexp(const T1 x, const T2 rate_par) noexcept;
+qexp(const T1 p, const T2 rate_par) noexcept;
 
 //
-// matrix/vector input
+// vector/matrix input
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
+statslib_inline
+std::vector<rT>
+qexp(const std::vector<eT>& x, const T1 rate_par);
+#endif
 
 #ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
-ArmaMat<Tc> qexp(const ArmaMat<Ta>& X, const Tb dof_par);
+ArmaMat<rT>
+qexp(const ArmaMat<eT>& X, const T1 rate_par);
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1>
 statslib_inline
-mT qexp(const ArmaGen<mT,tT>& X, const Tb rate_par);
+mT 
+qexp(const ArmaGen<mT,tT>& X, const T1 rate_par);
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, bool To = blaze::columnMajor>
 statslib_inline
-BlazeMat<Tc,To> qexp(const BlazeMat<Ta,To>& X, const Tb dof_par);
+BlazeMat<rT,To>
+qexp(const BlazeMat<eT,To>& X, const T1 rate_par);
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
-EigMat<Tc,iTr,iTc> qexp(const EigMat<Ta,iTr,iTc>& X, const Tb dof_par);
+EigenMat<rT,iTr,iTc>
+qexp(const EigenMat<eT,iTr,iTc>& X, const T1 rate_par);
 #endif
 
 //

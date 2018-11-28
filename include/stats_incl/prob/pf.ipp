@@ -68,7 +68,7 @@ noexcept
  * @param x a real-valued input.
  * @param df1_par a degrees of freedom parameter, a real-valued input.
  * @param df2_par a degrees of freedom parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
+ * @param log_form return the log-probability or the true form.
  *
  * @return the cumulative distribution function evaluated at \c x.
  * 
@@ -86,68 +86,133 @@ noexcept
 }
 
 //
-// matrix/vector input
+// vector/matrix input
 
 namespace internal
 {
 
-template<typename Ta, typename Tb, typename Tc>
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
-pf_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb df1_par, const Tb df2_par, const bool log_form, 
-             Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+pf_vec(const eT* __stats_pointer_settings__ vals_in, const T1 df1_par, const T2 df2_par, const bool log_form, 
+             rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     EVAL_DIST_FN_VEC(pf,vals_in,vals_out,num_elem,df1_par,df2_par,log_form);
 }
 
 }
 
-#ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc>
+/**
+ * @brief Distribution function of the Beta distribution
+ *
+ * @param x a standard vector.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return a vector of CDF values corresponding to the elements of \c x.
+ * 
+ * Example:
+ * \code{.cpp}
+ * std::vector<double> x = {0.3, 0.5, 0.9};
+ * stats::pf(x,3.0,2.0,false);
+ * \endcode
+ */
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
-ArmaMat<Tc>
-pf(const ArmaMat<Ta>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+std::vector<rT>
+pf(const std::vector<eT>& x, const T1 df1_par, const T2 df2_par, const bool log_form)
 {
-    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
+    STDVEC_DIST_FN(pf_vec,df1_par,df2_par,log_form);
+}
+#endif
 
-    internal::pf_vec<Ta,Tb,Tc>(X.memptr(),df1_par,df2_par,log_form,mat_out.memptr(),mat_out.n_elem);
+/**
+ * @brief Distribution function of the Beta distribution
+ *
+ * @param X a matrix of input values.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return a matrix of CDF values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {0.2,  0.7,  0.1},
+ *                 {0.9, -0.3,  1.3} };
+ * stats::pf(X,3.0,2.0,false);
+ * \endcode
+ */
 
-    return mat_out;
+#ifdef STATS_USE_ARMA
+template<typename eT, typename T1, typename T2, typename rT>
+statslib_inline
+ArmaMat<rT>
+pf(const ArmaMat<eT>& X, const T1 df1_par, const T2 df2_par, const bool log_form)
+{
+    ARMA_DIST_FN(pf_vec,df1_par,df2_par,log_form);
 }
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1, typename T2>
 statslib_inline
 mT
-pf(const ArmaGen<mT,tT>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+pf(const ArmaGen<mT,tT>& X, const T1 df1_par, const T2 df2_par, const bool log_form)
 {
     return pf(X.eval(),df1_par,df2_par,log_form);
 }
 #endif
 
+/**
+ * @brief Distribution function of the Beta distribution
+ *
+ * @param X a matrix of input values.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return a matrix of CDF values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::pf(X,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc, bool To>
+template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
-BlazeMat<Tc,To>
-pf(const BlazeMat<Ta,To>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+BlazeMat<rT,To>
+pf(const BlazeMat<eT,To>& X, const T1 df1_par, const T2 df2_par, const bool log_form)
 {
-    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
-
-    internal::pf_vec<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),X.rows()*X.spacing());
-
-    return mat_out;
+    BLAZE_DIST_FN(pf_vec,df1_par,df2_par,log_form);
 }
 #endif
 
+/**
+ * @brief Distribution function of the Beta distribution
+ *
+ * @param X a matrix of input values.
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
+ *
+ * @return a matrix of CDF values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::pf(X,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
-EigMat<Tc,iTr,iTc>
-pf(const EigMat<Ta,iTr,iTc>& X, const Tb df1_par, const Tb df2_par, const bool log_form)
+EigenMat<rT,iTr,iTc>
+pf(const EigenMat<eT,iTr,iTc>& X, const T1 df1_par, const T2 df2_par, const bool log_form)
 {
-    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
-
-    internal::pf_vec<Ta,Tb,Tc>(X.data(),df1_par,df2_par,log_form,mat_out.data(),mat_out.size());
-
-    return mat_out;
+    EIGEN_DIST_FN(pf_vec,df1_par,df2_par,log_form);
 }
 #endif

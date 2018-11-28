@@ -36,18 +36,21 @@ rnorm(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine);
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rnorm(const T1 mu_par, const T2 sigma_par, ullint_t seed_val = std::random_device{}());
+rnorm(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val = std::random_device{}());
 
 template<typename T = double>
 statslib_inline
 T rnorm();
 
 //
-// matrix/vector output
+// vector/matrix output
 
-template<typename mT, typename eT = double>
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1 = double, typename T2 = double>
 statslib_inline
-mT rnorm(const ullint_t n, const ullint_t k, const eT mu_par = eT(0), const eT sigma_par = eT(1));
+mT
+rnorm(const ullint_t n, const ullint_t k, const T1 mu_par = T1(0), const T2 sigma_par = T2(1));
+#endif
 
 //
 // include implementation files

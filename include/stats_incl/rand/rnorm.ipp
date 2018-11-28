@@ -96,7 +96,7 @@ rnorm(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine)
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
-rnorm(const T1 mu_par, const T2 sigma_par, ullint_t seed_val)
+rnorm(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rnorm(mu_par,sigma_par,engine);
@@ -126,26 +126,40 @@ rnorm()
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename T2, typename rT = common_return_t<T1,T2>>
 statslib_inline
 void
-rnorm_vec(const T mu_par, const T sigma_par, T* vals_out, const ullint_t num_elem)
+rnorm_vec(const T1 mu_par, const T2 sigma_par, rT* vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rnorm,vals_out,num_elem,mu_par,sigma_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Normal distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param mu_par the mean parameter, a real-valued input.
+ * @param sigma_par the standard deviation parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the Normal distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rnorm<arma::mat>(5,4,1.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rnorm(const ullint_t n, const ullint_t k, const eT mu_par, const eT sigma_par)
+rnorm(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par)
 {
-    mT mat_out(n,k);
-
-    internal::rnorm_vec<eT>(mu_par,sigma_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rnorm_vec,mu_par,sigma_par);
 }
 #endif

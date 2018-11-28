@@ -22,10 +22,21 @@
  * pdf of the inverse-Wishart distribution
  */
 
+/**
+ * @brief Density function of the Inverse-Wishart distribution
+ *
+ * @param X a positive semi-definite matrix.
+ * @param Psi_par a positive semi-definite scale matrix.
+ * @param nu_par the degrees of parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return the density function evaluated at \c X.
+ */
+
 template<typename mT, typename pT, typename not_arma_mat<mT>::type*>
 statslib_inline
 return_t<pT>
-dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form)
+dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, bool const log_form)
 {
     typedef return_t<pT> eT;
 
@@ -35,9 +46,9 @@ dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form)
     //
 
     const eT lmg_term = gcem::lmgamma(nu_par_d2, K);
-    const eT norm_term = nu_par_d2*std::log(mat_ops::det(Psi_par)) - nu_par_d2*K*GCEM_LOG_2 - lmg_term;
+    const eT norm_term = nu_par_d2*mat_ops::log_det(Psi_par) - nu_par_d2*K*eT(GCEM_LOG_2) - lmg_term;
 
-    eT ret = norm_term - eT(0.5) * ( (nu_par+K+1) * std::log(mat_ops::det(X)) + mat_ops::trace(mat_ops::solve(X,Psi_par)) );
+    eT ret = norm_term - eT(0.5) * ( (nu_par+K+1) * mat_ops::log_det(X) + mat_ops::trace(mat_ops::solve(X,Psi_par)) );
 
     if (!log_form) {
         ret = std::exp(ret);
@@ -52,7 +63,7 @@ dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, bool log_form)
 template<typename eT, typename pT>
 statslib_inline
 eT
-dinvwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, bool log_form)
+dinvwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, const bool log_form)
 {
     const ullint_t K = X.n_rows;
     const eT nu_par_d2 = static_cast<eT>(nu_par) / eT(2);
@@ -60,9 +71,9 @@ dinvwish(const ArmaMat<eT>& X, const ArmaMat<eT>& Psi_par, const pT nu_par, bool
     //
 
     const eT lmg_term = gcem::lmgamma(nu_par_d2, K);
-    const eT norm_term = nu_par_d2*std::log(mat_ops::det(Psi_par)) - nu_par_d2*K*GCEM_LOG_2 - lmg_term;
+    const eT norm_term = nu_par_d2*mat_ops::log_det(Psi_par) - nu_par_d2*K*eT(GCEM_LOG_2) - lmg_term;
 
-    eT ret = norm_term - eT(0.5) * ( (nu_par+K+1) * std::log(mat_ops::det(X)) + mat_ops::trace(mat_ops::solve(X,Psi_par)) );
+    eT ret = norm_term - eT(0.5) * ( (nu_par+K+1) * mat_ops::log_det(X) + mat_ops::trace(mat_ops::solve(X,Psi_par)) );
 
     if (!log_form) {
         ret = std::exp(ret);

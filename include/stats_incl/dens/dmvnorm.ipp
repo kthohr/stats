@@ -22,6 +22,17 @@
  * pdf of the Multivariate Normal distribution
  */
 
+/**
+ * @brief Density function of the Multivariate-Normal distribution
+ *
+ * @param X a vector.
+ * @param mu_par mean vector.
+ * @param Sigma_par the covariance matrix.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return the density function evaluated at \c X.
+ */
+
 template<typename mT, typename eT>
 statslib_inline
 eT

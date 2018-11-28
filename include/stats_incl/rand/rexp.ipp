@@ -36,7 +36,7 @@ rexp_compute(const T rate_par, rand_engine_t& engine)
     return( !exp_sanity_check(rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            qexp(runif<T>(T(0),T(1),engine),rate_par) );
+            qexp(runif(T(0),T(1),engine),rate_par) );
 }
 
 }
@@ -44,7 +44,7 @@ rexp_compute(const T rate_par, rand_engine_t& engine)
 /**
  * @brief Random sampling function for the Exponential distribution
  *
- * @param rate_par the probability parameter, a real-valued input.
+ * @param rate_par the rate parameter, a real-valued input.
  * @param engine a random engine, passed by reference.
  *
  * @return a pseudo-random draw from the Exponential distribution.
@@ -67,7 +67,7 @@ rexp(const T rate_par, rand_engine_t& engine)
 /**
  * @brief Random sampling function for the Exponential distribution
  *
- * @param rate_par the probability parameter, a real-valued input.
+ * @param rate_par the rate parameter, a real-valued input.
  * @param seed_val initialize the random engine with a non-negative integral-valued seed.
  *
  * @return a pseudo-random draw from the Exponential distribution.
@@ -81,38 +81,51 @@ rexp(const T rate_par, rand_engine_t& engine)
 template<typename T>
 statslib_inline
 return_t<T>
-rexp(const T rate_par, ullint_t seed_val)
+rexp(const T rate_par, const ullint_t seed_val)
 {
     rand_engine_t engine(seed_val);
     return rexp(rate_par,engine);
 }
 
 //
-// matrix/vector output
+// vector/matrix output
 
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename rT>
 statslib_inline
 void
-rexp_vec(const T rate_par, T* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rexp_vec(const T1 rate_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rexp,vals_out,num_elem,rate_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the Exponential distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param rate_par the rate parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the Exponential distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rchisq<arma::mat>(5,4,4);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1>
 statslib_inline
 mT
-rexp(const ullint_t n, const ullint_t k, const eT rate_par)
+rexp(const ullint_t n, const ullint_t k, const T1 rate_par)
 {
-    mT mat_out(n,k);
-
-    internal::rexp_vec<eT>(rate_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rexp_vec,rate_par);
 }
 #endif

@@ -86,68 +86,129 @@ noexcept
 }
 
 //
-// matrix/vector input
+// vector/matrix input
 
 namespace internal
 {
 
-template<typename Ta, typename Tb, typename Tc>
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
-qbeta_vec(const Ta* __stats_pointer_settings__ vals_in, const Tb a_par, const Tb b_par, 
-                Tc* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+qbeta_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2 b_par, 
+                rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     EVAL_DIST_FN_VEC(qbeta,vals_in,vals_out,num_elem,a_par,b_par);
 }
 
 }
 
-#ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc>
+/**
+ * @brief Quantile function of the Beta distribution
+ *
+ * @param x a standard vector.
+ * @param a_par a real-valued shape parameter.
+ * @param b_par a real-valued shape parameter.
+ *
+ * @return a vector of quantile function values corresponding to the elements of \c x.
+ * 
+ * Example:
+ * \code{.cpp}
+ * std::vector<double> x = {0.3, 0.5, 0.9};
+ * stats::qbeta(x,3.0,2.0);
+ * \endcode
+ */
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
-ArmaMat<Tc>
-qbeta(const ArmaMat<Ta>& X, const Tb a_par, const Tb b_par)
+std::vector<rT>
+qbeta(const std::vector<eT>& x, const T1 a_par, const T2 b_par)
 {
-    ArmaMat<Tc> mat_out(X.n_rows,X.n_cols);
+    STDVEC_DIST_FN(qbeta_vec,a_par,b_par);
+}
+#endif
 
-    internal::qbeta_vec<Ta,Tb,Tc>(X.memptr(),a_par,b_par,mat_out.memptr(),mat_out.n_elem);
+/**
+ * @brief Quantile function of the Beta distribution
+ *
+ * @param X a matrix of input values.
+ * @param a_par a real-valued shape parameter.
+ * @param b_par a real-valued shape parameter.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {0.2,  0.7,  0.1},
+ *                 {0.9,  0.3,  0.87} };
+ * stats::qbeta(X,3.0,2.0);
+ * \endcode
+ */
 
-    return mat_out;
+#ifdef STATS_USE_ARMA
+template<typename eT, typename T1, typename T2, typename rT>
+statslib_inline
+ArmaMat<rT>
+qbeta(const ArmaMat<eT>& X, const T1 a_par, const T2 b_par)
+{
+    ARMA_DIST_FN(qbeta_vec,a_par,b_par);
 }
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1, typename T2>
 statslib_inline
 mT
-qbeta(const ArmaGen<mT,tT>& X, const Tb a_par, const Tb b_par)
+qbeta(const ArmaGen<mT,tT>& X, const T1 a_par, const T2 b_par)
 {
     return qbeta(X.eval(),a_par,b_par);
 }
 #endif
 
+/**
+ * @brief Quantile function of the Beta distribution
+ *
+ * @param X a matrix of input values.
+ * @param a_par a real-valued shape parameter.
+ * @param b_par a real-valued shape parameter.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::qbeta(X,3.0,2.0);
+ * \endcode
+ */
+
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc, bool To>
+template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
-BlazeMat<Tc,To>
-qbeta(const BlazeMat<Ta,To>& X, const Tb a_par, const Tb b_par)
+BlazeMat<rT,To>
+qbeta(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par)
 {
-    BlazeMat<Tc,To> mat_out(X.rows(),X.columns());
-
-    internal::qbeta_vec<Ta,Tb,Tc>(X.data(),a_par,b_par,mat_out.data(),X.rows()*X.spacing());
-
-    return mat_out;
+    BLAZE_DIST_FN(qbeta_vec,a_par,b_par);
 }
 #endif
 
+/**
+ * @brief Quantile function of the Beta distribution
+ *
+ * @param X a matrix of input values.
+ * @param a_par a real-valued shape parameter.
+ * @param b_par a real-valued shape parameter.
+ *
+ * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::qbeta(X,3.0,2.0);
+ * \endcode
+ */
+
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc, int iTr, int iTc>
+template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
-EigMat<Tc,iTr,iTc>
-qbeta(const EigMat<Ta,iTr,iTc>& X, const Tb a_par, const Tb b_par)
+EigenMat<rT,iTr,iTc>
+qbeta(const EigenMat<eT,iTr,iTc>& X, const T1 a_par, const T2 b_par)
 {
-    EigMat<Tc,iTr,iTc> mat_out(X.rows(),X.cols());
-
-    internal::qbeta_vec<Ta,Tb,Tc>(X.data(),a_par,b_par,mat_out.data(),mat_out.size());
-
-    return mat_out;
+    EIGEN_DIST_FN(qbeta_vec,a_par,b_par);
 }
 #endif

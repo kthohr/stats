@@ -59,6 +59,13 @@ int main()
     //
     // coverage tests
 
+    std::vector<double> x_vec = {0.0, 1.0, 2.0};
+    std::vector<double> val_vec = stats::dnorm(x_vec,1.0,2.0,false);
+
+    for (int i=0; i < 3; ++i) {
+        std::cout << "val[" << i << "] = " << val_vec[i] << "\n";
+    }
+
 #ifdef STATS_TEST_MAT
     mat_obj x_mat(2,1);
     x_mat(0,0) = 1;

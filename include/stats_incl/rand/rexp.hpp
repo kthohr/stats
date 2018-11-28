@@ -36,16 +36,16 @@ rexp(const T rate_par, rand_engine_t& engine);
 template<typename T>
 statslib_inline
 return_t<T>
-rexp(const T rate_par, ullint_t seed_val = std::random_device{}());
+rexp(const T rate_par, const ullint_t seed_val = std::random_device{}());
 
 //
-// matrix/vector output
+// vector/matrix output
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1>
 statslib_inline
 mT
-rexp(const ullint_t n, const ullint_t k, const eT rate_par);
+rexp(const ullint_t n, const ullint_t k, const T1 rate_par);
 #endif
 
 //

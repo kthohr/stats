@@ -49,7 +49,7 @@ fill(BlazeMat<Ta,Tb>& X, const Ta fill_val)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 void
-fill(EigMat<Ta,iTr,iTc>& X, const Ta fill_val)
+fill(EigenMat<Ta,iTr,iTc>& X, const Ta fill_val)
 {
     X.fill(fill_val);
 }

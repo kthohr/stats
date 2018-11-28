@@ -36,16 +36,16 @@ rbinom(const llint_t n_trials_par, const T prob_par, rand_engine_t& engine);
 template<typename T>
 statslib_inline
 return_t<T>
-rbinom(const llint_t n_trials_par, const T prob_par, ullint_t seed_val = std::random_device{}());
+rbinom(const llint_t n_trials_par, const T prob_par, const ullint_t seed_val = std::random_device{}());
 
 //
-// matrix/vector output
+// vector/matrix output
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1>
 statslib_inline
 mT
-rbinom(const ullint_t n, const ullint_t k, const llint_t n_trials_par, const eT prob_par);
+rbinom(const ullint_t n, const ullint_t k, const llint_t n_trials_par, const T1 prob_par);
 #endif
 
 //

@@ -48,8 +48,8 @@ inv(const BlazeMat<Ta,Tb>& X)
 #ifdef STATS_USE_EIGEN
 template<typename Ta, int iTr, int iTc>
 statslib_inline
-EigMat<Ta,iTr,iTc>
-inv(const EigMat<Ta,iTr,iTc>& X)
+EigenMat<Ta,iTr,iTc>
+inv(const EigenMat<Ta,iTr,iTc>& X)
 {
     return X.inverse();
 }

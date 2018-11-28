@@ -101,31 +101,45 @@ rf(const T1 df1_par, const T2 df2_par, ullint_t seed_val)
 }
 
 //
-// matrix/vector output
+// vector/matrix output
 
 namespace internal
 {
 
-template<typename T>
+template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rf_vec(const T df1_par, const T df2_par, T* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rf_vec(const T1 df1_par, const T2 df2_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     RAND_DIST_FN_VEC(rf,vals_out,num_elem,df1_par,df2_par);
 }
 
 }
 
+/**
+ * @brief Random matrix sampling function for the F-distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the F-distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rf<arma::mat>(5,4,3.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ */
+
 #ifdef STATS_ENABLE_MATRIX_FEATURES
-template<typename mT, typename eT>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rf(const ullint_t n, const ullint_t k, const eT df1_par, const eT df2_par)
+rf(const ullint_t n, const ullint_t k, const T1 df1_par, const T2 df2_par)
 {
-    mT mat_out(n,k);
-
-    internal::rf_vec<eT>(df1_par,df2_par,mat_ops::get_mem_ptr(mat_out),n*mat_ops::spacing(mat_out));
-
-    return mat_out;
+    GEN_MAT_RAND_FN(rf_vec,df1_par,df2_par);
 }
 #endif

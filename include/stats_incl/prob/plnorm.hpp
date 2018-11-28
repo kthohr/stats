@@ -34,28 +34,39 @@ common_return_t<T1,T2,T3>
 plnorm(const T1 x, const T2 mu_par, const T3 sigma_par, const bool log_form = false) noexcept;
 
 //
-// matrix/vector input
+// vector/matrix input
+
+#ifdef STATS_USE_STDVEC
+template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>>
+statslib_inline
+std::vector<rT>
+plnorm(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par, const bool log_form = false);
+#endif
 
 #ifdef STATS_USE_ARMA
-template<typename Ta, typename Tb, typename Tc = Tb>
+template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>>
 statslib_inline
-ArmaMat<Tc> plnorm(const ArmaMat<Ta>& X, const Tb mu_par, const Tb sigma_par, const bool log_form = false);
+ArmaMat<rT>
+plnorm(const ArmaMat<eT>& X, const T1 mu_par, const T2 sigma_par, const bool log_form = false);
 
-template<typename mT, typename tT, typename Tb>
+template<typename mT, typename tT, typename T1, typename T2>
 statslib_inline
-mT plnorm(const ArmaGen<mT,tT>& X, const Tb mu_par, const Tb sigma_par, const bool log_form = false);
+mT
+plnorm(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, typename Tb, typename Tc = Tb, bool To = blaze::columnMajor>
+template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>, bool To = blaze::columnMajor>
 statslib_inline
-BlazeMat<Tc,To> plnorm(const BlazeMat<Ta,To>& X, const Tb mu_par, const Tb sigma_par, const bool log_form = false);
+BlazeMat<rT,To>
+plnorm(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, typename Tb, typename Tc = Tb, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
+template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
-EigMat<Tc,iTr,iTc> plnorm(const EigMat<Ta,iTr,iTc>& X, const Tb mu_par, const Tb sigma_par, const bool log_form = false);
+EigenMat<rT,iTr,iTc>
+plnorm(const EigenMat<eT,iTr,iTc>& X, const T1 mu_par, const T2 sigma_par, const bool log_form = false);
 #endif
 
 //

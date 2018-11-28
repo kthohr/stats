@@ -49,7 +49,7 @@ n_elem(const BlazeMat<Ta,Tb>& X)
 template<typename Ta, int iTr, int iTc>
 statslib_inline
 ullint_t
-n_elem(const EigMat<Ta,iTr,iTc>& X)
+n_elem(const EigenMat<Ta,iTr,iTc>& X)
 {
     return X.size();
 }
