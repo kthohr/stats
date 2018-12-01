@@ -132,10 +132,11 @@ namespace stats
 
 #ifdef STATS_USE_ARMA
     template<typename T>
-    using not_arma_mat = std::enable_if<!(std::is_same<T,arma::mat>::value)>;
+    using not_arma_mat = std::enable_if<!(std::is_same<T,arma::Mat<float>>::value || \
+                                          std::is_same<T,arma::Mat<double>>::value)>;
 #else
     template<typename T>
-    using not_arma_mat = std::enable_if<!(std::is_same<T,char>::value)>;
+    using not_arma_mat = std::enable_if<false>;
 #endif
 
 // Blaze options
@@ -149,6 +150,11 @@ namespace stats
     template<typename eT, bool To = blaze::rowMajor>
     using BlazeRow = blaze::DynamicVector<eT,To>;
 
+    template<typename T>
+    using not_blaze_mat = std::enable_if<!(std::is_same<T,BlazeMat<float,blaze::columnMajor>::value || \
+                                           std::is_same<T,BlazeMat<float,blaze::rowMajor>::value || \
+                                           std::is_same<T,BlazeMat<double,blaze::columnMajor>::value || \
+                                           std::is_same<T,BlazeMat<double,blaze::rowMajor>::value)>;
 #endif
 
 // Eigen Options

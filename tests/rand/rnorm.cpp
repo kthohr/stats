@@ -34,7 +34,7 @@ int main()
 
     std::cout << "normal rv draw: " << normal_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double normal_mean = mu;
     double normal_var = sigma*sigma;
 

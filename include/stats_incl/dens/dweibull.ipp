@@ -189,7 +189,7 @@ statslib_inline
 BlazeMat<rT,To>
 dweibull(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 scale_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dweibull_vec,shape_par,scale_par,log_form);
+    BLAZE_DIST_FN(dweibull,shape_par,scale_par,log_form);
 }
 #endif
 

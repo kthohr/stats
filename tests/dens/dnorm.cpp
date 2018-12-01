@@ -24,37 +24,35 @@
 int main()
 {
     double err_tol = 1E-05;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    int print_level = TEST_PRINT_LEVEL;
+
+    int print_precision_1 = 2;
+    int print_precision_2 = 5;
+
+    //
 
     double mu = 1;
     double sigma = 2;
 
-    std::cout << "\n*** dnorm: begin tests. ***\n" << std::endl;
+    //
 
-    // x = 2
-    double x_1 = 2;
-    double val_1 = 0.17603266;
-    double dens_1 = stats::dnorm(x_1,mu,sigma);
+    std::vector<double> inp_vals = { 2.0,         1.0,        0.0 };
+    std::vector<double> exp_vals = { 0.17603266,  -1.612085,  0.17603266 };
 
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dnorm(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
+    //
 
-    // x = 1, return log
-    double x_2 = 1;
-    double val_2 = -1.612085;
-    double dens_2 = stats::dnorm(x_2,mu,sigma,true);
+    print_begin("dnorm",inp_vals.size()); 
 
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dnorm(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
+    int test_number = 0;
 
-    if (success_1 && success_2) {
-        std::cout << "\n*** dnorm: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** dnorm: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,inp_vals[0],exp_vals[0],test_number,mu,sigma,false);
+    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,inp_vals[1],exp_vals[1],test_number,mu,sigma,true);
+    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,inp_vals[2],exp_vals[2],test_number,mu,sigma,false);
+
+    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,0.0,TEST_NAN,test_number,mu,0.0,false);
+    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,0.0,TEST_NAN,test_number,mu,-1.0,false);
+
+    print_final("dnorm",test_number); 
 
     //
     // coverage tests
@@ -66,7 +64,7 @@ int main()
         std::cout << "val[" << i << "] = " << val_vec[i] << "\n";
     }
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     mat_obj x_mat(2,1);
     x_mat(0,0) = 1;
     x_mat(1,0) = 1.5;

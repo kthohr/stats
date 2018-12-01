@@ -61,7 +61,7 @@ int main()
     //
     // coverage tests
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     mat_obj x_mat(2,1);
     x_mat(0,0) = 0.7;
     x_mat(1,0) = 0.8;

@@ -34,7 +34,7 @@ int main()
 
     std::cout << "invgamma rv draw: " << invgamma_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double invgamma_mean = rate / (shape - 1.0);
     double invgamma_var = std::pow(invgamma_mean,2) / (shape - 2.0);
     

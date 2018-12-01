@@ -23,7 +23,7 @@
 
 int main()
 {
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     int n_samp = 10000;
     int K = 3;
 

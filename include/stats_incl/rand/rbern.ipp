@@ -88,6 +88,26 @@ rbern_vec(const T1 prob_par, rT* __stats_pointer_settings__ vals_out, const ulli
     RAND_DIST_FN_VEC(rbern,vals_out,num_elem,prob_par);
 }
 
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1, typename not_blaze_mat<mT>::type*>
+statslib_inline
+mT
+rbern_mat_check(mT& mat_out const T1 prob_par)
+{
+    GEN_MAT_RAND_FN(rbern_vec,prob_par);
+}
+#endif
+
+#ifdef STATS_USE_BLAZE
+template<typename eT, typename T1, typename T2, typename rT, bool To>
+statslib_inline
+BlazeMat<rT,To>
+rbern_mat_check(BlazeMat<eT,To>& X, const T1 prob_par)
+{
+    BLAZE_RAND_DIST_FN(rbern,vals_out,num_elem,prob_par);
+}
+#endif
+
 }
 
 /**

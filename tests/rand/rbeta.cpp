@@ -32,7 +32,7 @@ int main()
 
     std::cout << "beta rv draw: " << beta_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double beta_mean = alpha/(alpha + beta);
     double beta_var = alpha*beta/(std::pow(alpha + beta,2)*(alpha + beta + 1.0));
 

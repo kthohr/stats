@@ -206,7 +206,7 @@ statslib_inline
 BlazeMat<rT,To>
 dinvgamma(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 rate_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dinvgamma_vec,shape_par,rate_par,log_form);
+    BLAZE_DIST_FN(dinvgamma,shape_par,rate_par,log_form);
 }
 #endif
 

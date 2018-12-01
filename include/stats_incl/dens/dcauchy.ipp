@@ -186,7 +186,7 @@ statslib_inline
 BlazeMat<rT,To>
 dcauchy(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dcauchy_vec,mu_par,sigma_par,log_form);
+    BLAZE_DIST_FN(dcauchy,mu_par,sigma_par,log_form);
 }
 #endif
 

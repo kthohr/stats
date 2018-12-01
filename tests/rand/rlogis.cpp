@@ -33,7 +33,7 @@ int main()
     double logis_rand = stats::rlogis(mu,sigma);
     std::cout << "logis rv draw: " << logis_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double logis_mean = mu;
     double logis_var = std::pow(GCEM_PI*sigma,2) / 3.0;
 

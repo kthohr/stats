@@ -34,7 +34,7 @@ int main()
 
     std::cout << "binom rv draw: " << binom_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double binom_mean = n_trials*prob_par;
     double binom_var = n_trials*prob_par*(1.0 - prob_par);
 

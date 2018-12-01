@@ -187,7 +187,7 @@ dbeta(const std::vector<eT>& x, const T1 a_par, const T2 b_par, const bool log_f
  * Example:
  * \code{.cpp}
  * arma::mat X = { {0.2,  0.7,  0.1},
- *                 {0.9, -0.3,  1.3} };
+ *                 {0.9,  0.3,  0.87} };
  * stats::dbeta(X,3.0,2.0,false);
  * \endcode
  */
@@ -232,7 +232,7 @@ statslib_inline
 BlazeMat<rT,To>
 dbeta(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dbeta_vec,a_par,b_par,log_form);
+    BLAZE_DIST_FN(dbeta,a_par,b_par,log_form);
 }
 #endif
 

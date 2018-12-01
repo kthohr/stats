@@ -34,7 +34,7 @@ int main()
 
     std::cout << "unif rv draw: " << unif_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double unif_mean = (a_par + b_par) / 2.0;
     double unif_var = (b_par - a_par)*(b_par - a_par) / 12.0;
 

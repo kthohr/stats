@@ -33,7 +33,7 @@ int main()
 
     std::cout << "bern rv draw: " << bern_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double bern_mean = prob_par;
     double bern_var = prob_par*(1.0 - prob_par);
 

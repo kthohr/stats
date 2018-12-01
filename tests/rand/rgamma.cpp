@@ -34,7 +34,7 @@ int main()
 
     std::cout << "gamma rv draw: " << gamma_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double gamma_mean = shape*scale;
     double gamma_var = gamma_mean*scale;
 

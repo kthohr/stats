@@ -200,7 +200,7 @@ statslib_inline
 BlazeMat<rT,To>
 dunif(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dunif_vec,a_par,b_par,log_form);
+    BLAZE_DIST_FN(dunif,a_par,b_par,log_form);
 }
 #endif
 

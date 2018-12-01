@@ -33,7 +33,7 @@ int main()
 
     std::cout << "exp rv draw: " << exp_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double exp_mean = 1.0 / rate_par;
     double exp_var = std::pow(rate_par,-2);
 

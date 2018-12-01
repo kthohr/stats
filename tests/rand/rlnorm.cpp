@@ -34,7 +34,7 @@ int main()
 
     std::cout << "lnorm rv draw: " << lnorm_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double lnorm_mean = std::exp(mu + sigma*sigma / 2.0);
     double lnorm_var = (std::exp(sigma*sigma) - 1.0) * std::exp(2*mu + sigma*sigma);
 

@@ -71,7 +71,7 @@ int main()
     stats::dbinom(0,2,0.5);
     stats::dbinom(2,2,0.5);
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     mat_obj x_mat(2,1);
     x_mat(0,0) = 3;
     x_mat(1,0) = 4;

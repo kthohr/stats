@@ -33,7 +33,7 @@ int main()
 
     std::cout << "t rv draw: " << t_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double t_mean = 0.0;
     double t_var = dof_par / (dof_par - 2.0) ;
 

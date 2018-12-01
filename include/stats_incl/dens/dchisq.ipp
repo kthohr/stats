@@ -201,7 +201,7 @@ statslib_inline
 BlazeMat<rT,To>
 dchisq(const BlazeMat<eT,To>& X, const T1 dof_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dchisq_vec,dof_par,log_form);
+    BLAZE_DIST_FN(dchisq,dof_par,log_form);
 }
 #endif
 

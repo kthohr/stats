@@ -34,7 +34,7 @@ int main()
 
     std::cout << "weibull rv draw: " << weibull_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double weibull_mean = scale*std::tgamma(1.0 + 1.0/shape);
     double weibull_var = scale*scale * std::tgamma(1.0 + 2.0/shape) - std::pow(weibull_mean,2);
 

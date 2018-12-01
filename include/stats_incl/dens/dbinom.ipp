@@ -201,7 +201,7 @@ statslib_inline
 BlazeMat<rT,To>
 dbinom(const BlazeMat<eT,To>& X, const llint_t n_trials_par, const T1 prob_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dbinom_vec,n_trials_par,prob_par,log_form);
+    BLAZE_DIST_FN(dbinom,n_trials_par,prob_par,log_form);
 }
 #endif
 

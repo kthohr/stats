@@ -23,7 +23,7 @@
 
 int main()
 {
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     int K = 3;
 
     std::cout << "\n*** dmvnorm: begin tests. ***\n" << std::endl;

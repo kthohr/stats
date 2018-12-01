@@ -158,11 +158,18 @@
     return mat_out;                                                                     \
 }
 
-#define BLAZE_DIST_FN(dist_name_vec, args...)                                           \
+// #define BLAZE_DIST_FN(dist_name_vec, args...)                                           \
+// {                                                                                       \
+//     BlazeMat<rT,To> mat_out(X.rows(),X.columns());                                      \
+//                                                                                         \
+//     internal::dist_name_vec(X.data(),args,mat_out.data(),X.rows()*X.spacing());         \
+//                                                                                         \
+//     return mat_out;                                                                     \
+// }
+
+#define BLAZE_DIST_FN(dist_name, args...)                                               \
 {                                                                                       \
-    BlazeMat<rT,To> mat_out(X.rows(),X.columns());                                      \
-                                                                                        \
-    internal::dist_name_vec(X.data(),args,mat_out.data(),X.rows()*X.spacing());         \
+    BlazeMat<rT,To> mat_out = blaze::map( X, [args](eT x){return dist_name(x,args);} ); \
                                                                                         \
     return mat_out;                                                                     \
 }
@@ -178,6 +185,16 @@
 
 //
 
+// #define GEN_MAT_RAND_FN(dist_name_vec, args...)                                         \
+// {                                                                                       \
+//     mT mat_out(n,k);                                                                    \
+//                                                                                         \
+//     internal::dist_name_vec(args,mat_ops::get_mem_ptr(mat_out),                         \
+//                             n*mat_ops::spacing(mat_out));                               \
+//                                                                                         \
+//     return mat_out;                                                                     \
+// }
+
 #define GEN_MAT_RAND_FN(dist_name_vec, args...)                                         \
 {                                                                                       \
     mT mat_out(n,k);                                                                    \
@@ -188,3 +205,10 @@
     return mat_out;                                                                     \
 }
 
+#define GEN_MAT_RAND_FN(dist_name_vec, args...)                                         \
+{                                                                                       \
+    internal::dist_name_vec(args,mat_ops::get_mem_ptr(mat_out),                         \
+                            n*mat_ops::spacing(mat_out));                               \
+                                                                                        \
+    return mat_out;                                                                     \
+}

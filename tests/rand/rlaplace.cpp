@@ -34,7 +34,7 @@ int main()
 
     std::cout << "laplace rv draw: " << laplace_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double laplace_mean = mu;
     double laplace_var = 2.0*sigma*sigma;
 

@@ -191,7 +191,7 @@ statslib_inline
 BlazeMat<rT,To>
 dlnorm(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dlnorm_vec,mu_par,sigma_par,log_form);
+    BLAZE_DIST_FN(dlnorm,mu_par,sigma_par,log_form);
 }
 #endif
 

@@ -220,7 +220,7 @@ statslib_inline
 BlazeMat<rT,To>
 df(const BlazeMat<eT,To>& X, const T1 df1_par, const T2 df2_par, const bool log_form)
 {
-    BLAZE_DIST_FN(df_vec,df1_par,df2_par,log_form);
+    BLAZE_DIST_FN(df,df1_par,df2_par,log_form);
 }
 #endif
 

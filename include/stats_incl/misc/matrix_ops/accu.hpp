@@ -49,11 +49,7 @@ statslib_inline
 Ta
 accu(const BlazeMat<Ta,Tb>& X)
 {
-    const Ta* vals = X.data();
-    Ta out_val = Ta(0);
-    for (ullint_t j=0U; j < n_elem(X); ++j) {
-        out_val += vals[j];
-    }
+    auto out_val = blaze::sum(X);
     return out_val;
 }
 

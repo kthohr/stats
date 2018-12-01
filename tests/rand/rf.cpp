@@ -32,7 +32,7 @@ int main()
 
     std::cout << "F rv draw: " << F_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double F_mean = b_par / (b_par - 2.0);
     double F_var = 2.0 * b_par*b_par*(a_par + b_par - 2.0) / ( a_par*std::pow(b_par - 2.0,2)*(b_par - 4.0) );
 

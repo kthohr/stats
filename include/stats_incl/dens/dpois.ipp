@@ -175,7 +175,7 @@ statslib_inline
 BlazeMat<rT,To>
 dpois(const BlazeMat<eT,To>& X, const T1 rate_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dpois_vec,rate_par,log_form);
+    BLAZE_DIST_FN(dpois,rate_par,log_form);
 }
 #endif
 

@@ -33,7 +33,7 @@ int main()
 
     std::cout << "pois rv draw: " << pois_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double pois_mean = rate_par;
     double pois_var = rate_par;
 

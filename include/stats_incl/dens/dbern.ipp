@@ -59,7 +59,7 @@ noexcept
 /**
  * @brief Density function of the Bernoulli distribution
  *
- * @param x a value equal to 0 or 1.
+ * @param x an integral-valued input, equal to 0 or 1.
  * @param prob_par the probability parameter, a real-valued input.
  * @param log_form return the log-density or the true form.
  *
@@ -177,7 +177,7 @@ statslib_inline
 BlazeMat<rT,To>
 dbern(const BlazeMat<eT,To>& X, const T1 prob_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dbern_vec,prob_par,log_form);
+    BLAZE_DIST_FN(dbern,prob_par,log_form);
 }
 #endif
 

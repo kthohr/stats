@@ -34,7 +34,7 @@ int main()
 
     std::cout << "cauchy rv draw: " << cauchy_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     int n = 100;
     mat_obj cauchy_vec = stats::rcauchy<mat_obj>(n,1,mu,sigma);
 

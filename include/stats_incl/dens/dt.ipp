@@ -204,7 +204,7 @@ statslib_inline
 BlazeMat<rT,To>
 dt(const BlazeMat<eT,To>& X, const T1 dof_par, const bool log_form)
 {
-    BLAZE_DIST_FN(dt_vec,dof_par,log_form);
+    BLAZE_DIST_FN(dt,dof_par,log_form);
 }
 #endif
 

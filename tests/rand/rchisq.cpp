@@ -33,7 +33,7 @@ int main()
 
     std::cout << "chisq rv draw: " << chisq_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     double chisq_mean = dof;
     double chisq_var = 2*dof;
 

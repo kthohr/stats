@@ -23,7 +23,7 @@
 
 int main()
 {
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     mat_obj prob_vec(5,1);
     prob_vec(0,0) = 0.1;
     prob_vec(1,0) = 0.15;

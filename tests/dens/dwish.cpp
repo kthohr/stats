@@ -23,7 +23,7 @@
 
 int main()
 {
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     int K = 2;
 
     std::cout << "\n*** dwish: begin tests. ***\n" << std::endl;
