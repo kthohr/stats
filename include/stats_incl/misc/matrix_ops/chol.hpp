@@ -26,32 +26,32 @@
 // Cholesky decomposition (lower triangular)
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
-ArmaMat<T>
-chol(const ArmaMat<T>& X)
+ArmaMat<eT>
+chol(const ArmaMat<eT>& X)
 {
     return arma::chol(X,"lower");
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-BlazeMat<Ta,Tb>
-chol(const BlazeMat<Ta,Tb>& X)
+BlazeMat<eT,To>
+chol(const BlazeMat<eT,To>& X)
 {
-    BlazeMat<Ta,Tb> Y = X;
+    BlazeMat<eT,To> Y = X;
     blaze::potrf(Y,'L');
     return Y;
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-EigenMat<Ta,iTr,iTc>
-chol(const EigenMat<Ta,iTr,iTc>& X)
+EigenMat<eT,iTr,iTc>
+chol(const EigenMat<eT,iTr,iTc>& X)
 {
     return X.llt().matrixL();
 }

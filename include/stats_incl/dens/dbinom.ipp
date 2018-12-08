@@ -47,7 +47,7 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
-dbinom_limit_vals(const llint_t x, const llint_t n_trials_par, const T prob_par)
+dbinom_limit_vals(const llint_t x)
 noexcept
 {
     return( x == llint_t(0) ? \
@@ -68,7 +68,7 @@ noexcept
                 log_if(T(0),log_form) :
             //
             n_trials_par == llint_t(0) ? \
-                log_if(dbinom_limit_vals(x,n_trials_par,prob_par),log_form) :
+                log_if(dbinom_limit_vals<T>(x),log_form) :
             //
             n_trials_par == llint_t(1) ? \
                 dbern(x,prob_par,log_form) :
@@ -107,6 +107,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename rT>
 statslib_inline
 void
@@ -115,6 +116,7 @@ dbinom_vec(const eT* __stats_pointer_settings__ vals_in, const llint_t n_trials_
 {
     EVAL_DIST_FN_VEC(dbinom,vals_in,vals_out,num_elem,n_trials_par,prob_par,log_form);
 }
+#endif
 
 }
 

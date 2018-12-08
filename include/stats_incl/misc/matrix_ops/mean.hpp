@@ -25,31 +25,41 @@
 //
 // vector mean
 
-#ifdef STATS_USE_ARMA
-template<typename T>
+#ifdef STATS_USE_STDVEC
+template<typename eT>
 statslib_inline
-T
-mean(const ArmaMat<T>& X)
+eT
+mean(const std::vector<eT>& X)
+{
+    return accu(X) / static_cast<eT>(X.size());
+}
+#endif
+
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+eT
+mean(const ArmaMat<eT>& X)
 {
     return arma::as_scalar(arma::mean(X));
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-Ta
-mean(const BlazeMat<Ta,Tb>& X)
+eT
+mean(const BlazeMat<eT,To>& X)
 {
-    return accu(X) / static_cast<Ta>(n_elem(X));
+    return accu(X) / static_cast<eT>(n_elem(X));
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-Ta
-mean(const EigenMat<Ta,iTr,iTc>& X)
+eT
+mean(const EigenMat<eT,iTr,iTc>& X)
 {
     return X.mean();
 }

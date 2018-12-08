@@ -55,7 +55,7 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
-df_limit_vals(const T x, const T df1_par, const T df2_par)
+df_limit_vals(const T df1_par)
 noexcept
 {
     return( df1_par < T(2) ? \
@@ -78,7 +78,7 @@ noexcept
             x < T(0) ? \
                 log_if(T(0),log_form) :
             x == T(0) ? \
-                log_if(df_limit_vals(x,df1_par,df2_par), log_form) :
+                log_if(df_limit_vals(df1_par), log_form) :
             //
             df_log_check(x,df1_par/T(2),df2_par/T(2),df1_par*x/df2_par,log_form) );
 }
@@ -124,6 +124,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -132,6 +133,7 @@ df_vec(const eT* __stats_pointer_settings__ vals_in, const T1 df1_par, const T2 
 {
     EVAL_DIST_FN_VEC(df,vals_in,vals_out,num_elem,df1_par,df2_par,log_form);
 }
+#endif
 
 }
 

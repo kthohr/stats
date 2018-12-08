@@ -91,6 +91,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -99,6 +100,7 @@ qbeta_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
 {
     EVAL_DIST_FN_VEC(qbeta,vals_in,vals_out,num_elem,a_par,b_par);
 }
+#endif
 
 }
 

@@ -31,7 +31,10 @@ bool
 beta_sanity_check(const T a_par, const T b_par)
 noexcept
 {
-    return( a_par < T(0) ? \
+    return( GCINT::any_nan(a_par,b_par) ? \
+                false :
+            //
+            a_par < T(0) ? \
                 false :
             //
             b_par < T(0) ? \

@@ -83,6 +83,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -91,6 +92,7 @@ plnorm_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const 
 {
     EVAL_DIST_FN_VEC(plnorm,vals_in,vals_out,num_elem,mu_par,sigma_par,log_form);
 }
+#endif
 
 }
 

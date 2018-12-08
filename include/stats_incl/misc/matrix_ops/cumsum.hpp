@@ -25,27 +25,46 @@
 //
 // Cumulative sum (assumes a vector form)
 
-#ifdef STATS_USE_ARMA
-template<typename T>
+#ifdef STATS_USE_STDVEC
+template<typename eT>
 statslib_inline
-ArmaMat<T>
-cumsum(const ArmaMat<T>& X)
+std::vector<eT>
+cumsum(const std::vector<eT>& X)
+{
+    std::vector<eT> mat_out = X;
+
+    eT* mem_out = mat_out.data();
+
+    for (ullint_t j=ullint_t(1); j < X.rows()*X.columns(); ++j)
+    {
+        mem_out[j] += mem_out[j-1];
+    }
+
+    return mat_out;
+}
+#endif
+
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+ArmaMat<eT>
+cumsum(const ArmaMat<eT>& X)
 {
     return arma::cumsum(X);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-BlazeMat<Ta,Tb>
-cumsum(const BlazeMat<Ta,Tb>& X)
+BlazeMat<eT,To>
+cumsum(const BlazeMat<eT,To>& X)
 {
-    BlazeMat<Ta,Tb> mat_out = X;
+    BlazeMat<eT,To> mat_out = X;
 
-    Ta* mem_out = mat_out.data();
+    eT* mem_out = mat_out.data();
 
-    for (ullint_t j=1U; j < X.rows()*X.columns(); ++j)
+    for (ullint_t j=ullint_t(1); j < X.rows()*X.columns(); ++j)
     {
         mem_out[j] += mem_out[j-1];
     }
@@ -55,16 +74,16 @@ cumsum(const BlazeMat<Ta,Tb>& X)
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-EigenMat<Ta,iTr,iTc>
-cumsum(const EigenMat<Ta,iTr,iTc>& X)
+EigenMat<eT,iTr,iTc>
+cumsum(const EigenMat<eT,iTr,iTc>& X)
 {
-    EigenMat<Ta,iTr,iTc> mat_out = X;
+    EigenMat<eT,iTr,iTc> mat_out = X;
 
-    Ta* mem_out = mat_out.data();
+    eT* mem_out = mat_out.data();
 
-    for (ullint_t j=1U; j < X.rows()*X.cols(); ++j)
+    for (ullint_t j=ullint_t(1); j < X.rows()*X.cols(); ++j)
     {
         mem_out[j] += mem_out[j-1];
     }

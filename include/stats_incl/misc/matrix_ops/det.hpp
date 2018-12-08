@@ -26,30 +26,30 @@
 // matrix determinant
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
-T
-det(const ArmaMat<T>& X)
+eT
+det(const ArmaMat<eT>& X)
 {
     return arma::det(X);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-Ta
-det(const BlazeMat<Ta,Tb>& X)
+eT
+det(const BlazeMat<eT,To>& X)
 {
     return blaze::det(X);
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-Ta
-det(const EigenMat<Ta,iTr,iTc>& X)
+eT
+det(const EigenMat<eT,iTr,iTc>& X)
 {
     return X.determinant();
 }

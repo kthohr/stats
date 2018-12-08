@@ -49,12 +49,12 @@ noexcept
                     STLIM<T>::infinity() :
                     T(0) : 
             //
-            a_par == T(0) || gcem::internal::is_posinf(b_par) ? \
+            a_par == T(0) || (gcem::internal::is_posinf(b_par) && !gcem::internal::is_posinf(a_par)) ? \
                 x == T(0) ? \
                     STLIM<T>::infinity() :
                     T(0) :
             //
-            b_par == T(0) || gcem::internal::is_posinf(a_par) ? \
+            b_par == T(0) || (gcem::internal::is_posinf(a_par) && !gcem::internal::is_posinf(b_par)) ? \
                 x == T(1) ? \
                     STLIM<T>::infinity() :
                     T(0) :
@@ -136,6 +136,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -144,6 +145,7 @@ dbeta_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
 {
     EVAL_DIST_FN_VEC(dbeta,vals_in,vals_out,num_elem,a_par,b_par,log_form);
 }
+#endif
 
 }
 

@@ -25,31 +25,41 @@
 //
 // get the number of elements in a matrix
 
-#ifdef STATS_USE_ARMA
-template<typename T>
+#ifdef STATS_USE_STDVEC
+template<typename eT>
 statslib_inline
 ullint_t
-n_elem(const ArmaMat<T>& X)
+n_elem(const std::vector<eT>& X)
+{
+    return X.size();
+}
+#endif
+
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+ullint_t
+n_elem(const ArmaMat<eT>& X)
 {
     return X.n_elem;
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
 ullint_t
-n_elem(const BlazeMat<Ta,Tb>& X)
+n_elem(const BlazeMat<eT,To>& X)
 {
     return X.rows() * X.columns();
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
 ullint_t
-n_elem(const EigenMat<Ta,iTr,iTc>& X)
+n_elem(const EigenMat<eT,iTr,iTc>& X)
 {
     return X.size();
 }

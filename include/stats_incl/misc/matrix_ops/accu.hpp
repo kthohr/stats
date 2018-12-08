@@ -25,67 +25,89 @@
 //
 // sum all elements and sum of squared values
 
-#ifdef STATS_USE_ARMA
-template<typename T>
+#ifdef STATS_USE_STDVEC
+template<typename eT>
 statslib_inline
-T
-accu(const ArmaMat<T>& X)
+eT
+accu(const std::vector<eT>& X)
+{
+    // const eT sum_val = std::accumulate(X.begin(), X.end(), eT(0));
+    eT sum_val = eT(0);
+    for (auto x : X)
+        sum_val += x;
+    return sum_val;
+}
+
+template<typename eT>
+statslib_inline
+eT
+sqaccu(const std::vector<eT>& X)
+{
+    eT sum_val = eT(0);
+    for (auto& x : X)
+        sum_val += x*x;
+    return sum_val;
+}
+#endif
+
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+eT
+accu(const ArmaMat<eT>& X)
 {
     return arma::accu(X);
 }
 
-template<typename T>
+template<typename eT>
 statslib_inline
-T
-sqaccu(const ArmaMat<T>& X)
+eT
+sqaccu(const ArmaMat<eT>& X)
 {
     return arma::accu(arma::pow(X,2));
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-Ta
-accu(const BlazeMat<Ta,Tb>& X)
+eT
+accu(const BlazeMat<eT,To>& X)
 {
-    auto out_val = blaze::sum(X);
+    eT out_val = blaze::sum(X);
     return out_val;
 }
 
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-Ta
-sqaccu(const BlazeMat<Ta,Tb>& X)
+eT
+sqaccu(const BlazeMat<eT,To>& X)
 {
-    const Ta* vals = X.data();
-    Ta out_val = Ta(0);
-    for (ullint_t j=0U; j < n_elem(X); ++j) {
-        out_val += vals[j]*vals[j];
-    }
+    eT out_val = blaze::sum(blaze::pow(X,2));
     return out_val;
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-Ta
-accu(const EigenMat<Ta,iTr,iTc>& X)
+eT
+accu(const EigenMat<eT,iTr,iTc>& X)
 {
     return X.sum();
 }
 
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-Ta
-sqaccu(const EigenMat<Ta,iTr,iTc>& X)
+eT
+sqaccu(const EigenMat<eT,iTr,iTc>& X)
 {
-    const Ta* vals = X.data();
-    Ta out_val = Ta(0);
-    for (ullint_t j=0U; j < n_elem(X); ++j) {
-        out_val += vals[j]*vals[j];
-    }
-    return out_val;
+    // const eT* vals = X.data();
+    // eT out_val = eT(0);
+    // for (ullint_t j=0U; j < n_elem(X); ++j) {
+    //     out_val += vals[j]*vals[j];
+    // }
+    // return out_val;
+    return (X.pow(2)).sum();
 }
 #endif

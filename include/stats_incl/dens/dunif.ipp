@@ -31,7 +31,7 @@ namespace internal
 template<typename T>
 statslib_constexpr
 T
-dunif_log_check(const T x, const T a_par, const T b_par, const bool log_form)
+dunif_log_check(const T a_par, const T b_par, const bool log_form)
 noexcept
 {
     return( log_form == true ? \
@@ -51,7 +51,7 @@ noexcept
             x < a_par || x > b_par ? \
                 log_if(T(0),log_form) :
             //
-            dunif_log_check(x,a_par,b_par,log_form) );
+            dunif_log_check(a_par,b_par,log_form) );
 }
 
 template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
@@ -104,6 +104,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -112,6 +113,7 @@ dunif_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
 {
     EVAL_DIST_FN_VEC(dunif,vals_in,vals_out,num_elem,a_par,b_par,log_form);
 }
+#endif
 
 }
 
@@ -127,7 +129,7 @@ dunif_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
  * 
  * Example:
  * \code{.cpp}
- * std::vector<double> x = {0.3, 0.5, 0.9};
+ * std::vector<double> x = {-2.0, 0.0, 2.0};
  * stats::dunif(x,-1.0,3.0,false);
  * \endcode
  */

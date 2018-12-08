@@ -31,7 +31,13 @@ bool
 binom_sanity_check(const llint_t n_trials_par, const T prob_par)
 noexcept
 {
-    return( n_trials_par < llint_t(0) ? \
+    return( GCINT::is_nan(prob_par) ? \
+                false :
+            //
+            GCINT::is_inf(prob_par) ? \
+                false :
+            //
+            n_trials_par < llint_t(0) ? \
                 false :
             //
             prob_par < T(0) ? \

@@ -31,7 +31,10 @@ bool
 t_sanity_check(const T dof_par)
 noexcept
 {
-    return( STLIM<T>::epsilon() > dof_par ? \
+    return( GCINT::is_nan(dof_par) ? \
+                false :
+            //
+            STLIM<T>::epsilon() > dof_par ? \
                 false :
             //
                 true );

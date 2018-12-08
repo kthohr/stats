@@ -40,7 +40,7 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
-dt_log_cons_term(const T z, const T dof_par)
+dt_log_cons_term(const T dof_par)
 noexcept
 {
     return( stmath::lgamma(dof_par/T(2) + T(0.5)) \
@@ -54,7 +54,7 @@ T
 dt_log_compute(const T z, const T dof_par)
 noexcept
 {
-    return( dt_log_cons_term(z,dof_par) + dt_log_mult_term(z,dof_par) );
+    return( dt_log_cons_term(dof_par) + dt_log_mult_term(z,dof_par) );
 }
 
 template<typename T>
@@ -111,6 +111,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename rT>
 statslib_inline
 void
@@ -119,6 +120,7 @@ dt_vec(const eT* __stats_pointer_settings__ vals_in, const T1 dof_par, const boo
 {
     EVAL_DIST_FN_VEC(dt,vals_in,vals_out,num_elem,dof_par,log_form);
 }
+#endif
 
 }
 

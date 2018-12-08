@@ -26,32 +26,32 @@
 // row access
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
-arma::Row<T>
-get_row(const ArmaMat<T>& X, ullint_t i)
+arma::Row<eT>
+get_row(const ArmaMat<eT>& X, ullint_t i)
 {
     return X.row(i);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-BlazeMat<Ta,Tb>
-get_row(const BlazeMat<Ta,Tb>& X, ullint_t i)
+BlazeMat<eT,To>
+get_row(const BlazeMat<eT,To>& X, ullint_t i)
 {
-    BlazeMat<Ta,Tb> out(1,X.columns());
+    BlazeMat<eT,To> out(1,X.columns());
     row(out,0) = row(X,i); 
     return out;
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-EigenMat<Ta,1,iTc>
-get_row(const EigenMat<Ta,iTr,iTc>& X, ullint_t i)
+EigenMat<eT,1,iTc>
+get_row(const EigenMat<eT,iTr,iTc>& X, ullint_t i)
 {
     return X.row(i);
 }

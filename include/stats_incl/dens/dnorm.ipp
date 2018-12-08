@@ -40,11 +40,41 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+dnorm_limit_vals(const T x, const T mu_par, const T sigma_par)
+noexcept
+{
+    return( // sigma == Inf
+            GCINT::is_posinf(sigma_par) ? \
+                T(0) :
+            // sigma finite; x == mu == Inf or -Inf 
+            GCINT::all_posinf(x,mu_par) || GCINT::all_neginf(x,mu_par) ? \
+                STLIM<T>::quiet_NaN() :
+            // sigma finite; x and mu have opposite Inf signs
+            GCINT::is_posinf(x) && GCINT::is_neginf(mu_par) ? \
+                T(0) :
+            GCINT::is_neginf(x) && GCINT::is_posinf(mu_par) ? \
+                T(0) :
+            // sigma == 0 and x-mu == 0
+            sigma_par == T(0) && x == mu_par ? \
+                STLIM<T>::infinity() :
+            //
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 dnorm_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 noexcept
 {
     return( !norm_sanity_check(mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
+            //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            GCINT::any_inf(x,mu_par,sigma_par) || sigma_par == T(0) ? \
+                log_if(dnorm_limit_vals(x,mu_par,sigma_par),log_form) :
             //
             exp_if(dnorm_log_compute((x-mu_par)/sigma_par,sigma_par), !log_form) );
 }
@@ -90,6 +120,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -98,6 +129,7 @@ dnorm_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const T
 {
     EVAL_DIST_FN_VEC(dnorm,vals_in,vals_out,num_elem,mu_par,sigma_par,log_form);
 }
+#endif
 
 }
 

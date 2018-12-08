@@ -26,30 +26,30 @@
 // matrix 'solve': A*X = B
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
-ArmaMat<T>
-solve(const ArmaMat<T>& A, const ArmaMat<T>& B)
+ArmaMat<eT>
+solve(const ArmaMat<eT>& A, const ArmaMat<eT>& B)
 {
     return arma::solve(A,B);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-BlazeMat<Ta,Tb>
-solve(const BlazeMat<Ta,Tb>& A, const BlazeMat<Ta,Tb>& B)
+BlazeMat<eT,To>
+solve(const BlazeMat<eT,To>& A, const BlazeMat<eT,To>& B)
 {
     return blaze::inv(A)*B;
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-EigenMat<Ta,iTr,iTc>
-solve(const EigenMat<Ta,iTr,iTc>& A, const EigenMat<Ta,iTr,iTc> B)
+EigenMat<eT,iTr,iTc>
+solve(const EigenMat<eT,iTr,iTc>& A, const EigenMat<eT,iTr,iTc>& B)
 {
     return A.colPivHouseholderQr().solve(B);
 }

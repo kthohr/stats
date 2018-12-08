@@ -31,7 +31,10 @@ bool
 norm_sanity_check(const T mu_par, const T sigma_par)
 noexcept
 {
-    return( STLIM<T>::epsilon() > sigma_par ? \
+    return( GCINT::any_nan(mu_par,sigma_par) ? \
+                false :
+            //
+            sigma_par < T(0) ? \
                 false :
             //
                 true );

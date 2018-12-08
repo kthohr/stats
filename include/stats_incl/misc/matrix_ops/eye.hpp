@@ -26,34 +26,34 @@
 // identity matrix
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
 void
-eye(ArmaMat<T>& X, const ullint_t n)
+eye(ArmaMat<eT>& X, const ullint_t n)
 {
-    X = arma::eye<ArmaMat<T>>(n,n);
+    X = arma::eye<ArmaMat<eT>>(n,n);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
 void
-eye(BlazeMat<Ta,Tb>& X, const ullint_t n)
+eye(BlazeMat<eT,To>& X, const ullint_t n)
 {
     X.resize(n,n);
-    X = Ta(0.0);
+    X = eT(0.0);
     for (ullint_t j=0; j < n; ++j) {
-        X(j,j) = Ta(1.0);
+        X(j,j) = eT(1.0);
     }
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
 void
-eye(EigenMat<Ta,iTr,iTc>& X, const ullint_t n)
+eye(EigenMat<eT,iTr,iTc>& X, const ullint_t n)
 {
     X.resize(n,n);
     X.setIdentity();

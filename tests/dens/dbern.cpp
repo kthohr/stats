@@ -23,49 +23,71 @@
 
 int main()
 {
-    double err_tol = 1E-06;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    print_begin("dbern");
+
+    // settings
+
+    double err_tol = 1E-05;
+    int print_level = TEST_PRINT_LEVEL;
+
+    int print_precision_1 = 2;
+    int print_precision_2 = 5;
+
+    // parameters
 
     double prob_par = 0.4;
 
-    std::cout << "\n*** dbern: begin tests. ***\n" << std::endl;
+    //
 
-    // x = 1
-    int x_1 = 1;
-    double val_1 = prob_par;
-    double dens_1 = stats::dbern(x_1,prob_par,false);
-
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbern(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
-
-    // x = 1, return log
-    int x_2 = 1;
-    double val_2 = std::log(prob_par);
-    double dens_2 = stats::dbern(x_2,prob_par,true);
-
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbern(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-
-    if (success_1 && success_2) {
-        std::cout << "\n*** dbern: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** dbern: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    std::vector<double> inp_vals = { 1,        0,           1 };
+    std::vector<double> exp_vals = { prob_par, 1-prob_par,  prob_par };
 
     //
-    // coverage tests
+    // scalar tests
+
+    int test_number = 0;
+
+    STATS_TEST_EXPECTED_VAL(dbern,inp_vals[0],exp_vals[0],false,prob_par);
+    STATS_TEST_EXPECTED_VAL(dbern,inp_vals[1],exp_vals[1],false,prob_par);
+    STATS_TEST_EXPECTED_VAL(dbern,inp_vals[2],exp_vals[2],true,prob_par);
+
+    STATS_TEST_EXPECTED_VAL(dbern,1,TEST_NAN,false,-0.1);
+    STATS_TEST_EXPECTED_VAL(dbern,1,TEST_NAN,false,1.1);
+    STATS_TEST_EXPECTED_VAL(dbern,-1,0.0,false,prob_par);
+    STATS_TEST_EXPECTED_VAL(dbern,2,0.0,false,prob_par);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(dbern,inp_vals,exp_vals,std::vector<double>,false,prob_par);
+    STATS_TEST_EXPECTED_MAT(dbern,inp_vals,exp_vals,std::vector<double>,true,prob_par);
+#endif
 
 #ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 0;
-    x_mat(1,0) = 1;
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
 
-    stats::dbern(x_mat,prob_par);
-    stats::dbern(x_mat,prob_par,true);
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(dbern,inp_mat,exp_mat,mat_obj,false,prob_par);
+    STATS_TEST_EXPECTED_MAT(dbern,inp_mat,exp_mat,mat_obj,true,prob_par);
 #endif
+
+    // 
+
+    print_final("dbern",test_number);
 
     return 0;
 }

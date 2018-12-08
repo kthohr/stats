@@ -22,38 +22,45 @@
  * for internal use only; used to switch between the different matrix libraries
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
-namespace mat_ops
-{    
-    #include "n_cols.hpp"
-    #include "n_rows.hpp"
-    #include "n_elem.hpp"
+//
+// get the number of elements in a matrix
 
-    #include "get_mem_ptr.hpp"
+#ifdef STATS_USE_STDVEC
+template<typename eT>
+statslib_inline
+void
+resize(std::vector<eT>& X, const ullint_t n, const ullint_t k)
+{
+    return X.resize(n*k);
+}
+#endif
 
-    #include "accu.hpp"
-    #include "chol.hpp"
-    #include "cumsum.hpp"
-    #include "det.hpp"
-    #include "exp.hpp"
-    #include "eye.hpp"
-    #include "fill.hpp"
-    #include "get_row.hpp"
-    #include "inv.hpp"
-    #include "log.hpp"
-    #include "log_det.hpp"
-    #include "mean.hpp"
-    #include "repmat.hpp"
-    #include "resize.hpp"
-    #include "solve.hpp"
-    #include "spacing.hpp"
-    #include "sum_absdiff.hpp"
-    #include "trace.hpp"
-    #include "trans.hpp"
-    #include "var.hpp"
-    #include "zeros.hpp"
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+void
+resize(ArmaMat<eT>& X, const ullint_t n, const ullint_t k)
+{
+    return X.set_size(n,k);
+}
+#endif
 
-    #include "cerr.hpp"
-    #include "cout.hpp"
+#ifdef STATS_USE_BLAZE
+template<typename eT, bool To>
+statslib_inline
+void
+resize(BlazeMat<eT,To>& X, const ullint_t n, const ullint_t k)
+{
+    return X.resize(n,k);
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename eT, int iTr, int iTc>
+statslib_inline
+void
+resize(EigenMat<eT,iTr,iTc>& X, const ullint_t n, const ullint_t k)
+{
+    return X.resize(n,k);
 }
 #endif

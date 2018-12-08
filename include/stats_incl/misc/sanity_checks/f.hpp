@@ -31,7 +31,10 @@ bool
 f_sanity_check(const T df1_par, const T df2_par)
 noexcept
 {
-    return( STLIM<T>::epsilon() > df1_par ? \
+    return( GCINT::any_nan(df1_par,df2_par) ? \
+                false :
+            //
+            STLIM<T>::epsilon() > df1_par ? \
                 false :
             //
             STLIM<T>::epsilon() > df2_par ? \

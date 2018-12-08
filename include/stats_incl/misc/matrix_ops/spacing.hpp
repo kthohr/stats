@@ -25,31 +25,41 @@
 //
 // get the spacing dimensions
 
-#ifdef STATS_USE_ARMA
-template<typename T>
+#ifdef STATS_USE_STDVEC
+template<typename eT>
 statslib_inline
 ullint_t
-spacing(const ArmaMat<T>& X)
+spacing(const std::vector<eT>& X)
+{
+    return ullint_t(1);
+}
+#endif
+
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+ullint_t
+spacing(const ArmaMat<eT>& X)
 {
     return n_cols(X);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
 ullint_t
-spacing(const BlazeMat<Ta,Tb>& X)
+spacing(const BlazeMat<eT,To>& X)
 {
     return X.spacing();
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
 ullint_t
-spacing(const EigenMat<Ta,iTr,iTc>& X)
+spacing(const EigenMat<eT,iTr,iTc>& X)
 {
     return n_cols(X);
 }

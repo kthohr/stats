@@ -98,6 +98,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename rT>
 statslib_inline
 void
@@ -106,6 +107,7 @@ qbinom_vec(const eT* __stats_pointer_settings__ vals_in, const llint_t n_trials_
 {
     EVAL_DIST_FN_VEC(qbinom,vals_in,vals_out,num_elem,n_trials_par,prob_par);
 }
+#endif
 
 }
 

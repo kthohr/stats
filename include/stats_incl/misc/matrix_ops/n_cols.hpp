@@ -26,30 +26,30 @@
 // get the number of columns in a matrix
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
 ullint_t
-n_cols(const ArmaMat<T>& X)
+n_cols(const ArmaMat<eT>& X)
 {
     return X.n_cols;
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
 ullint_t
-n_cols(const BlazeMat<Ta,Tb>& X)
+n_cols(const BlazeMat<eT,To>& X)
 {
     return X.columns();
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
 ullint_t
-n_cols(const EigenMat<Ta,iTr,iTc>& X)
+n_cols(const EigenMat<eT,iTr,iTc>& X)
 {
     return X.cols();
 }

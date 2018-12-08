@@ -41,7 +41,7 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
-dchisq_limit_vals(const T x, const T dof_par)
+dchisq_limit_vals(const T dof_par)
 noexcept
 {
     return( dof_par < T(2) ? \
@@ -64,7 +64,7 @@ noexcept
                 log_if(T(0),log_form) :
             //
             x == T(0) ? \
-                log_if(dchisq_limit_vals(x,dof_par), log_form) :
+                log_if(dchisq_limit_vals(dof_par), log_form) :
             //
             exp_if(dchisq_compute(x,dof_par), !log_form) );
 }
@@ -108,6 +108,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename rT>
 statslib_inline
 void
@@ -116,6 +117,7 @@ dchisq_vec(const eT* __stats_pointer_settings__ vals_in, const T1 dof_par, const
 {
     EVAL_DIST_FN_VEC(dchisq,vals_in,vals_out,num_elem,dof_par,log_form);
 }
+#endif
 
 }
 

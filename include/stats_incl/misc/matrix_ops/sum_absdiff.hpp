@@ -23,46 +23,52 @@
  */
 
 //
-// Matrix of zeros
+// sum the absolute element-wise differences between two objects of the same dimensions
 
 #ifdef STATS_USE_STDVEC
 template<typename eT>
 statslib_inline
-void
-zeros(std::vector<eT>& X, const ullint_t n, const ullint_t k)
+eT
+sum_absdiff(const std::vector<eT>& X, const std::vector<eT>& Y)
 {
-    X.resize(n*k,eT(0));
+    eT val_out = eT(0);
+    ullint_t n_elem = X.size(); // assumes dim(X) = dim(Y)
+
+    for (ullint_t i=ullint_t(0); i < n_elem; ++i)
+    {
+        val_out += std::abs(X[i] - Y[i]);
+    }
+
+    return val_out;
 }
 #endif
 
 #ifdef STATS_USE_ARMA
 template<typename eT>
 statslib_inline
-void
-zeros(ArmaMat<eT>& X, const ullint_t n, const ullint_t k)
+eT
+sum_absdiff(const ArmaMat<eT>& X, const ArmaMat<eT>& Y)
 {
-    X.zeros(n,k);
+    return arma::accu(arma::abs(X - Y));
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
 template<typename eT, bool To>
 statslib_inline
-void
-zeros(BlazeMat<eT,To>& X, const ullint_t n, const ullint_t k)
+eT
+sum_absdiff(const BlazeMat<eT,To>& X, const BlazeMat<eT,To>& Y)
 {
-    X.resize(n,k);
-    X = eT(0.0);
+    return blaze::sum(blaze::abs(X-Y));
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
 template<typename eT, int iTr, int iTc>
 statslib_inline
-void
-zeros(EigenMat<eT,iTr,iTc>& X, const ullint_t n, const ullint_t k)
+eT
+sum_absdiff(const EigenMat<eT,iTr,iTc>& X, const EigenMat<eT,iTr,iTc>& Y)
 {
-    X.resize(n,k);
-    X.setZero();
+    return (X - Y).array().abs().sum();
 }
 #endif

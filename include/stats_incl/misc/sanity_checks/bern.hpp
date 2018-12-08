@@ -31,7 +31,13 @@ bool
 bern_sanity_check(const T prob_par)
 noexcept
 {
-    return( prob_par < T(0) ? \
+    return( GCINT::is_nan(prob_par) ? \
+                false :
+            //
+            GCINT::is_inf(prob_par) ? \
+                false :
+            //
+            prob_par < T(0) ? \
                 false :
             //
             prob_par > T(1) ? \

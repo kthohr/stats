@@ -26,30 +26,30 @@
 // matrix trace
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
-T
-trace(const ArmaMat<T>& X)
+eT
+trace(const ArmaMat<eT>& X)
 {
     return arma::trace(X);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-Ta
-trace(const BlazeMat<Ta,Tb>& X)
+eT
+trace(const BlazeMat<eT,To>& X)
 {
     return blaze::trace(X);
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-Ta
-trace(const EigenMat<Ta,iTr,iTc>& X)
+eT
+trace(const EigenMat<eT,iTr,iTc>& X)
 {
     return X.trace();
 }

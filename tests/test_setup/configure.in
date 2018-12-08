@@ -17,9 +17,11 @@ function print_help
     echo "-o    Compiler optimization options; defaults to:" ;
     echo "        -O3 -march=native -ffp-contract=fast" ;
     echo "-p    Enable OpenMP parallelization features" ;
+    echo "-s    Enable std::vector tests" ;
+    echo "-v    Set verbose print level: 0, 1, or 2" ;
 }
 
-while getopts hcgil:m:o:p option; do
+while getopts hcgil:m:o:psv: option; do
     case "${option}" in
         h) print_help; exit 2;;
         c) STATS_COVERAGE_BUILD="y";;
@@ -28,7 +30,9 @@ while getopts hcgil:m:o:p option; do
         l) STATS_LINEAR_ALG_LIB=${OPTARG};;
         m) STATS_MATRIX_OPS=${OPTARG};;
         o) STATS_OPT=${OPTARG};;
-        p) STATS_PARALLEL="y";;
+        p) STATS_ENABLE_PARALLEL="y";;
+        s) STATS_ENABLE_STDVEC="y";;
+        v) STATS_VERBOSE_PRINT=${OPTARG};;
         ?) print_help; exit 2;;
     esac
 done
@@ -101,6 +105,17 @@ else
     STATS_LINEAR_ALG_LIB="none"
 fi
 
+#
+
+if [[ "${STATS_ENABLE_STDVEC}" == "y" ]]; then
+    STATS_MATLIB_FLAGS="-DSTATS_USE_STDVEC ${STATS_MATLIB_FLAGS}"
+fi
+
+#
+if [[ !(-z ${STATS_VERBOSE_PRINT+x}) ]]; then
+    STATS_MATLIB_FLAGS="-DTEST_PRINT_LEVEL=${STATS_VERBOSE_PRINT} ${STATS_MATLIB_FLAGS}"
+fi
+
 # set optimization flags
 
 if [[ "${STATS_COVERAGE_BUILD}" == "y" ]]; then 
@@ -118,7 +133,7 @@ else
         STATS_OPT_FLAGS="${STATS_OPT}"
     fi
 
-    if [[ "${STATS_PARALLEL}" == "y" ]]; then
+    if [[ "${STATS_ENABLE_PARALLEL}" == "y" ]]; then
         STATS_OPT_FLAGS="${STATS_OPT_FLAGS} -fopenmp"
     fi
 fi
@@ -175,6 +190,14 @@ echo "    ${GCEM_INCLUDE_PATH}"
 
 echo ""
 
+if [[ "${STATS_ENABLE_STDVEC}" == "y" ]]; then
+    echo -e "  - std::vector tests: \x1B[32menabled\033[0m" >&2 ;
+else
+    echo -e "  - std::vector tests: \x1B[31mdisabled\033[0m" >&2 ;
+fi
+
+echo ""
+
 echo "  - STATS_LINEAR_ALG_LIB set to: ${STATS_LINEAR_ALG_LIB}"
 if [[ "${STATS_LINEAR_ALG_LIB}" != "none" ]]; then 
 echo "  - STATS_MATLIB_PATH set to:"
@@ -185,13 +208,13 @@ fi
 
 echo ""
 
-if [[ "${STATS_PARALLEL}" == "y" ]]; then
+if [[ "${STATS_ENABLE_PARALLEL}" == "y" ]]; then
     echo -e "  - OpenMP features: \x1B[32menabled\033[0m" >&2 ;
 else
     echo -e "  - OpenMP features: \x1B[31mdisabled\033[0m" >&2 ;
 fi
 
-echo "  - optimization flags:"
+echo "  - Optimization flags:"
 echo "    ${STATS_OPT_FLAGS}"
 
 echo ""
@@ -202,7 +225,7 @@ echo "    ${STATS_INSTALL_PATH}"
 echo ""
 echo "  - Additional notes:"
 
-if [ "$APPLE_COMPILER" -eq "1" ] && [[ "${STATS_PARALLEL}" == "y" ]]; then
+if [ "$APPLE_COMPILER" -eq "1" ] && [[ "${STATS_ENABLE_PARALLEL}" == "y" ]]; then
     echo -e "    \x1B[31m- You have enabled OpenMP, but your C++ compiler does not\033[0m" >&2 ;
     echo -e "    \x1B[31m  support this feature!\033[0m" >&2 ;
 fi

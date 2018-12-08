@@ -31,7 +31,13 @@ bool
 laplace_sanity_check(const T mu_par, const T sigma_par)
 noexcept
 {
-    return( STLIM<T>::epsilon() > sigma_par ? \
+    return( GCINT::any_nan(mu_par,sigma_par) ? \
+                false :
+            //
+            STLIM<T>::epsilon() > sigma_par ? \
+                false :
+            //
+            gcem::internal::is_inf(mu_par) ? \
                 false :
             //
                 true );

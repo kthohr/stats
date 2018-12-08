@@ -40,7 +40,7 @@ dbinom(const llint_t x, const llint_t n_trials_par, const T prob_par, const bool
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 std::vector<rT>
-dbinom(const std::vector<eT>& x, const T1 prob_par, const bool log_form = false);
+dbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_ARMA

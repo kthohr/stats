@@ -31,7 +31,10 @@ bool
 invgamma_sanity_check(const T shape_par, const T rate_par)
 noexcept
 {
-    return( shape_par < T(0) ? \
+    return( GCINT::any_nan(shape_par,rate_par) ? \
+                false :
+            //
+            shape_par < T(0) ? \
                 false :
             //
             rate_par < T(0) ? \

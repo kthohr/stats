@@ -25,35 +25,46 @@
 //
 // memory pointers
 
-#ifdef STATS_USE_ARMA
-template<typename T>
+#ifdef STATS_USE_STDVEC
+template<typename eT>
 statslib_inline
-T*
-get_mem_ptr(arma::Mat<T>& X)
+eT*
+get_mem_ptr(std::vector<eT>& X)
 {
-    T* mem_out = X.memptr();
+    eT* mem_out = X.data();
+    return mem_out;
+}
+#endif
+
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+eT*
+get_mem_ptr(ArmaMat<eT>& X)
+{
+    eT* mem_out = X.memptr();
     return mem_out;
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-Ta*
-get_mem_ptr(BlazeMat<Ta,Tb>& X)
+eT*
+get_mem_ptr(BlazeMat<eT,To>& X)
 {
-    Ta* mem_out = X.data();
+    eT* mem_out = X.data();
     return mem_out;
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-Ta*
-get_mem_ptr(EigenMat<Ta,iTr,iTc>& X)
+eT*
+get_mem_ptr(EigenMat<eT,iTr,iTc>& X)
 {
-    Ta* mem_out = X.data();
+    eT* mem_out = X.data();
     return mem_out;
 }
 #endif

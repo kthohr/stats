@@ -31,7 +31,10 @@ bool
 pois_sanity_check(const T rate_par)
 noexcept
 {
-    return( rate_par < T(0) ? \
+    return( GCINT::is_nan(rate_par) ? \
+                false :
+            //
+            rate_par < T(0) ? \
                 false :
             //
                 true );

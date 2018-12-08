@@ -134,7 +134,7 @@ rbeta_vec(const T1 a_par, const T2 b_par, rT* __stats_pointer_settings__ vals_ou
  * stats::rbeta<arma::mat>(5,4,3.0,2.0);
  * \endcode
  *
- * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), and Armadillo, Blaze, and Eigen dense matrices.
  */
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES

@@ -31,7 +31,10 @@ bool
 chisq_sanity_check(const T dof_par)
 noexcept
 {
-    return( dof_par < T(0) ? \
+    return( GCINT::is_nan(dof_par) ? \
+                false :
+            //
+            dof_par < T(0) ? \
                 false :
             //
                 true );

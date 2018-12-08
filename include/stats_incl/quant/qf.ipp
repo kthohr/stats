@@ -105,6 +105,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -113,6 +114,7 @@ qf_vec(const eT* __stats_pointer_settings__ vals_in, const T1 df1_par, const T2 
 {
     EVAL_DIST_FN_VEC(qf,vals_in,vals_out,num_elem,df1_par,df2_par);
 }
+#endif
 
 }
 

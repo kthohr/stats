@@ -26,30 +26,30 @@
 // matrix inverse
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
-ArmaMat<T>
-inv(const ArmaMat<T>& X)
+ArmaMat<eT>
+inv(const ArmaMat<eT>& X)
 {
     return arma::inv(X);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-BlazeMat<Ta,Tb>
-inv(const BlazeMat<Ta,Tb>& X)
+BlazeMat<eT,To>
+inv(const BlazeMat<eT,To>& X)
 {
     return blaze::inv(X);
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-EigenMat<Ta,iTr,iTc>
-inv(const EigenMat<Ta,iTr,iTc>& X)
+EigenMat<eT,iTr,iTc>
+inv(const EigenMat<eT,iTr,iTc>& X)
 {
     return X.inverse();
 }

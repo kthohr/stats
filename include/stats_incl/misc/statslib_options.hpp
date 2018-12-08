@@ -69,6 +69,8 @@ namespace stats
 
     using rand_engine_t = std::mt19937_64;
 
+    namespace GCINT = gcem::internal;
+
     template<class T>
     using STLIM = std::numeric_limits<T>;
 
@@ -95,20 +97,26 @@ namespace stats
 // enable std::vector features
 
 #ifdef STATS_USE_STDVEC
+    #include <algorithm>
     #include <vector>
 #endif
 
-#ifndef STATS_USE_STDVEC
-    #if defined(_LIBCPP_VECTOR) || defined(_GLIBCXX_VECTOR)
-        #define STATS_USE_STDVEC
-    #endif
-#endif
+// #ifndef STATS_USE_STDVEC
+//     #if defined(_LIBCPP_VECTOR) || defined(_GLIBCXX_VECTOR)
+//         #define STATS_USE_STDVEC
+//     #endif
+// #endif
 
-//
 // enable wrappers for linear algebra libraries
 
 #if defined(STATS_USE_ARMA) || defined(STATS_USE_BLAZE) || defined(STATS_USE_EIGEN)
     #define STATS_ENABLE_MATRIX_FEATURES
+#endif
+
+//
+
+#if defined(STATS_USE_STDVEC) || defined(STATS_ENABLE_MATRIX_FEATURES)
+    #define STATS_ENABLE_INTERNAL_VEC_FEATURES
 #endif
 
 // Armadillo options
@@ -128,12 +136,14 @@ namespace stats
 
     template<typename mT, typename tT>
     using ArmaGen = arma::Gen<mT,tT>;
-#endif
 
-#ifdef STATS_USE_ARMA
     template<typename T>
-    using not_arma_mat = std::enable_if<!(std::is_same<T,arma::Mat<float>>::value || \
-                                          std::is_same<T,arma::Mat<double>>::value)>;
+    using not_arma_mat = std::enable_if<!(std::is_same<T,arma::Mat<double>>::value || \
+                                          std::is_same<T,arma::Mat<float>>::value)>;
+    
+    #if defined(STATS_USE_BLAZE) || defined(STATS_USE_EIGEN)
+        #error StatsLib cannot interface with more than one matrix library at a time
+    #endif
 #else
     template<typename T>
     using not_arma_mat = std::enable_if<false>;
@@ -143,6 +153,7 @@ namespace stats
 
 #ifdef STATS_USE_BLAZE
     #include "blaze/Blaze.h"
+    #include <iostream>
 
     template<typename eT, bool To = blaze::columnMajor>
     using BlazeMat = blaze::DynamicMatrix<eT,To>;
@@ -151,19 +162,24 @@ namespace stats
     using BlazeRow = blaze::DynamicVector<eT,To>;
 
     template<typename T>
-    using not_blaze_mat = std::enable_if<!(std::is_same<T,BlazeMat<float,blaze::columnMajor>::value || \
-                                           std::is_same<T,BlazeMat<float,blaze::rowMajor>::value || \
-                                           std::is_same<T,BlazeMat<double,blaze::columnMajor>::value || \
-                                           std::is_same<T,BlazeMat<double,blaze::rowMajor>::value)>;
+    using not_blaze_mat = std::enable_if<!(std::is_same<T,BlazeMat<double,blaze::columnMajor>>::value || \
+                                           std::is_same<T,BlazeMat<double,blaze::rowMajor>>::value ||    \
+                                           std::is_same<T,BlazeMat<float,blaze::columnMajor>>::value ||  \
+                                           std::is_same<T,BlazeMat<float,blaze::rowMajor>>::value)>;
 #endif
 
 // Eigen Options
 
 #ifdef STATS_USE_EIGEN
     #include <Eigen/Dense>
+    #include <iostream>
 
     template<typename eT, int iTr, int iTc>
     using EigenMat = Eigen::Matrix<eT,iTr,iTc>;
+
+    #if defined(STATS_USE_BLAZE)
+        #error StatsLib cannot interface with more than one matrix library at a time
+    #endif
 
 #endif
 

@@ -82,6 +82,7 @@ noexcept
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename eT, typename T1, typename rT>
 statslib_inline
 void
@@ -90,6 +91,7 @@ dpois_vec(const eT* __stats_pointer_settings__ vals_in, const T1 rate_par, const
 {
     EVAL_DIST_FN_VEC(dpois,vals_in,vals_out,num_elem,rate_par,log_form);
 }
+#endif
 
 }
 
@@ -198,7 +200,7 @@ dpois(const BlazeMat<eT,To>& X, const T1 rate_par, const bool log_form)
 template<typename eT, typename T1, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>
-dpois(const EigenMat<eT,iTr,iTc>& X, const Tb rate_par, const bool log_form)
+dpois(const EigenMat<eT,iTr,iTc>& X, const T1 rate_par, const bool log_form)
 {
     EIGEN_DIST_FN(dpois_vec,rate_par,log_form);
 }

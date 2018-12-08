@@ -22,38 +22,48 @@
  * for internal use only; used to switch between the different matrix libraries
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
-namespace mat_ops
-{    
-    #include "n_cols.hpp"
-    #include "n_rows.hpp"
-    #include "n_elem.hpp"
+//
+// printing
 
-    #include "get_mem_ptr.hpp"
+#ifdef STATS_USE_STDVEC
+template<typename eT>
+statslib_inline
+void
+cerr_output(const std::vector<eT>& X)
+{
+    std::cerr << "   ";
+    for (const auto x: X)
+        std::cerr << x << "  ";
+    std::cerr << "\n";
+}
+#endif
 
-    #include "accu.hpp"
-    #include "chol.hpp"
-    #include "cumsum.hpp"
-    #include "det.hpp"
-    #include "exp.hpp"
-    #include "eye.hpp"
-    #include "fill.hpp"
-    #include "get_row.hpp"
-    #include "inv.hpp"
-    #include "log.hpp"
-    #include "log_det.hpp"
-    #include "mean.hpp"
-    #include "repmat.hpp"
-    #include "resize.hpp"
-    #include "solve.hpp"
-    #include "spacing.hpp"
-    #include "sum_absdiff.hpp"
-    #include "trace.hpp"
-    #include "trans.hpp"
-    #include "var.hpp"
-    #include "zeros.hpp"
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+void
+cerr_output(const ArmaMat<eT>& X)
+{
+    arma::cerr << X << "\n";
+}
+#endif
 
-    #include "cerr.hpp"
-    #include "cout.hpp"
+#ifdef STATS_USE_BLAZE
+template<typename eT, bool To>
+statslib_inline
+void
+cerr_output(const BlazeMat<eT,To>& X)
+{
+    std::cerr << X << "\n";
+}
+#endif
+
+#ifdef STATS_USE_EIGEN
+template<typename eT, int iTr, int iTc>
+statslib_inline
+void
+cerr_output(const EigenMat<eT,iTr,iTc>& X)
+{
+    std::cerr << X << "\n";
 }
 #endif

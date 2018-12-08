@@ -31,7 +31,10 @@ bool
 gamma_sanity_check(const T shape_par, const T scale_par)
 noexcept
 {
-    return( shape_par < T(0) ? \
+    return( GCINT::any_nan(shape_par,scale_par) ? \
+                false :
+            //
+            shape_par < T(0) ? \
                 false :
             //
             STLIM<T>::epsilon() > scale_par ? \

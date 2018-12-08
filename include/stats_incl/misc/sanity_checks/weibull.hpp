@@ -31,7 +31,10 @@ bool
 weibull_sanity_check(const T shape_par, const T scale_par)
 noexcept
 {
-    return( shape_par < STLIM<T>::epsilon() ? \
+    return( GCINT::any_nan(shape_par,scale_par) ? \
+                false :
+            //
+            shape_par < STLIM<T>::epsilon() ? \
                 false :
             //
             scale_par < STLIM<T>::epsilon() ? \

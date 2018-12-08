@@ -25,36 +25,48 @@
 //
 // vector variance
 
-#ifdef STATS_USE_ARMA
-template<typename T>
+#ifdef STATS_USE_STDVEC
+template<typename eT>
 statslib_inline
-T
-var(const ArmaMat<T>& X)
+eT
+var(const std::vector<eT>& X)
+{
+    eT mean_val = mean(X);
+    eT sq_val = sqaccu(X) / static_cast<eT>(X.size());
+    return sq_val - mean_val*mean_val;
+}
+#endif
+
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+eT
+var(const ArmaMat<eT>& X)
 {
     return arma::as_scalar(arma::var(X));
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-Ta
-var(const BlazeMat<Ta,Tb>& X)
+eT
+var(const BlazeMat<eT,To>& X)
 {
-    Ta mean_val = mean(X);
-    Ta sq_val = sqaccu(X) / static_cast<Ta>(n_elem(X));
+    eT mean_val = mean(X);
+    eT sq_val = sqaccu(X) / static_cast<eT>(n_elem(X));
     return sq_val - mean_val*mean_val;
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-Ta
-var(const EigenMat<Ta,iTr,iTc>& X)
+eT
+var(const EigenMat<eT,iTr,iTc>& X)
 {
-    Ta mean_val = mean(X);
-    Ta sq_val = sqaccu(X) / static_cast<Ta>(n_elem(X));
+    eT mean_val = mean(X);
+    eT sq_val = sqaccu(X) / static_cast<eT>(n_elem(X));
     return sq_val - mean_val*mean_val;
 }
 #endif

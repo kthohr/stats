@@ -23,13 +23,17 @@
 
 int main()
 {
+    print_begin("dnorm");
+
+    // settings
+
     double err_tol = 1E-05;
     int print_level = TEST_PRINT_LEVEL;
 
     int print_precision_1 = 2;
     int print_precision_2 = 5;
 
-    //
+    // parameters
 
     double mu = 1;
     double sigma = 2;
@@ -37,44 +41,83 @@ int main()
     //
 
     std::vector<double> inp_vals = { 2.0,         1.0,        0.0 };
-    std::vector<double> exp_vals = { 0.17603266,  -1.612085,  0.17603266 };
+    std::vector<double> exp_vals = { 0.17603266,  0.1994711,  0.17603266 };
 
     //
-
-    print_begin("dnorm",inp_vals.size()); 
+    // scalar tests
 
     int test_number = 0;
 
-    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,inp_vals[0],exp_vals[0],test_number,mu,sigma,false);
-    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,inp_vals[1],exp_vals[1],test_number,mu,sigma,true);
-    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,inp_vals[2],exp_vals[2],test_number,mu,sigma,false);
+    STATS_TEST_EXPECTED_VAL(dnorm,inp_vals[0],exp_vals[0],false,mu,sigma);
+    STATS_TEST_EXPECTED_VAL(dnorm,inp_vals[1],exp_vals[1],true,mu,sigma);
+    STATS_TEST_EXPECTED_VAL(dnorm,inp_vals[2],exp_vals[2],false,mu,sigma);
 
-    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,0.0,TEST_NAN,test_number,mu,0.0,false);
-    STATS_TEST_2PAR_EXPECTED_VAL(dnorm,0.0,TEST_NAN,test_number,mu,-1.0,false);
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NAN,TEST_NAN,false,0,1);                     // Input NaNs
+    STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,TEST_NAN,1);
+    STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,0,TEST_NAN);
 
-    print_final("dnorm",test_number); 
+    STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,0,-1.0);                         // sigma < 0
+    STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,0,TEST_NEGINF);
+
+    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,1,TEST_POSINF);                         // sigma == +Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,1,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,1,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_NEGINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,TEST_NEGINF,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,TEST_NAN,false,TEST_POSINF,0);        // x == mu == Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,TEST_NAN,false,TEST_POSINF,1);
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,0);        // x == mu == -Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,1);
+
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,TEST_NEGINF,0);               // x == Inf, mu == -Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,TEST_NEGINF,1);
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,TEST_POSINF,0);               // x == -Inf, mu == Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,TEST_POSINF,1);
+
+    STATS_TEST_EXPECTED_VAL(dnorm,1,0,false,0,0);                                   // sigma == 0
+    STATS_TEST_EXPECTED_VAL(dnorm,1,TEST_POSINF,false,1,0);
+
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,0,1);                         // x == +/-Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,0,1);
+
+    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_POSINF,1);                         // mu == +/-Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_NEGINF,1);
 
     //
-    // coverage tests
+    // vector/matrix tests
 
-    std::vector<double> x_vec = {0.0, 1.0, 2.0};
-    std::vector<double> val_vec = stats::dnorm(x_vec,1.0,2.0,false);
-
-    for (int i=0; i < 3; ++i) {
-        std::cout << "val[" << i << "] = " << val_vec[i] << "\n";
-    }
-
-#ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 1.5;
-
-    stats::dnorm(x_mat,mu,sigma);
-    stats::dnorm(x_mat,mu,sigma,true);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(dnorm,inp_vals,exp_vals,std::vector<double>,false,mu,sigma);
+    STATS_TEST_EXPECTED_MAT(dnorm,inp_vals,exp_vals,std::vector<double>,true,mu,sigma);
 #endif
 
-    // arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
-    // norm_pdf_vals = stats::dnorm(arma::zeros(10,20),1.0,2.0);
+#ifdef STATS_TEST_MATRIX_FEATURES
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
+
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(dnorm,inp_mat,exp_mat,mat_obj,false,mu,sigma);
+    STATS_TEST_EXPECTED_MAT(dnorm,inp_mat,exp_mat,mat_obj,true,mu,sigma);
+#endif
+
+    // 
+
+    print_final("dnorm",test_number);
 
     return 0;
 }

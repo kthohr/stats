@@ -23,50 +23,99 @@
 
 int main()
 {
-    double err_tol = 1E-06;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    print_begin("dbeta");
 
-    double a_par = 2.0;
-    double b_par = 2.0;
+    // settings
 
-    std::cout << "\n*** dbeta: begin tests. ***\n" << std::endl;
+    double err_tol = 1E-05;
+    int print_level = TEST_PRINT_LEVEL;
 
-    // x = 1
-    double x_1 = 0.5;
-    double val_1 = 1.5;
-    double dens_1 = stats::dbeta(x_1,a_par,b_par,false);
+    int print_precision_1 = 2;
+    int print_precision_2 = 5;
 
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbeta(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
+    // parameters
 
-    // x = 1, return log
-    double x_2 = 0.5;
-    double val_2 = std::log(val_1);
-    double dens_2 = stats::dbeta(x_2,a_par,b_par,true);
-
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbeta(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-
-    if (success_1 && success_2) {
-        std::cout << "\n*** dbeta: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** dbeta: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    double a_par = 5.0;
+    double b_par = 4.0;
 
     //
-    // coverage tests
+
+    std::vector<double> inp_vals = { 0.1,       0.5,     0.97 };
+    std::vector<double> exp_vals = { 0.020412,  2.1875,  0.006692814 };
+
+    //
+    // scalar tests
+
+    int test_number = 0;
+
+    STATS_TEST_EXPECTED_VAL(dbeta,inp_vals[0],exp_vals[0],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(dbeta,inp_vals[1],exp_vals[1],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(dbeta,inp_vals[2],exp_vals[2],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(dbeta,inp_vals[1],exp_vals[1],true,a_par,b_par);
+
+    STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_NAN,false,-1.0,1.0);     // bad parameter value cases (a or b < 0)
+    STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_NAN,false,1.0,-1.0);
+
+    STATS_TEST_EXPECTED_VAL(dbeta,-0.1,0.0,false,a_par,b_par);      // x < 0 and x > 1 cases
+    STATS_TEST_EXPECTED_VAL(dbeta,1.1,0.0,false,a_par,b_par);
+
+    STATS_TEST_EXPECTED_VAL(dbeta,0.0,TEST_POSINF,false,0.0,0.0);   // a and b == 0 cases
+    STATS_TEST_EXPECTED_VAL(dbeta,1.0,TEST_POSINF,false,0.0,0.0);
+    STATS_TEST_EXPECTED_VAL(dbeta,0.5,0.0,false,0.0,0.0);
+
+    STATS_TEST_EXPECTED_VAL(dbeta,0.0,TEST_POSINF,false,0.0,1.0);   // a == 0 or b == +Inf
+    STATS_TEST_EXPECTED_VAL(dbeta,1.0,0.0,false,0.0,1.0);
+    STATS_TEST_EXPECTED_VAL(dbeta,0.0,TEST_POSINF,false,0.0,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dbeta,1.0,0.0,false,0.0,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_VAL(dbeta,0.0,0.0,false,1.0,0.0);           // a == +Inf or b == 0
+    STATS_TEST_EXPECTED_VAL(dbeta,1.0,TEST_POSINF,false,1.0,0.0);
+    STATS_TEST_EXPECTED_VAL(dbeta,0.0,0.0,false,TEST_POSINF,1.0);
+    STATS_TEST_EXPECTED_VAL(dbeta,1.0,TEST_POSINF,false,TEST_POSINF,1.0);
+
+    STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_POSINF,false,TEST_POSINF,TEST_POSINF); // a == +Inf and b == +Inf
+    STATS_TEST_EXPECTED_VAL(dbeta,0.1,0.0,false,TEST_POSINF,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_VAL(dbeta,0.0,TEST_POSINF,false,0.5,1.0);   // x == 0 and a < 1.0
+    STATS_TEST_EXPECTED_VAL(dbeta,0.0,b_par,false,1.0,b_par);       // x == 0 and a == 1.0
+    STATS_TEST_EXPECTED_VAL(dbeta,0.0,0.0,false,1.1,b_par);         // x == 0 and a > 1.0
+
+    STATS_TEST_EXPECTED_VAL(dbeta,1.0,TEST_POSINF,false,1.0,0.5);   // x == 1 and b < 1.0
+    STATS_TEST_EXPECTED_VAL(dbeta,1.0,a_par,false,a_par,1.0);       // x == 1 and b == 1.0
+    STATS_TEST_EXPECTED_VAL(dbeta,1.0,0.0,false,1.0,1.1);           // x == 1 and b > 1.0
+ 
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(dbeta,inp_vals,exp_vals,std::vector<double>,false,a_par,b_par);
+    STATS_TEST_EXPECTED_MAT(dbeta,inp_vals,exp_vals,std::vector<double>,true,a_par,b_par);
+#endif
 
 #ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 0.4;
-    x_mat(1,0) = 0.5;
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
 
-    stats::dbeta(x_mat,a_par,b_par);
-    stats::dbeta(x_mat,a_par,b_par,true);
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(dbeta,inp_mat,exp_mat,mat_obj,false,a_par,b_par);
+    STATS_TEST_EXPECTED_MAT(dbeta,inp_mat,exp_mat,mat_obj,true,a_par,b_par);
 #endif
+
+    // 
+
+    print_final("dbeta",test_number);
 
     return 0;
 }

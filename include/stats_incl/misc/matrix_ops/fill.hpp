@@ -25,31 +25,41 @@
 //
 // matrix fill
 
-#ifdef STATS_USE_ARMA
-template<typename T>
+#ifdef STATS_USE_STDVEC
+template<typename eT>
 statslib_inline
 void
-fill(ArmaMat<T>& X, const T fill_val)
+fill(std::vector<eT>& X, const eT fill_val)
+{
+    std::fill(X.begin(), X.end(), fill_val);
+}
+#endif
+
+#ifdef STATS_USE_ARMA
+template<typename eT>
+statslib_inline
+void
+fill(ArmaMat<eT>& X, const eT fill_val)
 {
     X.fill(fill_val);
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
 void
-fill(BlazeMat<Ta,Tb>& X, const Ta fill_val)
+fill(BlazeMat<eT,To>& X, const eT fill_val)
 {
     X = fill_val;
 }
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
 void
-fill(EigenMat<Ta,iTr,iTc>& X, const Ta fill_val)
+fill(EigenMat<eT,iTr,iTc>& X, const eT fill_val)
 {
     X.fill(fill_val);
 }

@@ -25,6 +25,11 @@ int main()
 {
     double prob_par = 0.75;
 
+    double bern_mean = prob_par;
+    double bern_var = prob_par*(1.0 - prob_par);
+
+    int n_sample = 10000;
+
     std::cout << "\n*** rbern: begin tests. ***\n" << std::endl;
 
     //
@@ -33,14 +38,17 @@ int main()
 
     std::cout << "bern rv draw: " << bern_rand << std::endl;
 
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::vector<double> bern_std_vec = stats::rbern<std::vector<double>>(n_sample,1,prob_par);
+
+    std::cout << "bern rv mean: " << stats::mat_ops::mean(bern_std_vec) << ". Should be close to: " << bern_mean << "\n";
+    std::cout << "bern rv variance: " << stats::mat_ops::var(bern_std_vec) << ". Should be close to: " << bern_var << std::endl;
+#endif
+
 #ifdef STATS_TEST_MATRIX_FEATURES
-    double bern_mean = prob_par;
-    double bern_var = prob_par*(1.0 - prob_par);
+    mat_obj bern_vec = stats::rbern<mat_obj>(n_sample,1,prob_par);
 
-    int n = 10000;
-    mat_obj bern_vec = stats::rbern<mat_obj>(n,1,prob_par);
-
-    std::cout << "bern rv mean: " << stats::mat_ops::mean(bern_vec) << ". Should be close to: " << bern_mean << std::endl;
+    std::cout << "bern rv mean: " << stats::mat_ops::mean(bern_vec) << ". Should be close to: " << bern_mean << "\n";
     std::cout << "bern rv variance: " << stats::mat_ops::var(bern_vec) << ". Should be close to: " << bern_var << std::endl;
 #endif
 

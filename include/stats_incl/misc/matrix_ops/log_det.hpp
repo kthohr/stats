@@ -26,26 +26,25 @@
 // log-determinant
 
 #ifdef STATS_USE_ARMA
-template<typename T>
+template<typename eT>
 statslib_inline
-T
-log_det(const ArmaMat<T>& X)
+eT
+log_det(const ArmaMat<eT>& X)
 {
-    ArmaMat<T> vec = mat_ops::chol(X).diag();
-    vec.for_each([](T& val){ val = std::log(val);});
-    return 2.0*arma::accu(vec);
+    ArmaMat<eT> vec = mat_ops::chol(X).diag();
+    return 2.0*arma::accu(arma::log(vec));
 }
 #endif
 
 #ifdef STATS_USE_BLAZE
-template<typename Ta, bool Tb>
+template<typename eT, bool To>
 statslib_inline
-Ta
-log_det(const BlazeMat<Ta,Tb>& X)
+eT
+log_det(const BlazeMat<eT,To>& X)
 {
-    BlazeMat<Ta,Tb> chol_sig = mat_ops::chol(X);
+    BlazeMat<eT,To> chol_sig = mat_ops::chol(X);
     auto vec = blaze::diagonal(chol_sig);
-    Ta total = 0.0;
+    eT total = eT(0);
     for (auto it=vec.cbegin(); it!=vec.cend(); ++it)
     {
         total += std::log(*it);
@@ -55,11 +54,11 @@ log_det(const BlazeMat<Ta,Tb>& X)
 #endif
 
 #ifdef STATS_USE_EIGEN
-template<typename Ta, int iTr, int iTc>
+template<typename eT, int iTr, int iTc>
 statslib_inline
-Ta
-log_det(const EigenMat<Ta,iTr,iTc>& X)
+eT
+log_det(const EigenMat<eT,iTr,iTc>& X)
 {
-    return (mat_ops::chol(X).diagonal().array().log()*2.0).sum();
+    return ( mat_ops::chol(X).diagonal().array().log()*2.0 ).sum();
 }
 #endif

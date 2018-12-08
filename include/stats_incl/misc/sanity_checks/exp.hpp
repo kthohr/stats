@@ -28,10 +28,16 @@ namespace internal
 template<typename T>
 statslib_constexpr
 bool
-exp_sanity_check(const T dof_par)
+exp_sanity_check(const T rate_par)
 noexcept
 {
-    return( dof_par < T(0) ? \
+    return( GCINT::is_nan(rate_par) ? \
+                false :
+            //
+            GCINT::is_inf(rate_par) ? \
+                false :
+            //
+            rate_par < T(0) ? \
                 false :
             //
                 true );
