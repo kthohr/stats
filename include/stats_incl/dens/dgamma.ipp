@@ -48,12 +48,12 @@ noexcept
                 x == T(0) ? \
                     STLIM<T>::infinity() :
                     T(0) :
-            // x = 0
+            // x == 0
             shape_par < T(1) ? \
                 STLIM<T>::infinity() :
             shape_par == T(1) ? \
                 T(1) / scale_par :
-            // x = 0 & shape_par > 1
+            // x == 0 and shape_par > 1
                 T(0) );
 }
 
@@ -66,11 +66,17 @@ noexcept
     return( !gamma_sanity_check(shape_par,scale_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
             x < T(0) ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             x == T(0) || shape_par == T(0) ? \
                 log_if(dgamma_limit_vals(x,shape_par,scale_par), log_form) :
+            //
+            GCINT::any_posinf(x,shape_par,scale_par) ? \
+                log_zero_if<T>(log_form) :
             //
             exp_if(dgamma_log_compute(x,shape_par,scale_par), !log_form) );
 }

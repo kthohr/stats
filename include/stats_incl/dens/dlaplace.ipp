@@ -40,11 +40,41 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+dlaplace_limit_vals(const T x, const T mu_par, const T sigma_par)
+noexcept
+{
+    return( // sigma == Inf
+            GCINT::is_posinf(sigma_par) ? \
+                T(0) :
+            // sigma finite; x == mu == Inf or -Inf 
+            GCINT::all_posinf(x,mu_par) || GCINT::all_neginf(x,mu_par) ? \
+                STLIM<T>::quiet_NaN() :
+            // sigma finite; x and mu have opposite Inf signs
+            GCINT::is_posinf(x) && GCINT::is_neginf(mu_par) ? \
+                T(0) :
+            GCINT::is_neginf(x) && GCINT::is_posinf(mu_par) ? \
+                T(0) :
+            // sigma == 0 and x-mu == 0
+            sigma_par == T(0) && x == mu_par ? \
+                STLIM<T>::infinity() :
+            //
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 dlaplace_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 noexcept
 {
     return( !laplace_sanity_check(mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
+            //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            GCINT::any_inf(x,mu_par,sigma_par) || sigma_par == T(0) ? \
+                log_if(dlaplace_limit_vals(x,mu_par,sigma_par),log_form) :
             //
             exp_if(dlaplace_log_compute(x,mu_par,sigma_par), !log_form) );
 }

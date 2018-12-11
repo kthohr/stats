@@ -49,7 +49,7 @@ noexcept
                 STLIM<T>::quiet_NaN() :
             //
             x < a_par || x > b_par ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             dunif_log_check(a_par,b_par,log_form) );
 }

@@ -60,11 +60,17 @@ noexcept
     return( !chisq_sanity_check(dof_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
             x < T(0) ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             x == T(0) ? \
                 log_if(dchisq_limit_vals(dof_par), log_form) :
+            // dof == +Inf or x == +Inf
+            GCINT::is_posinf(dof_par) || GCINT::is_posinf(x) ? \
+                log_zero_if<T>(log_form) :
             //
             exp_if(dchisq_compute(x,dof_par), !log_form) );
 }

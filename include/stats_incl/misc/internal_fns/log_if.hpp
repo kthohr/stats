@@ -34,7 +34,16 @@ T
 log_if(const T x, const bool log_form)
 noexcept
 {
-    return log_form == true ? stmath::log(x) : x;
+    return log_form ? stmath::log(x) : x;
+}
+
+template<typename T>
+statslib_constexpr
+T
+log_zero_if(const bool log_form)
+noexcept
+{
+    return log_form ? - STLIM<T>::infinity() : T(0);
 }
 
 }

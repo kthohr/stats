@@ -37,7 +37,7 @@ plnorm_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_f
                 STLIM<T>::quiet_NaN() :
             //
             STLIM<T>::epsilon() > x ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             pnorm(stmath::log(x),mu_par,sigma_par,log_form) );
 }

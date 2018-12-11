@@ -47,7 +47,7 @@ noexcept
                 STLIM<T>::quiet_NaN() :
             //
             x < llint_t(0) ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             log_if(pbern_compute(x,prob_par), log_form) );
 }

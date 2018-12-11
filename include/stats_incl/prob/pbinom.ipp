@@ -49,7 +49,7 @@ noexcept
                 STLIM<T>::quiet_NaN() :
             //
             x < llint_t(0) ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             x >= n_trials_par ? \
                 log_if(T(1),log_form) : // includes pbinom(0,0,.) case
             //

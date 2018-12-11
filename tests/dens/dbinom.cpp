@@ -21,71 +21,6 @@
 #include "stats.hpp"
 #include "../stats_tests.hpp"
 
-/*
-int main()
-{
-    double err_tol = 1E-06;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
-
-    int n_trials = 1;
-    double prob_par = 0.4;
-
-    std::cout << "\n*** dbinom: begin tests. ***\n" << std::endl;
-
-    // x = 1
-    int x_1 = 1;
-    double val_1 = prob_par;
-    double dens_1 = stats::dbinom(x_1,n_trials,prob_par,false);
-
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbinom(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
-
-    // x = 1, return log
-    int x_2 = x_1;
-    double val_2 = std::log(prob_par);
-    double dens_2 = stats::dbinom(x_2,n_trials,prob_par,true);
-
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbinom(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-
-    // x = 3
-    int x_3 = 3;
-    double val_3 = 0.2304;
-    double dens_3 = stats::dbinom(x_3,5,prob_par,false);
-
-    bool success_3 = (std::abs(dens_3 - val_3) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dbinom(" << x_3 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_3 << ". Success = " << success_3 << std::endl;
-
-    if (success_1 && success_2 && success_3) {
-        std::cout << "\n*** dbinom: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** dbinom: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
-
-    //
-    // coverage tests
-
-    stats::dbinom(0,2,0.5);
-    stats::dbinom(2,2,0.5);
-
-#ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 3;
-    x_mat(1,0) = 4;
-
-    stats::dbinom(x_mat,5U,prob_par);
-    stats::dbinom(x_mat,5U,prob_par,true);
-#endif
-
-    return 0;
-}
-*/
-
-
 int main()
 {
     print_begin("dbinom");
@@ -118,17 +53,17 @@ int main()
     STATS_TEST_EXPECTED_VAL(dbinom,inp_vals[2],exp_vals[2],false,n_trials,prob_par);
     STATS_TEST_EXPECTED_VAL(dbinom,inp_vals[1],exp_vals[1],true,n_trials,prob_par);
 
-    STATS_TEST_EXPECTED_VAL(dbinom,-1.0,0.0,false,n_trials,prob_par);               // x < 0 or x > n_trials 
+    STATS_TEST_EXPECTED_VAL(dbinom,-1.0,0.0,false,n_trials,prob_par);                               // x < 0 or x > n_trials 
     STATS_TEST_EXPECTED_VAL(dbinom,n_trials+1,0.0,false,n_trials,prob_par);
 
-    STATS_TEST_EXPECTED_VAL(dbinom,0,TEST_NAN,false,-1,0.5);                        // n_trials < 0
-    STATS_TEST_EXPECTED_VAL(dbinom,0,TEST_NAN,false,1,-0.1);                        // p < 0
-    STATS_TEST_EXPECTED_VAL(dbinom,0,TEST_NAN,false,1,1.1);                         // p > 1
+    STATS_TEST_EXPECTED_VAL(dbinom,0,TEST_NAN,false,-1,0.5);                                        // n_trials < 0
+    STATS_TEST_EXPECTED_VAL(dbinom,0,TEST_NAN,false,1,-0.1);                                        // p < 0
+    STATS_TEST_EXPECTED_VAL(dbinom,0,TEST_NAN,false,1,1.1);                                         // p > 1
 
-    STATS_TEST_EXPECTED_VAL(dbinom,0,1,false,0,0.5);                                // n_trials == 0
+    STATS_TEST_EXPECTED_VAL(dbinom,0,1,false,0,0.5);                                                // n_trials == 0
     STATS_TEST_EXPECTED_VAL(dbinom,1,0,false,0,0.5);
 
-    STATS_TEST_EXPECTED_VAL(dbinom,1,prob_par,false,1,prob_par);                    // n_trials == 1
+    STATS_TEST_EXPECTED_VAL(dbinom,1,prob_par,false,1,prob_par);                                    // n_trials == 1
 
     //
     // vector/matrix tests

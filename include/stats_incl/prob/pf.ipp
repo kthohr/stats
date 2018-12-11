@@ -45,7 +45,7 @@ pf_vals_check(const T x, const T df1_par, const T df2_par, const bool log_form)
                 STLIM<T>::quiet_NaN() :
             //
             STLIM<T>::epsilon() > x ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             log_if(pf_compute(df1_par*x/df2_par,df1_par/T(2),df2_par/T(2)), log_form) );
 }

@@ -73,8 +73,11 @@ noexcept
     return( !beta_sanity_check(a_par,b_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
             x < T(0) || x > T(1) ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             (a_par == T(0) || b_par == T(0) || gcem::internal::any_posinf(a_par,b_par)) ? \
                 log_if(dbeta_limit_vals(x,a_par,b_par),log_form) :
@@ -83,13 +86,13 @@ noexcept
                 a_par < T(1) ? \
                     STLIM<T>::infinity() :
                 a_par > T(1) ? \
-                    log_if(T(0),log_form) :
+                    log_zero_if<T>(log_form) :
                     log_if(b_par,log_form) :
             x == T(1) ? \
                 b_par < T(1) ? \
                     STLIM<T>::infinity() :
                 b_par > T(1) ? \
-                    log_if(T(0),log_form) :
+                    log_zero_if<T>(log_form) :
                     log_if(a_par,log_form) :
             //
             exp_if(dbeta_log_compute(x,a_par,b_par), !log_form) );

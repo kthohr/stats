@@ -34,10 +34,7 @@ noexcept
     return( GCINT::any_nan(mu_par,sigma_par) ? \
                 false :
             //
-            STLIM<T>::epsilon() > sigma_par ? \
-                false :
-            //
-            gcem::internal::is_inf(mu_par) ? \
+            sigma_par < T(0) ? \
                 false :
             //
                 true );

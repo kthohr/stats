@@ -47,7 +47,7 @@ noexcept
                 STLIM<T>::quiet_NaN() :
             //
             x < STLIM<T>::epsilon() ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             log_if(pweibull_compute(x/scale_par,shape_par), log_form) );
 }

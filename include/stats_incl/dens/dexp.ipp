@@ -46,8 +46,16 @@ noexcept
     return( !exp_sanity_check(rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
             x < T(0) ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
+            //
+            GCINT::is_posinf(x) ? \
+                rate_par > T(0) ? \
+                    T(0) :
+                    STLIM<T>::quiet_NaN() :
             //
             exp_if(dexp_log_compute(x,rate_par), !log_form) );
 }

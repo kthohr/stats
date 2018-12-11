@@ -63,8 +63,20 @@ noexcept
     return( !invgamma_sanity_check(shape_par,rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            x < T(0) ? \
+                log_zero_if<T>(log_form) :
+            //
             x == T(0) || shape_par == T(0) ? \
                 log_if(dinvgamma_limit_vals(x,shape_par,rate_par), log_form) :
+            //
+            rate_par == T(0) ? \
+                log_zero_if<T>(log_form) :
+            //
+            GCINT::any_posinf(x,shape_par,rate_par) ? \
+                log_zero_if<T>(log_form) :
             //
             exp_if(dinvgamma_log_compute(x,shape_par,rate_par), !log_form) );
 }

@@ -47,7 +47,7 @@ noexcept
                 STLIM<T>::quiet_NaN() :
             //
             x < T(0) ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             exp_if(dweibull_log_compute(x/scale_par,shape_par,scale_par), !log_form) );
 }

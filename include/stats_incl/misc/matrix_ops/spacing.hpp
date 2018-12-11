@@ -31,6 +31,7 @@ statslib_inline
 ullint_t
 spacing(const std::vector<eT>& X)
 {
+    STATS_UNUSED_PAR(X);
     return ullint_t(1);
 }
 #endif

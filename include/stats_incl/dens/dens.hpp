@@ -26,7 +26,6 @@
 #include "dcauchy.hpp"
 #include "dchisq.hpp"
 #include "dexp.hpp"
-#include "df.hpp"
 #include "dgamma.hpp"
 #include "dinvgamma.hpp"
 #include "dinvwish.hpp"
@@ -42,6 +41,7 @@
 
 // these depend on the above
 #include "dbinom.hpp"
+#include "df.hpp"
 #include "dlnorm.hpp"
 
 #endif

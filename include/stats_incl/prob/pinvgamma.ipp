@@ -46,7 +46,7 @@ noexcept
                 STLIM<T>::quiet_NaN() :
             //
             STLIM<T>::epsilon() > x ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             log_if(pinvgamma_compute(x,shape_par,rate_par), log_form) );
 }

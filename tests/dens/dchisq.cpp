@@ -23,49 +23,86 @@
 
 int main()
 {
-    double err_tol = 1E-06;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    print_begin("dchisq");
 
-    double dof_par = 3.0;
+    // settings
 
-    std::cout << "\n*** dchisq: begin tests. ***\n" << std::endl;
+    double err_tol = 1E-05;
+    int print_level = TEST_PRINT_LEVEL;
 
-    // x = 1
-    double x_1 = 1.0;
-    double val_1 = 0.241971;
-    double dens_1 = stats::dchisq(x_1,dof_par,false);
+    int print_precision_1 = 2;
+    int print_precision_2 = 5;
 
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dchisq(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
+    // parameters
 
-    // x = 2, return log
-    double x_2 = 2;
-    double val_2 = -1.572365;
-    double dens_2 = stats::dchisq(x_2,dof_par,true);
-
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dchisq(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-
-    if (success_1 && success_2) {
-        std::cout << "\n*** dchisq: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** dchisq: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    double dof = 3.0;
 
     //
-    // coverage tests
+
+    std::vector<double> inp_vals = { 1.0,        2.0,        3.0 };
+    std::vector<double> exp_vals = { 0.2419707,  0.2075537,  0.1541803 };
+
+    //
+    // scalar tests
+
+    int test_number = 0;
+
+    STATS_TEST_EXPECTED_VAL(dchisq,inp_vals[0],exp_vals[0],false,dof);
+    STATS_TEST_EXPECTED_VAL(dchisq,inp_vals[1],exp_vals[1],true,dof);
+    STATS_TEST_EXPECTED_VAL(dchisq,inp_vals[2],exp_vals[2],false,dof);
+
+    STATS_TEST_EXPECTED_VAL(dchisq,TEST_NAN,TEST_NAN,false,3);                                      // Input NaNs
+    STATS_TEST_EXPECTED_VAL(dchisq,1,TEST_NAN,false,TEST_NAN);
+
+    STATS_TEST_EXPECTED_VAL(dchisq,1,0,false,0.0);                                                  // dof <= 0
+    STATS_TEST_EXPECTED_VAL(dchisq,0,TEST_POSINF,false,0.0);
+    STATS_TEST_EXPECTED_VAL(dchisq,1,TEST_NAN,false,-1.0);
+    STATS_TEST_EXPECTED_VAL(dchisq,1,TEST_NAN,false,TEST_NEGINF);
+
+    STATS_TEST_EXPECTED_VAL(dchisq,1,0,false,TEST_POSINF);                                          // dof == Inf
+
+    STATS_TEST_EXPECTED_VAL(dchisq,0,TEST_POSINF,false,0);                                          // x == 0
+    STATS_TEST_EXPECTED_VAL(dchisq,0,TEST_POSINF,false,1);
+    STATS_TEST_EXPECTED_VAL(dchisq,0,0.5,false,2);
+    STATS_TEST_EXPECTED_VAL(dchisq,0,0,false,3);
+
+    STATS_TEST_EXPECTED_VAL(dchisq,TEST_POSINF,0,false,2);                                          // x == Inf
+    STATS_TEST_EXPECTED_VAL(dchisq,TEST_POSINF,0,false,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dchisq,TEST_NEGINF,0,false,2);                                          // x == -Inf
+    STATS_TEST_EXPECTED_VAL(dchisq,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(dchisq,inp_vals,exp_vals,std::vector<double>,false,dof);
+    STATS_TEST_EXPECTED_MAT(dchisq,inp_vals,exp_vals,std::vector<double>,true,dof);
+#endif
 
 #ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 1.5;
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
 
-    stats::dchisq(x_mat,dof_par);
-    stats::dchisq(x_mat,dof_par,true);
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(dchisq,inp_mat,exp_mat,mat_obj,false,dof);
+    STATS_TEST_EXPECTED_MAT(dchisq,inp_mat,exp_mat,mat_obj,true,dof);
 #endif
+
+    // 
+
+    print_final("dchisq",test_number);
 
     return 0;
 }

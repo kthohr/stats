@@ -154,7 +154,7 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
-qt_int_y_2_iter_loop_update(const T p, const T dof_par, const T val_out, const T x, const int iter)
+qt_int_y_2_iter_loop_update(const T p, const T dof_par, const T val_out, const int iter)
 noexcept
 {
     return( iter < 6 ? \
@@ -169,7 +169,7 @@ T
 qt_int_y_2_iter_loop(const T p, const T dof_par, const T val_out, const T x, const int iter)
 noexcept
 {
-    return qt_int_y_2_iter_loop_update(p,dof_par,qt_int_y_2_iter_val_update(val_out,dof_par,x),T(0),iter);
+    return qt_int_y_2_iter_loop_update(p,dof_par,qt_int_y_2_iter_val_update(val_out,dof_par,x),iter);
 }
 
 template<typename T>

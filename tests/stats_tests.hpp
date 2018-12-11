@@ -105,7 +105,7 @@ print_test_pass(std::string fn_name, const int print_level,
               TEST_PRINT_LOG_INPUT(log_form) << ") = "
               << std::setprecision(print_precision_2) << f_val << "\n";
 
-    if (print_level > 1)
+    if (print_level > 1 && !std::isnan(err_val))
         std::cout << "    - error value = " << err_val << ".\n";
 
     std::cout << std::endl;
@@ -126,7 +126,7 @@ print_test_pass(std::string fn_name, const int print_level,
               TEST_PRINT_LOG_INPUT(log_form) << ") = "
               << std::setprecision(print_precision_2) << f_val << "\n";
 
-    if (print_level > 1)
+    if (print_level > 1 && !std::isnan(err_val))
         std::cout << "    - error value = " << err_val << ".\n";
 
     std::cout << std::endl;
@@ -243,16 +243,18 @@ print_mat_test_pass(std::string fn_name, const int print_level,
                 const T2 x, const T3 par_1, const bool log_form)
 {
     STATS_UNUSED_PAR(print_precision_2);
-    STATS_UNUSED_PAR(x);
     std::cout << "[\033[32mOK\033[0m] ";
     std::cout << std::setiosflags(std::ios::fixed)
               << std::setprecision(print_precision_1) << fn_name
-              << "(." << "," << par_1
+              << "(X" << "," << par_1
               TEST_PRINT_LOG_INPUT(log_form) << ") = \n";
               MATOPS::cout_output(f_vals);
 
-    if (print_level > 1)
+    if (print_level > 1) {
+        std::cout << "     where X =\n";
+        MATOPS::cout_output(x);
         std::cout << "    - error value = " << err_val << ".\n";
+    }
 
     std::cout << std::endl;
 }
@@ -267,16 +269,18 @@ print_mat_test_pass(std::string fn_name, const int print_level,
                 const T2 x, const T3 par_1, const T4 par_2, const bool log_form)
 {
     STATS_UNUSED_PAR(print_precision_2);
-    STATS_UNUSED_PAR(x);
     std::cout << "[\033[32mOK\033[0m] ";
     std::cout << std::setiosflags(std::ios::fixed)
               << std::setprecision(print_precision_1) << fn_name
-              << "(." << "," << par_1 << "," << par_2
+              << "(X" << "," << par_1 << "," << par_2
               TEST_PRINT_LOG_INPUT(log_form) << ") = \n";
               MATOPS::cout_output(f_vals);
 
-    if (print_level > 1)
+    if (print_level > 1) {
+        std::cout << "     where X =\n";
+        MATOPS::cout_output(x);
         std::cout << "    - error value = " << err_val << ".\n";
+    }
 
     std::cout << std::endl;
 }

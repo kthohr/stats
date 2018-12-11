@@ -23,50 +23,101 @@
 
 int main()
 {
+    print_begin("dlaplace");
+
+    // settings
+
     double err_tol = 1E-05;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    int print_level = TEST_PRINT_LEVEL;
+
+    int print_precision_1 = 2;
+    int print_precision_2 = 5;
+
+    // parameters
 
     double mu = 1;
     double sigma = 2;
 
-    std::cout << "\n*** dlaplace: begin tests. ***\n" << std::endl;
+    //
 
-    // x = 1
-    double x_1 = 1;
-    double val_1 = 0.25;
-    double dens_1 = stats::dlaplace(x_1,mu,sigma);
-
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlaplace(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
-
-    // x = 1.5, return log
-    double x_2 = 1.5;
-    double val_2 = -1.636294;
-    double dens_2 = stats::dlaplace(x_2,mu,sigma,true);
-
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dlaplace(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-
-    if (success_1 && success_2) {
-        std::cout << "\n*** dlaplace: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** dlaplace: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    std::vector<double> inp_vals = { 2.0,        1.0,   0.0 };
+    std::vector<double> exp_vals = { 0.1516327,  0.25,  0.1516327 };
 
     //
-    // coverage tests
+    // scalar tests
+
+    int test_number = 0;
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,inp_vals[0],exp_vals[0],false,mu,sigma);
+    STATS_TEST_EXPECTED_VAL(dlaplace,inp_vals[1],exp_vals[1],true,mu,sigma);
+    STATS_TEST_EXPECTED_VAL(dlaplace,inp_vals[2],exp_vals[2],false,mu,sigma);
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_NAN,TEST_NAN,false,0,1);                     // Input NaNs
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,TEST_NAN,false,TEST_NAN,1);
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,TEST_NAN,false,0,TEST_NAN);
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,TEST_NAN,false,0,-1.0);                         // sigma < 0
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,TEST_NAN,false,0,TEST_NEGINF);
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,0,false,1,TEST_POSINF);                         // sigma == +Inf
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_POSINF,0,false,1,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,0,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_POSINF,0,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_NEGINF,0,false,1,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,0,false,TEST_NEGINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_NEGINF,0,false,TEST_NEGINF,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_POSINF,TEST_NAN,false,TEST_POSINF,0);        // x == mu == Inf
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_POSINF,TEST_NAN,false,TEST_POSINF,1);
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,0);        // x == mu == -Inf
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,1);
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_POSINF,0,false,TEST_NEGINF,0);               // x == Inf, mu == -Inf
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_POSINF,0,false,TEST_NEGINF,1);
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_NEGINF,0,false,TEST_POSINF,0);               // x == -Inf, mu == Inf
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_NEGINF,0,false,TEST_POSINF,1);
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,1,0,false,0,0);                                   // sigma == 0
+    STATS_TEST_EXPECTED_VAL(dlaplace,1,TEST_POSINF,false,1,0);
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_POSINF,0,false,0,1);                         // x == +/-Inf
+    STATS_TEST_EXPECTED_VAL(dlaplace,TEST_NEGINF,0,false,0,1);
+
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,0,false,TEST_POSINF,1);                         // mu == +/-Inf
+    STATS_TEST_EXPECTED_VAL(dlaplace,0,0,false,TEST_NEGINF,1);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(dlaplace,inp_vals,exp_vals,std::vector<double>,false,mu,sigma);
+    STATS_TEST_EXPECTED_MAT(dlaplace,inp_vals,exp_vals,std::vector<double>,true,mu,sigma);
+#endif
 
 #ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 1.5;
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
 
-    stats::dlaplace(x_mat,mu,sigma);
-    stats::dlaplace(x_mat,mu,sigma,true);
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(dlaplace,inp_mat,exp_mat,mat_obj,false,mu,sigma);
+    STATS_TEST_EXPECTED_MAT(dlaplace,inp_mat,exp_mat,mat_obj,true,mu,sigma);
 #endif
+
+    // 
+
+    print_final("dlaplace",test_number);
 
     return 0;
 }

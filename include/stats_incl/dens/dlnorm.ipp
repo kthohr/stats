@@ -42,6 +42,30 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+dlnorm_limit_vals(const T x, const T mu_par, const T sigma_par)
+noexcept
+{
+    return( // sigma == Inf
+            GCINT::is_posinf(sigma_par) ? \
+                T(0) :
+            // sigma finite; x == mu == Inf or -Inf 
+            GCINT::all_posinf(x,mu_par) || GCINT::all_neginf(x,mu_par) ? \
+                STLIM<T>::quiet_NaN() :
+            // sigma finite; x and mu have opposite Inf signs
+            GCINT::is_posinf(x) && GCINT::is_neginf(mu_par) ? \
+                T(0) :
+            GCINT::is_neginf(x) && GCINT::is_posinf(mu_par) ? \
+                T(0) :
+            // sigma == 0 and x-mu == 0
+            sigma_par == T(0) && stmath::log(x) == mu_par ? \
+                STLIM<T>::infinity() :
+            //
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 dlnorm_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 noexcept
 {
@@ -49,7 +73,13 @@ noexcept
                 STLIM<T>::quiet_NaN() :
             //
             STLIM<T>::epsilon() > x ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
+            //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            GCINT::any_inf(x,mu_par,sigma_par) || sigma_par == T(0) ? \
+                log_if(dnorm_limit_vals(x,mu_par,sigma_par),log_form) :
             //
             dlnorm_log_check(x,mu_par,sigma_par,log_form) );
 }

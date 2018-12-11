@@ -64,8 +64,11 @@ noexcept
     return( !binom_sanity_check(n_trials_par,prob_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
             x < llint_t(0) || x > n_trials_par ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             //
             n_trials_par == llint_t(0) ? \
                 log_if(dbinom_limit_vals<T>(x),log_form) :

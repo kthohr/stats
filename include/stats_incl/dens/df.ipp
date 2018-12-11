@@ -55,7 +55,28 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
-df_limit_vals(const T df1_par)
+df_limit_vals_dof(const T x, const T df1_par, const T df2_par, const bool log_form)
+noexcept
+{
+    return( // df1 == +Inf and df2 == +Inf
+            GCINT::all_posinf(df1_par,df2_par) ? \
+                x == T(1) ? \
+                    STLIM<T>::infinity() :
+                    log_zero_if<T>(log_form) :
+            // df1 == +Inf
+            GCINT::is_posinf(df1_par) ? \
+                // log_form ? \
+                //     dgamma(1/x,df2_par/2,2/df2_par,true) - 2*stmath::log(x) :
+                //     dgamma(1/x,df2_par/2,2/df2_par,false) / (x*x) :
+                dinvgamma(x,df2_par/2,df2_par/2,log_form) :
+            // df2 == +Inf
+                dgamma(x,df1_par/2,2/df1_par,log_form) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+df_limit_vals_x(const T df1_par)
 noexcept
 {
     return( df1_par < T(2) ? \
@@ -75,10 +96,16 @@ noexcept
     return( !f_sanity_check(df1_par,df2_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_nan(x) ? \
+                STLIM<T>::quiet_NaN() :
+            //
             x < T(0) ? \
-                log_if(T(0),log_form) :
+                log_zero_if<T>(log_form) :
             x == T(0) ? \
-                log_if(df_limit_vals(df1_par), log_form) :
+                log_if(df_limit_vals_x(df1_par), log_form) :
+            //
+            GCINT::any_posinf(df1_par,df2_par) ? \
+                df_limit_vals_dof(x,df1_par,df2_par,log_form) :
             //
             df_log_check(x,df1_par/T(2),df2_par/T(2),df1_par*x/df2_par,log_form) );
 }

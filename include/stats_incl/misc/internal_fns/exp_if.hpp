@@ -34,7 +34,7 @@ T
 exp_if(const T x, const bool exp_form)
 noexcept
 {
-    return exp_form == true ? stmath::exp(x) : x;
+    return exp_form ? stmath::exp(x) : x;
 }
 
 }
