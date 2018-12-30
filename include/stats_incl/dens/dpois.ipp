@@ -46,8 +46,16 @@ noexcept
     return( !pois_sanity_check(rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            rate_par == T(0) ? \
+                x == llint_t(0) ? \
+                    T(1) :
+                    T(0) :
+            //
+            GCINT::is_posinf(rate_par) ? \
+                log_zero_if<T>(log_form) :
+            //
             x < llint_t(0) ? \
-                log_if(0,log_form) :
+                log_zero_if<T>(log_form) :
             //
             exp_if(dpois_log_compute(x,rate_par), !log_form) );
 }

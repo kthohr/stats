@@ -34,7 +34,12 @@ T
 pbern_compute(const llint_t x, const T prob_par)
 noexcept
 {
-    return( x >= llint_t(1) ? T(1) : T(1) - prob_par );
+    return( x < llint_t(0) ? \
+                T(0) :
+            //
+            x >= llint_t(1) ? \
+                T(1) : 
+                T(1) - prob_par );
 }
 
 template<typename T>
@@ -45,9 +50,6 @@ noexcept
 {
     return( !bern_sanity_check(prob_par) ? \
                 STLIM<T>::quiet_NaN() :
-            //
-            x < llint_t(0) ? \
-                log_zero_if<T>(log_form) :
             //
             log_if(pbern_compute(x,prob_par), log_form) );
 }
@@ -69,11 +71,11 @@ noexcept
 
 template<typename T>
 statslib_constexpr
-T
+return_t<T>
 pbern(const llint_t x, const T prob_par, const bool log_form)
 noexcept
 {
-    return internal::pbern_vals_check(x,prob_par,log_form);
+    return internal::pbern_vals_check(x,static_cast<return_t<T>>(prob_par),log_form);
 }
 
 //

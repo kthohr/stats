@@ -43,4 +43,13 @@ noexcept
                 true );
 }
 
+template<typename T>
+statslib_constexpr
+bool
+gamma_sanity_check(const T inp_val, const T shape_par, const T scale_par)
+noexcept
+{
+    return (!GCINT::is_nan(inp_val)) && gamma_sanity_check(shape_par,scale_par);
+}
+
 }

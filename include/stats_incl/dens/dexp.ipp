@@ -43,10 +43,7 @@ T
 dexp_vals_check(const T x, const T rate_par, const bool log_form)
 noexcept
 {
-    return( !exp_sanity_check(rate_par) ? \
-                STLIM<T>::quiet_NaN() :
-            //
-            GCINT::is_nan(x) ? \
+    return( !exp_sanity_check(x,rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             x < T(0) ? \

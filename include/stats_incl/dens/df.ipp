@@ -65,7 +65,7 @@ noexcept
                     log_zero_if<T>(log_form) :
             // df1 == +Inf
             GCINT::is_posinf(df1_par) ? \
-                // log_form ? \
+                // log_form ?
                 //     dgamma(1/x,df2_par/2,2/df2_par,true) - 2*stmath::log(x) :
                 //     dgamma(1/x,df2_par/2,2/df2_par,false) / (x*x) :
                 dinvgamma(x,df2_par/2,df2_par/2,log_form) :
@@ -93,10 +93,7 @@ T
 df_reparam(const T x, const T df1_par, const T df2_par, const bool log_form)
 noexcept
 {
-    return( !f_sanity_check(df1_par,df2_par) ? \
-                STLIM<T>::quiet_NaN() :
-            //
-            GCINT::is_nan(x) ? \
+    return( !f_sanity_check(x,df1_par,df2_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             x < T(0) ? \

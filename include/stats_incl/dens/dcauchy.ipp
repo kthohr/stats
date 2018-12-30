@@ -66,10 +66,7 @@ T
 dcauchy_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 noexcept
 {
-    return( !cauchy_sanity_check(mu_par,sigma_par) ? \
-                STLIM<T>::quiet_NaN() :
-            //
-            GCINT::is_nan(x) ? \
+    return( !cauchy_sanity_check(x,mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             GCINT::any_inf(x,mu_par,sigma_par) ? \

@@ -37,10 +37,16 @@ noexcept
             STLIM<T>::epsilon() > sigma_par ? \
                 false :
             //
-            gcem::internal::is_inf(mu_par) ? \
-                false :
-            //
                 true );
+}
+
+template<typename T>
+statslib_constexpr
+bool
+logis_sanity_check(const T inp_val, const T mu_par, const T sigma_par)
+noexcept
+{
+    return (!GCINT::is_nan(inp_val)) && logis_sanity_check(mu_par,sigma_par);
 }
 
 }

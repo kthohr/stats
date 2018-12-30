@@ -43,4 +43,13 @@ noexcept
                 true );
 }
 
+template<typename T>
+statslib_constexpr
+bool
+f_sanity_check(const T inp_val, const T df1_par, const T df2_par)
+noexcept
+{
+    return (!GCINT::is_nan(inp_val)) && f_sanity_check(df1_par,df2_par);
+}
+
 }

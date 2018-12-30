@@ -40,4 +40,13 @@ noexcept
                 true );
 }
 
+template<typename T>
+statslib_constexpr
+bool
+unif_sanity_check(const T inp_val, const T a_par, const T b_par)
+noexcept
+{
+    return (!GCINT::is_nan(inp_val)) && unif_sanity_check(a_par,b_par);
+}
+
 }

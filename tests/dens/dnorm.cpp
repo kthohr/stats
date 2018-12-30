@@ -52,14 +52,14 @@ int main()
     STATS_TEST_EXPECTED_VAL(dnorm,inp_vals[1],exp_vals[1],true,mu,sigma);
     STATS_TEST_EXPECTED_VAL(dnorm,inp_vals[2],exp_vals[2],false,mu,sigma);
 
-    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NAN,TEST_NAN,false,0,1);                     // Input NaNs
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NAN,TEST_NAN,false,0,1);                                     // Input NaNs
     STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,TEST_NAN,1);
     STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,0,TEST_NAN);
 
-    STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,0,-1.0);                         // sigma < 0
+    STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,0,-1.0);                                         // sigma < 0
     STATS_TEST_EXPECTED_VAL(dnorm,0,TEST_NAN,false,0,TEST_NEGINF);
 
-    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,1,TEST_POSINF);                         // sigma == +Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,1,TEST_POSINF);                                         // sigma == +Inf
     STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,1,TEST_POSINF);
     STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_POSINF,TEST_POSINF);
     STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,TEST_POSINF,TEST_POSINF);
@@ -67,23 +67,23 @@ int main()
     STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_NEGINF,TEST_POSINF);
     STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,TEST_NEGINF,TEST_POSINF);
 
-    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,TEST_NAN,false,TEST_POSINF,0);        // x == mu == Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,TEST_NAN,false,TEST_POSINF,0);                        // x == mu == Inf
     STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,TEST_NAN,false,TEST_POSINF,1);
-    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,0);        // x == mu == -Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,0);                        // x == mu == -Inf
     STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,1);
 
-    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,TEST_NEGINF,0);               // x == Inf, mu == -Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,TEST_NEGINF,0);                               // x == Inf, mu == -Inf
     STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,TEST_NEGINF,1);
-    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,TEST_POSINF,0);               // x == -Inf, mu == Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,TEST_POSINF,0);                               // x == -Inf, mu == Inf
     STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,TEST_POSINF,1);
 
-    STATS_TEST_EXPECTED_VAL(dnorm,1,0,false,0,0);                                   // sigma == 0
+    STATS_TEST_EXPECTED_VAL(dnorm,1,0,false,0,0);                                                   // sigma == 0
     STATS_TEST_EXPECTED_VAL(dnorm,1,TEST_POSINF,false,1,0);
 
-    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,0,1);                         // x == +/-Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,TEST_POSINF,0,false,0,1);                                         // x == +/-Inf
     STATS_TEST_EXPECTED_VAL(dnorm,TEST_NEGINF,0,false,0,1);
 
-    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_POSINF,1);                         // mu == +/-Inf
+    STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_POSINF,1);                                         // mu == +/-Inf
     STATS_TEST_EXPECTED_VAL(dnorm,0,0,false,TEST_NEGINF,1);
 
     //

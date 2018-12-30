@@ -63,10 +63,13 @@ T
 dt_vals_check(const T x, const T dof_par, const bool log_form)
 noexcept
 {
-    return( !t_sanity_check(dof_par) ? \
+    return( !t_sanity_check(x,dof_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            dof_par == STLIM<T>::infinity() ? \
+            GCINT::is_inf(x) ? \
+                T(0) :
+            //
+            GCINT::is_posinf(dof_par) ? \
                 dnorm(x,T(0),T(1),log_form) :
             //
             exp_if(dt_log_compute(x,dof_par), !log_form) );

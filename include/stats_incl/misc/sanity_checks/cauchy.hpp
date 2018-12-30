@@ -40,4 +40,13 @@ noexcept
                 true );
 }
 
+template<typename T>
+statslib_constexpr
+bool
+cauchy_sanity_check(const T inp_val, const T mu_par, const T sigma_par)
+noexcept
+{
+    return (!GCINT::is_nan(inp_val)) && cauchy_sanity_check(mu_par,sigma_par);
+}
+
 }

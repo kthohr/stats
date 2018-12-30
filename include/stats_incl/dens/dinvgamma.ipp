@@ -60,10 +60,7 @@ T
 dinvgamma_vals_check(const T x, const T shape_par, const T rate_par, const bool log_form)
 noexcept
 {
-    return( !invgamma_sanity_check(shape_par,rate_par) ? \
-                STLIM<T>::quiet_NaN() :
-            //
-            GCINT::is_nan(x) ? \
+    return( !invgamma_sanity_check(x,shape_par,rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             x < T(0) ? \

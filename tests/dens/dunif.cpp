@@ -23,50 +23,81 @@
 
 int main()
 {
-    double err_tol = 1E-06;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    print_begin("dunif");
 
-    double a_par = 0.0;
-    double b_par = 2.5;
+    // settings
 
-    std::cout << "\n*** dunif: begin tests. ***\n" << std::endl;
+    double err_tol = 1E-05;
+    int print_level = TEST_PRINT_LEVEL;
 
-    // x = 1
-    double x_1 = 0.5;
-    double val_1 = 0.40;
-    double dens_1 = stats::dunif(x_1,a_par,b_par,false);
+    int print_precision_1 = 2;
+    int print_precision_2 = 5;
 
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dunif(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
+    // parameters
 
-    // x = 1, return log
-    double x_2 = 0.5;
-    double val_2 = std::log(val_1);
-    double dens_2 = stats::dunif(x_2,a_par,b_par,true);
-
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dunif(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-
-    if (success_1 && success_2) {
-        std::cout << "\n*** dunif: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** dunif: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    double a_par = -2.0;
+    double b_par = 3.0;
 
     //
-    // coverage tests
+
+    std::vector<double> inp_vals = { -1.2,  1.0,  2.5 };
+    std::vector<double> exp_vals = {  0.2,  0.2,  0.2 };
+
+    //
+    // scalar tests
+
+    int test_number = 0;
+
+    STATS_TEST_EXPECTED_VAL(dunif,inp_vals[0],exp_vals[0],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(dunif,inp_vals[1],exp_vals[1],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(dunif,inp_vals[2],exp_vals[2],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(dunif,inp_vals[1],exp_vals[1],true,a_par,b_par);
+
+    STATS_TEST_EXPECTED_VAL(dunif,0.5,TEST_NAN,false,a_par,a_par);                                  // bad parameter value cases: a >= b
+    STATS_TEST_EXPECTED_VAL(dunif,0.5,TEST_NAN,false,b_par,a_par);
+
+    STATS_TEST_EXPECTED_VAL(dunif,a_par,1.0/(b_par-a_par),false,a_par,b_par);                       // x <= a
+    STATS_TEST_EXPECTED_VAL(dunif,a_par-0.1,0,false,a_par,b_par);
+
+    STATS_TEST_EXPECTED_VAL(dunif,b_par,1.0/(b_par-a_par),false,a_par,b_par);                       // x >= b
+    STATS_TEST_EXPECTED_VAL(dunif,b_par+0.1,0,false,a_par,b_par);
+
+    STATS_TEST_EXPECTED_VAL(dunif,0.0,TEST_NAN,false,TEST_POSINF,TEST_POSINF);                      // a == +/-Inf and b == +/-Inf
+    STATS_TEST_EXPECTED_VAL(dunif,0.0,TEST_NAN,false,TEST_NEGINF,TEST_NEGINF);
+    STATS_TEST_EXPECTED_VAL(dunif,0.0,0.0,false,TEST_NEGINF,TEST_POSINF);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(dunif,inp_vals,exp_vals,std::vector<double>,false,a_par,b_par);
+    STATS_TEST_EXPECTED_MAT(dunif,inp_vals,exp_vals,std::vector<double>,true,a_par,b_par);
+#endif
 
 #ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 0.4;
-    x_mat(1,0) = 0.5;
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
 
-    stats::dunif(x_mat,a_par,b_par);
-    stats::dunif(x_mat,a_par,b_par,true);
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(dunif,inp_mat,exp_mat,mat_obj,false,a_par,b_par);
+    STATS_TEST_EXPECTED_MAT(dunif,inp_mat,exp_mat,mat_obj,true,a_par,b_par);
 #endif
+
+    // 
+
+    print_final("dunif",test_number);
 
     return 0;
 }

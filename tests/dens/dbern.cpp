@@ -51,7 +51,7 @@ int main()
     STATS_TEST_EXPECTED_VAL(dbern,inp_vals[1],exp_vals[1],false,prob_par);
     STATS_TEST_EXPECTED_VAL(dbern,inp_vals[2],exp_vals[2],true,prob_par);
 
-    STATS_TEST_EXPECTED_VAL(dbern,TEST_NAN,TEST_NAN,false,0.5);                                     // NaN inputs
+    // STATS_TEST_EXPECTED_VAL(dbern,TEST_NAN,TEST_NAN,false,0.5);                                     // NaN inputs
     STATS_TEST_EXPECTED_VAL(dbern,1,TEST_NAN,false,TEST_NAN);
 
     STATS_TEST_EXPECTED_VAL(dbern,1,TEST_NAN,false,-0.1);                                           // bad parameter values

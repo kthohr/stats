@@ -40,11 +40,30 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+dlogis_limit_vals(const T x, const T mu_par, const T sigma_par)
+noexcept
+{
+    return( // sigma == Inf
+            GCINT::is_posinf(sigma_par) ? \
+                T(0) :
+            // sigma finite; x == mu == Inf or -Inf 
+            GCINT::all_posinf(x,mu_par) || GCINT::all_neginf(x,mu_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 dlogis_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 noexcept
 {
-    return( !logis_sanity_check(mu_par,sigma_par) ? \
+    return( !logis_sanity_check(x,mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
+            //
+            GCINT::any_inf(x,mu_par,sigma_par) ? \
+                log_if(dlogis_limit_vals(x,mu_par,sigma_par),log_form) :
             //
             exp_if(dlogis_log_compute((x-mu_par)/sigma_par,sigma_par), !log_form) );
 }

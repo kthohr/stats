@@ -43,11 +43,14 @@ T
 dweibull_vals_check(const T x, const T shape_par, const T scale_par, const bool log_form)
 noexcept
 {
-    return( !weibull_sanity_check(shape_par,scale_par) ? \
+    return( !weibull_sanity_check(x,shape_par,scale_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             x < T(0) ? \
                 log_zero_if<T>(log_form) :
+            //
+            x == T(0) && shape_par < T(1) ? \
+                STLIM<T>::infinity() :
             //
             exp_if(dweibull_log_compute(x/scale_par,shape_par,scale_par), !log_form) );
 }

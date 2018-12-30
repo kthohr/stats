@@ -149,7 +149,7 @@ print_test_fail(std::string fn_name, int test_number, const int print_level,
 
     std::cerr << "\033[31m Test failed!\033[0m\n";
     std::cerr << "  - Test number: " << test_number << "\n";
-    std::cerr << "  - Function Call: " << fn_name
+    std::cerr << "  - Function Call:  " << fn_name
               << "(" << x << "," << par_1
               TEST_PRINT_LOG_INPUT(log_form) << ");\n";
     std::cerr << "  - Expected value: " << expected_val << "\n";
@@ -173,7 +173,7 @@ print_test_fail(std::string fn_name, int test_number, const int print_level,
 
     std::cerr << "\033[31m Test failed!\033[0m\n";
     std::cerr << "  - Test number: " << test_number << "\n";
-    std::cerr << "  - Function Call: " << fn_name
+    std::cerr << "  - Function Call:  " << fn_name
               << "(" << x << "," << par_1 << "," << par_2
               TEST_PRINT_LOG_INPUT(log_form) << ");\n";
     std::cerr << "  - Expected value: " << expected_val << "\n";
@@ -305,7 +305,7 @@ print_mat_test_fail(std::string fn_name, std::string mtype, int test_number,
     std::cerr << "  - Test number: " << test_number << "\n";
     std::cerr << "  - Input values:\n";
     MATOPS::cerr_output(x);
-    std::cerr << "  - Function Call: " << fn_name
+    std::cerr << "  - Function Call:  " << fn_name
               << "(.," << par_1
               TEST_PRINT_LOG_INPUT(log_form) << ");\n";
     std::cerr << "  - Expected values:\n";
@@ -334,7 +334,7 @@ print_mat_test_fail(std::string fn_name, std::string mtype, int test_number,
     std::cerr << "  - Test number: " << test_number << "\n";
     std::cerr << "  - Input values:\n";
     MATOPS::cerr_output(x);
-    std::cerr << "  - Function Call: " << fn_name
+    std::cerr << "  - Function Call:  " << fn_name
               << "(.," << par_1 << "," << par_2
               TEST_PRINT_LOG_INPUT(log_form) << ");\n";
     std::cerr << "  - Expected values:\n";

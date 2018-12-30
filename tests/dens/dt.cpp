@@ -23,112 +23,79 @@
 
 int main()
 {
+    print_begin("dt");
+
+    // settings
+
     double err_tol = 1E-05;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    int print_level = TEST_PRINT_LEVEL;
 
-    int dof_par = 11;
+    int print_precision_1 = 2;
+    int print_precision_2 = 5;
 
-    std::cout << "\n*** dt: begin tests. ***\n" << std::endl;
+    // parameters
 
-    // x = -1.01
-    double x_1 = -1.01;
-    double val_1 = 0.2290661;
-    double dens_1 = stats::dt(x_1,dof_par);
-
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dt(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
-
-    // x = -0.37
-    double x_2 = -0.37;
-    double val_2 = 0.3620957;
-    double dens_2 = stats::dt(x_2,dof_par);
-
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "dt(" << x_2 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-
-    // x = 0
-    double x_3 = 0.0;
-    double val_3 = 0.3899898;
-    double dens_3 = stats::dt(x_3,dof_par);
-
-    bool success_3 = (std::abs(dens_3 - val_3) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "dt(" << x_3 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_3 << ". Success = " << success_3 << std::endl;
-
-    // x = +0.37
-    double x_4 = 0.37;
-    double val_4 = 0.3620957;
-    double dens_4 = stats::dt(x_4,dof_par);
-
-    bool success_4 = (std::abs(dens_4 - val_4) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "dt(" << x_4 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_4 << ". Success = " << success_4 << std::endl;
-
-    // x = +1.01
-    double x_5 = 1.01;
-    double val_5 = 0.2290661;
-    double dens_5 = stats::dt(x_5,dof_par);
-
-    bool success_5 = (std::abs(dens_5 - val_5) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "dt(" << x_5 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_5 << ". Success = " << success_5 << std::endl;
-
-    // x = +1.58
-    double x_6 = 1.58;
-    double val_6 = 0.1143146;
-    double dens_6 = stats::dt(x_6,dof_par);
-
-    bool success_6 = (std::abs(dens_6 - val_6) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "dt(" << x_6 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_6 << ". Success = " << success_6 << std::endl;
-
-    // x = +2.5
-    double x_7 = 2.5;
-    double val_7 = 0.02622254;
-    double dens_7 = stats::dt(x_7,dof_par);
-
-    bool success_7 = (std::abs(dens_7 - val_7) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "dt(" << x_7 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_7 << ". Success = " << success_7 << std::endl;
-
-    // x = +3.5
-    double x_8 = 3.5;
-    double val_8 = 0.004373927;
-    double dens_8 = stats::dt(x_8,dof_par);
-
-    bool success_8 = (std::abs(dens_8 - val_8) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "dt(" << x_8 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_8 << ". Success = " << success_8 << std::endl;
-
-    // x = -3.5
-    double x_9 = -3.5;
-    double val_9 = 0.004373927;
-    double dens_9 = stats::dt(x_9,dof_par);
-
-    bool success_9 = (std::abs(dens_9 - val_9) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "dt(" << x_9 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_9 << ". Success = " << success_9 << std::endl;
-
-    if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        std::cout << "\n*** dt: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** dt: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    double dof = 11;
 
     //
-    // coverage tests
+
+    std::vector<double> inp_vals = { 2.0,        -1.0,         0.0 };
+    std::vector<double> exp_vals = { 0.06065432,  0.2313779,  0.3899898 };
+
+    //
+    // scalar tests
+
+    int test_number = 0;
+
+    STATS_TEST_EXPECTED_VAL(dt,inp_vals[0],exp_vals[0],false,dof);
+    STATS_TEST_EXPECTED_VAL(dt,inp_vals[1],exp_vals[1],true,dof);
+    STATS_TEST_EXPECTED_VAL(dt,inp_vals[2],exp_vals[2],false,dof);
+
+    STATS_TEST_EXPECTED_VAL(dt,TEST_NAN,TEST_NAN,false,30);                                         // Input NaNs
+    STATS_TEST_EXPECTED_VAL(dt,0,TEST_NAN,false,TEST_NAN);
+
+    STATS_TEST_EXPECTED_VAL(dt,0,TEST_NAN,false,0.0);                                               // dof <= 0
+    STATS_TEST_EXPECTED_VAL(dt,0,TEST_NAN,false,-1.0);
+    STATS_TEST_EXPECTED_VAL(dt,0,TEST_NAN,false,TEST_NEGINF);
+
+    STATS_TEST_EXPECTED_VAL(dt,0,0.3989423,false,TEST_POSINF);                                      // dt(0,+Inf) => dnorm(0,0,1)
+    STATS_TEST_EXPECTED_VAL(dt,TEST_POSINF,0,false,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_VAL(dt,TEST_POSINF,0,false,30);                                             // x == +/-Inf
+    STATS_TEST_EXPECTED_VAL(dt,TEST_NEGINF,0,false,30);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(dt,inp_vals,exp_vals,std::vector<double>,false,dof);
+    STATS_TEST_EXPECTED_MAT(dt,inp_vals,exp_vals,std::vector<double>,true,dof);
+#endif
 
 #ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 1.5;
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
 
-    stats::dt(x_mat,dof_par);
-    stats::dt(x_mat,dof_par,true);
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(dt,inp_mat,exp_mat,mat_obj,false,dof);
+    STATS_TEST_EXPECTED_MAT(dt,inp_mat,exp_mat,mat_obj,true,dof);
 #endif
+
+    // 
+
+    print_final("dt",test_number);
 
     return 0;
 }

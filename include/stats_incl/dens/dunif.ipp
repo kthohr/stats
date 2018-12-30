@@ -45,8 +45,12 @@ T
 dunif_vals_check(const T x, const T a_par, const T b_par, const bool log_form)
 noexcept
 {
-    return( !unif_sanity_check(a_par,b_par) ? \
+    return( !unif_sanity_check(x,a_par,b_par) ? \
                 STLIM<T>::quiet_NaN() :
+            // cases: a_par == -Inf, b_par finite; a_par finite, b_par == +Inf; 
+            // and a_par == -Inf, b_par == +Inf
+            GCINT::any_inf(a_par,b_par) ? \
+                T(0) :
             //
             x < a_par || x > b_par ? \
                 log_zero_if<T>(log_form) :

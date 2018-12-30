@@ -63,10 +63,7 @@ T
 dgamma_vals_check(const T x, const T shape_par, const T scale_par, const bool log_form)
 noexcept
 {
-    return( !gamma_sanity_check(shape_par,scale_par) ? \
-                STLIM<T>::quiet_NaN() :
-            //
-            GCINT::is_nan(x) ? \
+    return( !gamma_sanity_check(x,shape_par,scale_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             x < T(0) ? \

@@ -57,10 +57,7 @@ T
 dchisq_vals_check(const T x, const T dof_par, const bool log_form)
 noexcept
 {
-    return( !chisq_sanity_check(dof_par) ? \
-                STLIM<T>::quiet_NaN() :
-            //
-            GCINT::is_nan(x) ? \
+    return( !chisq_sanity_check(x,dof_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             x < T(0) ? \

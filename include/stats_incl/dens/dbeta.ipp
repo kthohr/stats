@@ -70,10 +70,7 @@ T
 dbeta_vals_check(const T x, const T a_par, const T b_par, const bool log_form)
 noexcept
 {
-    return( !beta_sanity_check(a_par,b_par) ? \
-                STLIM<T>::quiet_NaN() :
-            //
-            GCINT::is_nan(x) ? \
+    return( !beta_sanity_check(x,a_par,b_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             x < T(0) || x > T(1) ? \

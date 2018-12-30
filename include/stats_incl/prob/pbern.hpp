@@ -30,7 +30,8 @@
 
 template<typename T>
 statslib_constexpr
-T pbern(const llint_t x, const T prob_par, const bool log_form = false) noexcept;
+return_t<T>
+pbern(const llint_t x, const T prob_par, const bool log_form = false) noexcept;
 
 //
 // vector/matrix input

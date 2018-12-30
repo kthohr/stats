@@ -43,4 +43,13 @@ noexcept
                 true );
 }
 
+template<typename T>
+statslib_constexpr
+bool
+exp_sanity_check(const T inp_val, const T rate_par)
+noexcept
+{
+    return (!GCINT::is_nan(inp_val)) && exp_sanity_check(rate_par);
+}
+
 }
