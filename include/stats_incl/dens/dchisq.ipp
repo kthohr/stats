@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -44,7 +44,8 @@ T
 dchisq_limit_vals(const T dof_par)
 noexcept
 {
-    return( dof_par < T(2) ? \
+    return( // x == 0 cases 
+            dof_par < T(2) ? \
                 STLIM<T>::infinity() :
             dof_par == T(2) ? \
                 T(0.5) :
@@ -66,7 +67,7 @@ noexcept
             x == T(0) ? \
                 log_if(dchisq_limit_vals(dof_par), log_form) :
             // dof == +Inf or x == +Inf
-            GCINT::is_posinf(dof_par) || GCINT::is_posinf(x) ? \
+            GCINT::any_posinf(x,dof_par) ? \
                 log_zero_if<T>(log_form) :
             //
             exp_if(dchisq_compute(x,dof_par), !log_form) );

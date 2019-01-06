@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -55,6 +55,7 @@ int main()
     STATS_TEST_EXPECTED_VAL(dcauchy,TEST_NAN,TEST_NAN,false,0,1);                                   // Input NaNs
     STATS_TEST_EXPECTED_VAL(dcauchy,0,TEST_NAN,false,TEST_NAN,1);
     STATS_TEST_EXPECTED_VAL(dcauchy,0,TEST_NAN,false,0,TEST_NAN);
+    STATS_TEST_EXPECTED_VAL(dcauchy,TEST_NAN,TEST_NAN,false,TEST_NAN,TEST_NAN);
 
     STATS_TEST_EXPECTED_VAL(dcauchy,0,TEST_NAN,false,0,0.0);                                        // sigma <= 0
     STATS_TEST_EXPECTED_VAL(dcauchy,0,TEST_NAN,false,0,-1.0);

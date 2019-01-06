@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -61,6 +61,7 @@ int main()
     STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,4,0);
     STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,3,-1);
     STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,-1,4);
+    STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,-1,-1);
 
     STATS_TEST_EXPECTED_VAL(df,-1,0.0,false,a_par,b_par);                                           // x < 0
 

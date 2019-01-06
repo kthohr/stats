@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -44,6 +44,15 @@ log_zero_if(const bool log_form)
 noexcept
 {
     return log_form ? - STLIM<T>::infinity() : T(0);
+}
+
+template<typename T>
+statslib_constexpr
+T
+log_one_if(const bool log_form)
+noexcept
+{
+    return log_form ? T(0) : T(1);
 }
 
 }

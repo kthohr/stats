@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -43,8 +43,19 @@ T
 pchisq_vals_check(const T x, const T dof_par, const bool log_form)
 noexcept
 {
-    return( !chisq_sanity_check(dof_par) ? \
+    return( !chisq_sanity_check(x,dof_par) ? \
                 STLIM<T>::quiet_NaN() :
+            //
+            STLIM<T>::epsilon() > x ? \
+                log_zero_if<T>(log_form) : 
+            // now x > 0 cases
+            dof_par == T(0) ? \
+                log_one_if<T>(log_form) :
+            //
+            GCINT::is_posinf(x) ? \
+                log_one_if<T>(log_form) :
+            GCINT::is_posinf(dof_par) ? \
+                log_zero_if<T>(log_form) :
             //
             log_if(pchisq_compute(x,dof_par), log_form) );
 }

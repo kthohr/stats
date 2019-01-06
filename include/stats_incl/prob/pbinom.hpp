@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -39,7 +39,7 @@ T pbinom(const llint_t x, const llint_t n_trials_par, const T prob_par, const bo
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 std::vector<rT>
-pbinom(const std::vector<eT>& x, const T1 prob_par, const bool log_form = false);
+pbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par, const bool log_form = false);
 #endif
 
 #ifdef STATS_USE_ARMA

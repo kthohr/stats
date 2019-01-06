@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -46,12 +46,12 @@ noexcept
     return( a_par == T(0) && b_par == T(0) ? \
                 T(0.5) : 
             //
-            a_par == T(0) || gcem::internal::is_posinf(b_par) ? \
+            a_par == T(0) || (gcem::internal::is_posinf(b_par) && !gcem::internal::is_posinf(a_par)) ? \
                 T(1) :
             //
-            b_par == T(0) || gcem::internal::is_posinf(a_par) ? \
+            b_par == T(0) || (gcem::internal::is_posinf(a_par) && !gcem::internal::is_posinf(b_par)) ? \
                 T(0) :
-            //
+            // 
             x < T(0.5) ? \
                 T(0) : 
                 T(1) );

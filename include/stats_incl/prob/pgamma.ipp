@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -40,10 +40,29 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+pgamma_limit_vals(const T x, const T shape_par, const T scale_par)
+noexcept
+{
+    return( shape_par == T(0) ? \
+                x == T(0) ? \
+                    STLIM<T>::infinity() :
+                    T(0) :
+            // x == 0
+            shape_par < T(1) ? \
+                STLIM<T>::infinity() :
+            shape_par == T(1) ? \
+                T(1) / scale_par :
+            // x == 0 and shape_par > 1
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 pgamma_vals_check(const T x, const T shape_par, const T scale_par, const bool log_form)
 noexcept
 {
-    return( !gamma_sanity_check(shape_par,scale_par) ? \
+    return( !gamma_sanity_check(x,shape_par,scale_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             log_if(pgamma_compute(x,shape_par,scale_par), log_form) );

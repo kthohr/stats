@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -56,14 +56,18 @@ int main()
     STATS_TEST_EXPECTED_VAL(dgamma,TEST_NAN,TEST_NAN,false,shape_par,scale_par);                    // NaN inputs
     STATS_TEST_EXPECTED_VAL(dgamma,2,TEST_NAN,false,TEST_NAN,scale_par);
     STATS_TEST_EXPECTED_VAL(dgamma,2,TEST_NAN,false,shape_par,TEST_NAN);
+    STATS_TEST_EXPECTED_VAL(dgamma,2,TEST_NAN,false,TEST_NAN,TEST_NAN);
+    STATS_TEST_EXPECTED_VAL(dgamma,TEST_NAN,TEST_NAN,false,TEST_NAN,TEST_NAN);
 
     STATS_TEST_EXPECTED_VAL(dgamma,2,TEST_NAN,false,-1,2);                                          // shape < 0
+    STATS_TEST_EXPECTED_VAL(dgamma,2,TEST_NAN,false,TEST_NEGINF,2);
 
     STATS_TEST_EXPECTED_VAL(dgamma,2,TEST_NAN,false,1,0);                                           // scale <= 0
     STATS_TEST_EXPECTED_VAL(dgamma,2,TEST_NAN,false,4,-1);
     STATS_TEST_EXPECTED_VAL(dgamma,2,TEST_NAN,false,3,TEST_NEGINF);
 
     STATS_TEST_EXPECTED_VAL(dgamma,-1,0.0,false,shape_par,scale_par);                               // x < 0
+    STATS_TEST_EXPECTED_VAL(pgamma,TEST_NEGINF,0.0,false,shape_par,scale_par);
 
     STATS_TEST_EXPECTED_VAL(dgamma,0,TEST_POSINF,false,0,2);                                        // shape == 0
     STATS_TEST_EXPECTED_VAL(dgamma,1,0,false,0,2);

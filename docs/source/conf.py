@@ -25,7 +25,7 @@ html_static_path = ['_static']
 source_suffix = '.rst'
 master_doc = 'index'
 project = 'statslib'
-copyright = '2011-2018 Keith O\'Hara'
+copyright = '2011-2019 Keith O\'Hara'
 author = 'Keith O\'Hara'
 
 exclude_patterns = []

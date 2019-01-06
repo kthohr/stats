@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -39,13 +39,36 @@ pf_compute(const T x, const T a_par, const T b_par)
 template<typename T>
 statslib_constexpr
 T
+pf_limit_vals_dof(const T x, const T df1_par, const T df2_par, const bool log_form)
+noexcept
+{
+    return( // df1 == +Inf and df2 == +Inf
+            GCINT::all_posinf(df1_par,df2_par) ? \
+                x > T(1) ? \
+                    log_one_if<T>(log_form) :
+                x == T(1) ? \
+                    log_if(T(0.5),log_form) :
+                    log_zero_if<T>(log_form) :
+            // df1 == +Inf
+            GCINT::is_posinf(df1_par) ? \
+                T(1) - pchisq(df2_par/x,df2_par,log_form) :
+            // df2 == +Inf
+                pchisq(x*df1_par,df1_par,log_form) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 pf_vals_check(const T x, const T df1_par, const T df2_par, const bool log_form)
 {
-    return( !f_sanity_check(df1_par,df2_par) ? \
+    return( !f_sanity_check(x,df1_par,df2_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             STLIM<T>::epsilon() > x ? \
                 log_zero_if<T>(log_form) :
+            //
+            GCINT::any_posinf(df1_par,df2_par) ? \
+                pf_limit_vals_dof(x,df1_par,df2_par,log_form) :
             //
             log_if(pf_compute(df1_par*x/df2_par,df1_par/T(2),df2_par/T(2)), log_form) );
 }

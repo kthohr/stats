@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -52,13 +52,13 @@ int main()
     STATS_TEST_EXPECTED_VAL(pbern,inp_vals[2],exp_vals[2],true,prob_par);
 
     // STATS_TEST_EXPECTED_VAL(pbern,TEST_NAN,TEST_NAN,false,0.5);                                     // NaN inputs
-    STATS_TEST_EXPECTED_VAL(pbern,1,TEST_NAN,false,TEST_NAN);
+    STATS_TEST_EXPECTED_VAL(pbern,1,TEST_NAN,false,TEST_NAN); 
 
     STATS_TEST_EXPECTED_VAL(pbern,1,TEST_NAN,false,-0.1);                                           // bad parameter values
     STATS_TEST_EXPECTED_VAL(pbern,1,TEST_NAN,false,1.1);
 
     STATS_TEST_EXPECTED_VAL(pbern,-1,0.0,false,prob_par);                                           // x < 0 or > 1
-    STATS_TEST_EXPECTED_VAL(pbern,5,0.0,false,prob_par);
+    STATS_TEST_EXPECTED_VAL(pbern,5,1.0,false,prob_par);
 
     //
     // vector/matrix tests

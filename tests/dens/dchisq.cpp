@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -53,6 +53,7 @@ int main()
 
     STATS_TEST_EXPECTED_VAL(dchisq,TEST_NAN,TEST_NAN,false,3);                                      // Input NaNs
     STATS_TEST_EXPECTED_VAL(dchisq,1,TEST_NAN,false,TEST_NAN);
+    STATS_TEST_EXPECTED_VAL(dchisq,TEST_NAN,TEST_NAN,false,TEST_NAN);
 
     STATS_TEST_EXPECTED_VAL(dchisq,1,0,false,0.0);                                                  // dof <= 0
     STATS_TEST_EXPECTED_VAL(dchisq,0,TEST_POSINF,false,0.0);

@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -33,11 +33,10 @@ statslib_constexpr
 T
 pexp_compute(const T x, const T rate_par)
 {
-    return( x < T(0) ? \
-            //
+    return( x <= T(0) ? \
                 T(0) :
             //
-                - stmath::expm1(-rate_par*x) );
+            - stmath::expm1(-rate_par*x) );
 }
 
 template<typename T>
@@ -46,7 +45,7 @@ T
 pexp_vals_check(const T x, const T rate_par, const bool log_form)
 noexcept
 {
-    return( !exp_sanity_check(rate_par) ? \
+    return( !exp_sanity_check(x,rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             log_if(pexp_compute(x,rate_par), log_form) );

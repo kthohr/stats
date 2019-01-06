@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -40,7 +40,7 @@ int main()
 
     //
 
-    std::vector<int> inp_vals = { 3,     2,     1 };
+    std::vector<int> inp_vals    = { 3,       2,       1 };
     std::vector<double> exp_vals = { 0.3456,  0.3456,  0.1536 };
 
     //
@@ -52,6 +52,8 @@ int main()
     STATS_TEST_EXPECTED_VAL(dbinom,inp_vals[1],exp_vals[1],false,n_trials,prob_par);
     STATS_TEST_EXPECTED_VAL(dbinom,inp_vals[2],exp_vals[2],false,n_trials,prob_par);
     STATS_TEST_EXPECTED_VAL(dbinom,inp_vals[1],exp_vals[1],true,n_trials,prob_par);
+
+    STATS_TEST_EXPECTED_VAL(dbinom,1,TEST_NAN,false,2,TEST_NAN);                                    // NaN inputs
 
     STATS_TEST_EXPECTED_VAL(dbinom,-1.0,0.0,false,n_trials,prob_par);                               // x < 0 or x > n_trials 
     STATS_TEST_EXPECTED_VAL(dbinom,n_trials+1,0.0,false,n_trials,prob_par);

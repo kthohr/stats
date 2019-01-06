@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -53,10 +53,17 @@ int main()
     STATS_TEST_EXPECTED_VAL(dbeta,inp_vals[2],exp_vals[2],false,a_par,b_par);
     STATS_TEST_EXPECTED_VAL(dbeta,inp_vals[1],exp_vals[1],true,a_par,b_par);
 
+    STATS_TEST_EXPECTED_VAL(dbeta,TEST_NAN,TEST_NAN,false,2,3);                                     // NaN inputs
+    STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_NAN,false,TEST_NAN,3);
+    STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_NAN,false,1.0,TEST_NAN);
+    STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_NAN,false,TEST_NAN,TEST_NAN);
+    STATS_TEST_EXPECTED_VAL(dbeta,TEST_NAN,TEST_NAN,false,TEST_NAN,TEST_NAN);
+
     STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_NAN,false,-1.0,1.0);                                     // bad parameter value cases (a or b < 0)
     STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_NAN,false,1.0,-1.0);
+    STATS_TEST_EXPECTED_VAL(dbeta,0.5,TEST_NAN,false,-1.0,-1.0);
 
-    STATS_TEST_EXPECTED_VAL(dbeta,-0.1,0.0,false,a_par,b_par);                                      // x < 0 and x > 1 cases
+    STATS_TEST_EXPECTED_VAL(dbeta,-0.1,0.0,false,a_par,b_par);                                      // x < 0 or x > 1 cases
     STATS_TEST_EXPECTED_VAL(dbeta,1.1,0.0,false,a_par,b_par);
 
     STATS_TEST_EXPECTED_VAL(dbeta,0.0,TEST_POSINF,false,0.0,0.0);                                   // a and b == 0 cases
