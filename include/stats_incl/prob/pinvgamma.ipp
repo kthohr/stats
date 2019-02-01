@@ -31,9 +31,25 @@ namespace internal
 template<typename T>
 statslib_constexpr
 T
-pinvgamma_compute(const T x, const T shape_par, const T rate_par)
+pinvgamma_compute(const T recip_inp, const T shape_par, const T recip_par, const bool log_form)
+noexcept
 {
-    return( T(1) - gcem::incomplete_gamma(shape_par,rate_par/x) );
+    return log_if(T(1) - pgamma(recip_inp,shape_par,recip_par), log_form);
+}
+
+template<typename T>
+statslib_constexpr
+T
+pinvgamma_limit_vals(const T recip_inp, const T shape_par, const T rate_par, const bool log_form)
+noexcept
+{
+    return( rate_par == T(0) ? \
+                pinvgamma_compute(recip_inp, shape_par, STLIM<T>::infinity(), log_form) :
+            //
+            GCINT::is_posinf(rate_par) ? \
+                pinvgamma_compute(recip_inp, shape_par, T(0), log_form) :
+            //
+                pinvgamma_compute(recip_inp, shape_par, T(1)/rate_par, log_form) );
 }
 
 template<typename T>
@@ -42,13 +58,14 @@ T
 pinvgamma_vals_check(const T x, const T shape_par, const T rate_par, const bool log_form)
 noexcept
 {
-    return( !invgamma_sanity_check(shape_par,rate_par) ? \
+    return( !invgamma_sanity_check(x,shape_par,rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            STLIM<T>::epsilon() > x ? \
+            x < T(0) ? \
                 log_zero_if<T>(log_form) :
             //
-            log_if(pinvgamma_compute(x,shape_par,rate_par), log_form) );
+            pinvgamma_limit_vals( (x == T(0) ? STLIM<T>::infinity() : (GCINT::is_posinf(x) ? T(0) : T(1)/x)),
+                                  shape_par, rate_par, log_form ));
 }
 
 template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
@@ -58,7 +75,7 @@ pinvgamma_type_check(const T1 x, const T2 shape_par, const T3 rate_par, const bo
 noexcept
 {
     return pinvgamma_vals_check(static_cast<TC>(x),static_cast<TC>(shape_par),
-                               static_cast<TC>(rate_par),log_form);
+                                static_cast<TC>(rate_par),log_form);
 }
 
 }

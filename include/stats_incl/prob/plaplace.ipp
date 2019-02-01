@@ -39,11 +39,45 @@ plaplace_compute(const T x, const T sigma_par)
 template<typename T>
 statslib_constexpr
 T
+plaplace_limit_vals(const T x, const T mu_par, const T sigma_par)
+noexcept
+{
+    return( // x == mu == Inf or -Inf 
+            GCINT::all_posinf(x,mu_par) || GCINT::all_neginf(x,mu_par) ? \
+                STLIM<T>::quiet_NaN() :
+            // sigma == Inf
+            GCINT::is_posinf(sigma_par) ? \
+                // x or mu == +/-Inf
+                any_inf(x,mu_par) ? \
+                    STLIM<T>::quiet_NaN() :
+                // x and mu finite
+                    T(0.5) :
+            // sigma == 0
+            sigma_par == T(0) ? \
+                T(0.5) + T(0.5)*gcem::sgn(x-mu_par) :
+            // sigma finite; x and mu have opposite Inf signs
+            GCINT::is_posinf(x) && GCINT::is_neginf(mu_par) ? \
+                T(0) :
+            GCINT::is_neginf(x) && GCINT::is_posinf(mu_par) ? \
+                T(0) :
+            // sigma == 0 and x-mu == 0
+            sigma_par == T(0) && x == mu_par ? \
+                STLIM<T>::infinity() :
+            //
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 plaplace_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 noexcept
 {
-    return( !laplace_sanity_check(mu_par,sigma_par) ? \
+    return( !laplace_sanity_check(x,mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
+            //
+            GCINT::any_inf(x,mu_par,sigma_par) || sigma_par == T(0) ? \
+                log_if(plaplace_limit_vals(x,mu_par,sigma_par),log_form) :
             //
             log_if(plaplace_compute(x - mu_par,sigma_par), log_form) );
 }
@@ -94,7 +128,7 @@ template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 void
 plaplace_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const T2 sigma_par, const bool log_form, 
-                  rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+                   rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
     EVAL_DIST_FN_VEC(plaplace,vals_in,vals_out,num_elem,mu_par,sigma_par,log_form);
 }
