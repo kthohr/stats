@@ -73,7 +73,7 @@ statslib_constexpr
 T
 pt_vals_check(const T x, const T dof_par, const bool log_form)
 {
-    return( !t_sanity_check(dof_par) ? \
+    return( !t_sanity_check(x,dof_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             log_if(pt_compute(x,dof_par), log_form) );

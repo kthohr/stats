@@ -33,7 +33,7 @@ statslib_constexpr
 T
 plnorm_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return( !lnorm_sanity_check(mu_par,sigma_par) ? \
+    return( !lnorm_sanity_check(x,mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             STLIM<T>::epsilon() > x ? \

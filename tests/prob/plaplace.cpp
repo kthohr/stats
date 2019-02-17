@@ -23,95 +23,106 @@
 
 int main()
 {
+    print_begin("plaplace");
+
+    // settings
+
     double err_tol = 1E-05;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    int print_level = TEST_PRINT_LEVEL;
 
-    double mu_par = 1;
-    double sigma_par = 2;
+    int print_precision_1 = 2;
+    int print_precision_2 = 5;
 
-    std::cout << "\n*** plaplace: begin tests. ***\n" << std::endl;
+    // parameters
 
-    // x = -1.01
-    double val_1 = 0.1830223;
-    double prob_1 = stats::plaplace(-1.01,mu_par,sigma_par);
-    bool success_1 = (std::abs(prob_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(-1.01): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_1 << ". Success = " << success_1 << std::endl;
-
-    // x = -0.37
-    double val_2 = 0.2520451;
-    double prob_2 = stats::plaplace(-0.37,mu_par,sigma_par);
-    bool success_2 = (std::abs(prob_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(-0.37): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_2 << ". Success = " << success_2 << std::endl;
-
-    // x = 0
-    double val_3 = 0.3032653;
-    double prob_3 = stats::plaplace(0.0,mu_par,sigma_par);
-    bool success_3 = (std::abs(prob_3 - val_3) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(+0.00): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_3 << ". Success = " << success_3 << std::endl;
-
-    // x = +0.37
-    double val_4 = 0.3648944;
-    double prob_4 = stats::plaplace(0.37,mu_par,sigma_par);
-    bool success_4 = (std::abs(prob_4 - val_4) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(+0.37): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_4 << ". Success = " << success_4 << std::endl;
-
-    // x = +1.01
-    double val_5 = 0.5024938;
-    double prob_5 = stats::plaplace(1.01,mu_par,sigma_par);
-    bool success_5 = (std::abs(prob_5 - val_5) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(+1.01): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_5 << ". Success = " << success_5 << std::endl;
-
-    // x = +1.58
-    double val_6 = 0.6258682;
-    double prob_6 = stats::plaplace(1.58,mu_par,sigma_par);
-    bool success_6 = (std::abs(prob_6 - val_6) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(+1.58): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_6 << ". Success = " << success_6 << std::endl;
-
-    // x = +2.5
-    double val_7 = 0.7638167;
-    double prob_7 = stats::plaplace(2.50,mu_par,sigma_par);
-    bool success_7 = (std::abs(prob_7 - val_7) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(+2.50): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_7 << ". Success = " << success_7 << std::endl;
-
-    // x = +3.5
-    double val_8 = 0.8567476;
-    double prob_8 = stats::plaplace(3.50,mu_par,sigma_par);
-    bool success_8 = (std::abs(prob_8 - val_8) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(+3.50): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_8 << ". Success = " << success_8 << std::endl;
-
-    // x = +5.0
-    double val_9 = 0.9323324;
-    double prob_9 = stats::plaplace(5.0,mu_par,sigma_par);
-    bool success_9 = (std::abs(prob_9 - val_9) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plaplace(+5.00): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_9 << ". Success = " << success_9 << std::endl;
-
-    if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        std::cout << "\n*** plaplace: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** plaplace: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    double mu = 1;
+    double sigma = 2;
 
     //
-    // coverage tests
+
+    std::vector<double> inp_vals = { -0.37,      0.0,        2.5 };
+    std::vector<double> exp_vals = { 0.2520451,  0.3032653,  0.7638167 };
+
+    //
+    // scalar tests
+
+    int test_number = 0;
+
+    STATS_TEST_EXPECTED_VAL(plaplace,inp_vals[0],exp_vals[0],false,mu,sigma);
+    STATS_TEST_EXPECTED_VAL(plaplace,inp_vals[1],exp_vals[1],true,mu,sigma);
+    STATS_TEST_EXPECTED_VAL(plaplace,inp_vals[2],exp_vals[2],false,mu,sigma);
+
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NAN,TEST_NAN,false,0,1);                                  // Input NaNs
+    STATS_TEST_EXPECTED_VAL(plaplace,0,TEST_NAN,false,TEST_NAN,1);
+    STATS_TEST_EXPECTED_VAL(plaplace,0,TEST_NAN,false,0,TEST_NAN);
+
+    STATS_TEST_EXPECTED_VAL(plaplace,0,TEST_NAN,false,0,-1.0);                                      // sigma < 0
+    STATS_TEST_EXPECTED_VAL(plaplace,0,TEST_NAN,false,0,TEST_NEGINF);
+
+    STATS_TEST_EXPECTED_VAL(plaplace,0,0.5,false,1,TEST_POSINF);                                    // sigma == +Inf
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_POSINF,TEST_NAN,false,1,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plaplace,0,TEST_NAN,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_POSINF,TEST_NAN,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NEGINF,TEST_NAN,false,1,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plaplace,0,TEST_NAN,false,TEST_NEGINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_POSINF,TEST_NAN,false,TEST_POSINF,0);                     // x == mu == Inf
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_POSINF,TEST_NAN,false,TEST_POSINF,1);
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,0);                     // x == mu == -Inf
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,1);
+
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_POSINF,1,false,TEST_NEGINF,0);                            // x == Inf, mu == -Inf
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_POSINF,1,false,TEST_NEGINF,1);
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NEGINF,0,false,TEST_POSINF,0);                            // x == -Inf, mu == Inf
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NEGINF,0,false,TEST_POSINF,1);
+
+    STATS_TEST_EXPECTED_VAL(plaplace,1,1,false,0,0);                                                // sigma == 0
+    STATS_TEST_EXPECTED_VAL(plaplace,0,0,false,1,0);
+    STATS_TEST_EXPECTED_VAL(plaplace,1,0.5,false,1,0);
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_POSINF,1,false,1,0);
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NEGINF,0,false,1,0);
+    STATS_TEST_EXPECTED_VAL(plaplace,1,0,false,TEST_POSINF,0);
+    STATS_TEST_EXPECTED_VAL(plaplace,1,1,false,TEST_NEGINF,0);
+
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_POSINF,1,false,0,1);                                      // x == +/-Inf
+    STATS_TEST_EXPECTED_VAL(plaplace,TEST_NEGINF,0,false,0,1);
+
+    STATS_TEST_EXPECTED_VAL(plaplace,0,0,false,TEST_POSINF,1);                                      // mu == +/-Inf
+    STATS_TEST_EXPECTED_VAL(plaplace,0,1,false,TEST_NEGINF,1);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(plaplace,inp_vals,exp_vals,std::vector<double>,false,mu,sigma);
+    STATS_TEST_EXPECTED_MAT(plaplace,inp_vals,exp_vals,std::vector<double>,true,mu,sigma);
+#endif
 
 #ifdef STATS_TEST_MATRIX_FEATURES
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 1.5;
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
 
-    stats::plaplace(x_mat,mu_par,sigma_par);
-    stats::plaplace(x_mat,mu_par,sigma_par,true);
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(plaplace,inp_mat,exp_mat,mat_obj,false,mu,sigma);
+    STATS_TEST_EXPECTED_MAT(plaplace,inp_mat,exp_mat,mat_obj,true,mu,sigma);
 #endif
+
+    // 
+
+    print_final("plaplace",test_number);
 
     return 0;
 }

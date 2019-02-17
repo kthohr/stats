@@ -39,10 +39,45 @@ pnorm_compute(const T z)
 template<typename T>
 statslib_constexpr
 T
+pnorm_limit_vals(const T x, const T mu_par, const T sigma_par)
+noexcept
+{
+    return( // x == mu == (Inf or -Inf)
+            GCINT::all_posinf(x,mu_par) || GCINT::all_neginf(x,mu_par) ? \
+                STLIM<T>::quiet_NaN() :
+            // sigma == Inf
+            GCINT::is_posinf(sigma_par) ? \
+                // x, mu == +/-Inf
+                GCINT::is_posinf(x) || GCINT::is_neginf(mu_par) ? \
+                    T(1) :
+                GCINT::is_neginf(x) || GCINT::is_posinf(mu_par) ? \
+                    T(0) :
+                // x and mu finite (not necessarily equal)
+                    T(0.5) :
+            // sigma == 0
+            sigma_par == T(0) ? \
+                x >= mu_par ? \
+                    T(1) :
+                    T(0) :
+            // sigma finite; x and mu can have opposite Inf signs
+            GCINT::is_posinf(x) || GCINT::is_neginf(mu_par) ? \
+                T(1) :
+            GCINT::is_neginf(x) || GCINT::is_posinf(mu_par) ? \
+                T(0) :
+            //
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 pnorm_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return( !norm_sanity_check(mu_par,sigma_par) ? \
+    return( !norm_sanity_check(x,mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
+            //
+            GCINT::any_inf(x,mu_par,sigma_par) || sigma_par == T(0) ? \
+                log_if(pnorm_limit_vals(x,mu_par,sigma_par),log_form) :
             //
             log_if(pnorm_compute((x-mu_par)/sigma_par), log_form) );
 }

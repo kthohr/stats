@@ -31,9 +31,9 @@ namespace internal
 template<typename T>
 statslib_constexpr
 T
-plaplace_compute(const T x, const T sigma_par)
+plaplace_compute(const T z, const T sigma_par)
 {
-    return( T(0.5) + T(0.5)*gcem::sgn(x)*(T(1) - stmath::exp(-stmath::abs(x) / sigma_par)) );
+    return( T(0.5) + T(0.5)*gcem::sgn(z)*(T(1) - stmath::exp(-stmath::abs(z) / sigma_par)) );
 }
 
 template<typename T>
@@ -48,21 +48,18 @@ noexcept
             // sigma == Inf
             GCINT::is_posinf(sigma_par) ? \
                 // x or mu == +/-Inf
-                any_inf(x,mu_par) ? \
+                GCINT::any_inf(x,mu_par) ? \
                     STLIM<T>::quiet_NaN() :
                 // x and mu finite
                     T(0.5) :
             // sigma == 0
             sigma_par == T(0) ? \
                 T(0.5) + T(0.5)*gcem::sgn(x-mu_par) :
-            // sigma finite; x and mu have opposite Inf signs
-            GCINT::is_posinf(x) && GCINT::is_neginf(mu_par) ? \
+            // sigma finite; x and mu can have opposite Inf signs
+            GCINT::is_posinf(x) || GCINT::is_neginf(mu_par) ? \
+                T(1) :
+            GCINT::is_neginf(x) || GCINT::is_posinf(mu_par) ? \
                 T(0) :
-            GCINT::is_neginf(x) && GCINT::is_posinf(mu_par) ? \
-                T(0) :
-            // sigma == 0 and x-mu == 0
-            sigma_par == T(0) && x == mu_par ? \
-                STLIM<T>::infinity() :
             //
                 T(0) );
 }

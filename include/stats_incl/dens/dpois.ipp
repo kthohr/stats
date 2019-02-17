@@ -34,7 +34,7 @@ T
 dpois_log_compute(const llint_t x, const T rate_par)
 noexcept
 {
-    return( x * stmath::log(rate_par) - rate_par - stmath::lgamma(x+T(1)) );
+    return( x * stmath::log(rate_par) - rate_par - stmath::lgamma(T(x+1)) );
 }
 
 template<typename T>
@@ -46,15 +46,15 @@ noexcept
     return( !pois_sanity_check(rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            x < llint_t(0) ? \
+                log_zero_if<T>(log_form) :
+            //
             rate_par == T(0) ? \
                 x == llint_t(0) ? \
                     T(1) :
                     T(0) :
             //
             GCINT::is_posinf(rate_par) ? \
-                log_zero_if<T>(log_form) :
-            //
-            x < llint_t(0) ? \
                 log_zero_if<T>(log_form) :
             //
             exp_if(dpois_log_compute(x,rate_par), !log_form) );

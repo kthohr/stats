@@ -46,7 +46,7 @@ statslib_constexpr
 T
 punif_vals_check(const T x, const T a_par, const T b_par, const bool log_form)
 {
-    return( !unif_sanity_check(a_par,b_par) ? \
+    return( !unif_sanity_check(x,a_par,b_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             log_if(punif_compute(x,a_par,b_par), log_form) );

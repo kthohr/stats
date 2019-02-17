@@ -50,10 +50,10 @@ noexcept
             GCINT::all_posinf(x,mu_par) || GCINT::all_neginf(x,mu_par) ? \
                 STLIM<T>::quiet_NaN() :
             // sigma finite; x and mu have opposite Inf signs
-            GCINT::is_posinf(x) && GCINT::is_neginf(mu_par) ? \
-                T(0) :
-            GCINT::is_neginf(x) && GCINT::is_posinf(mu_par) ? \
-                T(0) :
+            // GCINT::is_posinf(x) || GCINT::is_neginf(mu_par) ?
+                // T(0) :
+            // GCINT::is_neginf(x) || GCINT::is_posinf(mu_par) ?
+                // T(0) :
             // sigma == 0 and x-mu == 0
             sigma_par == T(0) && x == mu_par ? \
                 STLIM<T>::infinity() :

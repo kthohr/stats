@@ -33,7 +33,35 @@ statslib_constexpr
 T
 plogis_compute(const T z)
 {
-    return ( T(1)/(T(1) + stmath::exp(-z)) );
+    return( T(0.5)*( T(1) + gcem::tanh(z) ) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+plogis_limit_vals(const T x, const T mu_par, const T sigma_par)
+noexcept
+{
+    return( // x == mu == Inf or -Inf 
+            GCINT::all_posinf(x,mu_par) || GCINT::all_neginf(x,mu_par) ? \
+                STLIM<T>::quiet_NaN() :
+            // sigma == Inf
+            GCINT::is_posinf(sigma_par) ? \
+                // x or mu == +/-Inf
+                GCINT::any_inf(x,mu_par) ? \
+                    STLIM<T>::quiet_NaN() :
+                // x and mu finite
+                    T(0.5) :
+            // sigma finite; x and mu can have opposite Inf signs
+            GCINT::is_posinf(x) || GCINT::is_neginf(mu_par) ? \
+                T(1) :
+            GCINT::is_neginf(x) || GCINT::is_posinf(mu_par) ? \
+                T(0) :
+            // sigma == 0
+            sigma_par == T(0) ? \
+                T(0.5) + T(0.5)*gcem::sgn(x-mu_par) : // arbitrary convention?
+            //
+                T(0) );
 }
 
 template<typename T>
@@ -41,10 +69,13 @@ statslib_constexpr
 T
 plogis_vals_check(const T x, const T mu_par, const T sigma_par, const bool log_form)
 {
-    return( !logis_sanity_check(mu_par,sigma_par) ? \
+    return( !logis_sanity_check(x,mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            log_if(plogis_compute((x-mu_par)/sigma_par), log_form) );
+            GCINT::any_inf(x,mu_par,sigma_par) || sigma_par == T(0) ? \
+                log_if(plogis_limit_vals(x,mu_par,sigma_par),log_form) :
+            //
+            log_if(plogis_compute((x-mu_par)/(2*sigma_par)), log_form) );
 }
 
 template<typename T1, typename T2, typename T3, typename TC = common_return_t<T1,T2,T3>>
