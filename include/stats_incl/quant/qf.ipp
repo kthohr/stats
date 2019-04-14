@@ -49,19 +49,38 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+qf_limit_vals_dof(const T p, const T df1_par, const T df2_par)
+noexcept
+{
+    return( // df1 == +Inf and df2 == +Inf
+            GCINT::all_posinf(df1_par,df2_par) ? \
+                T(1) :
+            // df1 == +Inf
+            GCINT::is_posinf(df1_par) ? \
+                df2_par / qchisq(T(1)-p,df2_par) :
+            // df2 == +Inf
+                qchisq(p,df1_par) / df1_par );
+}
+
+template<typename T>
+statslib_constexpr
+T
 qf_vals_check(const T p, const T df1_par, const T df2_par)
 noexcept
 {
     return( !f_sanity_check(df1_par,df2_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p == T(0) ? \
                 T(0) :
             p == T(1) ? \
                 STLIM<T>::infinity() :
+            // 0 < p < 1
+            GCINT::any_posinf(df1_par,df2_par) ? \
+                qf_limit_vals_dof(p,df1_par,df2_par) :
             //
             qf_compute(p,df1_par/T(2),df2_par/T(2)) );
 }

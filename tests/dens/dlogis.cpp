@@ -73,9 +73,9 @@ int main()
     STATS_TEST_EXPECTED_VAL(dlogis,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,0);                       // x == mu == -Inf
     STATS_TEST_EXPECTED_VAL(dlogis,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,1);
 
-    STATS_TEST_EXPECTED_VAL(dlogis,TEST_POSINF,TEST_NAN,false,TEST_NEGINF,0);                       // x == Inf, mu == -Inf
+    STATS_TEST_EXPECTED_VAL(dlogis,TEST_POSINF,0,false,TEST_NEGINF,0);                              // x == Inf, mu == -Inf
     STATS_TEST_EXPECTED_VAL(dlogis,TEST_POSINF,0,false,TEST_NEGINF,1);
-    STATS_TEST_EXPECTED_VAL(dlogis,TEST_NEGINF,TEST_NAN,false,TEST_POSINF,0);                       // x == -Inf, mu == Inf
+    STATS_TEST_EXPECTED_VAL(dlogis,TEST_NEGINF,0,false,TEST_POSINF,0);                              // x == -Inf, mu == Inf
     STATS_TEST_EXPECTED_VAL(dlogis,TEST_NEGINF,0,false,TEST_POSINF,1);
 
     STATS_TEST_EXPECTED_VAL(dlogis,1,TEST_NAN,false,0,0);                                           // sigma == 0

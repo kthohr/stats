@@ -40,7 +40,7 @@ qbinom(const T1 p, const llint_t n_trials_par, const T2 prob_par) noexcept;
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 std::vector<rT>
-qbinom(const std::vector<eT>& x, const T1 prob_par);
+qbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par);
 #endif
 
 #ifdef STATS_USE_ARMA

@@ -34,9 +34,6 @@ noexcept
     return( GCINT::is_nan(rate_par) ? \
                 false :
             //
-            GCINT::is_inf(rate_par) ? \
-                false :
-            //
             rate_par < T(0) ? \
                 false :
             //

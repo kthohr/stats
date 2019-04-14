@@ -35,6 +35,9 @@ pexp_compute(const T x, const T rate_par)
 {
     return( x <= T(0) ? \
                 T(0) :
+            // x > 0
+            GCINT::is_posinf(rate_par) ? \
+                T(1) :
             //
             - stmath::expm1(-rate_par*x) );
 }

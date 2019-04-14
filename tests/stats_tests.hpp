@@ -19,14 +19,13 @@
   ################################################################################*/
 
 #include <cmath>
-
 #include <iostream>
 #include <iomanip>
 
 //
 
-#ifndef TEST_TYPE
-    #define TEST_TYPE 0 // switch between d/p (0) and q (1) cases (log_form input)
+#ifndef STATS_TEST_INPUT_TYPE
+    #define STATS_TEST_INPUT_TYPE 0 // switch between d/p (0) and q (1) cases (log_form input)
 #endif
 
 #ifndef TEST_NAN
@@ -68,10 +67,9 @@
 #endif
 
 //
-//
-//
+// switch between d/p (0) and q (1) cases (log_form input)
 
-#if TEST_TYPE == 0
+#if STATS_TEST_INPUT_TYPE == 0
     #ifndef TEST_STRIP_FN_ARGS
         #define TEST_STRIP_FN_ARGS(fn,x,lf,args...) fn(x,args,lf)
     #endif
@@ -98,6 +96,8 @@ print_test_pass(std::string fn_name, const int print_level,
                 const T1 f_val, const T1 err_val, 
                 const T2 x, const T3 par_1, const bool log_form)
 {
+    STATS_UNUSED_PAR(log_form);
+
     std::cout << "[\033[32mOK\033[0m] ";
     std::cout << std::setiosflags(std::ios::fixed)
               << std::setprecision(print_precision_1) << fn_name
@@ -119,6 +119,8 @@ print_test_pass(std::string fn_name, const int print_level,
                 const T1 f_val, const T1 err_val, 
                 const T2 x, const T3 par_1, const T4 par_2, const bool log_form)
 {
+    STATS_UNUSED_PAR(log_form);
+
     std::cout << "[\033[32mOK\033[0m] ";
     std::cout << std::setiosflags(std::ios::fixed)
               << std::setprecision(print_precision_1) << fn_name
@@ -146,6 +148,7 @@ print_test_fail(std::string fn_name, int test_number, const int print_level,
     STATS_UNUSED_PAR(print_level);
     STATS_UNUSED_PAR(print_precision_1);
     STATS_UNUSED_PAR(print_precision_2);
+    STATS_UNUSED_PAR(log_form);
 
     std::cerr << "\033[31m Test failed!\033[0m\n";
     std::cerr << "  - Test number: " << test_number << "\n";
@@ -170,6 +173,7 @@ print_test_fail(std::string fn_name, int test_number, const int print_level,
     STATS_UNUSED_PAR(print_level);
     STATS_UNUSED_PAR(print_precision_1);
     STATS_UNUSED_PAR(print_precision_2);
+    STATS_UNUSED_PAR(log_form);
 
     std::cerr << "\033[31m Test failed!\033[0m\n";
     std::cerr << "  - Test number: " << test_number << "\n";
@@ -225,6 +229,11 @@ log_if(const T x, const bool log_form)
     }                                                                                               \
 }
 
+#define STATS_TEST_EXPECTED_QUANT_VAL(fn_eval, val_inp, expected_val, args...)                      \
+{                                                                                                   \
+    STATS_TEST_EXPECTED_VAL(fn_eval, val_inp, expected_val, false, args)                            \
+}
+
 //
 // matrix tests
 //
@@ -243,6 +252,8 @@ print_mat_test_pass(std::string fn_name, const int print_level,
                 const T2 x, const T3 par_1, const bool log_form)
 {
     STATS_UNUSED_PAR(print_precision_2);
+    STATS_UNUSED_PAR(log_form);
+
     std::cout << "[\033[32mOK\033[0m] ";
     std::cout << std::setiosflags(std::ios::fixed)
               << std::setprecision(print_precision_1) << fn_name
@@ -269,6 +280,8 @@ print_mat_test_pass(std::string fn_name, const int print_level,
                 const T2 x, const T3 par_1, const T4 par_2, const bool log_form)
 {
     STATS_UNUSED_PAR(print_precision_2);
+    STATS_UNUSED_PAR(log_form);
+
     std::cout << "[\033[32mOK\033[0m] ";
     std::cout << std::setiosflags(std::ios::fixed)
               << std::setprecision(print_precision_1) << fn_name
@@ -299,6 +312,7 @@ print_mat_test_fail(std::string fn_name, std::string mtype, int test_number,
     STATS_UNUSED_PAR(print_level);
     STATS_UNUSED_PAR(print_precision_1);
     STATS_UNUSED_PAR(print_precision_2);
+    STATS_UNUSED_PAR(log_form);
 
     std::cerr << "\033[31m Vector/Matrix test failed!\033[0m\n";
     std::cerr << "  - Input class: " << mtype << "\n";
@@ -328,6 +342,7 @@ print_mat_test_fail(std::string fn_name, std::string mtype, int test_number,
     STATS_UNUSED_PAR(print_level);
     STATS_UNUSED_PAR(print_precision_1);
     STATS_UNUSED_PAR(print_precision_2);
+    STATS_UNUSED_PAR(log_form);
 
     std::cerr << "\033[31m Vector/Matrix test failed!\033[0m\n";
     std::cerr << "  - Input class: " << mtype << "\n";
@@ -382,6 +397,11 @@ print_mat_test_fail(std::string fn_name, std::string mtype, int test_number,
         print_mat_test_pass(fn_name,print_level,print_precision_1,print_precision_2,                \
                             f_vals,err_val,vals_inp,args,log_form);                                 \
     }                                                                                               \
+}
+
+#define STATS_TEST_EXPECTED_QUANT_MAT(fn_eval, vals_inp, exp_vals, mtype, args...)                  \
+{                                                                                                   \
+    STATS_TEST_EXPECTED_MAT(fn_eval, vals_inp, exp_vals, mtype, false, args)                        \
 }
 
 //

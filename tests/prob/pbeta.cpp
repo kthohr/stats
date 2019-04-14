@@ -54,7 +54,7 @@ int main()
     STATS_TEST_EXPECTED_VAL(pbeta,inp_vals[1],exp_vals[1],true,a_par,b_par);
 
     STATS_TEST_EXPECTED_VAL(pbeta,0.01,3.97e-06,false,3,2);
-    STATS_TEST_EXPECTED_VAL(pbeta,0.099,0.999408,false,3,2);
+    STATS_TEST_EXPECTED_VAL(pbeta,0.99,0.999408,false,3,2);
 
     STATS_TEST_EXPECTED_VAL(pbeta,TEST_NAN,TEST_NAN,false,2,3);                                     // NaN inputs
     STATS_TEST_EXPECTED_VAL(pbeta,0.5,TEST_NAN,false,TEST_NAN,3);

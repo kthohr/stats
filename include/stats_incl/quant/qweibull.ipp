@@ -46,13 +46,19 @@ noexcept
     return( !weibull_sanity_check(shape_par,scale_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            shape_par == T(0) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p == T(0) ? \
                 T(0) :
             p == T(1) ? \
                 STLIM<T>::infinity() :
+            //
+            GCINT::is_posinf(shape_par) ? \
+                scale_par :
             //
             qweibull_compute(p,shape_par,scale_par) );
 }

@@ -40,14 +40,45 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+qbeta_limit_vals(const T p, const T a_par, const T b_par)
+noexcept
+{
+    return( a_par == T(0) && b_par == T(0) ? \
+                p < T(0.5) ? \
+                    T(0) : 
+                p > T(0.5) ? \
+                    T(1) :
+                // p == T(0.5)
+                    T(0.5) :
+            //
+            a_par == T(0) || (GCINT::is_posinf(b_par) && !GCINT::is_posinf(a_par)) ? \
+                T(0) :
+            //
+            b_par == T(0) || (GCINT::is_posinf(a_par) && !GCINT::is_posinf(b_par)) ? \
+                T(1) :
+            // a, b == +Inf
+                T(0.5) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 qbeta_vals_check(const T p, const T a_par, const T b_par)
 noexcept
 {
     return( !beta_sanity_check(a_par,b_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
+            //
+            p == T(0) ? \
+                T(0) :
+            p == T(1) ? \
+                T(1) :
+            //
+            (a_par == T(0) || b_par == T(0) || GCINT::any_posinf(a_par,b_par)) ? \
+                qbeta_limit_vals(p,a_par,b_par) :
             //
             qbeta_compute(p,a_par,b_par) );
 }
@@ -58,7 +89,7 @@ TC
 qbeta_type_check(const T1 p, const T2 a_par, const T3 b_par)
 noexcept
 {
-    return qbeta_compute(static_cast<TC>(p),static_cast<TC>(a_par),static_cast<TC>(b_par));
+    return qbeta_vals_check(static_cast<TC>(p),static_cast<TC>(a_par),static_cast<TC>(b_par));
 }
 
 }

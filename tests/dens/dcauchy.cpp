@@ -74,9 +74,9 @@ int main()
     STATS_TEST_EXPECTED_VAL(dcauchy,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,0);                      // x == mu == -Inf
     STATS_TEST_EXPECTED_VAL(dcauchy,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,1);
 
-    STATS_TEST_EXPECTED_VAL(dcauchy,TEST_POSINF,TEST_NAN,false,TEST_NEGINF,0);                      // x == Inf, mu == -Inf
+    STATS_TEST_EXPECTED_VAL(dcauchy,TEST_POSINF,0.0,false,TEST_NEGINF,0);                           // x == Inf, mu == -Inf
     STATS_TEST_EXPECTED_VAL(dcauchy,TEST_POSINF,0.0,false,TEST_NEGINF,1.0);
-    STATS_TEST_EXPECTED_VAL(dcauchy,TEST_NEGINF,TEST_NAN,false,TEST_POSINF,0);                      // x == -Inf, mu == Inf
+    STATS_TEST_EXPECTED_VAL(dcauchy,TEST_NEGINF,0.0,false,TEST_POSINF,0);                           // x == -Inf, mu == Inf
     STATS_TEST_EXPECTED_VAL(dcauchy,TEST_NEGINF,0.0,false,TEST_POSINF,1);
 
     STATS_TEST_EXPECTED_VAL(dcauchy,TEST_POSINF,0,false,0,1);                                       // x == +/-Inf

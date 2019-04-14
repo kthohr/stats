@@ -21,6 +21,8 @@
 #ifndef _statslib_sanity_checks_HPP
 #define _statslib_sanity_checks_HPP
 
+#include "prob_val.hpp"
+
 #include "bern.hpp"
 #include "beta.hpp"
 #include "binom.hpp"

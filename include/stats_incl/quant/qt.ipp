@@ -248,7 +248,7 @@ noexcept
 {
     return( p < T(0.5) ? \
                 - qt_int_main_iter(0U,2*p,dof_par,T(0),T(0),T(0),T(0)) : 
-                qt_int_main_iter(0U,2*p,dof_par,T(0),T(0),T(0),T(0)) );
+                  qt_int_main_iter(0U,2*p,dof_par,T(0),T(0),T(0),T(0)) );
 }
 
 template<typename T>
@@ -260,18 +260,19 @@ noexcept
     return( !t_sanity_check(dof_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p == T(0) ? \
                 - STLIM<T>::infinity() :
             p == T(1) ? \
                 STLIM<T>::infinity() :
-            //
+            // Cauchy case, etc.
             dof_par == T(1) ? \
-                stmath::tan(GCEM_PI*(p - T(0.5))) : // Cauchy case
+                stmath::tan(GCEM_PI*(p - T(0.5))) :
             dof_par == T(2) ? \
                 (2*p - T(1)) / stmath::sqrt(2*p*(T(1) - p)) :
+            // normal case
             dof_par == STLIM<T>::infinity() ? \
                 qnorm(p,T(0),T(1)) :
             // else

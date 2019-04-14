@@ -40,19 +40,37 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+qgamma_limit_vals(const T shape_par, const T scale_par)
+noexcept
+{
+    return( // here: 0 < p < 1
+            shape_par == T(0) ? \
+                GCINT::is_posinf(scale_par) ? \
+                    STLIM<T>::quiet_NaN() :
+                    T(0) :
+            // shape or scale == +Inf
+                STLIM<T>::quiet_NaN() );
+}
+
+template<typename T>
+statslib_constexpr
+T
 qgamma_vals_check(const T p, const T shape_par, const T scale_par)
 noexcept
 {
     return( !gamma_sanity_check(shape_par,scale_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p == T(0) ? \
                 T(0) :
             p == T(1) ? \
                 STLIM<T>::infinity() :
+            //
+            GCINT::any_posinf(shape_par,scale_par) || shape_par == T(0) ? \
+                qgamma_limit_vals(shape_par,scale_par) :
             //
             qgamma_compute(p,shape_par,scale_par) );
 }

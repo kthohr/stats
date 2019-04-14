@@ -46,7 +46,7 @@ noexcept
     return( !exp_sanity_check(rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p == T(0) ? \

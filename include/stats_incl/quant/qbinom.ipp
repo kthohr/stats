@@ -34,7 +34,7 @@ T
 qbinom_recur(const T p, const llint_t n_trials_par, const T prob_par, const T value, const llint_t count)
 noexcept
 {
-    return( value <= p ? \
+    return( value < p ? \
                 qbinom_recur(p,n_trials_par,prob_par, pbinom(count,n_trials_par,prob_par), count + 1) :
                 count - llint_t(1) );
 }
@@ -48,7 +48,7 @@ noexcept
     return( !binom_sanity_check(n_trials_par,prob_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p == T(0) ? \

@@ -40,19 +40,37 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+qinvgamma_limit_vals(const T shape_par, const T rate_par)
+noexcept
+{
+    return( // here: 0 < p < 1
+            rate_par == T(0) ? \
+                shape_par == T(0) ? \
+                    STLIM<T>::quiet_NaN() :
+                    T(0) :
+            // shape == 0; shape or rate == +Inf
+                STLIM<T>::quiet_NaN() );
+}
+
+template<typename T>
+statslib_constexpr
+T
 qinvgamma_vals_check(const T p, const T shape_par, const T rate_par)
 noexcept
 {
     return( !invgamma_sanity_check(shape_par,rate_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p == T(0) ? \
                 T(0) :
             p == T(1) ? \
                 STLIM<T>::infinity() :
+            //
+            GCINT::any_posinf(shape_par,rate_par) || shape_par == T(0) || rate_par == T(0) ? \
+                qinvgamma_limit_vals(shape_par,rate_par) :
             //
             qinvgamma_compute(p,shape_par,rate_par) );
 }

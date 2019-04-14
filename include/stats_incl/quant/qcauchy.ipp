@@ -46,13 +46,23 @@ noexcept
     return( !cauchy_sanity_check(mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_posinf(sigma_par) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            sigma_par == T(0) ? \
+                mu_par :
+            //
             p == T(0) ? \
-                - STLIM<T>::infinity() :
+                GCINT::is_posinf(mu_par) ? \
+                    STLIM<T>::quiet_NaN() :
+                    - STLIM<T>::infinity() :
             p == T(1) ? \
-                STLIM<T>::infinity() :
+                GCINT::is_neginf(mu_par) ? \
+                    STLIM<T>::quiet_NaN() :
+                    STLIM<T>::infinity() :
             //
             qcauchy_compute(p,mu_par,sigma_par) );
 }

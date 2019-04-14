@@ -19,7 +19,7 @@
   ################################################################################*/
 
 /*
- * Sanity checks for the Cauchy distribution
+ * Sanity checks for a probability value
  */
 
 namespace internal
@@ -28,25 +28,19 @@ namespace internal
 template<typename T>
 statslib_constexpr
 bool
-cauchy_sanity_check(const T mu_par, const T sigma_par)
+prob_val_check(const T prob_val)
 noexcept
 {
-    return( GCINT::any_nan(mu_par,sigma_par) ? \
+    return( GCINT::is_nan(prob_val) ? \
                 false :
             //
-            sigma_par < T(0) ? \
+            prob_val < T(0) ? \
+                false :
+            //
+            prob_val > T(1) ? \
                 false :
             //
                 true );
-}
-
-template<typename T>
-statslib_constexpr
-bool
-cauchy_sanity_check(const T inp_val, const T mu_par, const T sigma_par)
-noexcept
-{
-    return (!GCINT::is_nan(inp_val)) && cauchy_sanity_check(mu_par,sigma_par);
 }
 
 }

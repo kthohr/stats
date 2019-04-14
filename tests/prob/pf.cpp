@@ -67,13 +67,13 @@ int main()
     STATS_TEST_EXPECTED_VAL(pf,-1,0,false,2,2);
     STATS_TEST_EXPECTED_VAL(pf,TEST_NEGINF,0,false,a_par,b_par);
 
-    STATS_TEST_EXPECTED_VAL(pf,2,1,false,TEST_POSINF,TEST_POSINF);                        // a == +Inf and b == +Inf
+    STATS_TEST_EXPECTED_VAL(pf,2,1,false,TEST_POSINF,TEST_POSINF);                                  // a == +Inf and b == +Inf
     STATS_TEST_EXPECTED_VAL(pf,1,0.5,false,TEST_POSINF,TEST_POSINF);
     STATS_TEST_EXPECTED_VAL(pf,0.5,0,false,TEST_POSINF,TEST_POSINF);
 
     STATS_TEST_EXPECTED_VAL(pf,2,0.6822703,false,TEST_POSINF,3);                                    // a == +Inf
 
-    STATS_TEST_EXPECTED_VAL(pf,2,0.8646647,false,2,TEST_POSINF);                                   // b == +Inf
+    STATS_TEST_EXPECTED_VAL(pf,2,0.8646647,false,2,TEST_POSINF);                                    // b == +Inf
  
     //
     // vector/matrix tests

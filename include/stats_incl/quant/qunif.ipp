@@ -34,7 +34,7 @@ T
 qunif_compute(const T p, const T a_par, const T b_par)
 noexcept
 {
-    return ( a_par + p*(b_par-a_par) );
+    return( a_par + p*(b_par-a_par) );
 }
 
 template<typename T>
@@ -46,7 +46,10 @@ noexcept
     return( !unif_sanity_check(a_par,b_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
+                STLIM<T>::quiet_NaN() :
+            //
+            GCINT::any_inf(a_par,b_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p == T(0) ? \

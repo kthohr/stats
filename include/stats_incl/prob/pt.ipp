@@ -76,6 +76,14 @@ pt_vals_check(const T x, const T dof_par, const bool log_form)
     return( !t_sanity_check(x,dof_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
+            GCINT::is_posinf(x) ? \
+                log_one_if<T>(log_form) :
+            GCINT::is_neginf(x) ? \
+                log_zero_if<T>(log_form) :
+            //
+            GCINT::is_posinf(dof_par) ? \
+                pnorm(x,T(0),T(1),log_form) :
+            //
             log_if(pt_compute(x,dof_par), log_form) );
 }
 

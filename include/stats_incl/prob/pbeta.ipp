@@ -46,12 +46,12 @@ noexcept
     return( a_par == T(0) && b_par == T(0) ? \
                 T(0.5) : 
             //
-            a_par == T(0) || (gcem::internal::is_posinf(b_par) && !gcem::internal::is_posinf(a_par)) ? \
+            a_par == T(0) || (GCINT::is_posinf(b_par) && !GCINT::is_posinf(a_par)) ? \
                 T(1) :
             //
-            b_par == T(0) || (gcem::internal::is_posinf(a_par) && !gcem::internal::is_posinf(b_par)) ? \
+            b_par == T(0) || (GCINT::is_posinf(a_par) && !GCINT::is_posinf(b_par)) ? \
                 T(0) :
-            // 
+            // a, b == +Inf
             x < T(0.5) ? \
                 T(0) : 
                 T(1) );
@@ -71,7 +71,7 @@ noexcept
             x >= T(1) ? \
                 log_if(T(1),log_form) :
             //
-            (a_par == T(0) || b_par == T(0) || gcem::internal::any_posinf(a_par,b_par)) ? \
+            (a_par == T(0) || b_par == T(0) || GCINT::any_posinf(a_par,b_par)) ? \
                 log_if(pbeta_limit_vals(x,a_par,b_par),log_form) :
             //
             log_if(pbeta_compute(x,a_par,b_par), log_form) );

@@ -40,14 +40,41 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+pweibull_limit_vals(const T x, const T shape_par, const T scale_par)
+noexcept
+{
+    return( GCINT::is_posinf(x) ? \
+                GCINT::is_posinf(scale_par) ? \
+                    STLIM<T>::quiet_NaN() :
+                    T(1) :
+            // x finite but > 0
+            GCINT::is_posinf(scale_par) ? \
+                T(0) :
+            //
+            GCINT::is_posinf(shape_par) ? \
+                x / scale_par > T(1) ? \
+                    T(1) :
+                x / scale_par == T(1) ? \
+                    - stmath::expm1(-1.0) :
+                    T(0) :
+            //
+            T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 pweibull_vals_check(const T x, const T shape_par, const T scale_par, const bool log_form)
 noexcept
 {
-    return( !weibull_sanity_check(shape_par,scale_par) ? \
+    return( !weibull_sanity_check(x,shape_par,scale_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             x < STLIM<T>::epsilon() ? \
                 log_zero_if<T>(log_form) :
+            //
+            GCINT::any_inf(x,shape_par,scale_par) ? \
+                log_if(pweibull_limit_vals(x,shape_par,scale_par), log_form) :
             //
             log_if(pweibull_compute(x/scale_par,shape_par), log_form) );
 }

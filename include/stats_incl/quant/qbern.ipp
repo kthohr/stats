@@ -37,7 +37,7 @@ noexcept
     return( !bern_sanity_check(prob_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
             //
             p > (T(1) - prob_par) ? \

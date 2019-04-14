@@ -46,13 +46,8 @@ noexcept
     return( !lnorm_sanity_check(mu_par,sigma_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            p < T(0) || p > T(1) ? \
+            !prob_val_check(p) ? \
                 STLIM<T>::quiet_NaN() :
-            //
-            p == T(0) ? \
-                T(0) :
-            p == T(1) ? \
-                STLIM<T>::infinity() :
             //
             qlnorm_compute(p,mu_par,sigma_par) );
 }

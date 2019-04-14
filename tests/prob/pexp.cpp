@@ -174,15 +174,15 @@ int main()
     STATS_TEST_EXPECTED_VAL(pexp,1,TEST_NAN,false,-1.0);
     STATS_TEST_EXPECTED_VAL(pexp,1,TEST_NAN,false,TEST_NEGINF);
 
-    STATS_TEST_EXPECTED_VAL(pexp,0,TEST_NAN,false,TEST_POSINF);                                     // rate == Inf
-    STATS_TEST_EXPECTED_VAL(pexp,1,TEST_NAN,false,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(pexp,0,0,false,TEST_POSINF);                                            // rate == Inf
+    STATS_TEST_EXPECTED_VAL(pexp,1,1,false,TEST_POSINF);
 
     STATS_TEST_EXPECTED_VAL(pexp,0,0,false,0);                                                      // x == 0
     STATS_TEST_EXPECTED_VAL(pexp,0,0,false,1);
 
     STATS_TEST_EXPECTED_VAL(pexp,TEST_POSINF,TEST_NAN,false,0);                                     // x == Inf
     STATS_TEST_EXPECTED_VAL(pexp,TEST_POSINF,1,false,1);
-    STATS_TEST_EXPECTED_VAL(pexp,TEST_POSINF,TEST_NAN,false,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(pexp,TEST_POSINF,1,false,TEST_POSINF);
 
     STATS_TEST_EXPECTED_VAL(pexp,TEST_NEGINF,0,false,2);                                            // x == -Inf
 
@@ -215,7 +215,7 @@ int main()
     STATS_TEST_EXPECTED_MAT(pexp,inp_mat,exp_mat,mat_obj,true,rate);
 #endif
 
-    // 
+    //
 
     print_final("pexp",test_number);
 

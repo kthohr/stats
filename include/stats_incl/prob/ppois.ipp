@@ -67,7 +67,10 @@ ppois_vals_check(const llint_t x, const T rate_par, const bool log_form)
                 STLIM<T>::quiet_NaN() :
             //
             x < llint_t(0) ? \
-                log_if(0,log_form) :
+                log_zero_if<T>(log_form) :
+            //
+            GCINT::is_posinf(rate_par) ? \
+                log_zero_if<T>(log_form) :
             //
             log_if(ppois_compute(x,rate_par), log_form) );
 }

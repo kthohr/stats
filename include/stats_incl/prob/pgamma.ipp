@@ -40,6 +40,27 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
+pgamma_limit_vals(const T x, const T shape_par, const T scale_par)
+noexcept
+{
+    return( // here: x > 0
+            shape_par == T(0) ? \
+                GCINT::is_posinf(scale_par) ? \
+                    T(0) :
+                    T(1) :
+            // x == +Inf, pars finite
+            GCINT::is_posinf(x) && GCINT::all_finite(shape_par,scale_par) ? \
+                T(1) :
+            // x, shape_par == +Inf, scale finite
+            GCINT::all_posinf(x,shape_par) ? \
+                T(1) :
+            // shape or scale == +Inf; x finite
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
 pgamma_vals_check(const T x, const T shape_par, const T scale_par, const bool log_form)
 noexcept
 {
@@ -51,20 +72,9 @@ noexcept
             //
             STLIM<T>::epsilon() > x ? \
                 log_zero_if<T>(log_form) :
-            // now x > 0
-            shape_par == T(0) ? \
-                GCINT::is_posinf(scale_par) ? \
-                    log_zero_if<T>(log_form) :
-                    log_one_if<T>(log_form) :
-            // x == +Inf, pars finite
-            GCINT::is_posinf(x) && GCINT::all_finite(shape_par,scale_par) ? \
-                log_one_if<T>(log_form) :
-            // x, shape_par == +Inf, scale finite
-            GCINT::all_posinf(x,shape_par) ? \
-                log_one_if<T>(log_form) :
-            // shape or scale == +Inf; x, finite
-            GCINT::any_posinf(shape_par,scale_par) ? \
-                log_zero_if<T>(log_form) :
+            //
+            GCINT::any_posinf(x,shape_par,scale_par) || shape_par == T(0) ? \
+                log_if(pgamma_limit_vals(x,shape_par,scale_par), log_form) :
             //
             log_if(pgamma_compute(x,shape_par,scale_par), log_form) );
 }

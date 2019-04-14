@@ -67,7 +67,7 @@ noexcept
                 STLIM<T>::quiet_NaN() :
             //
             GCINT::is_inf(x) ? \
-                T(0) :
+                log_zero_if<T>(log_form) :
             //
             GCINT::is_posinf(dof_par) ? \
                 dnorm(x,T(0),T(1),log_form) :
