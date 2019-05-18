@@ -126,7 +126,7 @@ punif_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
  * \endcode
  */
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 std::vector<rT>
@@ -154,7 +154,7 @@ punif(const std::vector<eT>& x, const T1 a_par, const T2 b_par, const bool log_f
  * \endcode
  */
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 ArmaMat<rT>
@@ -188,7 +188,7 @@ punif(const ArmaGen<mT,tT>& X, const T1 a_par, const T2 b_par, const bool log_fo
  * \endcode
  */
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
@@ -214,7 +214,7 @@ punif(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par, const bool log_f
  * \endcode
  */
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>

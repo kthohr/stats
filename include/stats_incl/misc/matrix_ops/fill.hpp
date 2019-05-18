@@ -25,7 +25,7 @@
 //
 // matrix fill
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT>
 statslib_inline
 void
@@ -35,7 +35,7 @@ fill(std::vector<eT>& X, const eT fill_val)
 }
 #endif
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
 void
@@ -45,7 +45,7 @@ fill(ArmaMat<eT>& X, const eT fill_val)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, bool To>
 statslib_inline
 void
@@ -55,7 +55,7 @@ fill(BlazeMat<eT,To>& X, const eT fill_val)
 }
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, int iTr, int iTc>
 statslib_inline
 void

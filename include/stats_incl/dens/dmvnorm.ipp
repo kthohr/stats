@@ -25,7 +25,7 @@
 /**
  * @brief Density function of the Multivariate-Normal distribution
  *
- * @param X a vector.
+ * @param X a column vector.
  * @param mu_par mean vector.
  * @param Sigma_par the covariance matrix.
  * @param log_form return the log-density or the true form.

@@ -25,7 +25,7 @@
 //
 // printing
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT>
 statslib_inline
 void
@@ -38,7 +38,7 @@ cout_output(const std::vector<eT>& X)
 }
 #endif
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
 void
@@ -48,7 +48,7 @@ cout_output(const ArmaMat<eT>& X)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, bool To>
 statslib_inline
 void
@@ -58,7 +58,7 @@ cout_output(const BlazeMat<eT,To>& X)
 }
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, int iTr, int iTc>
 statslib_inline
 void

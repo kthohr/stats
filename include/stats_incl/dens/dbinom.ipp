@@ -140,7 +140,7 @@ dbinom_vec(const eT* __stats_pointer_settings__ vals_in, const llint_t n_trials_
  * \endcode
  */
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
 std::vector<rT>
@@ -166,7 +166,7 @@ dbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par, 
  * \endcode
  */
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
 ArmaMat<rT>
@@ -200,7 +200,7 @@ dbinom(const ArmaGen<mT,tT>& X, const llint_t n_trials_par, const T1 prob_par, c
  * \endcode
  */
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
@@ -226,7 +226,7 @@ dbinom(const BlazeMat<eT,To>& X, const llint_t n_trials_par, const T1 prob_par, 
  * \endcode
  */
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>

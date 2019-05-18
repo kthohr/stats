@@ -25,7 +25,7 @@
 //
 // get the number of rows in a matrix
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
 ullint_t
@@ -35,7 +35,7 @@ n_rows(const ArmaMat<eT>& X)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, bool To>
 statslib_inline
 ullint_t
@@ -45,7 +45,7 @@ n_rows(const BlazeMat<eT,To>& X)
 }
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, int iTr, int iTc>
 statslib_inline
 ullint_t

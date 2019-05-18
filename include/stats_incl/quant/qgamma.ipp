@@ -134,7 +134,7 @@ qgamma_vec(const eT* __stats_pointer_settings__ vals_in, const T1 shape_par, con
  * @param shape_par the shape parameter, a real-valued input.
  * @param scale_par the scale parameter, a real-valued input.
  *
- * @return a vector of quantile function values corresponding to the elements of \c x.
+ * @return a vector of quantile values corresponding to the elements of \c x.
  * 
  * Example:
  * \code{.cpp}
@@ -143,7 +143,7 @@ qgamma_vec(const eT* __stats_pointer_settings__ vals_in, const T1 shape_par, con
  * \endcode
  */
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 std::vector<rT>
@@ -160,7 +160,7 @@ qgamma(const std::vector<eT>& x, const T1 shape_par, const T2 scale_par)
  * @param shape_par the shape parameter, a real-valued input.
  * @param scale_par the scale parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -170,7 +170,7 @@ qgamma(const std::vector<eT>& x, const T1 shape_par, const T2 scale_par)
  * \endcode
  */
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 ArmaMat<rT>
@@ -195,7 +195,7 @@ qgamma(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 scale_par)
  * @param shape_par the shape parameter, a real-valued input.
  * @param scale_par the scale parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -203,7 +203,7 @@ qgamma(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 scale_par)
  * \endcode
  */
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
@@ -220,7 +220,7 @@ qgamma(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 scale_par)
  * @param shape_par the shape parameter, a real-valued input.
  * @param scale_par the scale parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -228,7 +228,7 @@ qgamma(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 scale_par)
  * \endcode
  */
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>

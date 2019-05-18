@@ -119,7 +119,7 @@ qunif_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
  * @param a_par a real-valued shape parameter.
  * @param b_par a real-valued shape parameter.
  *
- * @return a vector of quantile function values corresponding to the elements of \c x.
+ * @return a vector of quantile values corresponding to the elements of \c x.
  * 
  * Example:
  * \code{.cpp}
@@ -128,7 +128,7 @@ qunif_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
  * \endcode
  */
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 std::vector<rT>
@@ -145,7 +145,7 @@ qunif(const std::vector<eT>& x, const T1 a_par, const T2 b_par)
  * @param a_par a real-valued shape parameter.
  * @param b_par a real-valued shape parameter.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -155,7 +155,7 @@ qunif(const std::vector<eT>& x, const T1 a_par, const T2 b_par)
  * \endcode
  */
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 ArmaMat<rT>
@@ -180,7 +180,7 @@ qunif(const ArmaGen<mT,tT>& X, const T1 a_par, const T2 b_par)
  * @param a_par a real-valued shape parameter.
  * @param b_par a real-valued shape parameter.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -188,7 +188,7 @@ qunif(const ArmaGen<mT,tT>& X, const T1 a_par, const T2 b_par)
  * \endcode
  */
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
@@ -205,7 +205,7 @@ qunif(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par)
  * @param a_par a real-valued shape parameter.
  * @param b_par a real-valued shape parameter.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -213,7 +213,7 @@ qunif(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par)
  * \endcode
  */
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>

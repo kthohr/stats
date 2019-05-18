@@ -36,14 +36,14 @@ qbinom(const T1 p, const llint_t n_trials_par, const T2 prob_par) noexcept;
 //
 // vector/matrix input
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 std::vector<rT>
 qbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par);
 #endif
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 ArmaMat<rT>
@@ -55,14 +55,14 @@ mT
 qbinom(const ArmaGen<mT,tT>& X, const llint_t n_trials_par, const T1 prob_par);
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, bool To = blaze::columnMajor>
 statslib_inline
 BlazeMat<rT,To>
 qbinom(const BlazeMat<eT,To>& X, const llint_t n_trials_par, const T1 prob_par);
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
 EigenMat<rT,iTr,iTc>

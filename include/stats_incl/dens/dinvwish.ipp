@@ -59,7 +59,7 @@ dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, bool const log_form)
     return ret;
 }
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename pT>
 statslib_inline
 eT

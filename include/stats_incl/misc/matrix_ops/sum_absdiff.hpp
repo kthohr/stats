@@ -25,7 +25,7 @@
 //
 // sum the absolute element-wise differences between two objects of the same dimensions
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT>
 statslib_inline
 eT
@@ -43,7 +43,7 @@ sum_absdiff(const std::vector<eT>& X, const std::vector<eT>& Y)
 }
 #endif
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
 eT
@@ -53,7 +53,7 @@ sum_absdiff(const ArmaMat<eT>& X, const ArmaMat<eT>& Y)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, bool To>
 statslib_inline
 eT
@@ -63,7 +63,7 @@ sum_absdiff(const BlazeMat<eT,To>& X, const BlazeMat<eT,To>& Y)
 }
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, int iTr, int iTc>
 statslib_inline
 eT

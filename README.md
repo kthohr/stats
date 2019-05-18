@@ -87,9 +87,9 @@ The following options should be declared **before** including the StatsLib heade
 
 * To use StatsLib with Armadillo, Blaze or Eigen:
 ```cpp
-#define STATS_USE_ARMA
-#define STATS_USE_BLAZE
-#define STATS_USE_EIGEN
+#define STATS_ENABLE_ARMA_WRAPPERS
+#define STATS_ENABLE_BLAZE_WRAPPERS
+#define STATS_ENABLE_EIGEN_WRAPPERS
 ```
 
 ## Syntax and Examples

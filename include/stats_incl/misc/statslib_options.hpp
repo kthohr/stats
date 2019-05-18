@@ -96,32 +96,32 @@ namespace stats
 
 // enable std::vector features
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
     #include <algorithm>
     #include <vector>
 #endif
 
-// #ifndef STATS_USE_STDVEC
+// #ifndef STATS_ENABLE_STDVEC_WRAPPERS
 //     #if defined(_LIBCPP_VECTOR) || defined(_GLIBCXX_VECTOR)
-//         #define STATS_USE_STDVEC
+//         #define STATS_ENABLE_STDVEC_WRAPPERS
 //     #endif
 // #endif
 
 // enable wrappers for linear algebra libraries
 
-#if defined(STATS_USE_ARMA) || defined(STATS_USE_BLAZE) || defined(STATS_USE_EIGEN)
+#if defined(STATS_ENABLE_ARMA_WRAPPERS) || defined(STATS_ENABLE_BLAZE_WRAPPERS) || defined(STATS_ENABLE_EIGEN_WRAPPERS)
     #define STATS_ENABLE_MATRIX_FEATURES
 #endif
 
 //
 
-#if defined(STATS_USE_STDVEC) || defined(STATS_ENABLE_MATRIX_FEATURES)
+#if defined(STATS_ENABLE_STDVEC_WRAPPERS) || defined(STATS_ENABLE_MATRIX_FEATURES)
     #define STATS_ENABLE_INTERNAL_VEC_FEATURES
 #endif
 
 // Armadillo options
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
     #ifdef USE_RCPP_ARMADILLO
         #include <RcppArmadillo.h>
     #else
@@ -141,7 +141,7 @@ namespace stats
     using not_arma_mat = std::enable_if<!(std::is_same<T,arma::Mat<double>>::value || \
                                           std::is_same<T,arma::Mat<float>>::value)>;
     
-    #if defined(STATS_USE_BLAZE) || defined(STATS_USE_EIGEN)
+    #if defined(STATS_ENABLE_BLAZE_WRAPPERS) || defined(STATS_ENABLE_EIGEN_WRAPPERS)
         #error StatsLib cannot interface with more than one matrix library at a time
     #endif
 #else
@@ -151,7 +151,7 @@ namespace stats
 
 // Blaze options
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
     #include "blaze/Blaze.h"
     #include <iostream>
 
@@ -170,21 +170,21 @@ namespace stats
 
 // Eigen Options
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
     #include <Eigen/Dense>
     #include <iostream>
 
     template<typename eT, int iTr, int iTc>
     using EigenMat = Eigen::Matrix<eT,iTr,iTc>;
 
-    #if defined(STATS_USE_BLAZE)
+    #if defined(STATS_ENABLE_BLAZE_WRAPPERS)
         #error StatsLib cannot interface with more than one matrix library at a time
     #endif
 
 #endif
 
 //
-// compiler options
+// misc. compiler options
 
 #ifndef __stats_pointer_settings__
     #if defined(__clang__) || defined(__GNUC__)

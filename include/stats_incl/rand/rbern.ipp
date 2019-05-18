@@ -90,7 +90,7 @@ rbern_vec(const T1 prob_par, rT* __stats_pointer_settings__ vals_out, const ulli
 }
 #endif
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1>
 statslib_inline
 void
@@ -106,7 +106,7 @@ statslib_inline
 void
 rbern_mat_check(mT& X, const T1 prob_par)
 {
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
     BLAZE_RAND_DIST_FN(rbern,prob_par);
 #else
     MAIN_MAT_RAND_DIST_FN(rbern_vec,prob_par);

@@ -25,7 +25,7 @@
 //
 // matrix repmat
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
 ArmaMat<eT>
@@ -35,7 +35,7 @@ repmat(const ArmaMat<eT>& X, ullint_t N, ullint_t K)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, bool To>
 statslib_inline
 BlazeMat<eT,To>
@@ -60,7 +60,7 @@ repmat(const BlazeMat<eT,To>& X, ullint_t N, ullint_t K)
 }
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, int iTr, int iTc>
 statslib_inline
 EigenMat<eT,iTr,iTc>

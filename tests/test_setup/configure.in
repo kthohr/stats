@@ -7,7 +7,7 @@ function print_help
     echo -e "\x1B[32mStatsLib Tests configure options\033[0m" >&2 ;
     echo "" ;
     echo "-c    Coverage build" ;
-    echo "-g    Debugging build (optimization flags set to -O0 -g)" ;
+    echo "-g    Debugging build (optimization flags set to: -O0 -g)" ;
     echo "-h    Print help" ;
     echo "-i    StatsLib install path (default: build directory)" ;
     echo "-l    Enable wrappers for a linear algebra library" ;
@@ -19,6 +19,7 @@ function print_help
     echo "-p    Enable OpenMP parallelization features" ;
     echo "-s    Enable std::vector tests" ;
     echo "-v    Set verbose print level: 0, 1, or 2" ;
+    echo "" ;
 }
 
 while getopts hcgil:m:o:psv: option; do
@@ -92,14 +93,14 @@ if [[ "${STATS_LINEAR_ALG_LIB}" == "arma" ]]; then
         fi
     fi
 
-    STATS_MATLIB_FLAGS="-DSTATS_USE_ARMA -DARMA_NO_DEBUG"
+    STATS_MATLIB_FLAGS="-DSTATS_ENABLE_ARMA_WRAPPERS -DARMA_NO_DEBUG"
     STATS_MATLIB_PATH=$ARMA_INCLUDE_PATH
 elif [[ "${STATS_LINEAR_ALG_LIB}" == "blaze" ]]; then
-    STATS_MATLIB_FLAGS="-DSTATS_USE_BLAZE"
+    STATS_MATLIB_FLAGS="-DSTATS_ENABLE_BLAZE_WRAPPERS"
     STATS_MATLIB_PATH=$BLAZE_INCLUDE_PATH
     CXX_STD="-std=c++14"
 elif [[ "${STATS_LINEAR_ALG_LIB}" == "eigen" ]]; then
-    STATS_MATLIB_FLAGS="-DSTATS_USE_EIGEN"
+    STATS_MATLIB_FLAGS="-DSTATS_ENABLE_EIGEN_WRAPPERS"
     STATS_MATLIB_PATH=$EIGEN_INCLUDE_PATH
 else
     STATS_LINEAR_ALG_LIB="none"
@@ -108,7 +109,7 @@ fi
 #
 
 if [[ "${STATS_ENABLE_STDVEC}" == "y" ]]; then
-    STATS_MATLIB_FLAGS="-DSTATS_USE_STDVEC ${STATS_MATLIB_FLAGS}"
+    STATS_MATLIB_FLAGS="-DSTATS_ENABLE_STDVEC_WRAPPERS ${STATS_MATLIB_FLAGS}"
 fi
 
 #

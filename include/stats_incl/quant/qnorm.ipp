@@ -146,7 +146,7 @@ qnorm_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const T
  * @param mu_par the mean parameter, a real-valued input.
  * @param sigma_par the standard deviation parameter, a real-valued input.
  *
- * @return a vector of quantile function values corresponding to the elements of \c x.
+ * @return a vector of quantile values corresponding to the elements of \c x.
  * 
  * Example:
  * \code{.cpp}
@@ -155,7 +155,7 @@ qnorm_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const T
  * \endcode
  */
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 std::vector<rT>
@@ -172,7 +172,7 @@ qnorm(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par)
  * @param mu_par the mean parameter, a real-valued input.
  * @param sigma_par the standard deviation parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -182,7 +182,7 @@ qnorm(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par)
  * \endcode
  */
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 ArmaMat<rT>
@@ -207,7 +207,7 @@ qnorm(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par)
  * @param mu_par the mean parameter, a real-valued input.
  * @param sigma_par the standard deviation parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -215,7 +215,7 @@ qnorm(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par)
  * \endcode
  */
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
@@ -232,7 +232,7 @@ qnorm(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par)
  * @param mu_par the mean parameter, a real-valued input.
  * @param sigma_par the standard deviation parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -240,7 +240,7 @@ qnorm(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par)
  * \endcode
  */
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>

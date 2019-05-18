@@ -18,20 +18,14 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+#define TEST_PRINT_PRECISION_1 2
+#define TEST_PRINT_PRECISION_2 5
+
 #include "../stats_tests.hpp"
 
 int main()
 {
     print_begin("dnorm");
-
-    // settings
-
-    double err_tol = 1E-05;
-    int print_level = TEST_PRINT_LEVEL;
-
-    int print_precision_1 = 2;
-    int print_precision_2 = 5;
 
     // parameters
 
@@ -45,8 +39,6 @@ int main()
 
     //
     // scalar tests
-
-    int test_number = 0;
 
     STATS_TEST_EXPECTED_VAL(dnorm,inp_vals[0],exp_vals[0],false,mu,sigma);
     STATS_TEST_EXPECTED_VAL(dnorm,inp_vals[1],exp_vals[1],true,mu,sigma);
@@ -117,7 +109,7 @@ int main()
 
     // 
 
-    print_final("dnorm",test_number);
+    print_final("dnorm");
 
     return 0;
 }

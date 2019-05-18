@@ -118,7 +118,7 @@ qbinom_vec(const eT* __stats_pointer_settings__ vals_in, const llint_t n_trials_
  * @param n_trials_par the number of trials, a non-negative integral-valued input.
  * @param prob_par the probability parameter, a real-valued input.
  *
- * @return a vector of quantile function values corresponding to the elements of \c x.
+ * @return a vector of quantile values corresponding to the elements of \c x.
  * 
  * Example:
  * \code{.cpp}
@@ -127,7 +127,7 @@ qbinom_vec(const eT* __stats_pointer_settings__ vals_in, const llint_t n_trials_
  * \endcode
  */
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
 std::vector<rT>
@@ -144,7 +144,7 @@ qbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par)
  * @param n_trials_par the number of trials, a non-negative integral-valued input.
  * @param prob_par the probability parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -152,7 +152,7 @@ qbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par)
  * \endcode
  */
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
 ArmaMat<rT>
@@ -177,7 +177,7 @@ qbinom(const ArmaGen<mT,tT>& X, const llint_t n_trials_par, const T1 prob_par)
  * @param n_trials_par the number of trials, a non-negative integral-valued input.
  * @param prob_par the probability parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -185,7 +185,7 @@ qbinom(const ArmaGen<mT,tT>& X, const llint_t n_trials_par, const T1 prob_par)
  * \endcode
  */
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
@@ -202,7 +202,7 @@ qbinom(const BlazeMat<eT,To>& X, const llint_t n_trials_par, const T1 prob_par)
  * @param n_trials_par the number of trials, a non-negative integral-valued input.
  * @param prob_par the probability parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -210,7 +210,7 @@ qbinom(const BlazeMat<eT,To>& X, const llint_t n_trials_par, const T1 prob_par)
  * \endcode
  */
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>

@@ -25,7 +25,7 @@
 //
 // Matrix of zeros
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT>
 statslib_inline
 void
@@ -35,7 +35,7 @@ zeros(std::vector<eT>& X, const ullint_t n, const ullint_t k)
 }
 #endif
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
 void
@@ -45,7 +45,7 @@ zeros(ArmaMat<eT>& X, const ullint_t n, const ullint_t k)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, bool To>
 statslib_inline
 void
@@ -56,7 +56,7 @@ zeros(BlazeMat<eT,To>& X, const ullint_t n, const ullint_t k)
 }
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, int iTr, int iTc>
 statslib_inline
 void

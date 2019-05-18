@@ -58,7 +58,7 @@ rmvnorm(const mT& mu_par, const mT& Sigma_par, const bool pre_chol)
     return ret;
 }
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename mT, typename eT>
 statslib_inline
 mT
@@ -116,7 +116,7 @@ rmvnorm(const ullint_t n, const mT& mu_par, const mT& Sigma_par, const bool pre_
     return ret;
 }
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename mT, typename eT>
 statslib_inline
 ArmaMat<eT>

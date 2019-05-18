@@ -126,7 +126,7 @@ qcauchy_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const
  * @param mu_par the location parameter, a real-valued input.
  * @param sigma_par the scale parameter, a real-valued input.
  *
- * @return a vector of quantile function values corresponding to the elements of \c x.
+ * @return a vector of quantile values corresponding to the elements of \c x.
  * 
  * Example:
  * \code{.cpp}
@@ -135,7 +135,7 @@ qcauchy_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const
  * \endcode
  */
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 std::vector<rT>
@@ -152,7 +152,7 @@ qcauchy(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par)
  * @param mu_par the location parameter, a real-valued input.
  * @param sigma_par the scale parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -162,7 +162,7 @@ qcauchy(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par)
  * \endcode
  */
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
 ArmaMat<rT>
@@ -187,7 +187,7 @@ qcauchy(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par)
  * @param mu_par the location parameter, a real-valued input.
  * @param sigma_par the scale parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -195,7 +195,7 @@ qcauchy(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par)
  * \endcode
  */
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
@@ -212,7 +212,7 @@ qcauchy(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par)
  * @param mu_par the location parameter, a real-valued input.
  * @param sigma_par the scale parameter, a real-valued input.
  *
- * @return a matrix of quantile function values corresponding to the elements of \c X.
+ * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
@@ -220,7 +220,7 @@ qcauchy(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par)
  * \endcode
  */
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>

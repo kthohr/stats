@@ -20,69 +20,14 @@
 
 #define STATS_TEST_INPUT_TYPE 1
 
-#include "stats.hpp"
+#define TEST_PRINT_PRECISION_1 2
+#define TEST_PRINT_PRECISION_2 5
+
 #include "../stats_tests.hpp"
-
-// int main()
-// {
-//     double err_tol = 1E-05;
-//     int round_digits_1 = 3;
-//     int round_digits_2 = 5;
-
-//     double a_par = -1;
-//     double b_par = 3;
-
-//     std::cout << "\n*** qunif: begin tests. ***\n" << std::endl;
-
-//     // x = 2
-//     double x_1 = 2;
-//     double val_1 = 0.75;
-//     double q_1 = stats::qunif(val_1,a_par,b_par);
-
-//     bool success_1 = (std::abs(q_1 - x_1) < err_tol);
-//     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qunif(" << val_1 << "): ";
-//     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_1 << ". Success = " << success_1 << std::endl;
-
-//     // x = 1, return log
-//     double x_2 = -0.96;
-//     double val_2 = 0.01;
-//     double q_2 = stats::qunif(val_2,a_par,b_par);
-
-//     bool success_2 = (std::abs(q_2 - x_2) < err_tol);
-//     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "qunif(" << val_2 << "): ";
-//     std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_2 << ". Success = " << success_2 << std::endl;
-
-//     if (success_1 && success_2) {
-//         std::cout << "\n*** qunif: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-//     } else {
-//         std::cout << "\n*** qunif: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-//     }
-
-//     //
-//     // coverage tests
-
-// #ifdef STATS_TEST_MATRIX_FEATURES
-//     mat_obj x_mat(2,1);
-//     x_mat(0,0) = 0.7;
-//     x_mat(1,0) = 0.8;
-
-//     stats::qunif(x_mat,a_par,b_par);
-// #endif
-
-//     return 0;
-// }
 
 int main()
 {
     print_begin("qunif");
-
-    // settings
-
-    double err_tol = 1E-05;
-    int print_level = TEST_PRINT_LEVEL;
-
-    int print_precision_1 = 2;
-    int print_precision_2 = 5;
 
     // parameters
 
@@ -96,8 +41,6 @@ int main()
 
     //
     // scalar tests
-
-    int test_number = 0;
 
     STATS_TEST_EXPECTED_QUANT_VAL(qunif,inp_vals[0],exp_vals[0],a_par,b_par);
     STATS_TEST_EXPECTED_QUANT_VAL(qunif,inp_vals[1],exp_vals[1],a_par,b_par);
@@ -162,7 +105,7 @@ int main()
 
     // 
 
-    print_final("qunif",test_number);
+    print_final("qunif");
 
     return 0;
 }

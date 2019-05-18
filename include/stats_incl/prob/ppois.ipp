@@ -134,7 +134,7 @@ ppois_vec(const eT* __stats_pointer_settings__ vals_in, const T1 rate_par, const
  * \endcode
  */
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
 std::vector<rT>
@@ -161,7 +161,7 @@ ppois(const std::vector<eT>& x, const T1 rate_par, const bool log_form)
  * \endcode
  */
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
 ArmaMat<rT>
@@ -194,7 +194,7 @@ ppois(const ArmaGen<mT,tT>& X, const T1 rate_par, const bool log_form)
  * \endcode
  */
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
@@ -219,7 +219,7 @@ ppois(const BlazeMat<eT,To>& X, const T1 rate_par, const bool log_form)
  * \endcode
  */
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>

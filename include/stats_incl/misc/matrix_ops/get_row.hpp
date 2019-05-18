@@ -25,7 +25,7 @@
 //
 // row access
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
 arma::Row<eT>
@@ -35,7 +35,7 @@ get_row(const ArmaMat<eT>& X, ullint_t i)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, bool To>
 statslib_inline
 BlazeMat<eT,To>
@@ -47,7 +47,7 @@ get_row(const BlazeMat<eT,To>& X, ullint_t i)
 }
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, int iTr, int iTc>
 statslib_inline
 EigenMat<eT,1,iTc>

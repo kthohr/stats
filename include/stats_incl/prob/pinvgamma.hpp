@@ -36,14 +36,14 @@ pinvgamma(const T1 x, const T2 shape_par, const T3 rate_par, const bool log_form
 //
 // vector/matrix input
 
-#ifdef STATS_USE_STDVEC
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>>
 statslib_inline
 std::vector<rT>
 pinvgamma(const std::vector<eT>& x, const T1 shape_par, const T2 rate_par, const bool log_form = false);
 #endif
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>>
 statslib_inline
 ArmaMat<rT>
@@ -55,14 +55,14 @@ mT
 pinvgamma(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 rate_par, const bool log_form = false);
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>, bool To = blaze::columnMajor>
 statslib_inline
 BlazeMat<rT,To>
 pinvgamma(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 rate_par, const bool log_form = false);
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
 EigenMat<rT,iTr,iTc>

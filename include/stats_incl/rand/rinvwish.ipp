@@ -73,7 +73,7 @@ rinvwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
     return mat_ops::inv( mat_out_inv );
 }
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename mT, typename eT, typename pT>
 statslib_inline
 mT

@@ -25,7 +25,7 @@
 //
 // matrix transpose
 
-#ifdef STATS_USE_ARMA
+#ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
 ArmaMat<eT>
@@ -35,7 +35,7 @@ trans(const ArmaMat<eT>& A)
 }
 #endif
 
-#ifdef STATS_USE_BLAZE
+#ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, bool To>
 statslib_inline
 BlazeMat<eT,To>
@@ -45,7 +45,7 @@ trans(const BlazeMat<eT,To>& X)
 }
 #endif
 
-#ifdef STATS_USE_EIGEN
+#ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, int iTr, int iTc>
 statslib_inline
 EigenMat<eT,iTc,iTr>

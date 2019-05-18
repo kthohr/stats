@@ -17,7 +17,7 @@ MACRO_EXPANSION        = YES
 EXPAND_ONLY_PREDEF     = YES
 PREDEFINED             = "statslib_constexpr=constexpr" \
                          "statslib_inline=inline" \
-                         "STATS_USE_STDVEC" \
-                         "STATS_USE_ARMA" \
-                         "STATS_USE_BLAZE" \
-                         "STATS_USE_EIGEN"
+                         "STATS_ENABLE_STDVEC_WRAPPERS" \
+                         "STATS_ENABLE_ARMA_WRAPPERS" \
+                         "STATS_ENABLE_BLAZE_WRAPPERS" \
+                         "STATS_ENABLE_EIGEN_WRAPPERS"
