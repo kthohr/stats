@@ -6,9 +6,10 @@ StatsLib is a templated C++ library of statistical distribution functions, featu
 
 Features:
 * A header-only library of probability density functions, cumulative distribution functions, quantile functions, and random sampling methods.
-* Functions are written in a specialized C++11 `constexpr` format, enabling the library to operate as both a compile-time and run-time computation engine.
+* Functions are written in C++11 `constexpr` format, enabling the library to operate as both a compile-time and run-time computation engine.
 * Designed with a simple **R**-like syntax.
 * Optional vector-matrix functionality with wrappers to support:
+    * `std::vector`
     * [Armadillo](http://arma.sourceforge.net/)
     * [Blaze](https://bitbucket.org/blaze-lib/blaze)
     * [Eigen](http://eigen.tuxfamily.org/index.php)
@@ -17,7 +18,7 @@ Features:
 
 ### Contents:
 * [Distributions](#distributions) 
-* [Installation](#installation)
+* [Installation](#installation-and-depdencies)
 * [Jupyter Notebook](#jupyter-notebook)
 * [Options](#Options)
 * [Syntax and Examples](#syntax-and-examples)
@@ -52,19 +53,20 @@ In addition, pdf and random sampling functions are available for several multiva
 * Multivariate Normal
 * Wishart
 
-## Installation
+## Installation and Dependencies
 
 StatsLib is a header-only library. Simply add the header files to your project using
 ```cpp
 #include "stats.hpp"
 ```
 
+The only dependency is the latest version of [GCEM](https://github.com/kthohr/gcem).
+
 ## Jupyter Notebook
 
 You can test the library online using an interactive Jupyter notebook: 
 
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/kthohr/stats/master?filepath=notebooks%2Fstats.ipynb)
-
 
 ## Options
 
@@ -90,6 +92,11 @@ The following options should be declared **before** including the StatsLib heade
 #define STATS_ENABLE_ARMA_WRAPPERS
 #define STATS_ENABLE_BLAZE_WRAPPERS
 #define STATS_ENABLE_EIGEN_WRAPPERS
+```
+
+* To enable wrappers for `std::vector`:
+```cpp
+#define STATS_ENABLE_STDVEC_WRAPPERS
 ```
 
 ## Syntax and Examples
