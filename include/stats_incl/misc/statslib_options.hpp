@@ -146,7 +146,7 @@ namespace stats
     #endif
 #else
     template<typename T>
-    using not_arma_mat = std::enable_if<false>;
+    using not_arma_mat = std::enable_if<true>;
 #endif
 
 // Blaze options
