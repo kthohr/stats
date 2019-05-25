@@ -23,7 +23,7 @@
  */
 
 //
-// scalar ouput
+// scalar output
 
 /**
  * @brief Random sampling function for the Binomial distribution
@@ -92,6 +92,7 @@ rbinom(const llint_t n_trials_par, const T prob_par, const ullint_t seed_val)
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename T1, typename rT>
 statslib_inline
 void
@@ -99,6 +100,27 @@ rbinom_vec(const llint_t n_trials_par, const T1 prob_par, rT* __stats_pointer_se
 {
     RAND_DIST_FN_VEC(rbinom,vals_out,num_elem,n_trials_par,prob_par);
 }
+#endif
+
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
+template<typename eT, typename T1>
+statslib_inline
+void
+rbinom_mat_check(std::vector<eT>& X, const llint_t n_trials_par, const T1 prob_par)
+{
+    STDVEC_RAND_DIST_FN(rbinom,n_trials_par,prob_par);
+}
+#endif
+
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1>
+statslib_inline
+void
+rbinom_mat_check(mT& X, const llint_t n_trials_par, const T1 prob_par)
+{
+    MAIN_MAT_RAND_DIST_FN(rbinom,n_trials_par,prob_par);
+}
+#endif
 
 }
 
@@ -114,18 +136,25 @@ rbinom_vec(const llint_t n_trials_par, const T1 prob_par, rT* __stats_pointer_se
  *
  * Example:
  * \code{.cpp}
+ * // std::vector
+ * stats::rbinom<std::vector<double>>(5,4,5,0.7);
+ * // Armadillo matrix
  * stats::rbinom<arma::mat>(5,4,5,0.7);
+ * // Blaze dynamic matrix
+ * stats::rbinom<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,5,0.7);
+ * // Eigen dynamic matrix
+ * stats::rbinom<Eigen::MatrixXd>(5,4,5,0.7);
  * \endcode
  *
- * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1>
 statslib_inline
 mT
 rbinom(const ullint_t n, const ullint_t k, const llint_t n_trials_par, const T1 prob_par)
 {
-    GEN_MAT_RAND_FN(rbinom_vec,n_trials_par,prob_par);
+    GEN_MAT_RAND_FN(rbinom_mat_check,n_trials_par,prob_par);
 }
 #endif

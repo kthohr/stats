@@ -22,6 +22,9 @@
  * Sample from a F distribution
  */
 
+//
+// scalar output
+
 namespace internal
 {
 
@@ -106,6 +109,7 @@ rf(const T1 df1_par, const T2 df2_par, ullint_t seed_val)
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -113,6 +117,27 @@ rf_vec(const T1 df1_par, const T2 df2_par, rT* __stats_pointer_settings__ vals_o
 {
     RAND_DIST_FN_VEC(rf,vals_out,num_elem,df1_par,df2_par);
 }
+#endif
+
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
+template<typename eT, typename T1, typename T2>
+statslib_inline
+void
+rf_mat_check(std::vector<eT>& X, const T1 df1_par, const T2 df2_par)
+{
+    STDVEC_RAND_DIST_FN(rf,df1_par,df2_par);
+}
+#endif
+
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1, typename T2>
+statslib_inline
+void
+rf_mat_check(mT& X, const T1 df1_par, const T2 df2_par)
+{
+    MAIN_MAT_RAND_DIST_FN(rf,df1_par,df2_par);
+}
+#endif
 
 }
 
@@ -128,18 +153,25 @@ rf_vec(const T1 df1_par, const T2 df2_par, rT* __stats_pointer_settings__ vals_o
  *
  * Example:
  * \code{.cpp}
+ * // std::vector
+ * stats::rf<std::vector<double>>(5,4,3.0,2.0);
+ * // Armadillo matrix
  * stats::rf<arma::mat>(5,4,3.0,2.0);
+ * // Blaze dynamic matrix
+ * stats::rf<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,3.0,2.0);
+ * // Eigen dynamic matrix
+ * stats::rf<Eigen::MatrixXd>(5,4,3.0,2.0);
  * \endcode
  *
- * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
 rf(const ullint_t n, const ullint_t k, const T1 df1_par, const T2 df2_par)
 {
-    GEN_MAT_RAND_FN(rf_vec,df1_par,df2_par);
+    GEN_MAT_RAND_FN(rf_mat_check,df1_par,df2_par);
 }
 #endif

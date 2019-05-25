@@ -18,11 +18,14 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rbern");
+
+    //
+
     double prob_par = 0.75;
 
     double bern_mean = prob_par;
@@ -30,26 +33,29 @@ int main()
 
     int n_sample = 10000;
 
-    std::cout << "\n*** rbern: begin tests. ***\n" << std::endl;
-
     //
 
     int bern_rand = stats::rbern(prob_par);
-
     std::cout << "bern rv draw: " << bern_rand << std::endl;
 
-#ifdef STATS_TEST_STDVEC_FEATURES
-    std::vector<double> bern_std_vec = stats::rbern<std::vector<double>>(n_sample,1,prob_par);
+    //
 
-    std::cout << "bern rv mean: " << stats::mat_ops::mean(bern_std_vec) << ". Should be close to: " << bern_mean << "\n";
-    std::cout << "bern rv variance: " << stats::mat_ops::var(bern_std_vec) << ". Should be close to: " << bern_var << std::endl;
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> bern_stdvec = stats::rbern<std::vector<double>>(n_sample,1,prob_par);
+
+    std::cout << "stdvec: bern rv mean: " << stats::mat_ops::mean(bern_stdvec) << ". Should be close to: " << bern_mean << "\n";
+    std::cout << "stdvec: bern rv variance: " << stats::mat_ops::var(bern_stdvec) << ". Should be close to: " << bern_var << std::endl;
 #endif
 
+    //
+
 #ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
     mat_obj bern_vec = stats::rbern<mat_obj>(n_sample,1,prob_par);
 
-    std::cout << "bern rv mean: " << stats::mat_ops::mean(bern_vec) << ". Should be close to: " << bern_mean << "\n";
-    std::cout << "bern rv variance: " << stats::mat_ops::var(bern_vec) << ". Should be close to: " << bern_var << std::endl;
+    std::cout << "Matrix: bern rv mean: " << stats::mat_ops::mean(bern_vec) << ". Should be close to: " << bern_mean << "\n";
+    std::cout << "Matrix: bern rv variance: " << stats::mat_ops::var(bern_vec) << ". Should be close to: " << bern_var << std::endl;
 #endif
 
     //

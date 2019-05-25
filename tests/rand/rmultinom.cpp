@@ -18,11 +18,12 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rmultinom");
+
 #ifdef STATS_TEST_MATRIX_FEATURES
     mat_obj prob_vec(5,1);
     prob_vec(0,0) = 0.1;

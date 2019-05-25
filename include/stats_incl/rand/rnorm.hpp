@@ -26,7 +26,7 @@
 #define _statslib_rnorm_HPP
 
 //
-// scalar ouput
+// scalar output
 
 template<typename T1, typename T2>
 statslib_inline
@@ -45,7 +45,7 @@ T rnorm();
 //
 // vector/matrix output
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1 = double, typename T2 = double>
 statslib_inline
 mT

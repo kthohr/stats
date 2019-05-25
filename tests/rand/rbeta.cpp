@@ -18,26 +18,40 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rbeta");
+
+    //
+
     double alpha = 3;
     double beta = 2;
 
-    std::cout << "\n*** rbeta: begin tests. ***\n" << std::endl;
-
-    double beta_rand = stats::rbeta(alpha,beta);
-
-    std::cout << "beta rv draw: " << beta_rand << std::endl;
-
-#ifdef STATS_TEST_MATRIX_FEATURES
     double beta_mean = alpha/(alpha + beta);
     double beta_var = alpha*beta/(std::pow(alpha + beta,2)*(alpha + beta + 1.0));
 
-    int n = 10000;
-    mat_obj beta_vec = stats::rbeta<mat_obj>(n,1,alpha,beta);
+    int n_sample = 10000;
+
+    //
+
+    double beta_rand = stats::rbeta(alpha,beta);
+    std::cout << "beta rv draw: " << beta_rand << std::endl;
+
+    //
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> beta_stdvec = stats::rbeta<std::vector<double>>(n_sample,1,alpha,beta);
+
+    std::cout << "stdvec: beta rv mean: " << stats::mat_ops::mean(beta_stdvec) << ". Should be close to: " << beta_mean << "\n";
+    std::cout << "stdvec: beta rv variance: " << stats::mat_ops::var(beta_stdvec) << ". Should be close to: " << beta_var << std::endl;
+#endif
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj beta_vec = stats::rbeta<mat_obj>(n_sample,1,alpha,beta);
 
     std::cout << "beta rv mean: " << stats::mat_ops::mean(beta_vec) << ". Should be close to: " << beta_mean << std::endl;
     std::cout << "beta rv variance: " << stats::mat_ops::var(beta_vec) << ". Should be close to: " << beta_var << std::endl;

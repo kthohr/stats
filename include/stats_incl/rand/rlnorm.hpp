@@ -26,7 +26,7 @@
 #define _statslib_rlnorm_HPP
 
 //
-// scalar ouput
+// scalar output
 
 template<typename T1, typename T2>
 statslib_inline
@@ -41,7 +41,7 @@ rlnorm(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val = std::rando
 //
 // vector/matrix output
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT

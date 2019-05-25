@@ -23,7 +23,7 @@
  */
 
 //
-// scalar ouput
+// scalar output
 
 namespace internal
 {
@@ -128,6 +128,7 @@ runif()
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -135,6 +136,27 @@ runif_vec(const T1 a_par, const T2 b_par, rT* __stats_pointer_settings__ vals_ou
 {
     RAND_DIST_FN_VEC(runif,vals_out,num_elem,a_par,b_par);
 }
+#endif
+
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
+template<typename eT, typename T1, typename T2>
+statslib_inline
+void
+runif_mat_check(std::vector<eT>& X, const T1 a_par, const T2 b_par)
+{
+    STDVEC_RAND_DIST_FN(runif,a_par,b_par);
+}
+#endif
+
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1, typename T2>
+statslib_inline
+void
+runif_mat_check(mT& X, const T1 a_par, const T2 b_par)
+{
+    MAIN_MAT_RAND_DIST_FN(runif,a_par,b_par);
+}
+#endif
 
 }
 
@@ -150,18 +172,25 @@ runif_vec(const T1 a_par, const T2 b_par, rT* __stats_pointer_settings__ vals_ou
  *
  * Example:
  * \code{.cpp}
- * stats::runif<arma::mat>(5,4,3.0,2.0);
+ * // std::vector
+ * stats::runif<std::vector<double>>(5,4,-1.0,3.0);
+ * // Armadillo matrix
+ * stats::runif<arma::mat>(5,4,-1.0,3.0);
+ * // Blaze dynamic matrix
+ * stats::runif<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,-1.0,3.0);
+ * // Eigen dynamic matrix
+ * stats::runif<Eigen::MatrixXd>(5,4,-1.0,3.0);
  * \endcode
  *
- * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
 runif(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par)
 {
-    GEN_MAT_RAND_FN(runif_vec,a_par,b_par);
+    GEN_MAT_RAND_FN(runif_mat_check,a_par,b_par);
 }
 #endif

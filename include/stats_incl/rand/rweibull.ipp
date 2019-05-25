@@ -23,7 +23,7 @@
  */
 
 //
-// scalar ouput
+// scalar output
 
 namespace internal
 {
@@ -104,6 +104,7 @@ rweibull(const T1 shape_par, const T2 scale_par, const ullint_t seed_val)
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -111,6 +112,27 @@ rweibull_vec(const T1 shape_par, const T2 scale_par, rT* __stats_pointer_setting
 {
     RAND_DIST_FN_VEC(rweibull,vals_out,num_elem,shape_par,scale_par);
 }
+#endif
+
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
+template<typename eT, typename T1, typename T2>
+statslib_inline
+void
+rweibull_mat_check(std::vector<eT>& X, const T1 shape_par, const T2 scale_par)
+{
+    STDVEC_RAND_DIST_FN(rweibull,shape_par,scale_par);
+}
+#endif
+
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1, typename T2>
+statslib_inline
+void
+rweibull_mat_check(mT& X, const T1 shape_par, const T2 scale_par)
+{
+    MAIN_MAT_RAND_DIST_FN(rweibull,shape_par,scale_par);
+}
+#endif
 
 }
 
@@ -126,18 +148,25 @@ rweibull_vec(const T1 shape_par, const T2 scale_par, rT* __stats_pointer_setting
  *
  * Example:
  * \code{.cpp}
+ * // std::vector
+ * stats::rweibull<std::vector<double>>(5,4,3.0,2.0);
+ * // Armadillo matrix
  * stats::rweibull<arma::mat>(5,4,3.0,2.0);
+ * // Blaze dynamic matrix
+ * stats::rweibull<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,3.0,2.0);
+ * // Eigen dynamic matrix
+ * stats::rweibull<Eigen::MatrixXd>(5,4,3.0,2.0);
  * \endcode
  *
- * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
 rweibull(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 scale_par)
 {
-    GEN_MAT_RAND_FN(rweibull_vec,shape_par,scale_par);
+    GEN_MAT_RAND_FN(rweibull_mat_check,shape_par,scale_par);
 }
 #endif

@@ -23,7 +23,7 @@
  */
 
 //
-// scalar ouput
+// scalar output
 
 /**
  * @brief Random sampling function for the Bernoulli distribution
@@ -96,7 +96,7 @@ statslib_inline
 void
 rbern_mat_check(std::vector<eT>& X, const T1 prob_par)
 {
-    STDVEC_RAND_DIST_FN(rbern_vec,prob_par);
+    STDVEC_RAND_DIST_FN(rbern,prob_par);
 }
 #endif
 
@@ -106,11 +106,7 @@ statslib_inline
 void
 rbern_mat_check(mT& X, const T1 prob_par)
 {
-#ifdef STATS_ENABLE_BLAZE_WRAPPERS
-    BLAZE_RAND_DIST_FN(rbern,prob_par);
-#else
-    MAIN_MAT_RAND_DIST_FN(rbern_vec,prob_par);
-#endif
+    MAIN_MAT_RAND_DIST_FN(rbern,prob_par);
 }
 #endif
 
@@ -137,10 +133,10 @@ rbern_mat_check(mT& X, const T1 prob_par)
  * stats::rbern<Eigen::MatrixXd>(5,4,0.7);
  * \endcode
  *
- * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), and Armadillo, Blaze, and Eigen dense matrices.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1>
 statslib_inline
 mT

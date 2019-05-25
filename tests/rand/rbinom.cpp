@@ -18,28 +18,42 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rbinom");
+
+    //
+
     int n_trials = 5;
     double prob_par = 0.75;
 
-    std::cout << "\n*** rbinom: begin tests. ***\n" << std::endl;
+    double binom_mean = n_trials*prob_par;
+    double binom_var = n_trials*prob_par*(1.0 - prob_par);
+
+    int n_sample = 10000;
 
     //
 
     int binom_rand = stats::rbinom(n_trials,prob_par);
-
     std::cout << "binom rv draw: " << binom_rand << std::endl;
 
-#ifdef STATS_TEST_MATRIX_FEATURES
-    double binom_mean = n_trials*prob_par;
-    double binom_var = n_trials*prob_par*(1.0 - prob_par);
+    //
 
-    int n = 10000;
-    mat_obj binom_vec = stats::rbinom<mat_obj>(n,1,n_trials,prob_par);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> binom_stdvec = stats::rbinom<std::vector<double>>(n_sample,1,n_trials,prob_par);
+
+    std::cout << "binom rv mean: " << stats::mat_ops::mean(binom_stdvec) << ". Should be close to: " << binom_mean << std::endl;
+    std::cout << "binom rv variance: " << stats::mat_ops::var(binom_stdvec) << ". Should be close to: " << binom_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj binom_vec = stats::rbinom<mat_obj>(n_sample,1,n_trials,prob_par);
 
     std::cout << "binom rv mean: " << stats::mat_ops::mean(binom_vec) << ". Should be close to: " << binom_mean << std::endl;
     std::cout << "binom rv variance: " << stats::mat_ops::var(binom_vec) << ". Should be close to: " << binom_var << std::endl;

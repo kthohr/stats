@@ -26,7 +26,7 @@
 #define _statslib_rf_HPP
 
 //
-// scalar ouput
+// scalar output
 
 template<typename T1, typename T2>
 statslib_inline
@@ -41,7 +41,7 @@ rf(const T1 df1_par, const T2 df2_par, const ullint_t seed_val = std::random_dev
 //
 // vector/matrix output
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT

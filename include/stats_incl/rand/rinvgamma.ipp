@@ -101,6 +101,7 @@ rinvgamma(const T1 shape_par, const T2 rate_par, const ullint_t seed_val)
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename T1, typename T2, typename rT>
 statslib_inline
 void
@@ -108,6 +109,27 @@ rinvgamma_vec(const T1 shape_par, const T2 rate_par, rT* __stats_pointer_setting
 {
     RAND_DIST_FN_VEC(rinvgamma,vals_out,num_elem,shape_par,rate_par);
 }
+#endif
+
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
+template<typename eT, typename T1, typename T2>
+statslib_inline
+void
+rinvgamma_mat_check(std::vector<eT>& X, const T1 shape_par, const T2 rate_par)
+{
+    STDVEC_RAND_DIST_FN(rinvgamma,shape_par,rate_par);
+}
+#endif
+
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1, typename T2>
+statslib_inline
+void
+rinvgamma_mat_check(mT& X, const T1 shape_par, const T2 rate_par)
+{
+    MAIN_MAT_RAND_DIST_FN(rinvgamma,shape_par,rate_par);
+}
+#endif
 
 }
 
@@ -123,18 +145,25 @@ rinvgamma_vec(const T1 shape_par, const T2 rate_par, rT* __stats_pointer_setting
  *
  * Example:
  * \code{.cpp}
+ * // std::vector
+ * stats::rinvgamma<std::vector<double>>(5,4,3.0,2.0);
+ * // Armadillo matrix
  * stats::rinvgamma<arma::mat>(5,4,3.0,2.0);
+ * // Blaze dynamic matrix
+ * stats::rinvgamma<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,3.0,2.0);
+ * // Eigen dynamic matrix
+ * stats::rinvgamma<Eigen::MatrixXd>(5,4,3.0,2.0);
  * \endcode
  *
- * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
 rinvgamma(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 rate_par)
 {
-    GEN_MAT_RAND_FN(rinvgamma_vec,shape_par,rate_par);
+    GEN_MAT_RAND_FN(rinvgamma_mat_check,shape_par,rate_par);
 }
 #endif

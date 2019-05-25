@@ -26,7 +26,7 @@
 #define _statslib_rweibull_HPP
 
 //
-// scalar ouput
+// scalar output
 
 template<typename T1, typename T2>
 statslib_inline
@@ -41,11 +41,11 @@ rweibull(const T1 shape_par, const T2 scale_par, const ullint_t seed_val = std::
 //
 // vector/matrix output
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rgamma(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 scale_par);
+rweibull(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 scale_par);
 #endif
 
 //

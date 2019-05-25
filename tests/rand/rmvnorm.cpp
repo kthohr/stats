@@ -18,11 +18,12 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rmvnorm");
+
 #ifdef STATS_TEST_MATRIX_FEATURES
     int n = 10000;
     int K = 3;

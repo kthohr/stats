@@ -18,29 +18,45 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rf");
+
+    //
+    
     double a_par = 16;
     double b_par = 10;
 
-    std::cout << "\n*** rf: begin tests. ***\n" << std::endl;
-
-    double F_rand = stats::rf(a_par,b_par);
-
-    std::cout << "F rv draw: " << F_rand << std::endl;
-
-#ifdef STATS_TEST_MATRIX_FEATURES
     double F_mean = b_par / (b_par - 2.0);
     double F_var = 2.0 * b_par*b_par*(a_par + b_par - 2.0) / ( a_par*std::pow(b_par - 2.0,2)*(b_par - 4.0) );
 
-    int n = 100000;
-    mat_obj F_vec = stats::rf<mat_obj>(n,1,a_par,b_par);
+    int n_sample = 10000;
 
-    std::cout << "F rv mean: " << stats::mat_ops::mean(F_vec) << ". Should be close to: " << F_mean << std::endl;
-    std::cout << "F rv variance: " << stats::mat_ops::var(F_vec) << ". Should be close to: " << F_var << std::endl;
+    //
+
+    double F_rand = stats::rf(a_par,b_par);
+    std::cout << "F rv draw: " << F_rand << std::endl;
+
+    //
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> F_stdvec = stats::rf<std::vector<double>>(n_sample,1,a_par,b_par);
+
+    std::cout << "stdvec: F rv mean: " << stats::mat_ops::mean(F_stdvec) << ". Should be close to: " << F_mean << std::endl;
+    std::cout << "stdvec: F rv variance: " << stats::mat_ops::var(F_stdvec) << ". Should be close to: " << F_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj F_vec = stats::rf<mat_obj>(n_sample,1,a_par,b_par);
+
+    std::cout << "Matrix: F rv mean: " << stats::mat_ops::mean(F_vec) << ". Should be close to: " << F_mean << std::endl;
+    std::cout << "Matrix: F rv variance: " << stats::mat_ops::var(F_vec) << ". Should be close to: " << F_var << std::endl;
 #endif
     
     //

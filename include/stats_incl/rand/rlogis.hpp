@@ -26,7 +26,7 @@
 #define _statslib_rlogis_HPP
 
 //
-// scalar ouput
+// scalar output
 
 template<typename T1, typename T2>
 statslib_inline

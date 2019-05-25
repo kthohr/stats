@@ -23,7 +23,7 @@
  */
 
 //
-// scalar ouput
+// scalar output
 
 namespace internal
 {
@@ -52,7 +52,7 @@ rexp_compute(const T rate_par, rand_engine_t& engine)
  * Example:
  * \code{.cpp}
  * stats::rand_engine_t engine(1776);
- * stats::rchisq(4,engine);
+ * stats::rexp(4,engine);
  * \endcode
  */
 
@@ -74,7 +74,7 @@ rexp(const T rate_par, rand_engine_t& engine)
  *
  * Example:
  * \code{.cpp}
- * stats::rchisq(4,1776);
+ * stats::rexp(4,1776);
  * \endcode
  */
 
@@ -93,6 +93,7 @@ rexp(const T rate_par, const ullint_t seed_val)
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename T1, typename rT>
 statslib_inline
 void
@@ -100,6 +101,27 @@ rexp_vec(const T1 rate_par, rT* __stats_pointer_settings__ vals_out, const ullin
 {
     RAND_DIST_FN_VEC(rexp,vals_out,num_elem,rate_par);
 }
+#endif
+
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
+template<typename eT, typename T1>
+statslib_inline
+void
+rexp_mat_check(std::vector<eT>& X, const T1 dof_par)
+{
+    STDVEC_RAND_DIST_FN(rexp,dof_par);
+}
+#endif
+
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1>
+statslib_inline
+void
+rexp_mat_check(mT& X, const T1 dof_par)
+{
+    MAIN_MAT_RAND_DIST_FN(rexp,dof_par);
+}
+#endif
 
 }
 
@@ -114,18 +136,25 @@ rexp_vec(const T1 rate_par, rT* __stats_pointer_settings__ vals_out, const ullin
  *
  * Example:
  * \code{.cpp}
- * stats::rchisq<arma::mat>(5,4,4);
+ * // std::vector
+ * stats::rexp<std::vector<double>>(5,4,4);
+ * // Armadillo matrix
+ * stats::rexp<arma::mat>(5,4,4);
+ * // Blaze dynamic matrix
+ * stats::rexp<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,4);
+ * // Eigen dynamic matrix
+ * stats::rexp<Eigen::MatrixXd>(5,4,4);
  * \endcode
  *
- * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1>
 statslib_inline
 mT
 rexp(const ullint_t n, const ullint_t k, const T1 rate_par)
 {
-    GEN_MAT_RAND_FN(rexp_vec,rate_par);
+    GEN_MAT_RAND_FN(rexp_mat_check,rate_par);
 }
 #endif

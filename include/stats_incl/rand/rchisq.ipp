@@ -23,7 +23,7 @@
  */
 
 //
-// scalar ouput
+// scalar output
 
 namespace internal
 {
@@ -93,6 +93,7 @@ rchisq(const T dof_par, const ullint_t seed_val)
 namespace internal
 {
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename T1, typename rT>
 statslib_inline
 void
@@ -100,6 +101,27 @@ rchisq_vec(const T1 dof_par, rT* __stats_pointer_settings__ vals_out, const ulli
 {
     RAND_DIST_FN_VEC(rchisq,vals_out,num_elem,dof_par);
 }
+#endif
+
+#ifdef STATS_ENABLE_STDVEC_WRAPPERS
+template<typename eT, typename T1>
+statslib_inline
+void
+rchisq_mat_check(std::vector<eT>& X, const T1 dof_par)
+{
+    STDVEC_RAND_DIST_FN(rchisq,dof_par);
+}
+#endif
+
+#ifdef STATS_ENABLE_MATRIX_FEATURES
+template<typename mT, typename T1>
+statslib_inline
+void
+rchisq_mat_check(mT& X, const T1 dof_par)
+{
+    MAIN_MAT_RAND_DIST_FN(rchisq,dof_par);
+}
+#endif
 
 }
 
@@ -114,18 +136,25 @@ rchisq_vec(const T1 dof_par, rT* __stats_pointer_settings__ vals_out, const ulli
  *
  * Example:
  * \code{.cpp}
+ * // std::vector
+ * stats::rchisq<std::vector<double>>(5,4,4);
+ * // Armadillo matrix
  * stats::rchisq<arma::mat>(5,4,4);
+ * // Blaze dynamic matrix
+ * stats::rchisq<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,4);
+ * // Eigen dynamic matrix
+ * stats::rchisq<Eigen::MatrixXd>(5,4,4);
  * \endcode
  *
- * @note This function requires template instantiation, and accepts Armadillo, Blaze, and Eigen dense matrices as output types.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1>
 statslib_inline
 mT
 rchisq(const ullint_t n, const ullint_t k, const T1 dof_par)
 {
-    GEN_MAT_RAND_FN(rchisq_vec,dof_par);
+    GEN_MAT_RAND_FN(rchisq_mat_check,dof_par);
 }
 #endif
