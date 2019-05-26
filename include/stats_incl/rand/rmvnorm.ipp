@@ -32,18 +32,18 @@
  * @return a pseudo-random draw from the Multivariate-Normal distribution.
  */
 
-template<typename mT, typename not_arma_mat<mT>::type*>
+template<typename vT, typename mT, typename not_arma_mat<mT>::type*>
 statslib_inline
-mT
-rmvnorm(const mT& mu_par, const mT& Sigma_par, const bool pre_chol)
+vT
+rmvnorm(const vT& mu_par, const mT& Sigma_par, const bool pre_chol)
 {
-    mT ret;
+    vT ret;
 
     const ullint_t K = mat_ops::n_rows(Sigma_par);
 
     if (mat_ops::n_elem(mu_par) != K)
     {
-        printf("rmvnorm: dimensions of mu and Sigma don't agree.\n");
+        printf("rmvnorm: dimensions of mu and Sigma do not agree.\n");
         return ret;
     }
 
@@ -51,7 +51,7 @@ rmvnorm(const mT& mu_par, const mT& Sigma_par, const bool pre_chol)
 
     const mT A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
 
-    ret = mu_par + A * rnorm<mT>(K,1);
+    ret = mu_par + A * rnorm<vT>(K,1);
 
     //
     
@@ -59,18 +59,19 @@ rmvnorm(const mT& mu_par, const mT& Sigma_par, const bool pre_chol)
 }
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
+// Note: mu is templated as it could be of type Col<eT> or Mat<eT>
 template<typename mT, typename eT>
 statslib_inline
 mT
 rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
-{   // mu is templated as it could be of type Col<eT> or Mat<eT>
+{
     mT ret;
 
     const ullint_t K = Sigma_par.n_rows;
 
     if (mu_par.n_elem != K)
     {
-        printf("rmvnorm: dimensions of mu and Sigma don't agree.\n");
+        printf("rmvnorm: dimensions of mu and Sigma do not agree.\n");
         return ret;
     }
 
@@ -90,10 +91,10 @@ rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 //
 // n-samples: results will be an n x K matrix
 
-template<typename mT, typename not_arma_mat<mT>::type*>
+template<typename vT, typename mT, typename not_arma_mat<mT>::type*>
 statslib_inline
 mT
-rmvnorm(const ullint_t n, const mT& mu_par, const mT& Sigma_par, const bool pre_chol)
+rmvnorm(const ullint_t n, const vT& mu_par, const mT& Sigma_par, const bool pre_chol)
 {
     mT ret;
 
@@ -101,7 +102,7 @@ rmvnorm(const ullint_t n, const mT& mu_par, const mT& Sigma_par, const bool pre_
 
     if (mat_ops::n_elem(mu_par) != K)
     {
-        printf("rmvnorm: dimensions of mu and Sigma don't agree.\n");
+        printf("rmvnorm: dimensions of mu and Sigma do not agree.\n");
         return ret;
     }
 
@@ -117,18 +118,19 @@ rmvnorm(const ullint_t n, const mT& mu_par, const mT& Sigma_par, const bool pre_
 }
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
+// mu is templated as it could be of type Col<eT> or Mat<eT>
 template<typename mT, typename eT>
 statslib_inline
 ArmaMat<eT>
 rmvnorm(const ullint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
-{   // mu is templated as it could be of type Col<eT> or Mat<eT>
+{
     ArmaMat<eT> ret;
 
     const ullint_t K = Sigma_par.n_rows;
 
     if (mu_par.n_elem != K)
     {
-        printf("rmvnorm: dimensions of mu and Sigma don't agree.\n");
+        printf("rmvnorm: dimensions of mu and Sigma do not agree.\n");
         return ret;
     }
 

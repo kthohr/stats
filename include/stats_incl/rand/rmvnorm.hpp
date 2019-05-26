@@ -28,14 +28,14 @@
 #ifdef STATS_ENABLE_MATRIX_FEATURES
 
 // vector draw
-template<typename T, typename not_arma_mat<T>::type* = nullptr>
+template<typename vT, typename mT, typename not_arma_mat<mT>::type* = nullptr>
 statslib_inline
-T rmvnorm(const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
+vT rmvnorm(const vT& mu_par, const mT& Sigma_par, const bool pre_chol = false);
 
 // n samples
-template<typename T, typename not_arma_mat<T>::type* = nullptr>
+template<typename vT, typename mT, typename not_arma_mat<mT>::type* = nullptr>
 statslib_inline
-T rmvnorm(const ullint_t n, const T& mu_par, const T& Sigma_par, const bool pre_chol = false);
+mT rmvnorm(const ullint_t n, const vT& mu_par, const mT& Sigma_par, const bool pre_chol = false);
 
 // specializations
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
