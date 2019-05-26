@@ -43,6 +43,7 @@ namespace mat_ops
     #include "log.hpp"
     #include "log_det.hpp"
     #include "mean.hpp"
+    #include "quad_form.hpp"
     #include "repmat.hpp"
     #include "resize.hpp"
     #include "solve.hpp"

@@ -23,44 +23,50 @@
  */
 
 //
-// matrix 'solve': A*X = B
+// x'Ax or x'(A^{-1})x, where x is (n x 1) and A is (n x n)
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT>
 statslib_inline
-ArmaMat<eT>
-solve(const ArmaMat<eT>& A, const ArmaMat<eT>& B)
+double
+quad_form(const ArmaMat<eT>& x, const ArmaMat<eT>& A, const bool inv_A = true)
 {
-    return arma::solve(A,B);
+    if (inv_A) {
+        return static_cast<double>( arma::dot(x,arma::solve(A,x)) );
+    } else {
+        return static_cast<double>( arma::dot(x,A*x) );
+    }
 }
 #endif
 
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
-template<typename eT, bool To>
+template<typename vT, typename mT>
 statslib_inline
-BlazeMat<eT,To>
-solve(const BlazeMat<eT,To>& A, const BlazeMat<eT,To>& B)
+double
+quad_form(const vT& x, const mT& A, const bool inv_A = true)
 {
-    return blaze::inv(A)*B;
+    if (inv_A) {
+        // return static_cast<double>( blaze::dot(x, blaze::inv(A)*x) );
+        mT res = blaze::trans(x) * blaze::inv(A) * x;
+        return static_cast<double>( res(0,0) );
+    } else {
+        mT res = blaze::trans(x) * A * x;
+        return static_cast<double>( res(0,0) );
+    }
 }
 #endif
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
-// template<typename eT, int iTr, int iTc>
-// statslib_inline
-// EigenMat<eT,iTr,iTc>
-// solve(const EigenMat<eT,iTr,iTr>& A, const EigenMat<eT,iTr,iTc>& B)
-// {
-//     // note A must be square, so iTr=iTc for A
-//     return A.colPivHouseholderQr().solve(B);
-// }
-
-template<typename mT, typename vT>
+template<typename vT, typename mT>
 statslib_inline
-vT
-solve(const mT& A, const vT& B)
+double
+quad_form(const vT& x, const mT& A, const bool inv_A = true)
 {
-    // note A must be square, so iTr=iTc for A
-    return A.colPivHouseholderQr().solve(B);
+    if (inv_A) {
+        const vT Ax = A.colPivHouseholderQr().solve(x);
+        return static_cast<double>( (x.transpose() * Ax)(0) );
+    } else {
+        return static_cast<double>( (x.transpose() * A * x)(0) );
+    }
 }
 #endif

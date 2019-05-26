@@ -33,20 +33,20 @@
  * @return the density function evaluated at \c X.
  */
 
-template<typename mT, typename eT>
+template<typename vT, typename mT, typename eT>
 statslib_inline
 eT
-dmvnorm(const mT& X, const mT& mu_par, const mT& Sigma_par, bool log_form)
+dmvnorm(const vT& X, const vT& mu_par, const mT& Sigma_par, bool log_form)
 {
     const ullint_t K = mat_ops::n_rows(X);
 
     //
 
-    const eT cons_term = -eT(0.5)*K*GCEM_LOG_2PI;
-    const mT X_cent = X - mu_par; // avoids issues like Mat vs eGlue in templates
-    const mT quadratic_term = mat_ops::trans(X_cent) * mat_ops::solve(Sigma_par,X_cent);
+    const eT cons_term = static_cast<eT>( -eT(0.5)*K*GCEM_LOG_2PI );
+    const vT X_cent = X - mu_par; // avoids issues like Mat vs eGlue in templates
+    const eT quad_term = mat_ops::quad_form(X_cent, Sigma_par, true);
     
-    eT ret = cons_term - eT(0.5) * ( mat_ops::log_det(Sigma_par) + quadratic_term(0,0) );
+    eT ret = cons_term - eT(0.5) * ( mat_ops::log_det(Sigma_par) + quad_term );
 
     if (!log_form) {
         ret = std::exp(ret);
