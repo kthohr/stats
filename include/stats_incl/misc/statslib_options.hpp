@@ -183,6 +183,12 @@ namespace stats
 
 #endif
 
+// other
+
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
+    #include <iostream> // cerr, cout, ...
+#endif
+
 //
 // misc. compiler options
 
