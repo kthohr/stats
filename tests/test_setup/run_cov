@@ -5,6 +5,8 @@ cd ..
 
 #
 
+export MATLIB_OPT=""
+
 if [[ "${STATS_TEST_USE_ARMA}" != "" ]]; then
     if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
         git clone --single-branch https://gitlab.com/conradsnicta/armadillo-code.git ./arma_tmp
@@ -31,6 +33,8 @@ fi
 
 if [[ "${STATS_TEST_USE_STDVEC}" != "" ]]; then
     export STDVEC_OPT="-s"
+else
+    export STDVEC_OPT=""
 fi
 
 #
@@ -45,7 +49,7 @@ declare -a DIRS=("dens" "prob" "quant" "rand")
 for i in "${DIRS[@]}"; do
     cd "$WDIR"/"$i"
 
-    ./configure -c "$MATLIB_OPT" "$STDVEC_OPT" -v 2
+    ./configure -c $MATLIB_OPT $STDVEC_OPT -v 2
 
     make clean
     make
