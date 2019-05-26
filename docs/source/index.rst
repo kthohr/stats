@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2019 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,7 +7,7 @@
 Introduction
 ============
 
-StatsLib is a templated C++ library of statistical distribution functions, featuring unique compile-time computation capabilities and seamless integration with several popular linear algebra libraries.
+StatsLib is a templated C++ library of statistical distribution functions, featuring unique compile-time computing capabilities and seamless integration with several popular linear algebra libraries.
 
 **Features**
 
