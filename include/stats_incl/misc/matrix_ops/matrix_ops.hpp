@@ -22,7 +22,8 @@
  * for internal use only; used to switch between the different matrix libraries
  */
 
-#ifdef STATS_ENABLE_MATRIX_FEATURES
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
+
 namespace mat_ops
 {    
     #include "n_cols.hpp"
