@@ -328,6 +328,8 @@ log_if(const T x, const bool log_form)
 // matrix tests
 //
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
+
 #define MATOPS stats::mat_ops
 
 //
@@ -496,6 +498,10 @@ print_mat_test_fail(std::string fn_name, std::string mtype, int test_number,
     STATS_TEST_EXPECTED_MAT(fn_eval, vals_inp, exp_vals, mtype, false, __VA_ARGS__)                 \
 }
 
+#endif
+
+//
+// printing end results
 //
 
 void finish_print_line(int k)
