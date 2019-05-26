@@ -1,14 +1,40 @@
 #!/bin/bash
 
 WDIR=${PWD}
-
 cd ..
-if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
-    git clone --single-branch https://gitlab.com/conradsnicta/armadillo-code.git ./arma_tmp
-    export ARMA_INCLUDE_PATH="$PWD/arma_tmp/include"
+
+#
+
+if [[ "${STATS_TEST_USE_ARMA}" != "" ]]; then
+    if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
+        git clone --single-branch https://gitlab.com/conradsnicta/armadillo-code.git ./arma_tmp
+        export ARMA_INCLUDE_PATH="$PWD/arma_tmp/include"
+        export MATLIB_OPT="-l arma"
+    fi
 fi
 
-export CXXCOV=gcov
+if [[ "${STATS_TEST_USE_BLAZE}" != "" ]]; then
+    if [ -z ${BLAZE_INCLUDE_PATH+x} ]; then 
+        git clone --single-branch https://bitbucket.org/blaze-lib/blaze.git ./blaze_tmp
+        export BLAZE_INCLUDE_PATH="$PWD/blaze_tmp"
+        export MATLIB_OPT="-l blaze"
+    fi
+fi
+
+if [[ "${STATS_TEST_USE_EIGEN}" != "" ]]; then
+    if [ -z ${EIGEN_INCLUDE_PATH+x} ]; then 
+        git clone --single-branch https://github.com/eigenteam/eigen-git-mirror.git ./eigen_tmp
+        export EIGEN_INCLUDE_PATH="$PWD/eigen_tmp"
+        export MATLIB_OPT="-l eigen"
+    fi
+fi
+
+if [[ "${STATS_TEST_USE_STDVEC}" != "" ]]; then
+    export STDVEC_OPT="-s"
+fi
+
+#
+
 export LD_LIBRARY_PATH="$PWD":$LD_LIBRARY_PATH
 cd tests
 
@@ -19,7 +45,9 @@ declare -a DIRS=("dens" "prob" "quant" "rand")
 for i in "${DIRS[@]}"; do
     cd "$WDIR"/"$i"
 
-    ./configure -c -l arma
+    ./configure -c "$MATLIB_OPT" "$STDVEC_OPT" -v 2
+
+    make clean
     make
     sh ./../test_setup/cov_check
 done

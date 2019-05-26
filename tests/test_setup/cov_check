@@ -8,6 +8,8 @@ for t in ./*.test; do
    "$t"
 done
 
-for t in ./*.cpp; do
-   $CXXCOV "$t" > /dev/null 2>&1
-done
+if [[ "${STATS_TEST_RUN_COV}" != "" ]]; then
+    for t in ./*.cpp; do
+        $CXXCOV "$t" > /dev/null 2>&1
+    done
+fi

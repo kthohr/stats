@@ -41,6 +41,9 @@ matrix:
             - ubuntu-toolchain-r-test
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && FC=gfortran-7"
+        - STATS_TEST_USE_STDVEC="y"
+        - CCOV=gcov-7 && CXXCOV=gcov-7
+        - STATS_TEST_RUN_COV="y"
       compiler: gcc
 
     - os: linux
@@ -54,6 +57,48 @@ matrix:
             - ubuntu-toolchain-r-test
       env:
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8 && FC=gfortran-8"
+      compiler: gcc
+
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          packages:
+            - g++-7
+            - gfortran-7
+          sources: &sources
+            - ubuntu-toolchain-r-test
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && FC=gfortran-7"
+        - STATS_TEST_USE_ARMA="y"
+      compiler: gcc
+
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          packages:
+            - g++-7
+            - gfortran-7
+          sources: &sources
+            - ubuntu-toolchain-r-test
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && FC=gfortran-7"
+        - STATS_TEST_USE_BLAZE="y"
+      compiler: gcc
+
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          packages:
+            - g++-7
+            - gfortran-7
+          sources: &sources
+            - ubuntu-toolchain-r-test
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && FC=gfortran-7"
+        - STATS_TEST_USE_EIGEN="y"
       compiler: gcc
 
     - os: osx
@@ -102,9 +147,10 @@ script:
 
 after_success:
   - |
-      if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
-        bash <(curl -s https://codecov.io/bash)
-      fi
+    if [[ "${STATS_TEST_RUN_COV}" == "y" ]]; then 
+      alias gcov=$CCOV
+      bash <(curl -s https://codecov.io/bash) -x $CCOV
+    fi
 
 after_failure:
   - ./travis-tool.sh dump_logs
