@@ -127,7 +127,7 @@
 {                                                                                       \
     for (ullint_t j=ullint_t(0); j < num_elem; ++j)                                     \
     {                                                                                   \
-        vals_out[j] = fn_name(vals_in[j],__VA_ARGS__);                                  \
+        vals_out[j] = dist_name(vals_in[j],__VA_ARGS__);                                \
     }                                                                                   \
 }                                                                                       \
 
