@@ -1,1 +1,1 @@
-kthohr/gcem>=1.12
+gcem>=1.12
