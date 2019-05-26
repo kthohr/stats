@@ -49,7 +49,7 @@ int main()
     Eigen::Matrix<double, 3, 3> Sigma2 = Eigen::Matrix3d::Identity();
 
     double p = stats::dmvnorm(X2, mean, Sigma2);
-    std::cout << "density value: " << p << "." << std::endl;
+    std::cout << "p = " << p << "." << std::endl;
 #endif
 
     std::cout << "\n*** dmvnorm: tests finished. ***\n" << std::endl;
