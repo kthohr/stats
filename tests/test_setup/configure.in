@@ -7,7 +7,7 @@ function print_help
     echo -e "\x1B[32mStatsLib Tests configure options\033[0m" >&2 ;
     echo "" ;
     echo "-c    Coverage build" ;
-    echo "-g    Debugging build (optimization flags set to -O0 -g)" ;
+    echo "-g    Debugging build (optimization flags set to: -O0 -g)" ;
     echo "-h    Print help" ;
     echo "-i    StatsLib install path (default: build directory)" ;
     echo "-l    Enable wrappers for a linear algebra library" ;
@@ -17,9 +17,12 @@ function print_help
     echo "-o    Compiler optimization options; defaults to:" ;
     echo "        -O3 -march=native -ffp-contract=fast" ;
     echo "-p    Enable OpenMP parallelization features" ;
+    echo "-s    Enable std::vector tests" ;
+    echo "-v    Set verbose print level: 0, 1, or 2" ;
+    echo "" ;
 }
 
-while getopts hcgil:m:o:p option; do
+while getopts hcgil:m:o:psv: option; do
     case "${option}" in
         h) print_help; exit 2;;
         c) STATS_COVERAGE_BUILD="y";;
@@ -28,7 +31,9 @@ while getopts hcgil:m:o:p option; do
         l) STATS_LINEAR_ALG_LIB=${OPTARG};;
         m) STATS_MATRIX_OPS=${OPTARG};;
         o) STATS_OPT=${OPTARG};;
-        p) STATS_PARALLEL="y";;
+        p) STATS_ENABLE_PARALLEL="y";;
+        s) STATS_ENABLE_STDVEC="y";;
+        v) STATS_VERBOSE_PRINT=${OPTARG};;
         ?) print_help; exit 2;;
     esac
 done
@@ -58,6 +63,15 @@ WDIR=${PWD}
 STATS_MATLIB_FLAGS=
 STATS_MATLIB_PATH="."
 
+# look for GCEM
+if [ -z ${GCEM_INCLUDE_PATH+x} ]; then
+    echo -e "  \x1B[31m- error: cannot find the GCEM library header files.\033[0m" >&2 ;
+    echo -e "  \x1B[31m-        Please set the GCEM_INCLUDE_PATH variable to the directory of gcem.hpp. \033[0m" >&2 ;
+    echo -e "  \x1B[31m-        Exiting.\033[0m" >&2 ;
+    echo ""
+    exit 1
+fi
+
 # look for Armadillo
 if [[ "${STATS_LINEAR_ALG_LIB}" == "arma" ]]; then
     if [ -z ${ARMA_INCLUDE_PATH+x} ]; then 
@@ -79,17 +93,28 @@ if [[ "${STATS_LINEAR_ALG_LIB}" == "arma" ]]; then
         fi
     fi
 
-    STATS_MATLIB_FLAGS="-DSTATS_USE_ARMA -DARMA_NO_DEBUG"
+    STATS_MATLIB_FLAGS="-DSTATS_ENABLE_ARMA_WRAPPERS -DARMA_NO_DEBUG"
     STATS_MATLIB_PATH=$ARMA_INCLUDE_PATH
 elif [[ "${STATS_LINEAR_ALG_LIB}" == "blaze" ]]; then
-    STATS_MATLIB_FLAGS="-DSTATS_USE_BLAZE"
+    STATS_MATLIB_FLAGS="-DSTATS_ENABLE_BLAZE_WRAPPERS"
     STATS_MATLIB_PATH=$BLAZE_INCLUDE_PATH
     CXX_STD="-std=c++14"
 elif [[ "${STATS_LINEAR_ALG_LIB}" == "eigen" ]]; then
-    STATS_MATLIB_FLAGS="-DSTATS_USE_EIGEN"
+    STATS_MATLIB_FLAGS="-DSTATS_ENABLE_EIGEN_WRAPPERS"
     STATS_MATLIB_PATH=$EIGEN_INCLUDE_PATH
 else
-    STATS_LINEAR_ALG_LIB="none."
+    STATS_LINEAR_ALG_LIB="none"
+fi
+
+#
+
+if [[ "${STATS_ENABLE_STDVEC}" == "y" ]]; then
+    STATS_MATLIB_FLAGS="-DSTATS_ENABLE_STDVEC_WRAPPERS ${STATS_MATLIB_FLAGS}"
+fi
+
+#
+if [[ !(-z ${STATS_VERBOSE_PRINT+x}) ]]; then
+    STATS_MATLIB_FLAGS="-DTEST_PRINT_LEVEL=${STATS_VERBOSE_PRINT} ${STATS_MATLIB_FLAGS}"
 fi
 
 # set optimization flags
@@ -109,12 +134,12 @@ else
         STATS_OPT_FLAGS="${STATS_OPT}"
     fi
 
-    if [[ "${STATS_PARALLEL}" == "y" ]]; then
+    if [[ "${STATS_ENABLE_PARALLEL}" == "y" ]]; then
         STATS_OPT_FLAGS="${STATS_OPT_FLAGS} -fopenmp"
     fi
 fi
 
-STATS_WARN_FLAGS="-Wall"
+STATS_WARN_FLAGS="-Wall -Wextra"
 
 # dev build
 
@@ -161,21 +186,36 @@ fi
 
 echo ""
 
+echo "  - GCEM_INCLUDE_PATH set to:"
+echo "    ${GCEM_INCLUDE_PATH}"
+
+echo ""
+
+if [[ "${STATS_ENABLE_STDVEC}" == "y" ]]; then
+    echo -e "  - std::vector tests: \x1B[32menabled\033[0m" >&2 ;
+else
+    echo -e "  - std::vector tests: \x1B[31mdisabled\033[0m" >&2 ;
+fi
+
+echo ""
+
 echo "  - STATS_LINEAR_ALG_LIB set to: ${STATS_LINEAR_ALG_LIB}"
+if [[ "${STATS_LINEAR_ALG_LIB}" != "none" ]]; then 
 echo "  - STATS_MATLIB_PATH set to:"
 echo "    ${STATS_MATLIB_PATH}"
 echo "  - BLAS and Lapack libraries set to:"
 echo "    ${STATS_BLAS_LAPACK}"
+fi
 
 echo ""
 
-if [[ "${STATS_PARALLEL}" == "y" ]]; then
+if [[ "${STATS_ENABLE_PARALLEL}" == "y" ]]; then
     echo -e "  - OpenMP features: \x1B[32menabled\033[0m" >&2 ;
 else
     echo -e "  - OpenMP features: \x1B[31mdisabled\033[0m" >&2 ;
 fi
 
-echo "  - optimization flags:"
+echo "  - Optimization flags:"
 echo "    ${STATS_OPT_FLAGS}"
 
 echo ""
@@ -186,7 +226,7 @@ echo "    ${STATS_INSTALL_PATH}"
 echo ""
 echo "  - Additional notes:"
 
-if [ "$APPLE_COMPILER" -eq "1" ] && [[ "${STATS_PARALLEL}" == "y" ]]; then
+if [ "$APPLE_COMPILER" -eq "1" ] && [[ "${STATS_ENABLE_PARALLEL}" == "y" ]]; then
     echo -e "    \x1B[31m- You have enabled OpenMP, but your C++ compiler does not\033[0m" >&2 ;
     echo -e "    \x1B[31m  support this feature!\033[0m" >&2 ;
 fi
@@ -206,6 +246,7 @@ sed -e "s|@CXX@|${CXX}|" \
     -e "s|@STATS_BLAS_LAPACK@|${STATS_BLAS_LAPACK}|" \
     -e "s|@STATS_WARN_FLAGS@|${STATS_WARN_FLAGS}|" \
     -e "s|@STATS_OPT_FLAGS@|${STATS_OPT_FLAGS}|" \
+    -e "s|@GCEM_INCLUDE_PATH@|${GCEM_INCLUDE_PATH}|" \
     -e "s|@STATS_INSTALL_INCLUDE_PATH@|${STATS_INSTALL_INCLUDE_PATH}|" \
     Makefile.in > Makefile
 

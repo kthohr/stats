@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -21,20 +21,22 @@
 #ifndef _statslib_HPP
 #define _statslib_HPP
 
-#include "math/gcem.hpp"
-#include "misc/statslib_options.hpp"
+#include "gcem.hpp"
+#include "stats_incl/misc/statslib_options.hpp"
 
 namespace stats
 {
-    #include "misc/matrix_ops.hpp"
+    #include "stats_incl/misc/misc.hpp"
 
-    #include "dens/dens.hpp"
+    #include "stats_incl/dens/dens.hpp"
 
-    #include "prob/prob.hpp"
+    #include "stats_incl/prob/prob.hpp"
 
-    #include "quant/quant.hpp"
+    #include "stats_incl/quant/quant.hpp"
 
-    #include "rand/rand.hpp"
+    #include "stats_incl/rand/rand.hpp"
+
+    // #include "stats_incl/copula/"
 }
 
 #endif

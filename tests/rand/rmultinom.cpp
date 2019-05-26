@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,12 +18,13 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
-#ifdef STATS_TEST_MAT
+    print_begin("rmultinom");
+
+#ifdef STATS_TEST_MATRIX_FEATURES
     mat_obj prob_vec(5,1);
     prob_vec(0,0) = 0.1;
     prob_vec(1,0) = 0.15;

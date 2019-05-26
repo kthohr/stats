@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,30 +18,44 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rpois");
+
+    //
+
     double rate_par = 5.0;
 
-    std::cout << "\n*** rpois: begin tests. ***\n" << std::endl;
+    double pois_mean = rate_par;
+    double pois_var = rate_par;
+
+    int n_sample = 10000;
 
     //
 
     double pois_rand = stats::rpois(rate_par);
-
     std::cout << "pois rv draw: " << pois_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
-    double pois_mean = rate_par;
-    double pois_var = rate_par;
+    //
 
-    int n = 100000;
-    mat_obj pois_vec = stats::rpois<mat_obj>(n,1,rate_par);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> pois_stdvec = stats::rpois<std::vector<double>>(n_sample,1,rate_par);
 
-    std::cout << "pois rv mean: " << stats::mat_ops::mean(pois_vec) << ". Should be close to: " << pois_mean << std::endl;
-    std::cout << "pois rv variance: " << stats::mat_ops::var(pois_vec) << ". Should be close to: " << pois_var << std::endl;
+    std::cout << "stdvec: pois rv mean: " << stats::mat_ops::mean(pois_stdvec) << ". Should be close to: " << pois_mean << std::endl;
+    std::cout << "stdvec: pois rv variance: " << stats::mat_ops::var(pois_stdvec) << ". Should be close to: " << pois_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj pois_vec = stats::rpois<mat_obj>(n_sample,1,rate_par);
+
+    std::cout << "Matrix: pois rv mean: " << stats::mat_ops::mean(pois_vec) << ". Should be close to: " << pois_mean << std::endl;
+    std::cout << "Matrix: pois rv variance: " << stats::mat_ops::var(pois_vec) << ". Should be close to: " << pois_var << std::endl;
 #endif
 
     //

@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,28 +18,42 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
-    double mu = 2.5;
-    double sigma = 1.5;
-    
-    double cauchy_rand = stats::rcauchy(mu,sigma);
-
-    std::cout << "\n*** rcauchy: begin tests. ***\n" << std::endl;
+    print_begin("rcauchy");
 
     //
 
+    double mu = 2.5;
+    double sigma = 1.5;
+
+    int n_sample = 100;
+
+    //
+
+    double cauchy_rand = stats::rcauchy(mu,sigma);
     std::cout << "cauchy rv draw: " << cauchy_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
-    int n = 100;
-    mat_obj cauchy_vec = stats::rcauchy<mat_obj>(n,1,mu,sigma);
+    //
 
-    std::cout << "cauchy rv mean: " << stats::mat_ops::mean(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
-    std::cout << "cauchy rv variance: " << stats::mat_ops::var(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> cauchy_stdvec = stats::rcauchy<std::vector<double>>(n_sample,1,mu,sigma);
+
+    std::cout << "stdvec: cauchy rv mean: " << stats::mat_ops::mean(cauchy_stdvec) << ". Note: not defined." << std::endl; // not defined
+    std::cout << "stdvec: cauchy rv variance: " << stats::mat_ops::var(cauchy_stdvec) << ". Note: not defined." << std::endl; // not defined
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj cauchy_vec = stats::rcauchy<mat_obj>(n_sample,1,mu,sigma);
+
+    std::cout << "Matrix: cauchy rv mean: " << stats::mat_ops::mean(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
+    std::cout << "Matrix: cauchy rv variance: " << stats::mat_ops::var(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
 #endif
 
     //

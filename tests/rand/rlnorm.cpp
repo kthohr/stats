@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,31 +18,45 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rlnorm");
+    
+    //
+
     double mu = 0.1;
     double sigma = 1;
 
-    std::cout << "\n*** rlnorm: begin tests. ***\n" << std::endl;
+    double lnorm_mean = std::exp(mu + sigma*sigma / 2.0);
+    double lnorm_var = (std::exp(sigma*sigma) - 1.0) * std::exp(2*mu + sigma*sigma);
+
+    int n_sample = 10000;
 
     //
 
     double lnorm_rand = stats::rlnorm(mu,sigma);
-
     std::cout << "lnorm rv draw: " << lnorm_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
-    double lnorm_mean = std::exp(mu + sigma*sigma / 2.0);
-    double lnorm_var = (std::exp(sigma*sigma) - 1.0) * std::exp(2*mu + sigma*sigma);
+    //
 
-    int n = 200000;
-    mat_obj lnorm_vec = stats::rlnorm<mat_obj>(n,1,mu,sigma);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> lnorm_stdvec = stats::rlnorm<std::vector<double>>(n_sample,1,mu,sigma);
 
-    std::cout << "lnorm rv mean: " << stats::mat_ops::mean(lnorm_vec) << ". Should be close to: " << lnorm_mean << std::endl;
-    std::cout << "lnorm rv variance: " << stats::mat_ops::var(lnorm_vec) << ". Should be close to: " << lnorm_var << std::endl;
+    std::cout << "stdvec: lnorm rv mean: " << stats::mat_ops::mean(lnorm_stdvec) << ". Should be close to: " << lnorm_mean << std::endl;
+    std::cout << "stdvec: lnorm rv variance: " << stats::mat_ops::var(lnorm_stdvec) << ". Should be close to: " << lnorm_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj lnorm_vec = stats::rlnorm<mat_obj>(n_sample,1,mu,sigma);
+
+    std::cout << "Matrix: lnorm rv mean: " << stats::mat_ops::mean(lnorm_vec) << ". Should be close to: " << lnorm_mean << std::endl;
+    std::cout << "Matrix: lnorm rv variance: " << stats::mat_ops::var(lnorm_vec) << ". Should be close to: " << lnorm_var << std::endl;
 #endif
 
     //

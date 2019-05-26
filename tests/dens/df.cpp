@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,57 +18,88 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+#define TEST_PRINT_PRECISION_1 2
+#define TEST_PRINT_PRECISION_2 5
+
 #include "../stats_tests.hpp"
 
 int main()
 {
-    double err_tol = 1E-06;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    print_begin("df");
+
+    // parameters
 
     double a_par = 10.0;
     double b_par = 12.0;
 
-    std::cout << "\n*** df: begin tests. ***\n" << std::endl;
-
     //
 
-    double x_1 = 1.5;
-    double val_1 = 0.3426271;
-    double dens_1 = stats::df(x_1,a_par,b_par,false);
-
-    bool success_1 = (std::abs(dens_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "df(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_1 << ". Success = " << success_1 << std::endl;
-
-    // return log
-
-    double x_2 = 1.5;
-    double val_2 = std::log(val_1);
-    double dens_2 = stats::df(x_2,a_par,b_par,true);
-
-    bool success_2 = (std::abs(dens_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "df(" << x_2 << ",log=true): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << dens_2 << ". Success = " << success_2 << std::endl;
-
-    if (success_1 && success_2) {
-        std::cout << "\n*** df: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** df: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    std::vector<double> inp_vals = { 1.0,        2.0,        3.0 };
+    std::vector<double> exp_vals = { 0.6438853,  0.1670815,  0.0424816 };
 
     //
-    // coverage tests
+    // scalar tests
 
-#ifdef STATS_TEST_MAT
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 1.0;
-    x_mat(1,0) = 2.0;
+    STATS_TEST_EXPECTED_VAL(df,inp_vals[0],exp_vals[0],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(df,inp_vals[1],exp_vals[1],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(df,inp_vals[2],exp_vals[2],false,a_par,b_par);
+    STATS_TEST_EXPECTED_VAL(df,inp_vals[1],exp_vals[1],true,a_par,b_par);
 
-    stats::df(x_mat,a_par,b_par);
-    stats::df(x_mat,a_par,b_par,true);
+    STATS_TEST_EXPECTED_VAL(df,TEST_NAN,TEST_NAN,false,a_par,b_par);                                // NaN inputs
+    STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,TEST_NAN,b_par);
+    STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,a_par,TEST_NAN);
+
+    STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,0,3);                                               // bad parameter value cases (a or b <= 0)
+    STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,4,0);
+    STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,3,-1);
+    STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,-1,4);
+    STATS_TEST_EXPECTED_VAL(df,2,TEST_NAN,false,-1,-1);
+
+    STATS_TEST_EXPECTED_VAL(df,-1,0.0,false,a_par,b_par);                                           // x < 0
+
+    STATS_TEST_EXPECTED_VAL(df,0,TEST_POSINF,false,1,3);                                            // x == 0
+    STATS_TEST_EXPECTED_VAL(df,0,1,false,2,2);
+    STATS_TEST_EXPECTED_VAL(df,0,0,false,3,3);
+
+    STATS_TEST_EXPECTED_VAL(df,1,TEST_POSINF,false,TEST_POSINF,TEST_POSINF);                        // a == +Inf and b == +Inf
+    STATS_TEST_EXPECTED_VAL(df,2,0,false,TEST_POSINF,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_VAL(df,2,0.1730996,false,TEST_POSINF,3);                                    // a == +Inf
+
+    STATS_TEST_EXPECTED_VAL(df,3,0.04978707,false,2,TEST_POSINF);                                   // b == +Inf
+ 
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(df,inp_vals,exp_vals,std::vector<double>,false,a_par,b_par);
+    STATS_TEST_EXPECTED_MAT(df,inp_vals,exp_vals,std::vector<double>,true,a_par,b_par);
 #endif
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
+
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(df,inp_mat,exp_mat,mat_obj,false,a_par,b_par);
+    STATS_TEST_EXPECTED_MAT(df,inp_mat,exp_mat,mat_obj,true,a_par,b_par);
+#endif
+
+    // 
+
+    print_final("df");
 
     return 0;
 }

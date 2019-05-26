@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,28 +18,42 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("runif");
+
+    //
+
     double a_par = -1;
     double b_par = 3;
 
-    std::cout << "\n*** runif: begin tests. ***\n" << std::endl;
+    double unif_mean = (a_par + b_par) / 2.0;
+    double unif_var = (b_par - a_par)*(b_par - a_par) / 12.0;
+
+    int n_sample = 10000;
 
     //
 
     double unif_rand = stats::runif(a_par,b_par);
-
     std::cout << "unif rv draw: " << unif_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
-    double unif_mean = (a_par + b_par) / 2.0;
-    double unif_var = (b_par - a_par)*(b_par - a_par) / 12.0;
+    //
 
-    int n = 10000;
-    mat_obj unif_vec = stats::runif<mat_obj>(n,1,a_par,b_par);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> unif_stdvec = stats::runif<std::vector<double>>(n_sample,1,a_par,b_par);
+
+    std::cout << "unif rv mean: " << stats::mat_ops::mean(unif_stdvec) << ". Should be close to: " << unif_mean << std::endl;
+    std::cout << "unif rv variance: " << stats::mat_ops::var(unif_stdvec) << ". Should be close to: " << unif_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj unif_vec = stats::runif<mat_obj>(n_sample,1,a_par,b_par);
 
     std::cout << "unif rv mean: " << stats::mat_ops::mean(unif_vec) << ". Should be close to: " << unif_mean << std::endl;
     std::cout << "unif rv variance: " << stats::mat_ops::var(unif_vec) << ". Should be close to: " << unif_var << std::endl;

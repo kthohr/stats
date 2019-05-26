@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,12 +18,14 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+#define TEST_PRINT_PRECISION_1 2
+#define TEST_PRINT_PRECISION_2 5
+
 #include "../stats_tests.hpp"
 
 int main()
 {
-#ifdef STATS_TEST_MAT
+#ifdef STATS_TEST_MATRIX_FEATURES
     int K = 2;
 
     std::cout << "\n*** dinvwish: begin tests. ***\n" << std::endl;

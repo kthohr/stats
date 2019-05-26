@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,30 +18,44 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
-    double dof = 3;
+    print_begin("rchisq");
+
+    //
     
-    std::cout << "\n*** rchisq: begin tests. ***\n" << std::endl;
+    double dof = 3;
+
+    double chisq_mean = dof;
+    double chisq_var = 2*dof;
+
+    int n_sample = 10000;
 
     //
 
     double chisq_rand = stats::rchisq(dof);
-
     std::cout << "chisq rv draw: " << chisq_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
-    double chisq_mean = dof;
-    double chisq_var = 2*dof;
+    //
 
-    int n = 100000;
-    mat_obj chisq_vec = stats::rchisq<mat_obj>(n,1,dof);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> chisq_stdvec = stats::rchisq<std::vector<double>>(n_sample,1,dof);
 
-    std::cout << "chisq rv mean: " << stats::mat_ops::mean(chisq_vec) << ". Should be close to: " << chisq_mean << std::endl;
-    std::cout << "chisq rv variance: " << stats::mat_ops::var(chisq_vec) << ". Should be close to: " << chisq_var << std::endl;
+    std::cout << "stdvec: chisq rv mean: " << stats::mat_ops::mean(chisq_stdvec) << ". Should be close to: " << chisq_mean << std::endl;
+    std::cout << "stdvec: chisq rv variance: " << stats::mat_ops::var(chisq_stdvec) << ". Should be close to: " << chisq_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj chisq_vec = stats::rchisq<mat_obj>(n_sample,1,dof);
+
+    std::cout << "Matrix: chisq rv mean: " << stats::mat_ops::mean(chisq_vec) << ". Should be close to: " << chisq_mean << std::endl;
+    std::cout << "Matrix: chisq rv variance: " << stats::mat_ops::var(chisq_vec) << ". Should be close to: " << chisq_var << std::endl;
 #endif
 
     //

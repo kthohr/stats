@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,117 +18,92 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+#define STATS_TEST_INPUT_TYPE 1
+
+#define TEST_PRINT_PRECISION_1 2
+#define TEST_PRINT_PRECISION_2 5
+
 #include "../stats_tests.hpp"
 
 int main()
 {
-    double err_tol = 1E-05;
-    int round_digits_1 = 5;
-    int round_digits_2 = 2;
+    print_begin("qgamma");
 
-    double shape_par = 3;
-    double scale_par = 2;
+    // parameters
 
-    std::cout << "\n*** qgamma: begin tests. ***\n" << std::endl;
-
-    // x = 0.3
-    double x_1 = 0.3;
-    double val_1 = 0.0005028624;
-    double q_1 = stats::qgamma(val_1,shape_par,scale_par);
-
-    bool success_1 = (std::abs(q_1 - x_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_1 << ". Success = " << success_1 << std::endl;
-
-    // x = 0.7
-    double x_2 = 0.7;
-    double val_2 = 0.005508933;
-    double q_2 = stats::qgamma(val_2,shape_par,scale_par);
-
-    bool success_2 = (std::abs(q_2 - x_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_2 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_2 << ". Success = " << success_2 << std::endl;
-
-    // x = 1.01
-    double x_3 = 1.01;
-    double val_3 = 0.0147696;
-    double q_3 = stats::qgamma(val_3,shape_par,scale_par);
-
-    bool success_3 = (std::abs(q_3 - x_3) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_3 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_3 << ". Success = " << success_3 << std::endl;
-
-    // x = 1.58
-    double x_4 = 1.58;
-    double val_4 = 0.04599555;
-    double q_4 = stats::qgamma(val_4,shape_par,scale_par);
-
-    bool success_4 = (std::abs(q_4 - x_4) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_4 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_4 << ". Success = " << success_4 << std::endl;
-
-    // x = 2.5
-    double x_5 = 2.5;
-    double val_5 = 0.1315323;
-    double q_5 = stats::qgamma(val_5,shape_par,scale_par);
-
-    bool success_5 = (std::abs(q_5 - x_5) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_5 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_5 << ". Success = " << success_5 << std::endl;
-
-    // x = 3.5
-    double x_6 = 3.5;
-    double val_6 = 0.2560303;
-    double q_6 = stats::qgamma(val_6,shape_par,scale_par);
-
-    bool success_6 = (std::abs(q_6 - x_6) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_6 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_6 << ". Success = " << success_6 << std::endl;
-
-    // x = 5.0
-    double x_7 = 5.0;
-    double val_7 = 0.4561869;
-    double q_7 = stats::qgamma(val_7,shape_par,scale_par);
-
-    bool success_7 = (std::abs(q_7 - x_7) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_7 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_7 << ". Success = " << success_7 << std::endl;
-
-    // x = 7.5
-    double x_8 = 7.5;
-    double val_8 = 0.7229316;
-    double q_8 = stats::qgamma(val_8,shape_par,scale_par);
-
-    bool success_8 = (std::abs(q_8 - x_8) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_8 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_8 << ". Success = " << success_8 << std::endl;
-
-    // x = 10.0
-    double x_9 = 10.0;
-    double val_9 = 0.875348;
-    double q_9 = stats::qgamma(val_9,shape_par,scale_par);
-
-    bool success_9 = (std::abs(q_9 - x_9) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qgamma(" << val_9 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2-1) << q_9 << ". Success = " << success_9 << std::endl;
-
-    if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        std::cout << "\n*** qgamma: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** qgamma: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    double shape_par = 2.0;
+    double scale_par = 3.0;
 
     //
-    // coverage tests
 
-#ifdef STATS_TEST_MAT
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = val_8;
-    x_mat(1,0) = val_9;
+    std::vector<double> inp_vals = { 0.05,      0.35,      0.79 };
+    std::vector<double> exp_vals = { 1.066085,  3.705131,  8.787132 };
 
-    stats::qgamma(x_mat,shape_par,scale_par);
+    //
+    // scalar tests
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,inp_vals[0],exp_vals[0],shape_par,scale_par);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,inp_vals[1],exp_vals[1],shape_par,scale_par);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,inp_vals[2],exp_vals[2],shape_par,scale_par);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,TEST_NAN,TEST_NAN,shape_par,scale_par);                    // NaN inputs
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,TEST_NAN,scale_par);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,shape_par,TEST_NAN);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,TEST_NAN,TEST_NAN);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,TEST_NAN,TEST_NAN,TEST_NAN,TEST_NAN);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,-0.1,TEST_NAN,shape_par,scale_par);                        // p < 0 or p > 1 cases
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma, 1.1,TEST_NAN,shape_par,scale_par);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,-1,2);                                        // shape < 0
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,TEST_NEGINF,2);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,1,0);                                         // scale <= 0
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,4,-1);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,3,TEST_NEGINF);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0,0,0,2);                                                  // shape == 0
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,0,0,2);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,1,TEST_POSINF,0,2);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0,0,0,TEST_POSINF);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,1,TEST_POSINF,0,TEST_POSINF);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.4,TEST_NAN,0,TEST_POSINF);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.6,TEST_NAN,0,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,TEST_POSINF,TEST_POSINF);                     // shape == +Inf or scale == +Inf
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,TEST_POSINF,2);
+    STATS_TEST_EXPECTED_QUANT_VAL(qgamma,0.5,TEST_NAN,2,TEST_POSINF);
+ 
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_QUANT_MAT(qgamma,inp_vals,exp_vals,std::vector<double>,shape_par,scale_par);
 #endif
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
+
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_QUANT_MAT(qgamma,inp_mat,exp_mat,mat_obj,shape_par,scale_par);
+#endif
+
+    // 
+
+    print_final("qgamma");
 
     return 0;
 }

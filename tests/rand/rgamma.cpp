@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,31 +18,45 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rgamma");
+
+    //
+
     double shape = 3;
     double scale = 2;
 
-    std::cout << "\n*** rgamma: begin tests. ***\n" << std::endl;
+    double gamma_mean = shape*scale;
+    double gamma_var = gamma_mean*scale;
+
+    int n_sample = 10000;
 
     //
 
     double gamma_rand = stats::rgamma(shape,scale);
-
     std::cout << "gamma rv draw: " << gamma_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
-    double gamma_mean = shape*scale;
-    double gamma_var = gamma_mean*scale;
+    //
 
-    int n = 100000;
-    mat_obj gamma_vec = stats::rgamma<mat_obj>(n,1,shape,scale);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> gamma_stdvec = stats::rgamma<std::vector<double>>(n_sample,1,shape,scale);
 
-    std::cout << "gamma rv mean: " << stats::mat_ops::mean(gamma_vec) << ". Should be close to: " << gamma_mean << std::endl;
-    std::cout << "gamma rv variance: " << stats::mat_ops::var(gamma_vec) << ". Should be close to: " << gamma_var << std::endl;
+    std::cout << "stdvec: gamma rv mean: " << stats::mat_ops::mean(gamma_stdvec) << ". Should be close to: " << gamma_mean << std::endl;
+    std::cout << "stdvec: gamma rv variance: " << stats::mat_ops::var(gamma_stdvec) << ". Should be close to: " << gamma_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj gamma_vec = stats::rgamma<mat_obj>(n_sample,1,shape,scale);
+
+    std::cout << "Matrix: gamma rv mean: " << stats::mat_ops::mean(gamma_vec) << ". Should be close to: " << gamma_mean << std::endl;
+    std::cout << "Matrix: gamma rv variance: " << stats::mat_ops::var(gamma_vec) << ". Should be close to: " << gamma_var << std::endl;
 #endif
 
     //

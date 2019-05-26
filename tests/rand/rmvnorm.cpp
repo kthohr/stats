@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,12 +18,13 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
-#ifdef STATS_TEST_MAT
+    print_begin("rmvnorm");
+
+#ifdef STATS_TEST_MATRIX_FEATURES
     int n = 10000;
     int K = 3;
 

@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,30 +18,44 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rbern");
+
+    //
+
     double prob_par = 0.75;
 
-    std::cout << "\n*** rbern: begin tests. ***\n" << std::endl;
+    double bern_mean = prob_par;
+    double bern_var = prob_par*(1.0 - prob_par);
+
+    int n_sample = 10000;
 
     //
 
     int bern_rand = stats::rbern(prob_par);
-
     std::cout << "bern rv draw: " << bern_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
-    double bern_mean = prob_par;
-    double bern_var = prob_par*(1.0 - prob_par);
+    //
 
-    int n = 10000;
-    mat_obj bern_vec = stats::rbern<mat_obj>(n,1,prob_par);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> bern_stdvec = stats::rbern<std::vector<double>>(n_sample,1,prob_par);
 
-    std::cout << "bern rv mean: " << stats::mat_ops::mean(bern_vec) << ". Should be close to: " << bern_mean << std::endl;
-    std::cout << "bern rv variance: " << stats::mat_ops::var(bern_vec) << ". Should be close to: " << bern_var << std::endl;
+    std::cout << "stdvec: bern rv mean: " << stats::mat_ops::mean(bern_stdvec) << ". Should be close to: " << bern_mean << "\n";
+    std::cout << "stdvec: bern rv variance: " << stats::mat_ops::var(bern_stdvec) << ". Should be close to: " << bern_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj bern_vec = stats::rbern<mat_obj>(n_sample,1,prob_par);
+
+    std::cout << "Matrix: bern rv mean: " << stats::mat_ops::mean(bern_vec) << ". Should be close to: " << bern_mean << "\n";
+    std::cout << "Matrix: bern rv variance: " << stats::mat_ops::var(bern_vec) << ". Should be close to: " << bern_var << std::endl;
 #endif
 
     //

@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,27 +18,41 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
 #include "../stats_tests.hpp"
 
 int main()
 {
+    print_begin("rexp");
+
+    //
+
     double rate_par = 0.8;
 
-    std::cout << "\n*** rexp: begin tests. ***\n" << std::endl;
+    double exp_mean = 1.0 / rate_par;
+    double exp_var = std::pow(rate_par,-2);
+
+    int n_sample = 10000;
 
     //
 
     double exp_rand = stats::rexp(rate_par);
-
     std::cout << "exp rv draw: " << exp_rand << std::endl;
 
-#ifdef STATS_TEST_MAT
-    double exp_mean = 1.0 / rate_par;
-    double exp_var = std::pow(rate_par,-2);
+    //
 
-    int n = 100000;
-    mat_obj exp_vec = stats::rexp<mat_obj>(n,1,rate_par);
+#ifdef STATS_TEST_STDVEC_FEATURES
+    std::cout << "\n";
+    std::vector<double> exp_stdvec = stats::rexp<std::vector<double>>(n_sample,1,rate_par);
+
+    std::cout << "exp rv mean: " << stats::mat_ops::mean(exp_stdvec) << ". Should be close to: " << exp_mean << std::endl;
+    std::cout << "exp rv variance: " << stats::mat_ops::var(exp_stdvec) << ". Should be close to: " << exp_var << std::endl;
+#endif
+
+    //
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    std::cout << "\n";
+    mat_obj exp_vec = stats::rexp<mat_obj>(n_sample,1,rate_par);
 
     std::cout << "exp rv mean: " << stats::mat_ops::mean(exp_vec) << ". Should be close to: " << exp_mean << std::endl;
     std::cout << "exp rv variance: " << stats::mat_ops::var(exp_vec) << ". Should be close to: " << exp_var << std::endl;

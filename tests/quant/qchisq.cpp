@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,118 +18,79 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+#define STATS_TEST_INPUT_TYPE 1
+
+#define TEST_ERR_TOL 1e-05
+#define TEST_PRINT_PRECISION_1 2
+#define TEST_PRINT_PRECISION_2 5
+
 #include "../stats_tests.hpp"
 
 int main()
 {
-    double err_tol = 1E-05;
-    int round_digits_1 = 5;
-    int round_digits_2 = 2;
+    print_begin("qchisq");
 
-    double dof_par = 6;
+    // parameters
 
-    std::cout << "\n*** qchisq: begin tests. ***\n" << std::endl;
-
-    // x = 0.3
-    double x_1 = 0.3;
-    double val_1 = 0.0005028624;
-    double q_1 = stats::qchisq(val_1,dof_par);
-
-    bool success_1 = (std::abs(q_1 - x_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_1 << ". Success = " << success_1 << std::endl;
-
-    // x = 0.7
-    double x_2 = 0.7;
-    double val_2 = 0.005508933;
-    double q_2 = stats::qchisq(val_2,dof_par);
-
-    bool success_2 = (std::abs(q_2 - x_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_2 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_2 << ". Success = " << success_2 << std::endl;
-
-    // x = 1.01
-    double x_3 = 1.01;
-    double val_3 = 0.0147696;
-    double q_3 = stats::qchisq(val_3,dof_par);
-
-    bool success_3 = (std::abs(q_3 - x_3) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_3 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_3 << ". Success = " << success_3 << std::endl;
-
-    // x = 1.58
-    double x_4 = 1.58;
-    double val_4 = 0.04599555;
-    double q_4 = stats::qchisq(val_4,dof_par);
-
-    bool success_4 = (std::abs(q_4 - x_4) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_4 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_4 << ". Success = " << success_4 << std::endl;
-
-    // x = 2.5
-    double x_5 = 2.5;
-    double val_5 = 0.1315323;
-    double q_5 = stats::qchisq(val_5,dof_par);
-
-    bool success_5 = (std::abs(q_5 - x_5) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_5 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_5 << ". Success = " << success_5 << std::endl;
-
-    // x = 3.5
-    double x_6 = 3.5;
-    double val_6 = 0.2560303;
-    double q_6 = stats::qchisq(val_6,dof_par);
-
-    bool success_6 = (std::abs(q_6 - x_6) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_6 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_6 << ". Success = " << success_6 << std::endl;
-
-    // x = 5.0
-    double x_7 = 5.0;
-    double val_7 = 0.4561869;
-    double q_7 = stats::qchisq(val_7,dof_par);
-
-    bool success_7 = (std::abs(q_7 - x_7) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_7 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_7 << ". Success = " << success_7 << std::endl;
-
-    // x = 7.5
-    double x_8 = 7.5;
-    double val_8 = 0.7229316;
-    double q_8 = stats::qchisq(val_8,dof_par);
-
-    bool success_8 = (std::abs(q_8 - x_8) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_8 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << q_8 << ". Success = " << success_8 << std::endl;
-
-    // x = 10.0
-    double x_9 = 10.0;
-    double val_9 = 0.875348;
-    double q_9 = stats::qchisq(val_9,dof_par);
-
-    bool success_9 = (std::abs(q_9 - x_9) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "qchisq(" << val_9 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2-1) << q_9 << ". Success = " << success_9 << std::endl;
+    double dof = 6.0;
 
     //
 
-    if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        std::cout << "\n*** qchisq: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** qchisq: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    std::vector<double> inp_vals = { 0.1,       0.6,       0.95 };
+    std::vector<double> exp_vals = { 2.204131,  6.210757,  12.59159 };
 
     //
-    // coverage tests
+    // scalar tests
 
-#ifdef STATS_TEST_MAT
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 0.5;
-    x_mat(1,0) = 0.7;
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,inp_vals[0],exp_vals[0],dof);
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,inp_vals[1],exp_vals[1],dof);
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,inp_vals[2],exp_vals[2],dof);
 
-    stats::qchisq(x_mat,dof_par);
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,TEST_NAN,TEST_NAN,3);                                      // Input NaNs
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,0.5,TEST_NAN,TEST_NAN);
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,TEST_NAN,TEST_NAN,TEST_NAN);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,-0.1,TEST_NAN,dof);                                        // p < 0 or p > 1 cases
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq, 1.1,TEST_NAN,dof);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,0,0,0);                                                    // dof <= 0
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,1,TEST_POSINF,0);
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,1,TEST_NAN,-1.0);
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,1,TEST_NAN,TEST_NEGINF);
+
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,0,0,TEST_POSINF);                                          // dof == Inf
+    STATS_TEST_EXPECTED_QUANT_VAL(qchisq,1,TEST_POSINF,TEST_POSINF);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_QUANT_MAT(qchisq,inp_vals,exp_vals,std::vector<double>,dof);
 #endif
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
+
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_QUANT_MAT(qchisq,inp_mat,exp_mat,mat_obj,dof);
+#endif
+
+    // 
+
+    print_final("qchisq");
 
     return 0;
 }

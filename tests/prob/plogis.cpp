@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,100 +18,103 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+#define TEST_PRINT_PRECISION_1 2
+#define TEST_PRINT_PRECISION_2 5
+
 #include "../stats_tests.hpp"
 
 int main()
 {
-    double err_tol = 1E-05;
-    int round_digits_1 = 3;
-    int round_digits_2 = 5;
+    print_begin("plogis");
 
-    double mu_par = 1;
-    double sigma_par = 2;
+    // parameters
 
-    std::cout << "\n*** plogis: begin tests. ***\n" << std::endl;
-
-    // x = -1.01
-    double val_1 = 0.2679595;
-    double prob_1 = stats::plogis(-1.01,mu_par,sigma_par);
-    bool success_1 = (std::abs(prob_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(-1.01): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_1 << ". Success = " << success_1 << std::endl;
-
-    // x = -0.37
-    double val_2 = 0.3351463;
-    double prob_2 = stats::plogis(-0.37,mu_par,sigma_par);
-    bool success_2 = (std::abs(prob_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(-0.37): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_2 << ". Success = " << success_2 << std::endl;
-
-    // x = 0
-    double val_3 = 0.3775407;
-    double prob_3 = stats::plogis(0.0,mu_par,sigma_par);
-    bool success_3 = (std::abs(prob_3 - val_3) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(+0.00): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_3 << ". Success = " << success_3 << std::endl;
-
-    // x = +0.37
-    double val_4 = 0.4218948;
-    double prob_4 = stats::plogis(0.37,mu_par,sigma_par);
-    bool success_4 = (std::abs(prob_4 - val_4) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(+0.37): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_4 << ". Success = " << success_4 << std::endl;
-
-    // x = +1.01
-    double val_5 = 0.50125;
-    double prob_5 = stats::plogis(1.01,mu_par,sigma_par);
-    bool success_5 = (std::abs(prob_5 - val_5) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(+1.01): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_5 << ". Success = " << success_5 << std::endl;
-
-    // x = +1.58
-    double val_6 = 0.5719961;
-    double prob_6 = stats::plogis(1.58,mu_par,sigma_par);
-    bool success_6 = (std::abs(prob_6 - val_6) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(+1.58): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_6 << ". Success = " << success_6 << std::endl;
-
-    // x = +2.5
-    double val_7 = 0.6791787;
-    double prob_7 = stats::plogis(2.50,mu_par,sigma_par);
-    bool success_7 = (std::abs(prob_7 - val_7) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(+2.50): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_7 << ". Success = " << success_7 << std::endl;
-
-    // x = +3.5
-    double val_8 = 0.7772999;
-    double prob_8 = stats::plogis(3.50,mu_par,sigma_par);
-    bool success_8 = (std::abs(prob_8 - val_8) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(+3.50): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_8 << ". Success = " << success_8 << std::endl;
-
-    // x = +5.0
-    double val_9 = 0.8807971;
-    double prob_9 = stats::plogis(5.0,mu_par,sigma_par);
-    bool success_9 = (std::abs(prob_9 - val_9) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1-1) << "plogis(+5.00): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_9 << ". Success = " << success_9 << std::endl;
-
-    if (success_1 && success_2 && success_3 && success_4 && success_5 && success_6 && success_7 && success_8 && success_9) {
-        std::cout << "\n*** plogis: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** plogis: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    double mu = 1;
+    double sigma = 2;
 
     //
-    // coverage tests
 
-#ifdef STATS_TEST_MAT
-    mat_obj x_mat(2,1);
-    x_mat(0,0) = 1;
-    x_mat(1,0) = 1.5;
+    std::vector<double> inp_vals = { -0.37,      0.0,        2.5 };
+    std::vector<double> exp_vals = { 0.3351463,  0.3775407,  0.6791787 };
 
-    stats::plogis(x_mat,mu_par,sigma_par);
-    stats::plogis(x_mat,mu_par,sigma_par,true);
+    //
+    // scalar tests
+
+    STATS_TEST_EXPECTED_VAL(plogis,inp_vals[0],exp_vals[0],false,mu,sigma);
+    STATS_TEST_EXPECTED_VAL(plogis,inp_vals[1],exp_vals[1],true,mu,sigma);
+    STATS_TEST_EXPECTED_VAL(plogis,inp_vals[2],exp_vals[2],false,mu,sigma);
+
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NAN,TEST_NAN,false,0,1);                                  // Input NaNs
+    STATS_TEST_EXPECTED_VAL(plogis,0,TEST_NAN,false,TEST_NAN,1);
+    STATS_TEST_EXPECTED_VAL(plogis,0,TEST_NAN,false,0,TEST_NAN);
+
+    STATS_TEST_EXPECTED_VAL(plogis,0,TEST_NAN,false,0,-1.0);                                      // sigma < 0
+    STATS_TEST_EXPECTED_VAL(plogis,0,TEST_NAN,false,0,TEST_NEGINF);
+
+    STATS_TEST_EXPECTED_VAL(plogis,0,0.5,false,1,TEST_POSINF);                                    // sigma == +Inf
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_POSINF,TEST_NAN,false,1,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plogis,0,TEST_NAN,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_POSINF,TEST_NAN,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NEGINF,TEST_NAN,false,1,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plogis,0,TEST_NAN,false,TEST_NEGINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,TEST_POSINF);
+
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_POSINF,TEST_NAN,false,TEST_POSINF,0);                     // x == mu == Inf
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_POSINF,TEST_NAN,false,TEST_POSINF,1);
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,0);                     // x == mu == -Inf
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NEGINF,TEST_NAN,false,TEST_NEGINF,1);
+
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_POSINF,1,false,TEST_NEGINF,0);                            // x == Inf, mu == -Inf
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_POSINF,1,false,TEST_NEGINF,1);
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NEGINF,0,false,TEST_POSINF,0);                            // x == -Inf, mu == Inf
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NEGINF,0,false,TEST_POSINF,1);
+
+    STATS_TEST_EXPECTED_VAL(plogis,1,1,false,0,0);                                                // sigma == 0
+    STATS_TEST_EXPECTED_VAL(plogis,0,0,false,1,0);
+    STATS_TEST_EXPECTED_VAL(plogis,1,0.5,false,1,0);
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_POSINF,1,false,1,0);
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NEGINF,0,false,1,0);
+    STATS_TEST_EXPECTED_VAL(plogis,1,0,false,TEST_POSINF,0);
+    STATS_TEST_EXPECTED_VAL(plogis,1,1,false,TEST_NEGINF,0);
+
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_POSINF,1,false,0,1);                                      // x == +/-Inf
+    STATS_TEST_EXPECTED_VAL(plogis,TEST_NEGINF,0,false,0,1);
+
+    STATS_TEST_EXPECTED_VAL(plogis,0,0,false,TEST_POSINF,1);                                      // mu == +/-Inf
+    STATS_TEST_EXPECTED_VAL(plogis,0,1,false,TEST_NEGINF,1);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(plogis,inp_vals,exp_vals,std::vector<double>,false,mu,sigma);
+    STATS_TEST_EXPECTED_MAT(plogis,inp_vals,exp_vals,std::vector<double>,true,mu,sigma);
 #endif
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
+
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(plogis,inp_mat,exp_mat,mat_obj,false,mu,sigma);
+    STATS_TEST_EXPECTED_MAT(plogis,inp_mat,exp_mat,mat_obj,true,mu,sigma);
+#endif
+
+    // 
+
+    print_final("plogis");
 
     return 0;
 }

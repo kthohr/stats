@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2018 Keith O'Hara
+  ##   Copyright (C) 2011-2019 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -18,55 +18,81 @@
   ##
   ################################################################################*/
 
-#include "stats.hpp"
+#define TEST_PRINT_PRECISION_1 2
+#define TEST_PRINT_PRECISION_2 5
+
 #include "../stats_tests.hpp"
 
 int main()
 {
-    double err_tol = 1E-05;
-    int round_digits_1 = 2;
-    int round_digits_2 = 5;
+    print_begin("pbinom");
 
-    int n_trials = 7;
-    double prob_par = 0.75;
+    // parameters
 
-    std::cout << "\n*** pbinom: begin tests. ***\n" << std::endl;
-
-    // x = 1
-    int x_1 = 1;
-    double val_1 = 0.001342773;
-    double prob_1 = stats::pbinom(x_1,n_trials,prob_par);
-
-    bool success_1 = (std::abs(prob_1 - val_1) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pbinom(" << x_1 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_1 << ". Success = " << success_1 << std::endl;
-    
-    // x = 4
-    int x_2 = 4;
-    double val_2 = 0.2435913;
-    double prob_2 = stats::pbinom(x_2,n_trials,prob_par);
-
-    bool success_2 = (std::abs(prob_2 - val_2) < err_tol);
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_1) << "pbinom(" << x_2 << "): ";
-    std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(round_digits_2) << prob_2 << ". Success = " << success_2 << std::endl;
-
-    if (success_1 && success_2) {
-        std::cout << "\n*** pbinom: \033[32mall tests PASSED.\033[0m ***\n" << std::endl;
-    } else {
-        std::cout << "\n*** pbinom: \033[31msome tests FAILED.\033[0m ***\n" << std::endl;
-    }
+    int n_trials = 4;
+    double prob_par = 0.6;
 
     //
-    // coverage tests
 
-#ifdef STATS_TEST_MAT
-    mat_obj x_mat_2(2,1);
-    x_mat_2(0,0) = 3;
-    x_mat_2(1,0) = 4;
+    std::vector<int> inp_vals    = { 1,       2,       3 };
+    std::vector<double> exp_vals = { 0.1792,  0.5248,  0.8704 };
 
-    stats::pbinom(x_mat_2,5,prob_par);
-    stats::pbinom(x_mat_2,5,prob_par,true);
+    //
+    // scalar tests
+
+    STATS_TEST_EXPECTED_VAL(pbinom,inp_vals[0],exp_vals[0],false,n_trials,prob_par);
+    STATS_TEST_EXPECTED_VAL(pbinom,inp_vals[1],exp_vals[1],false,n_trials,prob_par);
+    STATS_TEST_EXPECTED_VAL(pbinom,inp_vals[2],exp_vals[2],false,n_trials,prob_par);
+    STATS_TEST_EXPECTED_VAL(pbinom,inp_vals[1],exp_vals[1],true,n_trials,prob_par);
+
+    STATS_TEST_EXPECTED_VAL(pbinom,1,TEST_NAN,false,2,TEST_NAN);                                    // NaN inputs
+
+    STATS_TEST_EXPECTED_VAL(pbinom,-1,0,false,n_trials,prob_par);                                   // x < 0 or x >= n_trials 
+    STATS_TEST_EXPECTED_VAL(pbinom,n_trials,1,false,n_trials,prob_par);
+    STATS_TEST_EXPECTED_VAL(pbinom,n_trials+1,1,false,n_trials,prob_par);
+
+    STATS_TEST_EXPECTED_VAL(pbinom,0,TEST_NAN,false,-1,0.5);                                        // n_trials < 0
+    STATS_TEST_EXPECTED_VAL(pbinom,0,TEST_NAN,false,1,-0.1);                                        // p < 0
+    STATS_TEST_EXPECTED_VAL(pbinom,0,TEST_NAN,false,1,1.1);                                         // p > 1
+
+    STATS_TEST_EXPECTED_VAL(pbinom,0,1,false,0,0.5);                                                // n_trials == 0
+    STATS_TEST_EXPECTED_VAL(pbinom,1,1,false,0,0.5);
+
+    STATS_TEST_EXPECTED_VAL(pbinom,0,1-prob_par,false,1,prob_par);                                  // n_trials == 1
+    STATS_TEST_EXPECTED_VAL(pbinom,1,1,false,1,prob_par);
+
+    //
+    // vector/matrix tests
+
+#ifdef STATS_TEST_STDVEC_FEATURES
+    STATS_TEST_EXPECTED_MAT(pbinom,inp_vals,exp_vals,std::vector<double>,false,n_trials,prob_par);
+    STATS_TEST_EXPECTED_MAT(pbinom,inp_vals,exp_vals,std::vector<double>,true,n_trials,prob_par);
 #endif
+
+#ifdef STATS_TEST_MATRIX_FEATURES
+    mat_obj inp_mat(2,3);
+    inp_mat(0,0) = inp_vals[0];
+    inp_mat(1,0) = inp_vals[2];
+    inp_mat(0,1) = inp_vals[1];
+    inp_mat(1,1) = inp_vals[0];
+    inp_mat(0,2) = inp_vals[2];
+    inp_mat(1,2) = inp_vals[1];
+
+    mat_obj exp_mat(2,3);
+    exp_mat(0,0) = exp_vals[0];
+    exp_mat(1,0) = exp_vals[2];
+    exp_mat(0,1) = exp_vals[1];
+    exp_mat(1,1) = exp_vals[0];
+    exp_mat(0,2) = exp_vals[2];
+    exp_mat(1,2) = exp_vals[1];
+
+    STATS_TEST_EXPECTED_MAT(pbinom,inp_mat,exp_mat,mat_obj,false,n_trials,prob_par);
+    STATS_TEST_EXPECTED_MAT(pbinom,inp_mat,exp_mat,mat_obj,true,n_trials,prob_par);
+#endif
+
+    // 
+
+    print_final("pbinom");
 
     return 0;
 }
