@@ -1,4 +1,4 @@
-# StatsLib &nbsp; [![Mentioned in Awesome Cpp](https://awesome.re/mentioned-badge.svg)](https://github.com/fffaraz/awesome-cpp#math) [![Build Status](https://travis-ci.org/kthohr/stats.svg?branch=master)](https://travis-ci.org/kthohr/stats) [![Coverage Status](https://codecov.io/github/kthohr/stats/coverage.svg?branch=master)](https://codecov.io/github/kthohr/stats?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6460e046dd5428aac53d28a1ce58401)](https://www.codacy.com/app/kthohr/stats?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kthohr/stats&amp;utm_campaign=Badge_Grade) [![License](https://img.shields.io/badge/Licence-Apache%202.0-blue.svg)](./LICENSE)
+# StatsLib &nbsp; [![Mentioned in Awesome Cpp](https://awesome.re/mentioned-badge.svg)](https://github.com/fffaraz/awesome-cpp#math) [![Build Status](https://travis-ci.org/kthohr/stats.svg?branch=master)](https://travis-ci.org/kthohr/stats) [![Coverage Status](https://codecov.io/github/kthohr/stats/coverage.svg?branch=master)](https://codecov.io/github/kthohr/stats?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6460e046dd5428aac53d28a1ce58401)](https://www.codacy.com/app/kthohr/stats?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kthohr/stats&amp;utm_campaign=Badge_Grade) [![License](https://img.shields.io/badge/Licence-Apache%202.0-blue.svg)](./LICENSE) [![Documentation Status](https://readthedocs.org/projects/statslib/badge/?version=latest)](https://statslib.readthedocs.io/en/latest/?badge=latest)
 
 
 
@@ -19,6 +19,7 @@ Features:
 ### Contents:
 * [Distributions](#distributions)
 * [Installation](#installation-and-depdencies)
+* [Documentation](#documentation)
 * [Jupyter Notebook](#jupyter-notebook)
 * [Options](#Options)
 * [Syntax and Examples](#syntax-and-examples)
@@ -60,7 +61,15 @@ StatsLib is a header-only library. Simply add the header files to your project u
 #include "stats.hpp"
 ```
 
-The only dependency is the latest version of [GCEM](https://github.com/kthohr/gcem).
+The only dependency is the latest version of [GCEM](https://github.com/kthohr/gcem) and a C++11 compatible compiler.
+
+## Documentation
+
+Full documentation is available online:
+
+[![Documentation Status](https://readthedocs.org/projects/statslib/badge/?version=latest)](https://statslib.readthedocs.io/en/latest/?badge=latest)
+
+A PDF version of the documentation is available [here](https://buildmedia.readthedocs.org/media/pdf/statslib/latest/statslib.pdf).
 
 ## Jupyter Notebook
 
