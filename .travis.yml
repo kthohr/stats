@@ -5,7 +5,7 @@ sudo: required
 matrix:
   include:
     - os: linux
-      dist: trusty
+      dist: bionic
       addons:
         apt:
           packages:
@@ -18,7 +18,7 @@ matrix:
       compiler: gcc
     
     - os: linux
-      dist: trusty
+      dist: bionic
       addons:
         apt:
           packages:
@@ -31,7 +31,7 @@ matrix:
       compiler: gcc
 
     - os: linux
-      dist: trusty
+      dist: bionic
       addons:
         apt:
           packages:
@@ -47,20 +47,7 @@ matrix:
       compiler: gcc
 
     - os: linux
-      dist: trusty
-      addons:
-        apt:
-          packages:
-            - g++-8
-            - gfortran-8
-          sources: &sources
-            - ubuntu-toolchain-r-test
-      env:
-        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8 && FC=gfortran-8"
-      compiler: gcc
-
-    - os: linux
-      dist: trusty
+      dist: bionic
       addons:
         apt:
           packages:
@@ -74,7 +61,7 @@ matrix:
       compiler: gcc
 
     - os: linux
-      dist: trusty
+      dist: bionic
       addons:
         apt:
           packages:
@@ -88,7 +75,7 @@ matrix:
       compiler: gcc
 
     - os: linux
-      dist: trusty
+      dist: bionic
       addons:
         apt:
           packages:
@@ -101,6 +88,32 @@ matrix:
         - STATS_TEST_USE_EIGEN="y"
       compiler: gcc
 
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          packages:
+            - g++-8
+            - gfortran-8
+          sources: &sources
+            - ubuntu-toolchain-r-test
+      env:
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8 && FC=gfortran-8"
+      compiler: gcc
+
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          packages:
+            - g++-9
+            - gfortran-9
+          sources: &sources
+            - ubuntu-toolchain-r-test
+      env:
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9 && FC=gfortran-9"
+      compiler: gcc
+
     - os: osx
       osx_image: xcode9
       env:
@@ -108,7 +121,7 @@ matrix:
       compiler: clang
 
     # - os: linux
-    #   dist: trusty
+    #   dist: bionic
     #   addons:
     #     apt:
     #       packages:
@@ -117,7 +130,7 @@ matrix:
     #         - gfortran-7
     #       sources: &sources
     #         - ubuntu-toolchain-r-test
-    #         - llvm-toolchain-trusty-5.0
+    #         - llvm-toolchain-bionic-5.0
     #   env:
     #     - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && FC=gfortran-7"
     #   compiler: clang
