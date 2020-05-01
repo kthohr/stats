@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Laplace Distribution
 ====================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Laplace distribution:
 
 .. math::
 
    f(x; \mu, \sigma) = \frac{1}{2 \sigma} \exp \left( - \frac{|x-\mu|}{\sigma} \right)
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dlaplace-func-ref2:
 .. doxygenfunction:: dlaplace(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dlaplace-func-ref3:
 .. doxygenfunction:: dlaplace(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dlaplace-func-ref4:
 .. doxygenfunction:: dlaplace(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dlaplace-func-ref5:
 .. doxygenfunction:: dlaplace(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Laplace distribution:
+
+.. math::
+
+   F(x; \mu, \sigma) = \int_{-\infty}^x f(z; \mu, \sigma) dz = \frac{1}{2} + \frac{1}{2} \times \text{sign} ( x - \mu ) \times \left( 1 - \exp \left( - \frac{|x - \mu|}{\sigma} \right) \right)
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +85,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _plaplace-func-ref2:
 .. doxygenfunction:: plaplace(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _plaplace-func-ref3:
 .. doxygenfunction:: plaplace(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _plaplace-func-ref4:
 .. doxygenfunction:: plaplace(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _plaplace-func-ref5:
 .. doxygenfunction:: plaplace(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Laplace distribution:
+
+.. math::
+
+   q(p; \mu, \sigma) = \mu - \sigma \times \text{sign}(p - 0.5) \times \ln(1 - 2 | p - 0.5 |)
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,32 +136,40 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qlaplace-func-ref2:
 .. doxygenfunction:: qlaplace(const std::vector<eT>&, const T1, const T2)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qlaplace-func-ref3:
 .. doxygenfunction:: qlaplace(const ArmaMat<eT>&, const T1, const T2)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qlaplace-func-ref4:
 .. doxygenfunction:: qlaplace(const BlazeMat<eT, To>&, const T1, const T2)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qlaplace-func-ref5:
 .. doxygenfunction:: qlaplace(const EigenMat<eT, iTr, iTc>&, const T1, const T2)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the Laplace distribution is achieved via the inverse probability integral transform.
 
 Scalar Output
 ~~~~~~~~~~~~~

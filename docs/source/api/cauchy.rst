@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Cauchy Distribution
 ===================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Cauchy distribution:
 
 .. math::
 
    f(x; \mu, \sigma) = \dfrac{1}{\pi \sigma \left[ 1 + \left( \frac{x - \mu}{\sigma} \right)^2 \right]}
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dcauchy-func-ref2:
 .. doxygenfunction:: dcauchy(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dcauchy-func-ref3:
 .. doxygenfunction:: dcauchy(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dcauchy-func-ref4:
 .. doxygenfunction:: dcauchy(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dcauchy-func-ref5:
 .. doxygenfunction:: dcauchy(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Cauchy distribution:
+
+.. math::
+
+   F(x; \mu, \sigma) = \int_{-\infty}^x f(z; \mu, \sigma) dz = 0.5 + \dfrac{1}{\pi} \text{arctan}\left( \frac{x - \mu}{\sigma} \right)
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +85,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _pcauchy-func-ref2:
 .. doxygenfunction:: pcauchy(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _pcauchy-func-ref3:
 .. doxygenfunction:: pcauchy(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _pcauchy-func-ref4:
 .. doxygenfunction:: pcauchy(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _pcauchy-func-ref5:
 .. doxygenfunction:: pcauchy(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Cauchy distribution:
+
+.. math::
+
+   q(p; \mu, \sigma) = \mu + \gamma \text{tan} \left( \pi (p - 0.5) \right)
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,43 +136,53 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qcauchy-func-ref2:
 .. doxygenfunction:: qcauchy(const std::vector<eT>&, const T1, const T2)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qcauchy-func-ref3:
 .. doxygenfunction:: qcauchy(const ArmaMat<eT>&, const T1, const T2)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qcauchy-func-ref4:
 .. doxygenfunction:: qcauchy(const BlazeMat<eT, To>&, const T1, const T2)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qcauchy-func-ref5:
 .. doxygenfunction:: qcauchy(const EigenMat<eT, iTr, iTc>&, const T1, const T2)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the Cauchy distribution is achieved via the inverse probability integral transform.
 
 Scalar Output
 ~~~~~~~~~~~~~
 
-1. Random number engines
+Random number engines
+_____________________
 
 .. _rcauchy-func-ref1:
 .. doxygenfunction:: rcauchy(const T1, const T2, rand_engine_t&)
    :project: statslib
 
-2. Seed values
+Seed values
+___________
 
 .. _rcauchy-func-ref2:
 .. doxygenfunction:: rcauchy(const T1, const T2, const ullint_t)

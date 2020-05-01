@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,24 @@
 Student's t-Distribution
 ========================
 
-The density function of the t-distribution:
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
+The density function of the Student's t distribution:
 
 .. math::
 
    f(x; \nu) = \dfrac{\Gamma \left( \frac{\nu + 1}{2} \right)}{ \sqrt{\nu \pi} \Gamma \left( \frac{\nu}{2} \right)} \left( 1 + \frac{x^2}{\nu} \right)^{- \frac{\nu+1}{2}}
 
-PDF
----
+where :math:`\Gamma(\cdot)` denotes the gamma function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +36,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dt-func-ref2:
 .. doxygenfunction:: dt(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dt-func-ref3:
 .. doxygenfunction:: dt(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dt-func-ref4:
 .. doxygenfunction:: dt(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dt-func-ref5:
 .. doxygenfunction:: dt(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Student's t distribution:
+
+.. math::
+
+   F(x; \nu) = \int_{-\infty}^x f(z; \nu) dz = \frac{1}{2} + x \Gamma \left( \frac{\nu + 1}{2} \right) + \dfrac{ {}_2 F_1 \left( \frac{1}{2}, \frac{\nu+1}{2}; \frac{3}{\nu}; - \frac{x^2}{\nu} \right) }{ \sqrt{\nu \pi} \Gamma \left( \frac{\nu}{2} \right)}
+
+where :math:`\Gamma(\cdot)` denotes the gamma function and :math:`{}_2 F_1` denotes the hypergeometric function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +89,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _pt-func-ref2:
 .. doxygenfunction:: pt(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _pt-func-ref3:
 .. doxygenfunction:: pt(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _pt-func-ref4:
 .. doxygenfunction:: pt(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _pt-func-ref5:
 .. doxygenfunction:: pt(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Student's t distribution:
+
+.. math::
+
+   q(p; \nu) = \inf \left\{ x : p \leq F(x; \nu) \right\}
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,29 +140,35 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qt-func-ref2:
 .. doxygenfunction:: qt(const std::vector<eT>&, const T1)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qt-func-ref3:
 .. doxygenfunction:: qt(const ArmaMat<eT>&, const T1)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qt-func-ref4:
 .. doxygenfunction:: qt(const BlazeMat<eT, To>&, const T1)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qt-func-ref5:
 .. doxygenfunction:: qt(const EigenMat<eT, iTr, iTc>&, const T1)
    :project: statslib
+
+----
 
 Random Sampling
 ---------------

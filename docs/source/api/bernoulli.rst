@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Bernoulli Distribution
 ======================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Bernoulli distribution:
 
 .. math::
 
    f(x; p) = p^x (1-p)^{1-x} \times \mathbf{1}[x \in \{0,1\}]
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dbern-func-ref2:
 .. doxygenfunction:: dbern(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dbern-func-ref3:
 .. doxygenfunction:: dbern(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dbern-func-ref4:
 .. doxygenfunction:: dbern(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dbern-func-ref5:
 .. doxygenfunction:: dbern(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Bernoulli distribution:
+
+.. math::
+
+   F(x; p) = \sum_{z \leq x} f(z; p) = \begin{cases} 0 & \text{ if } x < 0 \\ 1-p & \text{ if } 0 \leq x < 1 \\ 1 & \text{ if } x \geq 1 \end{cases}
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +85,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _pbern-func-ref2:
 .. doxygenfunction:: pbern(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _pbern-func-ref3:
 .. doxygenfunction:: pbern(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _pbern-func-ref4:
 .. doxygenfunction:: pbern(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _pbern-func-ref5:
 .. doxygenfunction:: pbern(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Bernoulli distribution:
+
+.. math::
+
+   q(r; p) = \begin{cases} 0 & \text{ if } r \leq 1 - p \\ 1 & \text{ else } \end{cases}
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,32 +136,40 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qbern-func-ref2:
 .. doxygenfunction:: qbern(const std::vector<eT>&, const T1)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qbern-func-ref3:
 .. doxygenfunction:: qbern(const ArmaMat<eT>&, const T1)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qbern-func-ref4:
 .. doxygenfunction:: qbern(const BlazeMat<eT, To>&, const T1)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qbern-func-ref5:
 .. doxygenfunction:: qbern(const EigenMat<eT, iTr, iTc>&, const T1)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the Bernoulli distribution is achieved via the inverse probability integral transform.
 
 Scalar Output
 ~~~~~~~~~~~~~

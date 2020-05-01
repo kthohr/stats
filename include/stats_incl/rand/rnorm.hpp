@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2019 Keith O'Hara
+  ##   Copyright (C) 2011-2020 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##

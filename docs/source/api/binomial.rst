@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Binomial Distribution
 =====================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Binomial distribution:
 
 .. math::
 
    f(x; n, p) = \binom{n}{x} p^x (1-p)^{n-x} \times \mathbf{1}[x \in \{0,\ldots,n\}]
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dbinom-func-ref2:
 .. doxygenfunction:: dbinom(const std::vector<eT>&, const llint_t, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dbinom-func-ref3:
 .. doxygenfunction:: dbinom(const ArmaMat<eT>&, const llint_t, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dbinom-func-ref4:
 .. doxygenfunction:: dbinom(const BlazeMat<eT, To>&, const llint_t, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dbinom-func-ref5:
 .. doxygenfunction:: dbinom(const EigenMat<eT, iTr, iTc>&, const llint_t, const T1, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Binomial distribution:
+
+.. math::
+
+   F(x; n, p) = \sum_{z \leq x} f(z; n, p)
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +85,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _pbinom-func-ref2:
 .. doxygenfunction:: pbinom(const std::vector<eT>&, const llint_t, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _pbinom-func-ref3:
 .. doxygenfunction:: pbinom(const ArmaMat<eT>&, const llint_t, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _pbinom-func-ref4:
 .. doxygenfunction:: pbinom(const BlazeMat<eT, To>&, const llint_t, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _pbinom-func-ref5:
 .. doxygenfunction:: pbinom(const EigenMat<eT, iTr, iTc>&, const llint_t, const T1, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Binomial distribution:
+
+.. math::
+
+   q(r; n, p) = \inf \left\{ x : r \leq F(x; n, p) \right\}
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,32 +136,40 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qbinom-func-ref2:
 .. doxygenfunction:: qbinom(const std::vector<eT>&, const llint_t, const T1)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qbinom-func-ref3:
 .. doxygenfunction:: qbinom(const ArmaMat<eT>&, const llint_t, const T1)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qbinom-func-ref4:
 .. doxygenfunction:: qbinom(const BlazeMat<eT, To>&, const llint_t, const T1)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qbinom-func-ref5:
 .. doxygenfunction:: qbinom(const EigenMat<eT, iTr, iTc>&, const llint_t, const T1)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the Binomial distribution is achieved by summing the results of simulating `n` Bernoulli-distributed random variables.
 
 Scalar Output
 ~~~~~~~~~~~~~

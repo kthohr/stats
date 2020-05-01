@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Logistic Distribution
 =====================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Logistic distribution:
 
 .. math::
 
    f(x; \mu, \sigma) = \dfrac{\exp\left( - \frac{x-\mu}{\sigma} \right)}{\sigma \left( 1 + \exp\left( - \frac{x-\mu}{\sigma} \right) \right)^2 }
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dlogis-func-ref2:
 .. doxygenfunction:: dlogis(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dlogis-func-ref3:
 .. doxygenfunction:: dlogis(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dlogis-func-ref4:
 .. doxygenfunction:: dlogis(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dlogis-func-ref5:
 .. doxygenfunction:: dlogis(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Logistic distribution:
+
+.. math::
+
+   F(x; \mu, \sigma) = \int_{-\infty}^x f(z; \mu, \sigma) dz  = \dfrac{1}{1 + \exp \left( - \frac{x-\mu}{\sigma} \right) }
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +85,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _plogis-func-ref2:
 .. doxygenfunction:: plogis(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _plogis-func-ref3:
 .. doxygenfunction:: plogis(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _plogis-func-ref4:
 .. doxygenfunction:: plogis(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _plogis-func-ref5:
 .. doxygenfunction:: plogis(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Logistic distribution:
+
+.. math::
+
+   q(p; \mu, \sigma) = \mu + \sigma \times \ln \left( \frac{p}{1-p} \right) 
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,32 +136,40 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qlogis-func-ref2:
 .. doxygenfunction:: qlogis(const std::vector<eT>&, const T1, const T2)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qlogis-func-ref3:
 .. doxygenfunction:: qlogis(const ArmaMat<eT>&, const T1, const T2)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qlogis-func-ref4:
 .. doxygenfunction:: qlogis(const BlazeMat<eT, To>&, const T1, const T2)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qlogis-func-ref5:
 .. doxygenfunction:: qlogis(const EigenMat<eT, iTr, iTc>&, const T1, const T2)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the Logistic distribution is achieved via the inverse probability integral transform.
 
 Scalar Output
 ~~~~~~~~~~~~~

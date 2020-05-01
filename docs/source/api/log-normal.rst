@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Log-Normal Distribution
 =======================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the log-Normal distribution:
 
 .. math::
 
-   f(x; \mu, \sigma) = f(x; \mu, \sigma) = \frac{1}{x} \frac{1}{\sqrt{2 \pi} \sigma} \exp \left( - \frac{(\ln x-\mu)^2}{2 \sigma^2} \right)
+   f(x; \mu, \sigma) = \frac{1}{x} \frac{1}{\sqrt{2 \pi} \sigma} \exp \left( - \frac{(\ln x-\mu)^2}{2 \sigma^2} \right)
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dlnorm-func-ref2:
 .. doxygenfunction:: dlnorm(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dlnorm-func-ref3:
 .. doxygenfunction:: dlnorm(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dlnorm-func-ref4:
 .. doxygenfunction:: dlnorm(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dlnorm-func-ref5:
 .. doxygenfunction:: dlnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the log-Normal distribution:
+
+.. math::
+
+   F(x; \mu, \sigma) = \int_0^x f(z; \mu, \sigma) dz = \frac{1}{2} + \frac{1}{2} \times \text{erf} \left( \frac{\ln (x) - \mu}{\sigma} \right)
+
+where :math:`\text{erf}(\cdot)` denotes the Gaussian error function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +87,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _plnorm-func-ref2:
 .. doxygenfunction:: plnorm(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _plnorm-func-ref3:
 .. doxygenfunction:: plnorm(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _plnorm-func-ref4:
 .. doxygenfunction:: plnorm(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _plnorm-func-ref5:
 .. doxygenfunction:: plnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the log-Normal distribution:
+
+.. math::
+
+   q(p; \mu, \sigma) = \exp \left( \mu + \sqrt{2} \sigma \times \text{erf}^{-1} \left( 2 p - 1 \right) \right)
+
+where :math:`\text{erf}^{-1}(\cdot)` denotes the inverse Gaussian error function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,32 +140,44 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qlnorm-func-ref2:
 .. doxygenfunction:: qlnorm(const std::vector<eT>&, const T1, const T2)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qlnorm-func-ref3:
 .. doxygenfunction:: qlnorm(const ArmaMat<eT>&, const T1, const T2)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qlnorm-func-ref4:
 .. doxygenfunction:: qlnorm(const BlazeMat<eT, To>&, const T1, const T2)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qlnorm-func-ref5:
 .. doxygenfunction:: qlnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the log-Normal distribution is achieved by simulating :math:`X \sim N(\mu, \sigma^2)`, then returning
+
+.. math::
+
+   Z = \exp( X ) \sim \text{Lognormal} (\mu, \sigma^2)
 
 Scalar Output
 ~~~~~~~~~~~~~

@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Exponential Distribution
 ========================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Exponential distribution:
 
 .. math::
 
    f(x; \lambda) = \lambda \exp(-\lambda x) \times \mathbf{1}[ x \geq 0]
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dexp-func-ref2:
 .. doxygenfunction:: dexp(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dexp-func-ref3:
 .. doxygenfunction:: dexp(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dexp-func-ref4:
 .. doxygenfunction:: dexp(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dexp-func-ref5:
 .. doxygenfunction:: dexp(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Exponential distribution:
+
+.. math::
+
+   \int_0^x f(z; \lambda) dz = 1 - \exp(-\lambda x \times \mathbf{1}[ x \geq 0])
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +85,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _pexp-func-ref2:
 .. doxygenfunction:: pexp(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _pexp-func-ref3:
 .. doxygenfunction:: pexp(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _pexp-func-ref4:
 .. doxygenfunction:: pexp(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _pexp-func-ref5:
 .. doxygenfunction:: pexp(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Exponential distribution:
+
+.. math::
+
+   q(p; \lambda) = - \ln (1 - p) / \lambda
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,32 +136,40 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qexp-func-ref2:
 .. doxygenfunction:: qexp(const std::vector<eT>&, const T1)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qexp-func-ref3:
 .. doxygenfunction:: qexp(const ArmaMat<eT>&, const T1)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qexp-func-ref4:
 .. doxygenfunction:: qexp(const BlazeMat<eT, To>&, const T1)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qexp-func-ref5:
 .. doxygenfunction:: qexp(const EigenMat<eT, iTr, iTc>&, const T1)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the Cauchy distribution is achieved via the inverse probability integral transform.
 
 Scalar Output
 ~~~~~~~~~~~~~

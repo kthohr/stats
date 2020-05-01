@@ -14,6 +14,10 @@ html_theme = "sphinx_rtd_theme"
 
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
+html_theme_options = {
+    'navigation_depth': 4,
+}
+
 def setup(app):
     app.add_stylesheet("main_stylesheet.css")
 
@@ -25,7 +29,7 @@ html_static_path = ['_static']
 source_suffix = '.rst'
 master_doc = 'index'
 project = 'statslib'
-copyright = '2011-2019 Keith O\'Hara'
+copyright = '2011-2020 Keith O\'Hara'
 author = 'Keith O\'Hara'
 
 exclude_patterns = []

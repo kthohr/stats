@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,16 +7,24 @@
 Gamma Distribution
 ==================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Gamma distribution:
 
 .. math::
 
    f(x; k, \theta) = \dfrac{x^{k-1}\exp(-x/\theta)}{\theta^k \Gamma(k)} \times \mathbf{1}[ x \geq 0 ]
 
-where :math:`\Gamma(\cdot)` is the Gamma function.
+where :math:`\Gamma(\cdot)` denotes the Gamma function, :math:`k` is the shape parameter, and :math:`\theta` is the scale parameter.
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -28,32 +36,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dgamma-func-ref2:
 .. doxygenfunction:: dgamma(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dgamma-func-ref3:
 .. doxygenfunction:: dgamma(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dgamma-func-ref4:
 .. doxygenfunction:: dgamma(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dgamma-func-ref5:
 .. doxygenfunction:: dgamma(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Gamma distribution:
+
+.. math::
+
+   F(x; k, \theta) = \int_0^x f(z; k, \theta) dz = \frac{\gamma(k,x\theta)}{\Gamma (k)}
+
+where :math:`\Gamma(\cdot)` denotes the gamma function and :math:`\gamma(\cdot, \cdot)` denotes the incomplete gamma function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -65,32 +89,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _pgamma-func-ref2:
 .. doxygenfunction:: pgamma(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _pgamma-func-ref3:
 .. doxygenfunction:: pgamma(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _pgamma-func-ref4:
 .. doxygenfunction:: pgamma(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _pgamma-func-ref5:
 .. doxygenfunction:: pgamma(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Gamma distribution:
+
+.. math::
+
+   q(p; k, \theta) = \inf \left\{ x : p \leq \frac{\gamma(k,x\theta)}{\Gamma (k)} \right\}
+
+where :math:`\Gamma(\cdot)` denotes the gamma function and :math:`\gamma(\cdot, \cdot)` denotes the incomplete gamma function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -102,32 +142,40 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qgamma-func-ref2:
 .. doxygenfunction:: qgamma(const std::vector<eT>&, const T1, const T2)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qgamma-func-ref3:
 .. doxygenfunction:: qgamma(const ArmaMat<eT>&, const T1, const T2)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qgamma-func-ref4:
 .. doxygenfunction:: qgamma(const BlazeMat<eT, To>&, const T1, const T2)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qgamma-func-ref5:
 .. doxygenfunction:: qgamma(const EigenMat<eT, iTr, iTc>&, const T1, const T2)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the Gamma distribution is achieved via the Ziggurat method of Marsaglia and Tsang (2000).
 
 Scalar Output
 ~~~~~~~~~~~~~

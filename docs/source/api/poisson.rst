@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Poisson Distribution
 ====================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Poisson distribution:
 
 .. math::
 
    f(x; \lambda) = \dfrac{\lambda^x \exp(-\lambda)}{x!} \times \mathbf{1}[ x \geq 0]
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dpois-func-ref2:
 .. doxygenfunction:: dpois(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dpois-func-ref3:
 .. doxygenfunction:: dpois(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dpois-func-ref4:
 .. doxygenfunction:: dpois(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dpois-func-ref5:
 .. doxygenfunction:: dpois(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Poisson distribution:
+
+.. math::
+
+   F(x; \lambda) = \sum_{z \leq x} f(z; \lambda) = \exp(-\lambda) \sum_{z \leq x} \dfrac{\lambda^z}{z!} \times \mathbf{1}[ z \geq 0]
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +85,46 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _ppois-func-ref2:
 .. doxygenfunction:: ppois(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _ppois-func-ref3:
 .. doxygenfunction:: ppois(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _ppois-func-ref4:
 .. doxygenfunction:: ppois(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _ppois-func-ref5:
 .. doxygenfunction:: ppois(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Poisson distribution:
+
+.. math::
+
+   q(p; \lambda) = \inf \left\{ x : p \leq F(x; \lambda) \right\}
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,29 +136,35 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qpois-func-ref2:
 .. doxygenfunction:: qpois(const std::vector<eT>&, const T1)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qpois-func-ref3:
 .. doxygenfunction:: qpois(const ArmaMat<eT>&, const T1)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qpois-func-ref4:
 .. doxygenfunction:: qpois(const BlazeMat<eT, To>&, const T1)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qpois-func-ref5:
 .. doxygenfunction:: qpois(const EigenMat<eT, iTr, iTc>&, const T1)
    :project: statslib
+
+----
 
 Random Sampling
 ---------------

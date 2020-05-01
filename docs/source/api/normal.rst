@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Normal Distribution
 ===================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Normal (Gaussian) distribution:
 
 .. math::
 
    f(x; \mu, \sigma) = \frac{1}{\sqrt{2 \pi} \sigma} \exp \left( - \frac{(x-\mu)^2}{2 \sigma^2} \right)
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dnorm-func-ref2:
 .. doxygenfunction:: dnorm(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dnorm-func-ref3:
 .. doxygenfunction:: dnorm(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dnorm-func-ref4:
 .. doxygenfunction:: dnorm(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dnorm-func-ref5:
 .. doxygenfunction:: dnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Normal (Gaussian) distribution:
+
+.. math::
+
+   F(x; \mu, \sigma) = \int_{-\infty}^x f(z; \mu, \sigma) dz = \frac{1}{2} \times \left( 1 +  \text{erf} \left( \frac{x - \mu}{\sqrt{2} \sigma} \right) \right)
+
+where :math:`\text{erf}(\cdot)` denotes the Gaussian error function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +87,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _pnorm-func-ref2:
 .. doxygenfunction:: pnorm(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _pnorm-func-ref3:
 .. doxygenfunction:: pnorm(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _pnorm-func-ref4:
 .. doxygenfunction:: pnorm(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _pnorm-func-ref5:
 .. doxygenfunction:: pnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the log-Normal distribution:
+
+.. math::
+
+   q(p; \mu, \sigma) = \mu + \sqrt{2} \sigma \times \text{erf}^{-1} \left( 2 p - 1 \right)
+
+where :math:`\text{erf}^{-1}(\cdot)` denotes the inverse Gaussian error function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,32 +140,40 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qnorm-func-ref2:
 .. doxygenfunction:: qnorm(const std::vector<eT>&, const T1, const T2)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qnorm-func-ref3:
 .. doxygenfunction:: qnorm(const ArmaMat<eT>&, const T1, const T2)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qnorm-func-ref4:
 .. doxygenfunction:: qnorm(const BlazeMat<eT, To>&, const T1, const T2)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qnorm-func-ref5:
 .. doxygenfunction:: qnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2)
    :project: statslib
 
+----
+
 Random Sampling
 ---------------
+
+Random sampling for the Normal distribution is achieved via the ``normal_distribution`` class from the C++ standard library, imported from ``<random>``.
 
 Scalar Output
 ~~~~~~~~~~~~~

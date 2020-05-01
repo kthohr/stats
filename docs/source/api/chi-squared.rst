@@ -1,4 +1,4 @@
-.. Copyright (c) 2011--2018 Keith O'Hara
+.. Copyright (c) 2011-2020 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -7,14 +7,22 @@
 Chi-squared Distribution
 ========================
 
+**Table of contents**
+
+.. contents:: :local:
+
+----
+
+Density Function
+----------------
+
 The density function of the Chi-squared distribution:
 
 .. math::
 
    f(x; k) = \dfrac{x^{k/2 - 1} \exp(-x/2)}{ 2^{k/2} \Gamma(k/2)} \times \mathbf{1}[ x \geq 0]
 
-PDF
----
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -26,32 +34,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _dchisq-func-ref2:
 .. doxygenfunction:: dchisq(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _dchisq-func-ref3:
 .. doxygenfunction:: dchisq(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _dchisq-func-ref4:
 .. doxygenfunction:: dchisq(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _dchisq-func-ref5:
 .. doxygenfunction:: dchisq(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-CDF
----
+----
+
+Cumulative Distribution Function
+--------------------------------
+
+The cumulative distribution function of the Chi-squared distribution:
+
+.. math::
+
+   F(x; k) = \int_0^x f(z; k) dz = \frac{\gamma(k/2,x/2)}{\Gamma (k/2)}
+
+where :math:`\Gamma(\cdot)` denotes the gamma function and :math:`\gamma(\cdot, \cdot)` denotes the incomplete gamma function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -63,32 +87,48 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _pchisq-func-ref2:
 .. doxygenfunction:: pchisq(const std::vector<eT>&, const T1, const bool)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _pchisq-func-ref3:
 .. doxygenfunction:: pchisq(const ArmaMat<eT>&, const T1, const bool)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _pchisq-func-ref4:
 .. doxygenfunction:: pchisq(const BlazeMat<eT, To>&, const T1, const bool)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _pchisq-func-ref5:
 .. doxygenfunction:: pchisq(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
    :project: statslib
 
-Quantile
---------
+----
+
+Quantile Function
+-----------------
+
+The quantile function of the Chi-squared distribution:
+
+.. math::
+
+   q(p; k) = \inf \left\{ x : p \leq \gamma(k/2,x/2) / \Gamma (k/2) \right\}
+
+where :math:`\Gamma(\cdot)` denotes the gamma function and :math:`\gamma(\cdot, \cdot)` denotes the incomplete gamma function.
+
+Methods for scalar input, as well as for vector/matrix input, are listed below.
 
 Scalar Input
 ~~~~~~~~~~~~
@@ -100,29 +140,35 @@ Scalar Input
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
-1. STL Containers
+STL Containers
+______________
 
 .. _qchisq-func-ref2:
 .. doxygenfunction:: qchisq(const std::vector<eT>&, const T1)
    :project: statslib
 
-2. Armadillo
+Armadillo
+_________
 
 .. _qchisq-func-ref3:
 .. doxygenfunction:: qchisq(const ArmaMat<eT>&, const T1)
    :project: statslib
 
-3. Blaze
+Blaze
+_____
 
 .. _qchisq-func-ref4:
 .. doxygenfunction:: qchisq(const BlazeMat<eT, To>&, const T1)
    :project: statslib
 
-4. Eigen
+Eigen
+_____
 
 .. _qchisq-func-ref5:
 .. doxygenfunction:: qchisq(const EigenMat<eT, iTr, iTc>&, const T1)
    :project: statslib
+
+----
 
 Random Sampling
 ---------------

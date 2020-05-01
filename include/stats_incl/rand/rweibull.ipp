@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2019 Keith O'Hara
+  ##   Copyright (C) 2011-2020 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -158,7 +158,7 @@ rweibull_mat_check(mT& X, const T1 shape_par, const T2 scale_par)
  * stats::rweibull<Eigen::MatrixXd>(5,4,3.0,2.0);
  * \endcode
  *
- * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt> with primitive types (e.g., \c float, \c double, etc.), as well as Armadillo, Blaze, and Eigen dense matrices.
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
 #ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES

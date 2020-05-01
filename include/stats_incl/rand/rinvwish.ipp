@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2019 Keith O'Hara
+  ##   Copyright (C) 2011-2020 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -27,7 +27,7 @@
  *
  * @param Psi_par a positive semi-definite scale matrix.
  * @param nu_par the degrees of parameter, a real-valued input.
- * @param pre_chol indicate whether \c Psi_par is passed in lower triangular (Cholesky) format.
+ * @param pre_inv_chol indicate whether \c Psi_par has been inverted and passed in lower triangular (Cholesky) format.
  *
  * @return a pseudo-random draw from the Inverse-Wishart distribution.
  */
@@ -35,13 +35,13 @@
 template<typename mT, typename pT, typename not_arma_mat<mT>::type*>
 statslib_inline
 mT
-rinvwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
+rinvwish(const mT& Psi_par, const pT nu_par, const bool pre_inv_chol)
 {
     typedef return_t<pT> eT;
     const ullint_t K = mat_ops::n_rows(Psi_par);
     
     mT chol_Psi_inv;
-    if (pre_chol) {
+    if (pre_inv_chol) {
         chol_Psi_inv = Psi_par; // should be lower triangular
     } else {
         chol_Psi_inv = mat_ops::chol(mat_ops::inv(Psi_par)); // will be lower triangular
@@ -77,11 +77,11 @@ rinvwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
 template<typename mT, typename eT, typename pT>
 statslib_inline
 mT
-rinvwish(const ArmaMat<eT>& Psi_par, const pT nu_par, const bool pre_chol)
+rinvwish(const ArmaMat<eT>& Psi_par, const pT nu_par, const bool pre_inv_chol)
 {
     const ullint_t K = Psi_par.n_rows;
     
-    ArmaMat<eT> chol_Psi = (pre_chol) ? Psi_par : arma::chol(arma::inv(Psi_par),"lower"); // should be lower-triangular
+    ArmaMat<eT> chol_Psi = (pre_inv_chol) ? Psi_par : arma::chol(arma::inv(Psi_par),"lower"); // should be lower-triangular
 
     //
 
