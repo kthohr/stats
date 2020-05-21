@@ -45,7 +45,7 @@ rpois(const T rate_par, const ullint_t seed_val = std::random_device{}());
 template<typename mT, typename T1>
 statslib_inline
 mT
-rexp(const ullint_t n, const ullint_t k, const T1 rate_par);
+rpois(const ullint_t n, const ullint_t k, const T1 rate_par);
 #endif
 
 //

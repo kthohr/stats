@@ -41,7 +41,7 @@ rt_compute(const T dof_par, rand_engine_t& engine)
 
     T numer = rnorm(T(0),T(1),engine);
     
-    return numer / std::sqrt( rt(dof_par,engine) / dof_par );
+    return numer / std::sqrt( rchisq(dof_par,engine) / dof_par );
 }
 
 }

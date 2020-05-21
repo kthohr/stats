@@ -45,7 +45,7 @@ rt(const T dof_par, const ullint_t seed_val = std::random_device{}());
 template<typename mT, typename T1>
 statslib_inline
 mT
-rchisq(const ullint_t n, const ullint_t k, const T1 dof_par);
+rt(const ullint_t n, const ullint_t k, const T1 dof_par);
 #endif
 
 //
