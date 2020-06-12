@@ -85,7 +85,7 @@ noexcept
  * @param mu_par the location parameter, a real-valued input.
  * @param sigma_par the scale parameter, a real-valued input.
  *
- * @return the density function evaluated at \c p.
+ * @return the quantile function evaluated at \c p.
  * 
  * Example:
  * \code{.cpp} stats::qlaplace(0.7,1.0,2.0); \endcode

@@ -151,7 +151,7 @@ qnorm_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const T
  * Example:
  * \code{.cpp}
  * std::vector<double> x = {0.1, 0.3, 0.7};
- * stats::qnorm(x,1.0,2.0,false);
+ * stats::qnorm(x,1.0,2.0);
  * \endcode
  */
 
@@ -178,7 +178,7 @@ qnorm(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par)
  * \code{.cpp}
  * arma::mat X = { {0.2, 0.7, 0.9},
  *                 {0.1, 0.8, 0.3} };
- * stats::qnorm(X,1.0,1.0,false);
+ * stats::qnorm(X,1.0,1.0);
  * \endcode
  */
 
@@ -211,7 +211,7 @@ qnorm(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par)
  * 
  * Example:
  * \code{.cpp}
- * stats::qnorm(X,1.0,1.0,false);
+ * stats::qnorm(X,1.0,1.0);
  * \endcode
  */
 
@@ -236,7 +236,7 @@ qnorm(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par)
  * 
  * Example:
  * \code{.cpp}
- * stats::qnorm(X,1.0,1.0,false);
+ * stats::qnorm(X,1.0,1.0);
  * \endcode
  */
 

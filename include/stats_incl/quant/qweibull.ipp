@@ -127,7 +127,7 @@ qweibull_vec(const eT* __stats_pointer_settings__ vals_in, const T1 shape_par, c
  * Example:
  * \code{.cpp}
  * std::vector<double> x = {0.3, 0.5, 0.9};
- * stats::qweibull(x,3.0,2.0,false);
+ * stats::qweibull(x,3.0,2.0);
  * \endcode
  */
 
@@ -154,7 +154,7 @@ qweibull(const std::vector<eT>& x, const T1 shape_par, const T2 scale_par)
  * \code{.cpp}
  * arma::mat X = { {0.2,  0.7,  0.1},
  *                 {0.9,  0.3,  0.87} };
- * stats::qweibull(X,3.0,2.0,false);
+ * stats::qweibull(X,3.0,2.0);
  * \endcode
  */
 
@@ -187,7 +187,7 @@ qweibull(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 scale_par)
  * 
  * Example:
  * \code{.cpp}
- * stats::qweibull(X,3.0,2.0,false);
+ * stats::qweibull(X,3.0,2.0);
  * \endcode
  */
 
@@ -212,7 +212,7 @@ qweibull(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 scale_par)
  * 
  * Example:
  * \code{.cpp}
- * stats::qweibull(X,3.0,2.0,false);
+ * stats::qweibull(X,3.0,2.0);
  * \endcode
  */
 

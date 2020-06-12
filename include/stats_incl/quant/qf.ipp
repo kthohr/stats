@@ -149,7 +149,7 @@ qf_vec(const eT* __stats_pointer_settings__ vals_in, const T1 df1_par, const T2 
  * Example:
  * \code{.cpp}
  * std::vector<double> x = {0.3, 0.5, 0.9};
- * stats::qf(x,3.0,2.0,false);
+ * stats::qf(x,3.0,2.0);
  * \endcode
  */
 
@@ -176,7 +176,7 @@ qf(const std::vector<eT>& x, const T1 df1_par, const T2 df2_par)
  * \code{.cpp}
  * arma::mat X = { {0.2,  0.7,  0.1},
  *                 {0.9,  0.3,  0.87} };
- * stats::qf(X,3.0,2.0,false);
+ * stats::qf(X,3.0,2.0);
  * \endcode
  */
 
@@ -209,7 +209,7 @@ qf(const ArmaGen<mT,tT>& X, const T1 df1_par, const T2 df2_par)
  * 
  * Example:
  * \code{.cpp}
- * stats::qf(X,3.0,2.0,false);
+ * stats::qf(X,3.0,2.0);
  * \endcode
  */
 
@@ -234,7 +234,7 @@ qf(const BlazeMat<eT,To>& X, const T1 df1_par, const T2 df2_par)
  * 
  * Example:
  * \code{.cpp}
- * stats::qf(X,3.0,2.0,false);
+ * stats::qf(X,3.0,2.0);
  * \endcode
  */
 

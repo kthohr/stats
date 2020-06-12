@@ -139,7 +139,7 @@ qinvgamma_vec(const eT* __stats_pointer_settings__ vals_in, const T1 shape_par, 
  * Example:
  * \code{.cpp}
  * std::vector<double> x = {0.3, 0.5, 0.9};
- * stats::qinvgamma(x,3.0,2.0,false);
+ * stats::qinvgamma(x,3.0,2.0);
  * \endcode
  */
 
@@ -166,7 +166,7 @@ qinvgamma(const std::vector<eT>& x, const T1 shape_par, const T2 rate_par)
  * \code{.cpp}
  * arma::mat X = { {0.2,  0.7,  0.1},
  *                 {0.9,  0.3,  0.87} };
- * stats::qinvgamma(X,3.0,2.0,false);
+ * stats::qinvgamma(X,3.0,2.0);
  * \endcode
  */
 
@@ -199,7 +199,7 @@ qinvgamma(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 rate_par)
  * 
  * Example:
  * \code{.cpp}
- * stats::qinvgamma(X,3.0,2.0,false);
+ * stats::qinvgamma(X,3.0,2.0);
  * \endcode
  */
 
@@ -224,7 +224,7 @@ qinvgamma(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 rate_par)
  * 
  * Example:
  * \code{.cpp}
- * stats::qinvgamma(X,3.0,2.0,false);
+ * stats::qinvgamma(X,3.0,2.0);
  * \endcode
  */
 
