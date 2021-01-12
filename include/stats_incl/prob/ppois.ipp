@@ -51,7 +51,7 @@ statslib_constexpr
 T
 ppois_compute(const llint_t x, const T rate_par)
 {
-    return( rate_par > T(10) ? \
+    return( rate_par > T(10) || x > 10 ? \
             // switch to incomplete gamma function
                 T(1) - gcem::incomplete_gamma(T(x+1),rate_par) :
             // else
