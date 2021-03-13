@@ -50,7 +50,10 @@ noexcept
                 log_zero_if<T>(log_form) :
             //
             x == T(0) && shape_par < T(1) ? \
-                STLIM<T>::infinity() :
+                STLIM<T>::infinity() : \
+			//
+            GCINT::is_posinf(x) ? \
+                T(0) :
             //
             exp_if(dweibull_log_compute(x/scale_par,shape_par,scale_par), !log_form) );
 }
