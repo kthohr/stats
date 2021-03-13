@@ -56,6 +56,10 @@ int main()
 
     STATS_TEST_EXPECTED_VAL(ppois,-1,0,false,2);                                                    // x < 0
 
+    STATS_TEST_EXPECTED_VAL(ppois,15,0.9512596,false,10.0);
+    STATS_TEST_EXPECTED_VAL(ppois,20,0.9984117,false,10.0);
+    STATS_TEST_EXPECTED_VAL(ppois,100,1.0,false,10.0);
+
     //
     // vector/matrix tests
 
