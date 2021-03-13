@@ -67,6 +67,16 @@ int main()
     STATS_TEST_EXPECTED_VAL(df,2,0.1730996,false,TEST_POSINF,3);                                    // a == +Inf
 
     STATS_TEST_EXPECTED_VAL(df,3,0.04978707,false,2,TEST_POSINF);                                   // b == +Inf
+
+    STATS_TEST_EXPECTED_VAL(df,TEST_POSINF,0,false,2,1);                                            // x == +Inf
+    STATS_TEST_EXPECTED_VAL(df,TEST_POSINF,TEST_NAN,false,1.5,1);
+    STATS_TEST_EXPECTED_VAL(df,TEST_POSINF,TEST_NAN,false,2,0.9);
+
+    STATS_TEST_EXPECTED_VAL(df,TEST_POSINF,TEST_NAN,false,TEST_POSINF,1.9);
+    STATS_TEST_EXPECTED_VAL(df,TEST_POSINF,0,false,TEST_POSINF,2.0);
+    STATS_TEST_EXPECTED_VAL(df,TEST_POSINF,0,false,TEST_POSINF,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(df,TEST_POSINF,TEST_NAN,false,0,TEST_POSINF);
+    STATS_TEST_EXPECTED_VAL(df,TEST_POSINF,0,false,0.1,TEST_POSINF);
  
     //
     // vector/matrix tests

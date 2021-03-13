@@ -76,7 +76,28 @@ noexcept
 template<typename T>
 statslib_constexpr
 T
-df_limit_vals_x(const T df1_par)
+df_limit_vals_xinf(const T df1_par, const T df2_par)
+noexcept
+{
+    return( GCINT::is_posinf(df1_par) ? \
+                df2_par < T(2) ? \
+                    STLIM<T>::quiet_NaN() :
+                    T(0) : // includes case where df2_par == +Inf
+            //
+            GCINT::is_posinf(df2_par) ? \
+                df1_par > T(0) ? \
+                    T(0) :
+                    STLIM<T>::quiet_NaN() :
+            // df1_par and df1_par finite
+            (df1_par >= T(2) && df2_par >= T(1)) ? \
+                0 :
+                STLIM<T>::quiet_NaN() );
+}
+
+template<typename T>
+statslib_constexpr
+T
+df_limit_vals_x0(const T df1_par)
 noexcept
 {
     return( df1_par < T(2) ? \
@@ -99,9 +120,9 @@ noexcept
             x < T(0) ? \
                 log_zero_if<T>(log_form) :
             x == T(0) ? \
-                log_if(df_limit_vals_x(df1_par), log_form) :
+                log_if(df_limit_vals_x0(df1_par), log_form) :
             GCINT::is_posinf(x) ? \
-                T(0) :
+                log_if(df_limit_vals_xinf(df1_par, df2_par), log_form) :
             //
             GCINT::any_posinf(df1_par,df2_par) ? \
                 df_limit_vals_dof(x,df1_par,df2_par,log_form) :
