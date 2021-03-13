@@ -47,7 +47,12 @@ int main()
     STATS_TEST_EXPECTED_VAL(dpois,1,TEST_NAN,false,TEST_NAN);
 
     STATS_TEST_EXPECTED_VAL(dpois,0,1,false,0);                                                     // rate <= 0
+    STATS_TEST_EXPECTED_VAL(dpois,0,1,true,0);                                                      
     STATS_TEST_EXPECTED_VAL(dpois,1,0,false,0);
+    STATS_TEST_EXPECTED_VAL(dpois,1,0,true,0);
+
+    STATS_TEST_EXPECTED_VAL(dpois,0,0.3678794,false,1);
+
     // STATS_TEST_EXPECTED_VAL(dpois,TEST_POSINF,0,false,0);
     STATS_TEST_EXPECTED_VAL(dpois,1,TEST_NAN,false,-1.0);
     STATS_TEST_EXPECTED_VAL(dpois,1,TEST_NAN,false,TEST_NEGINF);
