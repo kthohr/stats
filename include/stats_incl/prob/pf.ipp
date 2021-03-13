@@ -66,6 +66,8 @@ pf_vals_check(const T x, const T df1_par, const T df2_par, const bool log_form)
             //
             STLIM<T>::epsilon() > x ? \
                 log_zero_if<T>(log_form) :
+            GCINT::is_posinf(x) ? \
+                T(1) :
             //
             GCINT::any_posinf(df1_par,df2_par) ? \
                 pf_limit_vals_dof(x,df1_par,df2_par,log_form) :

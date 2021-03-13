@@ -100,6 +100,8 @@ noexcept
                 log_zero_if<T>(log_form) :
             x == T(0) ? \
                 log_if(df_limit_vals_x(df1_par), log_form) :
+            GCINT::is_posinf(x) ? \
+                T(0) :
             //
             GCINT::any_posinf(df1_par,df2_par) ? \
                 df_limit_vals_dof(x,df1_par,df2_par,log_form) :
