@@ -1,4 +1,4 @@
-.. Copyright (c) 2011-2020 Keith O'Hara
+.. Copyright (c) 2011-2021 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 

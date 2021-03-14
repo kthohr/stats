@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2020 Keith O'Hara
+  ##   Copyright (C) 2011-2021 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -35,7 +35,7 @@
 #endif
 
 #ifndef STATS_VERSION_PATCH
-    #define STATS_VERSION_PATCH 1
+    #define STATS_VERSION_PATCH 2
 #endif
 
 // switch between inline mode vs constexpr
