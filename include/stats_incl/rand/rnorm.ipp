@@ -98,8 +98,7 @@ statslib_inline
 common_return_t<T1,T2>
 rnorm(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val)
 {
-    rand_engine_t engine(seed_val);
-    return rnorm(mu_par,sigma_par,engine);
+    return rnorm(mu_par,sigma_par,stats::default_engine);
 }
 
 /**

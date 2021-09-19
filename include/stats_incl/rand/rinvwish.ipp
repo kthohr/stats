@@ -49,7 +49,7 @@ rinvwish(const mT& Psi_par, const pT nu_par, const bool pre_inv_chol)
 
     //
 
-    rand_engine_t engine(std::random_device{}());
+    rand_engine_t& engine = stats::default_engine;
 
     mT A;
     mat_ops::zeros(A,K,K);
