@@ -53,6 +53,12 @@
     #define stmath std
 #endif
 
+// RNG engine
+
+#ifndef STATS_RNG_ENGINE_TYPE
+    #define STATS_RNG_ENGINE_TYPE std::mt19937_64
+#endif
+
 // include some basic libraries
 
 #include <limits>
@@ -67,7 +73,7 @@ namespace stats
 
     using llint_t = long long int;
 
-    using rand_engine_t = std::mt19937_64;
+    using rand_engine_t = STATS_RNG_ENGINE_TYPE;
 
     namespace GCINT = gcem::internal;
 
