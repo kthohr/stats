@@ -1,6 +1,84 @@
 PROJECT_NAME      = "statslib"
 XML_OUTPUT        = xml
-INPUT             = ../include
+INPUT             = ../include/stats_incl/dens/dbern.hpp \
+                    ../include/stats_incl/dens/dbeta.hpp \
+                    ../include/stats_incl/dens/dbinom.hpp \
+                    ../include/stats_incl/dens/dcauchy.hpp \
+                    ../include/stats_incl/dens/dchisq.hpp \
+                    ../include/stats_incl/dens/dexp.hpp \
+                    ../include/stats_incl/dens/df.hpp \
+                    ../include/stats_incl/dens/dgamma.hpp \
+                    ../include/stats_incl/dens/dinvgamma.hpp \
+					../include/stats_incl/dens/dinvgauss.hpp \
+                    ../include/stats_incl/dens/dinvwish.hpp \
+                    ../include/stats_incl/dens/dlaplace.hpp \
+                    ../include/stats_incl/dens/dlnorm.hpp \
+                    ../include/stats_incl/dens/dlogis.hpp \
+                    ../include/stats_incl/dens/dmvnorm.hpp \
+                    ../include/stats_incl/dens/dnorm.hpp \
+                    ../include/stats_incl/dens/dpois.hpp \
+                    ../include/stats_incl/dens/dt.hpp \
+                    ../include/stats_incl/dens/dunif.hpp \
+                    ../include/stats_incl/dens/dweibull.hpp \
+                    ../include/stats_incl/dens/dwish.hpp \
+                    ../include/stats_incl/prob/pbern.hpp \
+                    ../include/stats_incl/prob/pbeta.hpp \
+                    ../include/stats_incl/prob/pbinom.hpp \
+                    ../include/stats_incl/prob/pcauchy.hpp \
+                    ../include/stats_incl/prob/pchisq.hpp \
+                    ../include/stats_incl/prob/pexp.hpp \
+                    ../include/stats_incl/prob/pf.hpp \
+                    ../include/stats_incl/prob/pgamma.hpp \
+                    ../include/stats_incl/prob/pinvgamma.hpp \
+					../include/stats_incl/prob/pinvgauss.hpp \
+                    ../include/stats_incl/prob/plaplace.hpp \
+                    ../include/stats_incl/prob/plnorm.hpp \
+                    ../include/stats_incl/prob/plogis.hpp \
+                    ../include/stats_incl/prob/pnorm.hpp \
+                    ../include/stats_incl/prob/ppois.hpp \
+                    ../include/stats_incl/prob/pt.hpp \
+                    ../include/stats_incl/prob/punif.hpp \
+                    ../include/stats_incl/prob/pweibull.hpp \
+                    ../include/stats_incl/quant/qbern.hpp \
+                    ../include/stats_incl/quant/qbeta.hpp \
+                    ../include/stats_incl/quant/qbinom.hpp \
+                    ../include/stats_incl/quant/qcauchy.hpp \
+                    ../include/stats_incl/quant/qchisq.hpp \
+                    ../include/stats_incl/quant/qexp.hpp \
+                    ../include/stats_incl/quant/qf.hpp \
+                    ../include/stats_incl/quant/qgamma.hpp \
+                    ../include/stats_incl/quant/qinvgamma.hpp \
+					../include/stats_incl/quant/qinvgauss.hpp \
+                    ../include/stats_incl/quant/qlaplace.hpp \
+                    ../include/stats_incl/quant/qlnorm.hpp \
+                    ../include/stats_incl/quant/qlogis.hpp \
+                    ../include/stats_incl/quant/qnorm.hpp \
+                    ../include/stats_incl/quant/qpois.hpp \
+                    ../include/stats_incl/quant/qt.hpp \
+                    ../include/stats_incl/quant/qunif.hpp \
+                    ../include/stats_incl/quant/qweibull.hpp \
+					../include/stats_incl/rand/rbern.hpp \
+                    ../include/stats_incl/rand/rbeta.hpp \
+                    ../include/stats_incl/rand/rbinom.hpp \
+                    ../include/stats_incl/rand/rcauchy.hpp \
+                    ../include/stats_incl/rand/rchisq.hpp \
+                    ../include/stats_incl/rand/rexp.hpp \
+                    ../include/stats_incl/rand/rf.hpp \
+                    ../include/stats_incl/rand/rgamma.hpp \
+                    ../include/stats_incl/rand/rinvgamma.hpp \
+					../include/stats_incl/rand/rinvgauss.hpp \
+                    ../include/stats_incl/rand/rinvwish.hpp \
+                    ../include/stats_incl/rand/rlaplace.hpp \
+                    ../include/stats_incl/rand/rlnorm.hpp \
+                    ../include/stats_incl/rand/rlogis.hpp \
+                    ../include/stats_incl/rand/rmvnorm.hpp \
+                    ../include/stats_incl/rand/rnorm.hpp \
+                    ../include/stats_incl/rand/rpois.hpp \
+                    ../include/stats_incl/rand/rt.hpp \
+                    ../include/stats_incl/rand/runif.hpp \
+                    ../include/stats_incl/rand/rweibull.hpp \
+                    ../include/stats_incl/rand/rwish.hpp
+
 GENERATE_LATEX    = NO
 GENERATE_MAN      = NO
 GENERATE_RTF      = NO
@@ -18,6 +96,7 @@ EXPAND_ONLY_PREDEF     = YES
 PREDEFINED             = "statslib_constexpr=constexpr" \
                          "statslib_inline=inline" \
                          "STATS_ENABLE_INTERNAL_VEC_FEATURES" \
+                         "STATS_ENABLE_MATRIX_FEATURES"\
                          "STATS_ENABLE_STDVEC_WRAPPERS" \
                          "STATS_ENABLE_ARMA_WRAPPERS" \
                          "STATS_ENABLE_BLAZE_WRAPPERS" \

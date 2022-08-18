@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -30,6 +30,7 @@
 #include "qf.hpp"
 #include "qgamma.hpp"
 #include "qinvgamma.hpp"
+#include "qinvgauss.hpp"
 #include "qlaplace.hpp"
 #include "qlogis.hpp"
 #include "qnorm.hpp"

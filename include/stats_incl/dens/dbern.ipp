@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -56,19 +56,6 @@ noexcept
 
 }
 
-/**
- * @brief Density function of the Bernoulli distribution
- *
- * @param x an integral-valued input, equal to 0 or 1.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return the density function evaluated at \c x.
- * 
- * Example:
- * \code{.cpp} stats::dbern(1,0.6,false); \endcode
- */
-
 template<typename T>
 statslib_constexpr
 return_t<T>
@@ -97,22 +84,6 @@ dbern_vec(const eT* __stats_pointer_settings__ vals_in, const T1 prob_par, const
 
 }
 
-/**
- * @brief Density function of the Bernoulli distribution
- *
- * @param x a standard vector.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a vector of density function values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<int> x = {0, 1, 0};
- * stats::dbern(x,0.5,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
@@ -122,23 +93,6 @@ dbern(const std::vector<eT>& x, const T1 prob_par, const bool log_form)
     STDVEC_DIST_FN(dbern_vec,prob_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Bernoulli distribution
- *
- * @param X a matrix of input values.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {1, 0, 1},
- *                 {0, 1, 0} };
- * stats::dbern(X,0.5,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
@@ -158,21 +112,6 @@ dbern(const ArmaGen<mT,tT>& X, const T1 prob_par, const bool log_form)
 }
 #endif
 
-/**
- * @brief Density function of the Bernoulli distribution
- *
- * @param X a matrix of input values.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dbern(X,0.5,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
@@ -182,21 +121,6 @@ dbern(const BlazeMat<eT,To>& X, const T1 prob_par, const bool log_form)
     BLAZE_DIST_FN(dbern,prob_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Bernoulli distribution
- *
- * @param X a matrix of input values.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dbern(X,0.5,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>

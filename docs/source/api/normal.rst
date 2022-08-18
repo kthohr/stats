@@ -1,4 +1,4 @@
-.. Copyright (c) 2011-2021 Keith O'Hara
+.. Copyright (c) 2011-2022 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -31,34 +31,38 @@ Scalar Input
 .. doxygenfunction:: dnorm(const T1, const T2, const T3, const bool)
    :project: statslib
 
+.. _dnorm-func-ref2:
+.. doxygenfunction:: dnorm(const T, const bool)
+   :project: statslib
+
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
 STL Containers
 ______________
 
-.. _dnorm-func-ref2:
+.. _dnorm-func-ref3:
 .. doxygenfunction:: dnorm(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
 Armadillo
 _________
 
-.. _dnorm-func-ref3:
+.. _dnorm-func-ref4:
 .. doxygenfunction:: dnorm(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
 Blaze
 _____
 
-.. _dnorm-func-ref4:
+.. _dnorm-func-ref5:
 .. doxygenfunction:: dnorm(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
 Eigen
 _____
 
-.. _dnorm-func-ref5:
+.. _dnorm-func-ref6:
 .. doxygenfunction:: dnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
@@ -84,34 +88,38 @@ Scalar Input
 .. doxygenfunction:: pnorm(const T1, const T2, const T3, const bool)
    :project: statslib
 
+.. _pnorm-func-ref2:
+.. doxygenfunction:: pnorm(const T, const bool)
+   :project: statslib
+
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
 STL Containers
 ______________
 
-.. _pnorm-func-ref2:
+.. _pnorm-func-ref3:
 .. doxygenfunction:: pnorm(const std::vector<eT>&, const T1, const T2, const bool)
    :project: statslib
 
 Armadillo
 _________
 
-.. _pnorm-func-ref3:
+.. _pnorm-func-ref4:
 .. doxygenfunction:: pnorm(const ArmaMat<eT>&, const T1, const T2, const bool)
    :project: statslib
 
 Blaze
 _____
 
-.. _pnorm-func-ref4:
+.. _pnorm-func-ref5:
 .. doxygenfunction:: pnorm(const BlazeMat<eT, To>&, const T1, const T2, const bool)
    :project: statslib
 
 Eigen
 _____
 
-.. _pnorm-func-ref5:
+.. _pnorm-func-ref6:
 .. doxygenfunction:: pnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2, const bool)
    :project: statslib
 
@@ -137,34 +145,38 @@ Scalar Input
 .. doxygenfunction:: qnorm(const T1, const T2, const T3)
    :project: statslib
 
+.. _qnorm-func-ref2:
+.. doxygenfunction:: qnorm(const T)
+   :project: statslib
+
 Vector/Matrix Input
 ~~~~~~~~~~~~~~~~~~~
 
 STL Containers
 ______________
 
-.. _qnorm-func-ref2:
+.. _qnorm-func-ref3:
 .. doxygenfunction:: qnorm(const std::vector<eT>&, const T1, const T2)
    :project: statslib
 
 Armadillo
 _________
 
-.. _qnorm-func-ref3:
+.. _qnorm-func-ref4:
 .. doxygenfunction:: qnorm(const ArmaMat<eT>&, const T1, const T2)
    :project: statslib
 
 Blaze
 _____
 
-.. _qnorm-func-ref4:
+.. _qnorm-func-ref5:
 .. doxygenfunction:: qnorm(const BlazeMat<eT, To>&, const T1, const T2)
    :project: statslib
 
 Eigen
 _____
 
-.. _qnorm-func-ref5:
+.. _qnorm-func-ref6:
 .. doxygenfunction:: qnorm(const EigenMat<eT, iTr, iTc>&, const T1, const T2)
    :project: statslib
 

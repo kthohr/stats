@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -70,19 +70,6 @@ noexcept
 
 }
 
-/**
- * @brief Quantile function of the Binomial distribution
- *
- * @param p a real-valued input.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return the quantile function evaluated at \c p.
- * 
- * Example:
- * \code{.cpp} stats::qbinom(0.4,4,0.4); \endcode
- */
-
 template<typename T1, typename T2>
 statslib_constexpr
 common_return_t<T1,T2>
@@ -111,22 +98,6 @@ qbinom_vec(const eT* __stats_pointer_settings__ vals_in, const llint_t n_trials_
 
 }
 
-/**
- * @brief Quantile function of the Binomial distribution
- *
- * @param x a standard vector.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a vector of quantile values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<int> x = {2, 3, 4};
- * stats::qbinom(x,5,0.5);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
@@ -136,21 +107,6 @@ qbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par)
     STDVEC_DIST_FN(qbinom_vec,n_trials_par,prob_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Binomial distribution
- *
- * @param X a matrix of input values.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qbinom(X,5,0.5);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
@@ -170,21 +126,6 @@ qbinom(const ArmaGen<mT,tT>& X, const llint_t n_trials_par, const T1 prob_par)
 }
 #endif
 
-/**
- * @brief Quantile function of the Binomial distribution
- *
- * @param X a matrix of input values.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qbinom(X,5,0.5);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
@@ -194,21 +135,6 @@ qbinom(const BlazeMat<eT,To>& X, const llint_t n_trials_par, const T1 prob_par)
     BLAZE_DIST_FN(qbinom_vec,n_trials_par,prob_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Binomial distribution
- *
- * @param X a matrix of input values.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qbinom(X,5,0.5);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>

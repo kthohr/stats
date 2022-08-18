@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -91,22 +91,6 @@ noexcept
 
 }
 
-/**
- * @brief Random sampling function for the Gamma distribution
- *
- * @param shape_par the shape parameter, a real-valued input.
- * @param scale_par the scale parameter, a real-valued input.
- * @param engine a random engine, passed by reference.
- *
- * @return a pseudo-random draw from the Gamma distribution.
- *
- * Example:
- * \code{.cpp}
- * stats::rand_engine_t engine(1776);
- * stats::rgamma(3.0,2.0,engine);
- * \endcode
- */
-
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
@@ -114,21 +98,6 @@ rgamma(const T1 shape_par, const T2 scale_par, rand_engine_t& engine)
 {
     return internal::rgamma_type_check(shape_par,scale_par,engine);
 }
-
-/**
- * @brief Random sampling function for the Gamma distribution
- *
- * @param shape_par the shape parameter, a real-valued input.
- * @param scale_par the scale parameter, a real-valued input.
- * @param seed_val initialize the random engine with a non-negative integral-valued seed.
- *
- * @return a pseudo-random draw from the Gamma distribution.
- *
- * Example:
- * \code{.cpp}
- * stats::rgamma(3.0,2.0,1776);
- * \endcode
- */
 
 template<typename T1, typename T2>
 statslib_inline
@@ -176,31 +145,6 @@ rgamma_mat_check(mT& X, const T1 shape_par, const T2 scale_par)
 #endif
 
 }
-
-/**
- * @brief Random matrix sampling function for the Gamma distribution
- *
- * @param n the number of output rows
- * @param k the number of output columns
- * @param shape_par the shape parameter, a real-valued input.
- * @param scale_par the scale parameter, a real-valued input.
- *
- * @return a matrix of pseudo-random draws from the Gamma distribution.
- *
- * Example:
- * \code{.cpp}
- * // std::vector
- * stats::rgamma<std::vector<double>>(5,4,3.0,2.0);
- * // Armadillo matrix
- * stats::rgamma<arma::mat>(5,4,3.0,2.0);
- * // Blaze dynamic matrix
- * stats::rgamma<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,3.0,2.0);
- * // Eigen dynamic matrix
- * stats::rgamma<Eigen::MatrixXd>(5,4,3.0,2.0);
- * \endcode
- *
- * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
- */
 
 #ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>

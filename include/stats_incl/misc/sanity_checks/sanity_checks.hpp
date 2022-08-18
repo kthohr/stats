@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -32,6 +32,7 @@
 #include "f.hpp"
 #include "gamma.hpp"
 #include "invgamma.hpp"
+#include "invgauss.hpp"
 // #include "invwish.hpp"
 #include "laplace.hpp"
 #include "lnorm.hpp"

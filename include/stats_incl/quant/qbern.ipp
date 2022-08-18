@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -56,18 +56,6 @@ noexcept
 
 }
 
-/**
- * @brief Quantile function of the Bernoulli distribution
- *
- * @param p a real-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return the quantile function evaluated at \c p.
- * 
- * Example:
- * \code{.cpp} stats::qbern(0.5,0.4); \endcode
- */
-
 template<typename T1, typename T2>
 statslib_constexpr
 common_return_t<T1,T2> // not llint_t so we can return NaN
@@ -96,21 +84,6 @@ qbern_vec(const eT* __stats_pointer_settings__ vals_in, const T1 prob_par,
 
 }
 
-/**
- * @brief Quantile function of the Bernoulli distribution
- *
- * @param x a standard vector.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a vector of quantile values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<int> x = {0.4, 0.5, 0.9};
- * stats::qbern(x,0.5);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
@@ -120,22 +93,6 @@ qbern(const std::vector<eT>& x, const T1 prob_par)
     STDVEC_DIST_FN(qbern_vec,prob_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Bernoulli distribution
- *
- * @param X a matrix of input values.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {0.4, 0.5, 0.9},
- *                 {0.3, 0.6, 0.7} };
- * stats::qbern(X,0.5);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
@@ -155,20 +112,6 @@ qbern(const ArmaGen<mT,tT>& X, const T1 prob_par)
 }
 #endif
 
-/**
- * @brief Quantile function of the Bernoulli distribution
- *
- * @param X a matrix of input values.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qbern(X,0.5);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
@@ -178,20 +121,6 @@ qbern(const BlazeMat<eT,To>& X, const T1 prob_par)
     BLAZE_DIST_FN(qbern_vec,prob_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Bernoulli distribution
- *
- * @param X a matrix of input values.
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qbern(X,0.5);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>

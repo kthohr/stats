@@ -52,12 +52,16 @@ echo ""
 echo -e "\x1B[32mStatsLib Test Configuration...\033[0m" >&2 ;
 echo ""
 
-IS_DARWIN=$($CXX -dumpmachine 2>&1 | grep -i -c "darwin")
-GCC_COMPILER=$($CXX --version 2>&1 | grep -i -c -E "gcc")
-APPLE_COMPILER=$($CXX --version 2>&1 | grep -i -c -E 'apple llvm')
-
 # get working directory
 WDIR=${PWD}
+
+# compiler and system checks
+ARCH=$(uname -m)
+IS_ARM=$(echo $ARCH | grep -i -c "arm")
+IS_DARWIN=$($CXX -dumpmachine 2>&1 | grep -i -c "darwin")
+GCC_COMPILER=$($CXX --version 2>&1 | grep -i -c -E "gcc")
+CLANG_COMPILER=$($CXX --version 2>&1 | grep -i -c -E "clang")
+APPLE_COMPILER=$($CXX --version 2>&1 | grep -i -c -E 'apple llvm')
 
 # Matrix Linear Algebra Libraries
 STATS_MATLIB_FLAGS=
@@ -129,7 +133,14 @@ elif [[ "${STATS_DEBUG_BUILD}" == "y" ]]; then
     STATS_OPT_FLAGS="-g -O0 -DSTATS_DONT_USE_OPENMP"
 else
     if [[ "${STATS_OPT}" == "" ]]; then
-        STATS_OPT_FLAGS="-O3 -march=native -ffp-contract=fast"
+        STATS_OPT_FLAGS="-O3 -ffp-contract=fast -flto -DNDEBUG"
+
+        if [ "$IS_ARM" -eq "1" ]; then
+            STATS_OPT_FLAGS="-mcpu=native ${STATS_OPT_FLAGS}"
+        else
+            # assumes x86
+            STATS_OPT_FLAGS="-march=native ${STATS_OPT_FLAGS}"
+        fi
     else
         STATS_OPT_FLAGS="${STATS_OPT}"
     fi
@@ -174,6 +185,7 @@ fi
 # final print:
 
 echo "  - OS:            ${OSTYPE}"
+echo "  - Arch:          ${ARCH}"
 echo "  - C++ compiler:  ${CXX}"
 
 if [[ "${STATS_COVERAGE_BUILD}" == "y" ]]; then

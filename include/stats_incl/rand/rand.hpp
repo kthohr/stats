@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -34,6 +34,7 @@
 #include "rexp.hpp"
 #include "rf.hpp"
 #include "rinvgamma.hpp"
+#include "rinvgauss.hpp"
 #include "rinvwish.hpp"
 #include "rlaplace.hpp"
 #include "rlnorm.hpp"

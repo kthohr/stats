@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -47,22 +47,6 @@ noexcept
 
 }
 
-/**
- * @brief Random sampling function for the Inverse-Gamma distribution
- *
- * @param shape_par the shape parameter, a real-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- * @param engine a random engine, passed by reference.
- *
- * @return a pseudo-random draw from the Inverse-Gamma distribution.
- *
- * Example:
- * \code{.cpp}
- * stats::rand_engine_t engine(1776);
- * stats::rinvgamma(3.0,2.0,engine);
- * \endcode
- */
-
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
@@ -70,21 +54,6 @@ rinvgamma(const T1 shape_par, const T2 rate_par, rand_engine_t& engine)
 {
     return internal::rinvgamma_type_check(shape_par,rate_par,engine);
 }
-
-/**
- * @brief Random sampling function for the Inverse-Gamma distribution
- *
- * @param shape_par the shape parameter, a real-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- * @param seed_val initialize the random engine with a non-negative integral-valued seed.
- *
- * @return a pseudo-random draw from the Inverse-Gamma distribution.
- *
- * Example:
- * \code{.cpp}
- * stats::rinvgamma(3.0,2.0,1776);
- * \endcode
- */
 
 template<typename T1, typename T2>
 statslib_inline

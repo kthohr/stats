@@ -1,4 +1,4 @@
-.. Copyright (c) 2011-2021 Keith O'Hara
+.. Copyright (c) 2011-2022 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -28,7 +28,7 @@ Scalar Input
 ~~~~~~~~~~~~
 
 .. _dbern-func-ref1:
-.. doxygenfunction:: dbern(const llint_t, const T, const bool)
+.. doxygenfunction:: dbern(const llint_t x, const T prob_par, const bool log_form)
    :project: statslib
 
 Vector/Matrix Input
@@ -38,28 +38,28 @@ STL Containers
 ______________
 
 .. _dbern-func-ref2:
-.. doxygenfunction:: dbern(const std::vector<eT>&, const T1, const bool)
+.. doxygenfunction:: dbern(const std::vector<eT>& x, const T1 prob_par, const bool log_form)
    :project: statslib
 
 Armadillo
 _________
 
 .. _dbern-func-ref3:
-.. doxygenfunction:: dbern(const ArmaMat<eT>&, const T1, const bool)
+.. doxygenfunction:: dbern(const ArmaGen<mT,tT>& X, const T1 prob_par, const bool log_form)
    :project: statslib
 
 Blaze
 _____
 
 .. _dbern-func-ref4:
-.. doxygenfunction:: dbern(const BlazeMat<eT, To>&, const T1, const bool)
+.. doxygenfunction:: dbern(const BlazeMat<eT,To>& X, const T1 prob_par, const bool log_form)
    :project: statslib
 
 Eigen
 _____
 
 .. _dbern-func-ref5:
-.. doxygenfunction:: dbern(const EigenMat<eT, iTr, iTc>&, const T1, const bool)
+.. doxygenfunction:: dbern(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par, const bool log_form)
    :project: statslib
 
 ----

@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -39,6 +39,7 @@
 #include "pweibull.hpp"
 
 // these depend on one of the above
+#include "pinvgauss.hpp"
 #include "plnorm.hpp"
 
 

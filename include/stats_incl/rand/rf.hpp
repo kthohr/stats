@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -28,10 +28,41 @@
 //
 // scalar output
 
+/**
+ * @brief Random sampling function for the F-distribution
+ *
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ * @param engine a random engine, passed by reference.
+ *
+ * @return a pseudo-random draw from the F-distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rand_engine_t engine(1776);
+ * stats::rf(3.0,2.0,engine);
+ * \endcode
+ */
+
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
 rf(const T1 df1_par, const T2 df2_par, rand_engine_t& engine);
+
+/**
+ * @brief Random sampling function for the F-distribution
+ *
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ * @param seed_val initialize the random engine with a non-negative integral-valued seed.
+ *
+ * @return a pseudo-random draw from the F-distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rf(3.0,2.0,1776);
+ * \endcode
+ */
 
 template<typename T1, typename T2>
 statslib_inline
@@ -40,6 +71,31 @@ rf(const T1 df1_par, const T2 df2_par, const ullint_t seed_val = std::random_dev
 
 //
 // vector/matrix output
+
+/**
+ * @brief Random matrix sampling function for the F-distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param df1_par a degrees of freedom parameter, a real-valued input.
+ * @param df2_par a degrees of freedom parameter, a real-valued input.
+ *
+ * @return a matrix of pseudo-random draws from the F-distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * // std::vector
+ * stats::rf<std::vector<double>>(5,4,3.0,2.0);
+ * // Armadillo matrix
+ * stats::rf<arma::mat>(5,4,3.0,2.0);
+ * // Blaze dynamic matrix
+ * stats::rf<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,3.0,2.0);
+ * // Eigen dynamic matrix
+ * stats::rf<Eigen::MatrixXd>(5,4,3.0,2.0);
+ * \endcode
+ *
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
+ */
 
 #ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>

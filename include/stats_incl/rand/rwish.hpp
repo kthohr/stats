@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -26,6 +26,16 @@
 #define _statslib_rwish_HPP
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES
+
+/**
+ * @brief Random sampling function for the Wishart distribution
+ *
+ * @param Psi_par a positive semi-definite scale matrix.
+ * @param nu_par the degrees of parameter, a real-valued input.
+ * @param pre_chol indicate whether \c Psi_par is passed in lower triangular (Cholesky) format.
+ *
+ * @return a pseudo-random draw from the Wishart distribution.
+ */
 
 template<typename mT, typename pT, typename not_arma_mat<mT>::type* = nullptr>
 statslib_inline
