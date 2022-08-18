@@ -106,6 +106,7 @@ elif [[ "${STATS_LINEAR_ALG_LIB}" == "blaze" ]]; then
 elif [[ "${STATS_LINEAR_ALG_LIB}" == "eigen" ]]; then
     STATS_MATLIB_FLAGS="-DSTATS_ENABLE_EIGEN_WRAPPERS"
     STATS_MATLIB_PATH=$EIGEN_INCLUDE_PATH
+    CXX_STD="-std=c++14"
 else
     STATS_LINEAR_ALG_LIB="none"
 fi

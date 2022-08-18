@@ -2,7 +2,12 @@
 # core compiling options
 CXX = @CXX@
 
-CXX_STD = @CXX_STD@
+ifeq ($(STATS_CXX_STD),)
+	CXX_STD = @CXX_STD@
+else
+	CXX_STD=$(STATS_CXX_STD)
+endif
+
 OPT_FLAGS = @STATS_WARN_FLAGS@ @STATS_OPT_FLAGS@
 
 STATS_MATLIB_FLAGS = @STATS_MATLIB_FLAGS@
