@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -86,19 +86,6 @@ noexcept
 
 }
 
-/**
- * @brief Quantile function of the Inverse-Gamma distribution
- *
- * @param p a real-valued input.
- * @param shape_par the shape parameter, a real-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return the quantile function evaluated at \c p.
- *
- * Example:
- * \code{.cpp} stats::qinvgamma(0.5,2,1); \endcode
- */
-
 template<typename T1, typename T2, typename T3>
 statslib_constexpr
 common_return_t<T1,T2,T3>
@@ -127,22 +114,6 @@ qinvgamma_vec(const eT* __stats_pointer_settings__ vals_in, const T1 shape_par, 
 
 }
 
-/**
- * @brief Quantile function of the Inverse-Gamma distribution
- *
- * @param x a standard vector.
- * @param shape_par the shape parameter, a real-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return a vector of quantile values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<double> x = {0.3, 0.5, 0.9};
- * stats::qinvgamma(x,3.0,2.0);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
@@ -152,23 +123,6 @@ qinvgamma(const std::vector<eT>& x, const T1 shape_par, const T2 rate_par)
     STDVEC_DIST_FN(qinvgamma_vec,shape_par,rate_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Inverse-Gamma distribution
- *
- * @param X a matrix of input values.
- * @param shape_par the shape parameter, a real-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {0.2,  0.7,  0.1},
- *                 {0.9,  0.3,  0.87} };
- * stats::qinvgamma(X,3.0,2.0);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
@@ -188,21 +142,6 @@ qinvgamma(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 rate_par)
 }
 #endif
 
-/**
- * @brief Quantile function of the Inverse-Gamma distribution
- *
- * @param X a matrix of input values.
- * @param shape_par the shape parameter, a real-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qinvgamma(X,3.0,2.0);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
@@ -212,21 +151,6 @@ qinvgamma(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 rate_par)
     BLAZE_DIST_FN(qinvgamma_vec,shape_par,rate_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Inverse-Gamma distribution
- *
- * @param X a matrix of input values.
- * @param shape_par the shape parameter, a real-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qinvgamma(X,3.0,2.0);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>

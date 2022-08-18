@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -62,19 +62,6 @@ noexcept
 
 }
 
-/**
- * @brief Density function of the Poisson distribution
- *
- * @param x a non-negative integral-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return the density function evaluated at \c x.
- * 
- * Example:
- * \code{.cpp} stats::dpois(8.0,10.0,false); \endcode
- */
-
 template<typename T>
 statslib_constexpr
 return_t<T>
@@ -103,22 +90,6 @@ dpois_vec(const eT* __stats_pointer_settings__ vals_in, const T1 rate_par, const
 
 }
 
-/**
- * @brief Density function of the Poisson distribution
- *
- * @param x a standard vector.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a vector of density function values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<int> x = {2, 3, 4};
- * stats::dpois(x,4,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
@@ -128,23 +99,6 @@ dpois(const std::vector<eT>& x, const T1 rate_par, const bool log_form)
     STDVEC_DIST_FN(dpois_vec,rate_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Poisson distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {2, 1, 4},
- *                 {3, 5, 6} };
- * stats::dpois(X,4,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
@@ -164,21 +118,6 @@ dpois(const ArmaGen<mT,tT>& X, const T1 rate_par, const bool log_form)
 }
 #endif
 
-/**
- * @brief Density function of the Poisson distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dpois(X,4,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
@@ -188,21 +127,6 @@ dpois(const BlazeMat<eT,To>& X, const T1 rate_par, const bool log_form)
     BLAZE_DIST_FN(dpois,rate_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Poisson distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dpois(X,4,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>

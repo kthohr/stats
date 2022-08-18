@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -20,16 +20,6 @@
 
 /*
  * Sample from a multivariate normal distribution
- */
-
-/**
- * @brief Random sampling function for the Multivariate-Normal distribution
- *
- * @param mu_par mean vector.
- * @param Sigma_par the covariance matrix.
- * @param pre_chol indicate whether \c Sigma_par is passed in lower triangular (Cholesky) format.
- *
- * @return a pseudo-random draw from the Multivariate-Normal distribution.
  */
 
 template<typename vT, typename mT, typename not_arma_mat<mT>::type*>

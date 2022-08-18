@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -81,20 +81,6 @@ noexcept
 
 }
 
-/**
- * @brief Density function of the Binomial distribution
- *
- * @param x a real-valued input.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return the density function evaluated at \c x.
- * 
- * Example:
- * \code{.cpp} stats::dbinom(2,4,0.4,false); \endcode
- */
-
 template<typename T>
 statslib_constexpr
 return_t<T>
@@ -123,23 +109,6 @@ dbinom_vec(const eT* __stats_pointer_settings__ vals_in, const llint_t n_trials_
 
 }
 
-/**
- * @brief Density function of the Binomial distribution
- *
- * @param x a standard vector.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a vector of density function values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<int> x = {2, 3, 4};
- * stats::dbinom(x,5,0.5,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
@@ -149,22 +118,6 @@ dbinom(const std::vector<eT>& x, const llint_t n_trials_par, const T1 prob_par, 
     STDVEC_DIST_FN(dbinom_vec,n_trials_par,prob_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Binomial distribution
- *
- * @param X a matrix of input values.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dbinom(X,5,0.5,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
@@ -184,22 +137,6 @@ dbinom(const ArmaGen<mT,tT>& X, const llint_t n_trials_par, const T1 prob_par, c
 }
 #endif
 
-/**
- * @brief Density function of the Binomial distribution
- *
- * @param X a matrix of input values.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dbinom(X,5,0.5,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
@@ -209,22 +146,6 @@ dbinom(const BlazeMat<eT,To>& X, const llint_t n_trials_par, const T1 prob_par, 
     BLAZE_DIST_FN(dbinom,n_trials_par,prob_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Binomial distribution
- *
- * @param X a matrix of input values.
- * @param n_trials_par the number of trials, a non-negative integral-valued input.
- * @param prob_par the probability parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dbinom(X,5,0.5,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>

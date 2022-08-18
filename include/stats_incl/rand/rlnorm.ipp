@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -49,22 +49,6 @@ rlnorm_type_check(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine)
 
 }
 
-/**
- * Random sampling function for the Log-Normal distribution
- *
- * @param mu_par the location parameter, a real-valued input.
- * @param sigma_par the scale parameter, a real-valued input.
- * @param engine a random engine, passed by reference.
- *
- * @return a pseudo-random draw from the Log-Normal distribution.
- *
- * Example:
- * \code{.cpp}
- * stats::rand_engine_t engine(1776);
- * stats::rlnorm(1.0,2.0,engine);
- * \endcode
- */
-
 template<typename T1, typename T2>
 statslib_inline
 common_return_t<T1,T2>
@@ -72,21 +56,6 @@ rlnorm(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine)
 {
     return internal::rlnorm_type_check(mu_par,sigma_par,engine);
 }
-
-/**
- * Random sampling function for the Log-Normal distribution
- *
- * @param mu_par the location parameter, a real-valued input.
- * @param sigma_par the scale parameter, a real-valued input.
- * @param seed_val initialize the random engine with a non-negative integral-valued seed.
- *
- * @return a pseudo-random draw from the Log-Normal distribution.
- *
- * Example:
- * \code{.cpp}
- * stats::rlnorm(1.0,2.0,1776);
- * \endcode
- */
 
 template<typename T1, typename T2>
 statslib_inline
@@ -134,31 +103,6 @@ rlnorm_mat_check(mT& X, const T1 mu_par, const T2 sigma_par)
 #endif
 
 }
-
-/**
- * @brief Random matrix sampling function for the Log-Normal distribution
- *
- * @param n the number of output rows
- * @param k the number of output columns
- * @param mu_par the location parameter, a real-valued input.
- * @param sigma_par the scale parameter, a real-valued input.
- *
- * @return a matrix of pseudo-random draws from the Log-Normal distribution.
- *
- * Example:
- * \code{.cpp}
- * // std::vector
- * stats::rlnorm<std::vector<double>>(5,4,1.0,2.0);
- * // Armadillo matrix
- * stats::rlnorm<arma::mat>(5,4,1.0,2.0);
- * // Blaze dynamic matrix
- * stats::rlnorm<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,1.0,2.0);
- * // Eigen dynamic matrix
- * stats::rlnorm<Eigen::MatrixXd>(5,4,1.0,2.0);
- * \endcode
- *
- * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
- */
 
 #ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>

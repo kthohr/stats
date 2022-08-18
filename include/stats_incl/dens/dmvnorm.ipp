@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -22,21 +22,10 @@
  * pdf of the Multivariate Normal distribution
  */
 
-/**
- * @brief Density function of the Multivariate-Normal distribution
- *
- * @param X a column vector.
- * @param mu_par mean vector.
- * @param Sigma_par the covariance matrix.
- * @param log_form return the log-density or the true form.
- *
- * @return the density function evaluated at \c X.
- */
-
 template<typename vT, typename mT, typename eT>
 statslib_inline
 eT
-dmvnorm(const vT& X, const vT& mu_par, const mT& Sigma_par, bool log_form)
+dmvnorm(const vT& X, const vT& mu_par, const mT& Sigma_par, const bool log_form)
 {
     const ullint_t K = mat_ops::n_rows(X);
 

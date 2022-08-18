@@ -6,6 +6,7 @@ import subprocess
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if on_rtd:
+    subprocess.run(["doxygen", "-v"])
     subprocess.call('cd ..; doxygen', shell=True)
 
 import sphinx_rtd_theme
@@ -19,7 +20,7 @@ html_theme_options = {
 }
 
 def setup(app):
-    app.add_stylesheet("main_stylesheet.css")
+    app.add_css_file("main_stylesheet.css")
 
 # extensions = ['breathe','sphinx.ext.mathjax']
 extensions = ['breathe','sphinxcontrib.katex']
@@ -29,7 +30,7 @@ html_static_path = ['_static']
 source_suffix = '.rst'
 master_doc = 'index'
 project = 'statslib'
-copyright = '2011-2021 Keith O\'Hara'
+copyright = '2011-2022 Keith O\'Hara'
 author = 'Keith O\'Hara'
 
 exclude_patterns = []

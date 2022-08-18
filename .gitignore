@@ -4,7 +4,6 @@
 .Rhistory
 Makefile
 build
-docs/xml
 *.dll
 *.exe
 *.log
@@ -13,6 +12,16 @@ docs/xml
 *.so
 *.test
 *.vscode
+
+*.dSYM
+*.gcda
+*.gcno
+*.gcov
+
+!docs/Makefile
+docs/build
+docs/xml
+
 include/armadillo*
 tests/dens/configure
 tests/dens/Makefile*
@@ -22,7 +31,3 @@ tests/quant/configure
 tests/quant/Makefile*
 tests/rand/configure
 tests/rand/Makefile*
-*.dSYM
-*.gcda
-*.gcno
-*.gcov

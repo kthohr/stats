@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -31,11 +31,11 @@
 #endif
 
 #ifndef STATS_VERSION_MINOR
-    #define STATS_VERSION_MINOR 1
+    #define STATS_VERSION_MINOR 2
 #endif
 
 #ifndef STATS_VERSION_PATCH
-    #define STATS_VERSION_PATCH 2
+    #define STATS_VERSION_PATCH 0
 #endif
 
 // switch between inline mode vs constexpr
@@ -206,6 +206,12 @@ namespace stats
     #else
         #define __stats_pointer_settings__
     #endif
+#endif
+
+//
+
+#ifndef STATS_QINVGAUSS_MAX_ITER 
+    #define STATS_QINVGAUSS_MAX_ITER 100
 #endif
 
 #endif

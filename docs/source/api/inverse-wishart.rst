@@ -1,4 +1,4 @@
-.. Copyright (c) 2011-2021 Keith O'Hara
+.. Copyright (c) 2011-2022 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -25,7 +25,7 @@ The density function of the inverse-Wishart distribution:
 where :math:`\Gamma_p` is the Multivariate Gamma function, :math:`| \cdot |` denotes the matrix determinant, and :math:`\text{tr}(\cdot)` denotes the matrix trace.
 
 .. _dinvwish-func-ref1:
-.. doxygenfunction:: dinvwish(const mT&, const pT, const bool)
+.. doxygenfunction:: dinvwish(const mT& X, const mT& Psi_par, const pT nu_par, const bool log_form)
    :project: statslib
 
 ----

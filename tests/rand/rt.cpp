@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -42,7 +42,7 @@ int main()
 
 #ifdef STATS_TEST_STDVEC_FEATURES
     std::cout << "\n";
-    mat_obj t_stdvec = stats::rt<mat_obj>(n_sample,1,dof_par);
+    std::vector<double> t_stdvec = stats::rt<std::vector<double>>(n_sample,1,dof_par);
 
     std::cout << "stdvec: t rv mean: " << stats::mat_ops::mean(t_stdvec) << ". Should be close to: " << t_mean << std::endl;
     std::cout << "stdvec: t rv variance: " << stats::mat_ops::var(t_stdvec) << ". Should be close to: " << t_var << std::endl;

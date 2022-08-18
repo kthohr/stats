@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -107,20 +107,6 @@ noexcept
 
 }
 
-/**
- * @brief Density function of the Beta distribution
- *
- * @param x a real-valued input.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- * @param log_form return the log-density or the true form.
- *
- * @return the density function evaluated at \c x.
- * 
- * Example:
- * \code{.cpp} stats::dbeta(0.5,3.0,2.0,false); \endcode
- */
-
 template<typename T1, typename T2, typename T3>
 statslib_constexpr
 common_return_t<T1,T2,T3>
@@ -149,23 +135,6 @@ dbeta_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
 
 }
 
-/**
- * @brief Density function of the Beta distribution
- *
- * @param x a standard vector.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- * @param log_form return the log-density or the true form.
- *
- * @return a vector of density function values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<double> x = {0.3, 0.5, 0.9};
- * stats::dbeta(x,3.0,2.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
@@ -175,24 +144,6 @@ dbeta(const std::vector<eT>& x, const T1 a_par, const T2 b_par, const bool log_f
     STDVEC_DIST_FN(dbeta_vec,a_par,b_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Beta distribution
- *
- * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {0.2,  0.7,  0.1},
- *                 {0.9,  0.3,  0.87} };
- * stats::dbeta(X,3.0,2.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
@@ -212,22 +163,6 @@ dbeta(const ArmaGen<mT,tT>& X, const T1 a_par, const T2 b_par, const bool log_fo
 }
 #endif
 
-/**
- * @brief Density function of the Beta distribution
- *
- * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dbeta(X,3.0,2.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
@@ -237,22 +172,6 @@ dbeta(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par, const bool log_f
     BLAZE_DIST_FN(dbeta,a_par,b_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Beta distribution
- *
- * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dbeta(X,3.0,2.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>

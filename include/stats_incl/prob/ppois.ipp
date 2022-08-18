@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -77,19 +77,6 @@ ppois_vals_check(const llint_t x, const T rate_par, const bool log_form)
 
 }
 
-/**
- * @brief Distribution function of the Poisson distribution
- *
- * @param x a non-negative integral-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return the cumulative distribution function evaluated at \c x.
- * 
- * Example:
- * \code{.cpp} stats::ppois(8.0,10.0,false); \endcode
- */
-
 template<typename T>
 statslib_constexpr
 return_t<T>
@@ -118,22 +105,6 @@ ppois_vec(const eT* __stats_pointer_settings__ vals_in, const T1 rate_par, const
 
 }
 
-/**
- * @brief Distribution function of the Poisson distribution
- *
- * @param x a standard vector.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a vector of CDF values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<int> x = {2, 3, 4};
- * stats::ppois(x,2.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
@@ -143,23 +114,6 @@ ppois(const std::vector<eT>& x, const T1 rate_par, const bool log_form)
     STDVEC_DIST_FN(ppois_vec,rate_par,log_form);
 }
 #endif
-
-/**
- * @brief Distribution function of the Poisson distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {2, 1, 4},
- *                 {3, 5, 6} };
- * stats::ppois(X,2.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
@@ -179,21 +133,6 @@ ppois(const ArmaGen<mT,tT>& X, const T1 rate_par, const bool log_form)
 }
 #endif
 
-/**
- * @brief Distribution function of the Poisson distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::ppois(X,2.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
@@ -203,21 +142,6 @@ ppois(const BlazeMat<eT,To>& X, const T1 rate_par, const bool log_form)
     BLAZE_DIST_FN(ppois_vec,rate_par,log_form);
 }
 #endif
-
-/**
- * @brief Distribution function of the Poisson distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::ppois(X,2.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>

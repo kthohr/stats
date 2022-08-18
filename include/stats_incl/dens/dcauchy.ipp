@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -87,20 +87,6 @@ noexcept
 
 }
 
-/**
- * @brief Density function of the Cauchy distribution
- *
- * @param x a real-valued input.
- * @param mu_par the location parameter, a real-valued input.
- * @param sigma_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return the density function evaluated at \c x.
- * 
- * Example:
- * \code{.cpp} stats::dcauchy(2.5,1.0,3.0,false); \endcode
- */
-
 template<typename T1, typename T2, typename T3>
 statslib_constexpr
 common_return_t<T1,T2,T3>
@@ -129,23 +115,6 @@ dcauchy_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const
 
 }
 
-/**
- * @brief Density function of the Cauchy distribution
- *
- * @param x a standard vector.
- * @param mu_par the location parameter, a real-valued input.
- * @param sigma_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a vector of density function values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<double> x = {0.0, 1.0, 2.0};
- * stats::dcauchy(x,1.0,2.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
@@ -155,24 +124,6 @@ dcauchy(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par, const boo
     STDVEC_DIST_FN(dcauchy_vec,mu_par,sigma_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Cauchy distribution
- *
- * @param X a matrix of input values.
- * @param mu_par the location parameter, a real-valued input.
- * @param sigma_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {0.2, -1.7,  0.1},
- *                 {0.9,  4.0, -0.3} };
- * stats::dcauchy(X,1.0,1.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
@@ -192,22 +143,6 @@ dcauchy(const ArmaGen<mT,tT>& X, const Tb mu_par, const Tb sigma_par, const bool
 }
 #endif
 
-/**
- * @brief Density function of the Cauchy distribution
- *
- * @param X a matrix of input values.
- * @param mu_par the location parameter, a real-valued input.
- * @param sigma_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dcauchy(X,1.0,1.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
@@ -217,22 +152,6 @@ dcauchy(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par, const boo
     BLAZE_DIST_FN(dcauchy,mu_par,sigma_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Cauchy distribution
- *
- * @param X a matrix of input values.
- * @param mu_par the location parameter, a real-valued input.
- * @param sigma_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dcauchy(X,1.0,1.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>

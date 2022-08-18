@@ -1,4 +1,4 @@
-.. Copyright (c) 2011-2021 Keith O'Hara
+.. Copyright (c) 2011-2022 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -167,6 +167,21 @@ Distributions
 .. toctree::
    :maxdepth: 2
 
+   inverse-gaussian
+
++----------------------------------------+--------------------------------------------------------------+
+| :ref:`dinvgauss <dinvgauss-func-ref1>` | density function of the inverse Gaussian distribution        |
++----------------------------------------+--------------------------------------------------------------+
+| :ref:`pinvgauss <pinvgauss-func-ref1>` | distribution function of the inverse Gaussian distribution   |
++----------------------------------------+--------------------------------------------------------------+
+| :ref:`qinvgauss <qinvgauss-func-ref1>` | quantile function of the inverse Gaussian distribution       |
++----------------------------------------+--------------------------------------------------------------+
+| :ref:`rinvgauss <rinvgauss-func-ref1>` | random sampling function of the inverse Gaussian distribution|
++----------------------------------------+--------------------------------------------------------------+
+
+.. toctree::
+   :maxdepth: 2
+
    inverse-wishart
 
 +----------------------------------------+--------------------------------------------------------------+
@@ -202,7 +217,7 @@ Distributions
 +----------------------------------------+--------------------------------------------------------------+
 | :ref:`qlnorm <qlnorm-func-ref1>`       | quantile function of the log Normal distribution             |
 +----------------------------------------+--------------------------------------------------------------+
-| :ref:`rlnorm <rlnorm-func-ref1>`       | random sampling function of the log Normal distribution             |
+| :ref:`rlnorm <rlnorm-func-ref1>`       | random sampling function of the log Normal distribution      |
 +----------------------------------------+--------------------------------------------------------------+
 
 .. toctree::

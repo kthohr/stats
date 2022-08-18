@@ -1,4 +1,4 @@
-.. Copyright (c) 2011-2021 Keith O'Hara
+.. Copyright (c) 2011-2022 Keith O'Hara
 
    Distributed under the terms of the Apache License, Version 2.0.
 
@@ -25,7 +25,7 @@ The density function of the Multivariate-Normal distribution:
 where :math:`k` is the dimension of the real-valued vector :math:`\mathbf{x}` and :math:`| \cdot |` denotes the matrix determinant.
 
 .. _dmvnorm-func-ref1:
-.. doxygenfunction:: dmvnorm(const mT&, const mT&, const mT&, const bool)
+.. doxygenfunction:: dmvnorm(const vT&, const vT&, const mT&, const bool)
    :project: statslib
 
 ----
@@ -34,5 +34,5 @@ Random Sampling
 ---------------
 
 .. _rmvnorm-func-ref1:
-.. doxygenfunction:: rmvnorm(const mT&, const mT&, const bool)
+.. doxygenfunction:: rmvnorm(const vT&, const mT&, const bool)
    :project: statslib

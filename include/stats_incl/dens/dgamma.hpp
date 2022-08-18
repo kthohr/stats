@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -26,7 +26,21 @@
 #define _statslib_dgamma_HPP
 
 //
-// single input
+// scalar input
+
+/**
+ * @brief Density function of the Gamma distribution
+ *
+ * @param x a real-valued input.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return the density function evaluated at \c x.
+ *
+ * Example:
+ * \code{.cpp} stats::dgamma(2,2,3,false); \endcode
+ */
 
 template<typename T1, typename T2, typename T3>
 statslib_constexpr
@@ -36,6 +50,23 @@ dgamma(const T1 x, const T2 shape_par, const T3 scale_par, const bool log_form =
 //
 // vector/matrix input
 
+/**
+ * @brief Density function of the Gamma distribution
+ *
+ * @param x a standard vector.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a vector of density function values corresponding to the elements of \c x.
+ * 
+ * Example:
+ * \code{.cpp}
+ * std::vector<double> x = {1.8, 0.7, 4.2};
+ * stats::dgamma(x,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>>
 statslib_inline
@@ -43,11 +74,47 @@ std::vector<rT>
 dgamma(const std::vector<eT>& x, const T1 shape_par, const T2 scale_par, const bool log_form = false);
 #endif
 
+/**
+ * @brief Density function of the Gamma distribution
+ *
+ * @param X a matrix of input values.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a matrix of density function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {1.8, 0.7, 4.2},
+ *                 {0.3, 5.3, 3.7} };
+ * stats::dgamma(X,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>>
 statslib_inline
 ArmaMat<rT>
 dgamma(const ArmaMat<eT>& X, const T1 shape_par, const T2 scale_par, const bool log_form = false);
+
+/**
+ * @brief Density function of the Gamma distribution
+ *
+ * @param X a matrix of input values.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a matrix of density function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * arma::mat X = { {1.8, 0.7, 4.2},
+ *                 {0.3, 5.3, 3.7} };
+ * stats::dgamma(X,3.0,2.0,false);
+ * \endcode
+ */
 
 template<typename mT, typename tT, typename T1, typename T2>
 statslib_inline
@@ -55,12 +122,44 @@ mT
 dgamma(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 scale_par, const bool log_form = false);
 #endif
 
+/**
+ * @brief Density function of the Gamma distribution
+ *
+ * @param X a matrix of input values.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a matrix of density function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::dgamma(X,3.0,2.0,false);
+ * \endcode
+ */
+
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>, bool To = blaze::columnMajor>
 statslib_inline
 BlazeMat<rT,To>
 dgamma(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 scale_par, const bool log_form = false);
 #endif
+
+/**
+ * @brief Density function of the Gamma distribution
+ *
+ * @param X a matrix of input values.
+ * @param shape_par the shape parameter, a real-valued input.
+ * @param scale_par the scale parameter, a real-valued input.
+ * @param log_form return the log-density or the true form.
+ *
+ * @return a matrix of density function values corresponding to the elements of \c X.
+ * 
+ * Example:
+ * \code{.cpp}
+ * stats::dgamma(X,3.0,2.0,false);
+ * \endcode
+ */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT = common_return_t<eT,T1,T2>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>

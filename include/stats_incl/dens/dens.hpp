@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -28,6 +28,7 @@
 #include "dexp.hpp"
 #include "dgamma.hpp"
 #include "dinvgamma.hpp"
+#include "dinvgauss.hpp"
 #include "dinvwish.hpp"
 #include "dlaplace.hpp"
 #include "dlogis.hpp"

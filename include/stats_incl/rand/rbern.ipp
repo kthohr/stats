@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -25,21 +25,6 @@
 //
 // scalar output
 
-/**
- * @brief Random sampling function for the Bernoulli distribution
- *
- * @param prob_par the probability parameter, a real-valued input.
- * @param engine a random engine, passed by reference.
- *
- * @return a pseudo-random draw from the Bernoulli distribution.
- *
- * Example:
- * \code{.cpp}
- * stats::rand_engine_t engine(1776);
- * stats::rbern(0.7,engine);
- * \endcode
- */
-
 template<typename T>
 statslib_inline
 return_t<T> 
@@ -50,20 +35,6 @@ rbern(const T prob_par, rand_engine_t& engine)
             //
             runif(T(0),T(1),engine) <= prob_par );
 }
-
-/**
- * @brief Random sampling function for the Bernoulli distribution
- *
- * @param prob_par the probability parameter, a real-valued input.
- * @param seed_val initialize the random engine with a non-negative integral-valued seed.
- *
- * @return a pseudo-random draw from the Bernoulli distribution.
- *
- * Example:
- * \code{.cpp}
- * stats::rbern(0.7,1776);
- * \endcode
- */
 
 template<typename T>
 statslib_inline
@@ -111,30 +82,6 @@ rbern_mat_check(mT& X, const T1 prob_par)
 #endif
 
 }
-
-/**
- * @brief Random matrix sampling function for the Bernoulli distribution
- *
- * @param n the number of output rows
- * @param k the number of output columns
- * @param prob_par the probability parameter, a real-valued input.
- *
- * @return a matrix of pseudo-random draws from the Bernoulli distribution.
- *
- * Example:
- * \code{.cpp}
- * // std::vector
- * stats::rbern<std::vector<double>>(5,4,0.7);
- * // Armadillo matrix
- * stats::rbern<arma::mat>(5,4,0.7);
- * // Blaze dynamic matrix
- * stats::rbern<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,0.7);
- * // Eigen dynamic matrix
- * stats::rbern<Eigen::MatrixXd>(5,4,0.7);
- * \endcode
- *
- * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
- */
 
 #ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1>

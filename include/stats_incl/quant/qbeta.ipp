@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -94,19 +94,6 @@ noexcept
 
 }
 
-/**
- * @brief Quantile function of the Beta distribution
- *
- * @param p a real-valued input.
- * @param a_par shape parameter, a real-valued input.
- * @param b_par shape parameter, a real-valued input.
- *
- * @return the quantile function evaluated at \c p.
- * 
- * Example:
- * \code{.cpp} stats::qbeta(0.5,3.0,2.0); \endcode
- */
-
 template<typename T1, typename T2, typename T3>
 statslib_constexpr
 common_return_t<T1,T2,T3>
@@ -135,22 +122,6 @@ qbeta_vec(const eT* __stats_pointer_settings__ vals_in, const T1 a_par, const T2
 
 }
 
-/**
- * @brief Quantile function of the Beta distribution
- *
- * @param x a standard vector.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- *
- * @return a vector of quantile values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<double> x = {0.3, 0.5, 0.9};
- * stats::qbeta(x,3.0,2.0);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
@@ -160,23 +131,6 @@ qbeta(const std::vector<eT>& x, const T1 a_par, const T2 b_par)
     STDVEC_DIST_FN(qbeta_vec,a_par,b_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Beta distribution
- *
- * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {0.2,  0.7,  0.1},
- *                 {0.9,  0.3,  0.87} };
- * stats::qbeta(X,3.0,2.0);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
@@ -196,21 +150,6 @@ qbeta(const ArmaGen<mT,tT>& X, const T1 a_par, const T2 b_par)
 }
 #endif
 
-/**
- * @brief Quantile function of the Beta distribution
- *
- * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qbeta(X,3.0,2.0);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
@@ -220,21 +159,6 @@ qbeta(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par)
     BLAZE_DIST_FN(qbeta_vec,a_par,b_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Beta distribution
- *
- * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qbeta(X,3.0,2.0);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>

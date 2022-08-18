@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -70,20 +70,6 @@ noexcept
 
 }
 
-/**
- * @brief Density function of the Weibull distribution
- *
- * @param x a real-valued input.
- * @param shape_par the shape parameter, a real-valued input.
- * @param scale_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return the density function evaluated at \c x.
- *
- * Example:
- * \code{.cpp} stats::dweibull(1.0,2.0,3.0,false); \endcode
- */
-
 template<typename T1, typename T2, typename T3>
 statslib_constexpr
 common_return_t<T1,T2,T3>
@@ -112,23 +98,6 @@ dweibull_vec(const eT* __stats_pointer_settings__ vals_in, const T1 shape_par, c
 
 }
 
-/**
- * @brief Density function of the Weibull distribution
- *
- * @param x a standard vector.
- * @param shape_par the shape parameter, a real-valued input.
- * @param scale_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a vector of density function values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<double> x = {1.8, 0.7, 4.2};
- * stats::dweibull(x,3.0,2.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
@@ -138,24 +107,6 @@ dweibull(const std::vector<eT>& x, const T1 shape_par, const T2 scale_par, const
     STDVEC_DIST_FN(dweibull_vec,shape_par,scale_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Weibull distribution
- *
- * @param X a matrix of input values.
- * @param shape_par the shape parameter, a real-valued input.
- * @param scale_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {1.8, 0.7, 4.2},
- *                 {0.3, 5.3, 3.7} };
- * stats::dweibull(X,3.0,2.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
@@ -175,22 +126,6 @@ dweibull(const ArmaGen<mT,tT>& X, const T1 shape_par, const T2 scale_par, const 
 }
 #endif
 
-/**
- * @brief Density function of the Weibull distribution
- *
- * @param X a matrix of input values.
- * @param shape_par the shape parameter, a real-valued input.
- * @param scale_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dweibull(X,3.0,2.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
@@ -200,22 +135,6 @@ dweibull(const BlazeMat<eT,To>& X, const T1 shape_par, const T2 scale_par, const
     BLAZE_DIST_FN(dweibull,shape_par,scale_par,log_form);
 }
 #endif
-
-/**
- * @brief Density function of the Weibull distribution
- *
- * @param X a matrix of input values.
- * @param shape_par the shape parameter, a real-valued input.
- * @param scale_par the scale parameter, a real-valued input.
- * @param log_form return the log-density or the true form.
- *
- * @return a matrix of density function values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::dweibull(X,3.0,2.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>

@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -94,20 +94,6 @@ noexcept
 
 }
 
-/**
- * @brief Distribution function of the Normal distribution
- *
- * @param x a real-valued input.
- * @param mu_par the mean parameter, a real-valued input.
- * @param sigma_par the standard deviation parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return the cumulative distribution function evaluated at \c x.
- *
- * Example:
- * \code{.cpp} stats::pnorm(2.0,1.0,2.0,false); \endcode
- */
-
 template<typename T1, typename T2, typename T3>
 statslib_constexpr
 common_return_t<T1,T2,T3>
@@ -115,6 +101,15 @@ pnorm(const T1 x, const T2 mu_par, const T3 sigma_par, const bool log_form)
 noexcept
 {
     return internal::pnorm_type_check(x,mu_par,sigma_par,log_form);
+}
+
+template<typename T>
+statslib_constexpr
+return_t<T>
+pnorm(const T x, const bool log_form)
+noexcept
+{
+    return pnorm(x, T(0), T(1), log_form);
 }
 
 //
@@ -136,23 +131,6 @@ pnorm_vec(const eT* __stats_pointer_settings__ vals_in, const T1 mu_par, const T
 
 }
 
-/**
- * @brief Distribution function of the Normal distribution
- *
- * @param x a standard vector.
- * @param mu_par the mean parameter, a real-valued input.
- * @param sigma_par the standard deviation parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a vector of CDF values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<double> x = {0.0, 1.0, 2.0};
- * stats::pnorm(x,1.0,2.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
 statslib_inline
@@ -162,24 +140,6 @@ pnorm(const std::vector<eT>& x, const T1 mu_par, const T2 sigma_par, const bool 
     STDVEC_DIST_FN(pnorm_vec,mu_par,sigma_par,log_form);
 }
 #endif
-
-/**
- * @brief Distribution function of the Normal distribution
- *
- * @param X a matrix of input values.
- * @param mu_par the mean parameter, a real-valued input.
- * @param sigma_par the standard deviation parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {0.2, -1.7,  0.1},
- *                 {0.9,  4.0, -0.3} };
- * stats::pnorm(X,1.0,1.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT>
@@ -199,22 +159,6 @@ pnorm(const ArmaGen<mT,tT>& X, const T1 mu_par, const T2 sigma_par, const bool l
 }
 #endif
 
-/**
- * @brief Distribution function of the Normal distribution
- *
- * @param X a matrix of input values.
- * @param mu_par the mean parameter, a real-valued input.
- * @param sigma_par the standard deviation parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::pnorm(X,1.0,1.0,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, bool To>
 statslib_inline
@@ -224,22 +168,6 @@ pnorm(const BlazeMat<eT,To>& X, const T1 mu_par, const T2 sigma_par, const bool 
     BLAZE_DIST_FN(pnorm_vec,mu_par,sigma_par,log_form);
 }
 #endif
-
-/**
- * @brief Distribution function of the Normal distribution
- *
- * @param X a matrix of input values.
- * @param mu_par the mean parameter, a real-valued input.
- * @param sigma_par the standard deviation parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::pnorm(X,1.0,1.0,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename T2, typename rT, int iTr, int iTc>

@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -68,18 +68,6 @@ noexcept
 
 }
 
-/**
- * @brief Quantile function of the Exponential distribution
- *
- * @param p a real-valued input.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return the quantile function evaluated at \c p.
- * 
- * Example:
- * \code{.cpp} stats::qexp(0.5,4.0); \endcode
- */
-
 template<typename T1, typename T2>
 statslib_constexpr
 common_return_t<T1,T2>
@@ -108,21 +96,6 @@ qexp_vec(const eT* __stats_pointer_settings__ vals_in, const T1 rate_par,
 
 }
 
-/**
- * @brief Quantile function of the Exponential distribution
- *
- * @param x a standard vector.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return a vector of quantile values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<double> x = {0.3, 0.5, 0.8};
- * stats::qexp(x,4);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
@@ -132,22 +105,6 @@ qexp(const std::vector<eT>& x, const T1 rate_par)
     STDVEC_DIST_FN(qexp_vec,rate_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Exponential distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {0.2, 0.7, 0.9},
- *                 {0.1, 0.8, 0.3} };
- * stats::qexp(X,4);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
@@ -167,20 +124,6 @@ qexp(const ArmaGen<mT,tT>& X, const T1 rate_par)
 }
 #endif
 
-/**
- * @brief Quantile function of the Exponential distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qexp(X,4);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
@@ -190,20 +133,6 @@ qexp(const BlazeMat<eT,To>& X, const T1 rate_par)
     BLAZE_DIST_FN(qexp_vec,rate_par);
 }
 #endif
-
-/**
- * @brief Quantile function of the Exponential distribution
- *
- * @param X a matrix of input values.
- * @param rate_par the rate parameter, a real-valued input.
- *
- * @return a matrix of quantile values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::qexp(X,4);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>

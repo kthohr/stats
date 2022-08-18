@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2021 Keith O'Hara
+  ##   Copyright (C) 2011-2022 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -23,7 +23,7 @@
  */
 
 //
-// single input
+// scalar input
 
 namespace internal
 {
@@ -71,19 +71,6 @@ noexcept
 
 }
 
-/**
- * @brief Distribution function of the Chi-squared distribution
- *
- * @param x a real-valued input.
- * @param dof_par the degrees of freedom parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return the cumulative distribution function evaluated at \c x.
- * 
- * Example:
- * \code{.cpp} stats::pchisq(4,5,false); \endcode
- */
-
 template<typename T1, typename T2>
 statslib_constexpr
 common_return_t<T1,T2>
@@ -112,22 +99,6 @@ pchisq_vec(const eT* __stats_pointer_settings__ vals_in, const T1 dof_par, const
 
 }
 
-/**
- * @brief Distribution function of the Chi-squared distribution
- *
- * @param x a standard vector.
- * @param dof_par the degrees of freedom parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a vector of CDF values corresponding to the elements of \c x.
- * 
- * Example:
- * \code{.cpp}
- * std::vector<double> x = {1.8, 0.7, 4.2};
- * stats::pchisq(x,4,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_STDVEC_WRAPPERS
 template<typename eT, typename T1, typename rT>
 statslib_inline
@@ -137,23 +108,6 @@ pchisq(const std::vector<eT>& x, const T1 dof_par, const bool log_form)
     STDVEC_DIST_FN(pchisq_vec,dof_par,log_form);
 }
 #endif
-
-/**
- * @brief Distribution function of the Chi-squared distribution
- *
- * @param X a matrix of input values.
- * @param dof_par the degrees of freedom parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * arma::mat X = { {1.8, 0.7, 4.2},
- *                 {0.3, 5.3, 3.7} };
- * stats::pchisq(X,4,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_ARMA_WRAPPERS
 template<typename eT, typename T1, typename rT>
@@ -173,21 +127,6 @@ pchisq(const ArmaGen<mT,tT>& X, const T1 dof_par, const bool log_form)
 }
 #endif
 
-/**
- * @brief Distribution function of the Chi-squared distribution
- *
- * @param X a matrix of input values.
- * @param dof_par the degrees of freedom parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::pchisq(X,4,false);
- * \endcode
- */
-
 #ifdef STATS_ENABLE_BLAZE_WRAPPERS
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
@@ -197,21 +136,6 @@ pchisq(const BlazeMat<eT,To>& X, const T1 dof_par, const bool log_form)
     BLAZE_DIST_FN(pchisq_vec,dof_par,log_form);
 }
 #endif
-
-/**
- * @brief Distribution function of the Chi-squared distribution
- *
- * @param X a matrix of input values.
- * @param dof_par the degrees of freedom parameter, a real-valued input.
- * @param log_form return the log-probability or the true form.
- *
- * @return a matrix of CDF values corresponding to the elements of \c X.
- * 
- * Example:
- * \code{.cpp}
- * stats::pchisq(X,4,false);
- * \endcode
- */
 
 #ifdef STATS_ENABLE_EIGEN_WRAPPERS
 template<typename eT, typename T1, typename rT, int iTr, int iTc>
