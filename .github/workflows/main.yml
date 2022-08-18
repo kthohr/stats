@@ -199,4 +199,5 @@ jobs:
             echo ""
           fi
           #
+          cd ./tests
           ./setup && ./test_setup/run_cov
