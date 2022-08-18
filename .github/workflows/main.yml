@@ -163,17 +163,13 @@ jobs:
           sudo apt-get install ${{ matrix.config.cc }} ${{ matrix.config.cxx }}
           ${{ matrix.config.cc }} --version
           echo "CXXT=${{ matrix.config.cxxstd }}" >> $GITHUB_ENV
-          
-      - name: Configure
-        shell: bash
-        run: |
-          git clone https://github.com/kthohr/gcem ./gcem
 
       - name: Tests
         shell: bash
         working-directory: tests
         run: |
           WDIR=${PWD}
+          git clone https://github.com/kthohr/gcem ./gcem
           export GCEM_INCLUDE_PATH=$PWD/gcem/include
           #
           export CC=${{ matrix.config.cc }}
