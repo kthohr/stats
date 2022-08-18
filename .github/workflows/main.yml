@@ -168,10 +168,6 @@ jobs:
         shell: bash
         run: |
           git clone https://github.com/kthohr/gcem ./gcem
-      
-      - name: Build
-        shell: bash
-        run: make
 
       - name: Tests
         shell: bash
