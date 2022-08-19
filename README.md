@@ -38,6 +38,7 @@ Functions to compute the cdf, pdf, quantile, as well as random sampling methods,
 * F
 * Gamma
 * Inverse-Gamma
+* Inverse-Gaussian
 * Laplace
 * Logistic
 * Log-Normal
