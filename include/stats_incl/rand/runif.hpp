@@ -31,8 +31,8 @@
 /**
  * @brief Random sampling function for the Uniform distribution
  *
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  * @param engine a random engine, passed by reference.
  *
  * @return a pseudo-random draw from the Uniform distribution.
@@ -52,8 +52,8 @@ runif(const T1 a_par, const T2 b_par, rand_engine_t& engine);
 /**
  * @brief Random sampling function for the Uniform distribution
  *
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  * @param seed_val initialize the random engine with a non-negative integral-valued seed.
  *
  * @return a pseudo-random draw from the Uniform distribution.
@@ -87,13 +87,48 @@ T runif();
 //
 // vector/matrix output
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
+
 /**
  * @brief Random matrix sampling function for the Uniform distribution
  *
  * @param n the number of output rows
  * @param k the number of output columns
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
+ * @param engine a random engine, passed by reference.
+ *
+ * @return a matrix of pseudo-random draws from the Uniform distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rand_engine_t engine(1776);
+ * // std::vector
+ * stats::runif<std::vector<double>>(5,4,-1.0,3.0,engine);
+ * // Armadillo matrix
+ * stats::runif<arma::mat>(5,4,-1.0,3.0,engine);
+ * // Blaze dynamic matrix
+ * stats::runif<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,-1.0,3.0,engine);
+ * // Eigen dynamic matrix
+ * stats::runif<Eigen::MatrixXd>(5,4,-1.0,3.0,engine);
+ * \endcode
+ *
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
+ */
+
+template<typename mT, typename T1, typename T2>
+statslib_inline
+mT
+runif(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par, rand_engine_t& engine);
+
+/**
+ * @brief Random matrix sampling function for the Uniform distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
+ * @param seed_val initialize the random engine with a non-negative integral-valued seed.
  *
  * @return a matrix of pseudo-random draws from the Uniform distribution.
  *
@@ -112,11 +147,11 @@ T runif();
  * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-runif(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par);
+runif(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par, const ullint_t seed_val = std::random_device{}());
+
 #endif
 
 //

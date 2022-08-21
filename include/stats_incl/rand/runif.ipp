@@ -90,9 +90,10 @@ namespace internal
 template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-runif_vec(const T1 a_par, const T2 b_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+runif_vec(const T1 a_par, const T2 b_par, rand_engine_t& engine_0, 
+          rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    RAND_DIST_FN_VEC(runif,vals_out,num_elem,a_par,b_par);
+    RAND_DIST_FN_VEC(runif,vals_out,num_elem,engine_0,a_par,b_par);
 }
 #endif
 
@@ -100,9 +101,9 @@ runif_vec(const T1 a_par, const T2 b_par, rT* __stats_pointer_settings__ vals_ou
 template<typename eT, typename T1, typename T2>
 statslib_inline
 void
-runif_mat_check(std::vector<eT>& X, const T1 a_par, const T2 b_par)
+runif_mat_check(std::vector<eT>& X, const T1 a_par, const T2 b_par, rand_engine_t& engine_0)
 {
-    STDVEC_RAND_DIST_FN(runif,a_par,b_par);
+    STDVEC_RAND_DIST_FN(runif,a_par,b_par,engine_0);
 }
 #endif
 
@@ -110,9 +111,9 @@ runif_mat_check(std::vector<eT>& X, const T1 a_par, const T2 b_par)
 template<typename mT, typename T1, typename T2>
 statslib_inline
 void
-runif_mat_check(mT& X, const T1 a_par, const T2 b_par)
+runif_mat_check(mT& X, const T1 a_par, const T2 b_par, rand_engine_t& engine_0)
 {
-    MAIN_MAT_RAND_DIST_FN(runif,a_par,b_par);
+    MAIN_MAT_RAND_DIST_FN(runif,a_par,b_par,engine_0);
 }
 #endif
 
@@ -122,8 +123,17 @@ runif_mat_check(mT& X, const T1 a_par, const T2 b_par)
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-runif(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par)
+runif(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par, rand_engine_t& engine)
 {
-    GEN_MAT_RAND_FN(runif_mat_check,a_par,b_par);
+    GEN_MAT_RAND_FN(runif_mat_check,a_par,b_par,engine);
+}
+
+template<typename mT, typename T1, typename T2>
+statslib_inline
+mT
+runif(const ullint_t n, const ullint_t k, const T1 a_par, const T2 b_par, const ullint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    GEN_MAT_RAND_FN(runif_mat_check,a_par,b_par,engine);
 }
 #endif

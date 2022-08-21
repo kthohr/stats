@@ -27,9 +27,18 @@
 
 #ifdef STATS_ENABLE_MATRIX_FEATURES
 
+/**
+ * @brief Random sampling function for the Multinomial distribution
+ *
+ * @param prob_vec a vector of probability parameters.
+ * @param engine a random engine, passed by reference.
+ *
+ * @return a pseudo-random draw from the Multinomial distribution.
+ */
+
 template<typename mT, typename eT = double>
 statslib_inline
-mT rmultinom(const mT& prob);
+mT rmultinom(const mT& prob_vec, rand_engine_t& engine);
 
 #include "rmultinom.ipp"
 

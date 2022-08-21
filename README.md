@@ -8,7 +8,7 @@ Features:
 * Functions are written in C++11 `constexpr` format, enabling the library to operate as both a compile-time and run-time computation engine.
 * Designed with a simple **R**-like syntax.
 * Optional vector-matrix functionality with wrappers to support:
-    * `std::vector`
+    * STL Vectors (`std::vector`)
     * [Armadillo](http://arma.sourceforge.net/)
     * [Blaze](https://bitbucket.org/blaze-lib/blaze)
     * [Eigen](http://eigen.tuxfamily.org/index.php)
@@ -145,8 +145,10 @@ arma::mat norm_pdf_vals = stats::dnorm(arma::ones(10,20),1.0,2.0);
 ```cpp
 // Armadillo:
 arma::mat gamma_rvs = stats::rgamma<arma::mat>(100,50,3.0,2.0);
+
 // Blaze:
 blaze::DynamicMatrix<double> gamma_rvs = stats::rgamma<blaze::DynamicMatrix<double>>(100,50,3.0,2.0);
+
 // Eigen:
 Eigen::MatrixXd gamma_rvs = stats::rgamma<Eigen::MatrixXd>(100,50,3.0,2.0);
 ```
@@ -188,6 +190,7 @@ double rval = stats::rt(30);
 
 // matrix output
 arma::mat beta_rvs = stats::rbeta<arma::mat>(100,100,3.0,2.0);
+
 // matrix input
 arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 ```

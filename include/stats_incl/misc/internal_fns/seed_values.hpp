@@ -18,44 +18,19 @@
   ##
   ################################################################################*/
 
-/*
- * Sample from a multinomial distribution
- */
+#ifndef _statslib_seed_values_HPP
+#define _statslib_seed_values_HPP
 
-template<typename mT, typename eT>
+template<typename T1, typename T2>
 statslib_inline
-mT
-rmultinom(const mT& prob_vec, rand_engine_t& engine)
+common_return_t<T1,T2>
+runif(const T1 a_par, const T2 b_par, rand_engine_t& engine);
+
+inline
+size_t
+generate_seed_value(const int ind_inp, const int n_threads, rand_engine_t& rand_engine)
 {
-    const ullint_t n_prob = mat_ops::n_elem(prob_vec);
-
-    ullint_t n_j = n_prob;
-
-    //
-
-    mT ret(n_prob,1);
-    const mT prob_vec_csum = mat_ops::cumsum(prob_vec);
-
-    eT p_j = prob_vec(0,0);
-    ret(0,0) = rbinom(n_j,p_j);
-
-    //
-
-    if (n_prob > 1U) {
-        ullint_t ret_sum = ret(0,0);
-        
-        for (ullint_t j = 1U; j < n_prob; j++)
-        {
-            p_j = prob_vec(j,0) / (eT(1) - prob_vec_csum(j-1,0));
-            n_j = n_prob - ret_sum;
-            
-            ret(j,0) = rbinom(n_j, p_j, engine);
-            
-            ret_sum += ret(j,0);
-        }
-    }
-
-    //
-
-    return ret;
+    return static_cast<size_t>( (runif(0.0, 1.0, rand_engine) + ind_inp + n_threads) * 1000 );
 }
+
+#endif

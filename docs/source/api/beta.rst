@@ -197,6 +197,14 @@ Scalar Output
 Vector/Matrix Output
 ~~~~~~~~~~~~~~~~~~~~
 
+1. Random number engines
+
 .. _rbeta-func-ref3:
-.. doxygenfunction:: rbeta(const ullint_t, const ullint_t, const T1, const T2)
+.. doxygenfunction:: rbeta(const ullint_t, const ullint_t, const T1, const T2, rand_engine_t&)
+   :project: statslib
+
+2. Seed values
+
+.. _rbeta-func-ref4:
+.. doxygenfunction:: rbeta(const ullint_t, const ullint_t, const T1, const T2, const ullint_t)
    :project: statslib

@@ -191,6 +191,14 @@ Scalar Output
 Vector/Matrix Output
 ~~~~~~~~~~~~~~~~~~~~
 
+1. Random number engines
+
 .. _rchisq-func-ref3:
-.. doxygenfunction:: rchisq(const ullint_t, const ullint_t, const T1)
+.. doxygenfunction:: rchisq(const ullint_t, const ullint_t, const T1, rand_engine_t&)
+   :project: statslib
+
+2. Seed values
+
+.. _rchisq-func-ref4:
+.. doxygenfunction:: rchisq(const ullint_t, const ullint_t, const T1, const ullint_t)
    :project: statslib

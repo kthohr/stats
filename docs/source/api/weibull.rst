@@ -189,6 +189,14 @@ Scalar Output
 Vector/Matrix Output
 ~~~~~~~~~~~~~~~~~~~~
 
+1. Random number engines
+
 .. _rweibull-func-ref3:
-.. doxygenfunction:: rweibull(const ullint_t, const ullint_t, const T1, const T2)
+.. doxygenfunction:: rweibull(const ullint_t, const ullint_t, const T1, const T2, rand_engine_t&)
+   :project: statslib
+
+2. Seed values
+
+.. _rweibull-func-ref4:
+.. doxygenfunction:: rweibull(const ullint_t, const ullint_t, const T1, const T2, const ullint_t)
    :project: statslib

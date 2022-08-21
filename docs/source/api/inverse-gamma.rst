@@ -200,6 +200,14 @@ Scalar Output
 Vector/Matrix Output
 ~~~~~~~~~~~~~~~~~~~~
 
+1. Random number engines
+
 .. _rinvgamma-func-ref3:
-.. doxygenfunction:: rinvgamma(const ullint_t, const ullint_t, const T1, const T2)
+.. doxygenfunction:: rinvgamma(const ullint_t, const ullint_t, const T1, const T2, rand_engine_t&)
+   :project: statslib
+
+2. Seed values
+
+.. _rinvgamma-func-ref4:
+.. doxygenfunction:: rinvgamma(const ullint_t, const ullint_t, const T1, const T2, const ullint_t)
    :project: statslib

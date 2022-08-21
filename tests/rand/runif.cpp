@@ -30,7 +30,7 @@ int main()
     double b_par = 3;
 
     double unif_mean = (a_par + b_par) / 2.0;
-    double unif_var = (b_par - a_par)*(b_par - a_par) / 12.0;
+    double unif_var = (b_par - a_par) * (b_par - a_par) / 12.0;
 
     int n_sample = 10000;
 
@@ -45,8 +45,17 @@ int main()
     std::cout << "\n";
     std::vector<double> unif_stdvec = stats::runif<std::vector<double>>(n_sample,1,a_par,b_par);
 
-    std::cout << "unif rv mean: " << stats::mat_ops::mean(unif_stdvec) << ". Should be close to: " << unif_mean << std::endl;
-    std::cout << "unif rv variance: " << stats::mat_ops::var(unif_stdvec) << ". Should be close to: " << unif_var << std::endl;
+    std::cout << "stdvec: unif rv mean: " << stats::mat_ops::mean(unif_stdvec) << ". Should be close to: " << unif_mean << std::endl;
+    std::cout << "stdvec: unif rv variance: " << stats::mat_ops::var(unif_stdvec) << ". Should be close to: " << unif_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    unif_stdvec = stats::runif<std::vector<double>>(n_sample,1,a_par,b_par,engine_s);
+
+    std::cout << "stdvec (with random engine): unif rv mean: " << stats::mat_ops::mean(unif_stdvec) << ". Should be close to: " << unif_mean << std::endl;
+    std::cout << "stdvec (with random engine): unif rv variance: " << stats::mat_ops::var(unif_stdvec) << ". Should be close to: " << unif_var << std::endl;
 #endif
 
     //
@@ -55,8 +64,17 @@ int main()
     std::cout << "\n";
     mat_obj unif_vec = stats::runif<mat_obj>(n_sample,1,a_par,b_par);
 
-    std::cout << "unif rv mean: " << stats::mat_ops::mean(unif_vec) << ". Should be close to: " << unif_mean << std::endl;
-    std::cout << "unif rv variance: " << stats::mat_ops::var(unif_vec) << ". Should be close to: " << unif_var << std::endl;
+    std::cout << "Matrix: unif rv mean: " << stats::mat_ops::mean(unif_vec) << ". Should be close to: " << unif_mean << std::endl;
+    std::cout << "Matrix: unif rv variance: " << stats::mat_ops::var(unif_vec) << ". Should be close to: " << unif_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    unif_vec = stats::runif<mat_obj>(n_sample,1,a_par,b_par,engine_m);
+
+    std::cout << "Matrix (with random engine): unif rv mean: " << stats::mat_ops::mean(unif_vec) << ". Should be close to: " << unif_mean << std::endl;
+    std::cout << "Matrix (with random engine): unif rv variance: " << stats::mat_ops::var(unif_vec) << ". Should be close to: " << unif_var << std::endl;
 #endif
     
     //

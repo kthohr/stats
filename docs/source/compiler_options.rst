@@ -15,13 +15,11 @@ The following options should be declared **before** including the StatsLib heade
 
     #define STATS_GO_INLINE
 
-
 - OpenMP functionality is enabled by default if the ``_OPENMP`` macro is detected (e.g., by invoking ``-fopenmp`` with GCC or Clang). To explicitly enable OpenMP features use:
 
 .. code:: cpp
 
     #define STATS_USE_OPENMP
-
 
 - To disable OpenMP functionality:
 
@@ -37,10 +35,15 @@ The following options should be declared **before** including the StatsLib heade
     #define STATS_ENABLE_BLAZE_WRAPPERS
     #define STATS_ENABLE_EIGEN_WRAPPERS
 
-
 - To enable wrappers for ``std::vector``:
 
 .. code:: cpp
 
     #define STATS_ENABLE_STDVEC_WRAPPERS
+
+- To specify a random engine type (``stats::rand_engine_t``) to something other than the default of ``std::mt19937_64``:
+
+.. code:: cpp
+
+    #define STATS_RNG_ENGINE_TYPE <your-engine-type>
 

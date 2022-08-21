@@ -72,6 +72,8 @@ rinvgauss(const T1 mu_par, const T2 lambda_par, const ullint_t seed_val = std::r
 //
 // vector/matrix output
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
+
 /**
  * @brief Random matrix sampling function for the inverse Gaussian distribution
  *
@@ -79,6 +81,39 @@ rinvgauss(const T1 mu_par, const T2 lambda_par, const ullint_t seed_val = std::r
  * @param k the number of output columns
  * @param mu_par the mean parameter, a real-valued input.
  * @param lambda_par the shape parameter, a real-valued input.
+ * @param engine a random engine, passed by reference.
+ *
+ * @return a matrix of pseudo-random draws from the inverse Gaussian distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rand_engine_t engine(1776);
+ * // std::vector
+ * stats::rinvgauss<std::vector<double>>(5,4,1.0,2.0,engine);
+ * // Armadillo matrix
+ * stats::rinvgauss<arma::mat>(5,4,1.0,2.0,engine);
+ * // Blaze dynamic matrix
+ * stats::rinvgauss<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,1.0,2.0,engine);
+ * // Eigen dynamic matrix
+ * stats::rinvgauss<Eigen::MatrixXd>(5,4,1.0,2.0,engine);
+ * \endcode
+ *
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
+ */
+
+template<typename mT, typename T1 = double, typename T2 = double>
+statslib_inline
+mT
+rinvgauss(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 lambda_par, rand_engine_t& engine);
+
+/**
+ * @brief Random matrix sampling function for the inverse Gaussian distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param mu_par the mean parameter, a real-valued input.
+ * @param lambda_par the shape parameter, a real-valued input.
+ * @param seed_val initialize the random engine with a non-negative integral-valued seed.
  *
  * @return a matrix of pseudo-random draws from the inverse Gaussian distribution.
  *
@@ -97,11 +132,11 @@ rinvgauss(const T1 mu_par, const T2 lambda_par, const ullint_t seed_val = std::r
  * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1 = double, typename T2 = double>
 statslib_inline
 mT
-rinvgauss(const ullint_t n, const ullint_t k, const T1 mu_par = T1(0), const T2 lambda_par = T2(1));
+rinvgauss(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 lambda_par, const ullint_t seed_val = std::random_device{}());
+
 #endif
 
 //

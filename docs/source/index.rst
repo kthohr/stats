@@ -15,7 +15,7 @@ StatsLib is a templated C++ library of statistical distribution functions, featu
 - Functions are written in C++11 ``constexpr`` format, enabling the library to operate as both a compile-time and run-time computation engine.
 - Designed with a simple **R**-like syntax.
 - Optional vector-matrix functionality, with wrappers to support:
- - STL vectors
+ - STL Vectors (``std::vector``)
  - `Armadillo <http://arma.sourceforge.net/>`_
  - `Blaze <https://bitbucket.org/blaze-lib/blaze>`_
  - `Eigen <http://eigen.tuxfamily.org/index.php>`_
@@ -31,7 +31,7 @@ License: Apache Version 2.0
 Installation
 ------------
 
-StatsLib is a header-only library. Simply add the header files to your project using
+StatsLib is a header-only library. Simply add the header files to your project using:
 
 .. code:: cpp
 
@@ -49,10 +49,10 @@ Contents
    :maxdepth: 2
    
    syntax_notes
-   compiler_options
-   examples_and_tests
    seeding
    constexpr_functionality
+   compiler_options
+   examples_and_tests
 
 .. toctree::
    :caption: API

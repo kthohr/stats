@@ -76,9 +76,9 @@ namespace internal
 template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rlnorm_vec(const T1 mu_par, const T2 sigma_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rlnorm_vec(const T1 mu_par, const T2 sigma_par, rand_engine_t& engine_0, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    RAND_DIST_FN_VEC(rlnorm,vals_out,num_elem,mu_par,sigma_par);
+    RAND_DIST_FN_VEC(rlnorm,vals_out,num_elem,engine_0,mu_par,sigma_par);
 }
 #endif
 
@@ -86,9 +86,9 @@ rlnorm_vec(const T1 mu_par, const T2 sigma_par, rT* __stats_pointer_settings__ v
 template<typename eT, typename T1, typename T2>
 statslib_inline
 void
-rlnorm_mat_check(std::vector<eT>& X, const T1 mu_par, const T2 sigma_par)
+rlnorm_mat_check(std::vector<eT>& X, const T1 mu_par, const T2 sigma_par, rand_engine_t& engine_0)
 {
-    STDVEC_RAND_DIST_FN(rlnorm,mu_par,sigma_par);
+    STDVEC_RAND_DIST_FN(rlnorm,mu_par,sigma_par,engine_0);
 }
 #endif
 
@@ -96,9 +96,9 @@ rlnorm_mat_check(std::vector<eT>& X, const T1 mu_par, const T2 sigma_par)
 template<typename mT, typename T1, typename T2>
 statslib_inline
 void
-rlnorm_mat_check(mT& X, const T1 mu_par, const T2 sigma_par)
+rlnorm_mat_check(mT& X, const T1 mu_par, const T2 sigma_par, rand_engine_t& engine_0)
 {
-    MAIN_MAT_RAND_DIST_FN(rlnorm,mu_par,sigma_par);
+    MAIN_MAT_RAND_DIST_FN(rlnorm,mu_par,sigma_par,engine_0);
 }
 #endif
 
@@ -108,8 +108,17 @@ rlnorm_mat_check(mT& X, const T1 mu_par, const T2 sigma_par)
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rlnorm(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par)
+rlnorm(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par, rand_engine_t& engine)
 {
-    GEN_MAT_RAND_FN(rlnorm_mat_check,mu_par,sigma_par);
+    GEN_MAT_RAND_FN(rlnorm_mat_check,mu_par,sigma_par,engine);
+}
+
+template<typename mT, typename T1, typename T2>
+statslib_inline
+mT
+rlnorm(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par, const ullint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    GEN_MAT_RAND_FN(rlnorm_mat_check,mu_par,sigma_par,engine);
 }
 #endif

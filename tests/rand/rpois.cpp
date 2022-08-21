@@ -46,6 +46,15 @@ int main()
 
     std::cout << "stdvec: pois rv mean: " << stats::mat_ops::mean(pois_stdvec) << ". Should be close to: " << pois_mean << std::endl;
     std::cout << "stdvec: pois rv variance: " << stats::mat_ops::var(pois_stdvec) << ". Should be close to: " << pois_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    pois_stdvec = stats::rpois<std::vector<double>>(n_sample,1,rate_par,engine_s);
+
+    std::cout << "stdvec (with random engine): pois rv mean: " << stats::mat_ops::mean(pois_stdvec) << ". Should be close to: " << pois_mean << std::endl;
+    std::cout << "stdvec (with random engine): pois rv variance: " << stats::mat_ops::var(pois_stdvec) << ". Should be close to: " << pois_var << std::endl;
 #endif
 
     //
@@ -56,6 +65,15 @@ int main()
 
     std::cout << "Matrix: pois rv mean: " << stats::mat_ops::mean(pois_vec) << ". Should be close to: " << pois_mean << std::endl;
     std::cout << "Matrix: pois rv variance: " << stats::mat_ops::var(pois_vec) << ". Should be close to: " << pois_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    pois_vec = stats::rpois<mat_obj>(n_sample,1,rate_par,engine_m);
+
+    std::cout << "Matrix (with random engine): pois rv mean: " << stats::mat_ops::mean(pois_vec) << ". Should be close to: " << pois_mean << std::endl;
+    std::cout << "Matrix (with random engine): pois rv variance: " << stats::mat_ops::var(pois_vec) << ". Should be close to: " << pois_var << std::endl;
 #endif
 
     //

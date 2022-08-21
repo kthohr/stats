@@ -47,6 +47,15 @@ int main()
 
     std::cout << "stdvec: beta rv mean: " << stats::mat_ops::mean(beta_stdvec) << ". Should be close to: " << beta_mean << "\n";
     std::cout << "stdvec: beta rv variance: " << stats::mat_ops::var(beta_stdvec) << ". Should be close to: " << beta_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    beta_stdvec = stats::rbeta<std::vector<double>>(n_sample,1,alpha,beta,engine_s);
+
+    std::cout << "stdvec (with random engine): beta rv mean: " << stats::mat_ops::mean(beta_stdvec) << ". Should be close to: " << beta_mean << std::endl;
+    std::cout << "stdvec (with random engine): beta rv variance: " << stats::mat_ops::var(beta_stdvec) << ". Should be close to: " << beta_var << std::endl;
 #endif
 
 #ifdef STATS_TEST_MATRIX_FEATURES
@@ -55,6 +64,15 @@ int main()
 
     std::cout << "beta rv mean: " << stats::mat_ops::mean(beta_vec) << ". Should be close to: " << beta_mean << std::endl;
     std::cout << "beta rv variance: " << stats::mat_ops::var(beta_vec) << ". Should be close to: " << beta_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    beta_vec = stats::rbeta<mat_obj>(n_sample,1,alpha,beta,engine_m);
+
+    std::cout << "Matrix (with random engine): beta rv mean: " << stats::mat_ops::mean(beta_vec) << ". Should be close to: " << beta_mean << std::endl;
+    std::cout << "Matrix (with random engine): beta rv variance: " << stats::mat_ops::var(beta_vec) << ". Should be close to: " << beta_var << std::endl;
 #endif
 
     //

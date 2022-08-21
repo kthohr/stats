@@ -65,9 +65,10 @@ namespace internal
 template<typename T1, typename rT>
 statslib_inline
 void
-rbinom_vec(const llint_t n_trials_par, const T1 prob_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rbinom_vec(const llint_t n_trials_par, const T1 prob_par, rand_engine_t& engine_0, 
+           rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    RAND_DIST_FN_VEC(rbinom,vals_out,num_elem,n_trials_par,prob_par);
+    RAND_DIST_FN_VEC(rbinom,vals_out,num_elem,engine_0,n_trials_par,prob_par);
 }
 #endif
 
@@ -75,9 +76,9 @@ rbinom_vec(const llint_t n_trials_par, const T1 prob_par, rT* __stats_pointer_se
 template<typename eT, typename T1>
 statslib_inline
 void
-rbinom_mat_check(std::vector<eT>& X, const llint_t n_trials_par, const T1 prob_par)
+rbinom_mat_check(std::vector<eT>& X, const llint_t n_trials_par, const T1 prob_par, rand_engine_t& engine_0)
 {
-    STDVEC_RAND_DIST_FN(rbinom,n_trials_par,prob_par);
+    STDVEC_RAND_DIST_FN(rbinom,n_trials_par,prob_par,engine_0);
 }
 #endif
 
@@ -85,9 +86,9 @@ rbinom_mat_check(std::vector<eT>& X, const llint_t n_trials_par, const T1 prob_p
 template<typename mT, typename T1>
 statslib_inline
 void
-rbinom_mat_check(mT& X, const llint_t n_trials_par, const T1 prob_par)
+rbinom_mat_check(mT& X, const llint_t n_trials_par, const T1 prob_par, rand_engine_t& engine_0)
 {
-    MAIN_MAT_RAND_DIST_FN(rbinom,n_trials_par,prob_par);
+    MAIN_MAT_RAND_DIST_FN(rbinom,n_trials_par,prob_par,engine_0);
 }
 #endif
 
@@ -97,8 +98,17 @@ rbinom_mat_check(mT& X, const llint_t n_trials_par, const T1 prob_par)
 template<typename mT, typename T1>
 statslib_inline
 mT
-rbinom(const ullint_t n, const ullint_t k, const llint_t n_trials_par, const T1 prob_par)
+rbinom(const ullint_t n, const ullint_t k, const llint_t n_trials_par, const T1 prob_par, rand_engine_t& engine)
 {
-    GEN_MAT_RAND_FN(rbinom_mat_check,n_trials_par,prob_par);
+    GEN_MAT_RAND_FN(rbinom_mat_check,n_trials_par,prob_par,engine);
+}
+
+template<typename mT, typename T1>
+statslib_inline
+mT
+rbinom(const ullint_t n, const ullint_t k, const llint_t n_trials_par, const T1 prob_par, const ullint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    GEN_MAT_RAND_FN(rbinom_mat_check,n_trials_par,prob_par,engine);
 }
 #endif

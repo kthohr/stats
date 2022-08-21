@@ -24,6 +24,7 @@
 #include "log_if.hpp"
 #include "exp_if.hpp"
 
+#include "seed_values.hpp"
 #include "statslib_defs.hpp"
 
 #endif

@@ -189,6 +189,14 @@ Scalar Output
 Vector/Matrix Output
 ~~~~~~~~~~~~~~~~~~~~
 
+1. Random number engines
+
 .. _rbinom-func-ref3:
-.. doxygenfunction:: rbinom(const ullint_t, const ullint_t, const llint_t, const T1)
+.. doxygenfunction:: rbinom(const ullint_t, const ullint_t, const llint_t, const T1, rand_engine_t&)
+   :project: statslib
+
+2. Seed values
+
+.. _rbinom-func-ref4:
+.. doxygenfunction:: rbinom(const ullint_t, const ullint_t, const llint_t, const T1, const ullint_t)
    :project: statslib

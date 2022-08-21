@@ -72,6 +72,8 @@ rcauchy(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val = std::rand
 //
 // vector/matrix output
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
+
 /**
  * @brief Random matrix sampling function for the Cauchy distribution
  *
@@ -79,6 +81,39 @@ rcauchy(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val = std::rand
  * @param k the number of output columns
  * @param mu_par the location parameter, a real-valued input.
  * @param sigma_par the scale parameter, a real-valued input.
+ * @param engine a random engine, passed by reference.
+ *
+ * @return a matrix of pseudo-random draws from the Cauchy distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rand_engine_t engine(1776);
+ * // std::vector
+ * stats::rcauchy<std::vector<double>>(5,4,1.0,2.0,engine);
+ * // Armadillo matrix
+ * stats::rcauchy<arma::mat>(5,4,1.0,2.0,engine);
+ * // Blaze dynamic matrix
+ * stats::rcauchy<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,1.0,2.0,engine);
+ * // Eigen dynamic matrix
+ * stats::rcauchy<Eigen::MatrixXd>(5,4,1.0,2.0,engine);
+ * \endcode
+ *
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element types \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
+ */
+
+template<typename mT, typename T1, typename T2>
+statslib_inline
+mT
+rcauchy(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par, rand_engine_t& engine);
+
+/**
+ * @brief Random matrix sampling function for the Cauchy distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param mu_par the location parameter, a real-valued input.
+ * @param sigma_par the scale parameter, a real-valued input.
+ * @param seed_val initialize the random engine with a non-negative integral-valued seed.
  *
  * @return a matrix of pseudo-random draws from the Cauchy distribution.
  *
@@ -97,11 +132,11 @@ rcauchy(const T1 mu_par, const T2 sigma_par, const ullint_t seed_val = std::rand
  * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element types \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rcauchy(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par);
+rcauchy(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par, const ullint_t seed_val = std::random_device{}());
+
 #endif
 
 //

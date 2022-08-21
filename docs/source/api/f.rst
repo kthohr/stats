@@ -197,6 +197,14 @@ Scalar Output
 Vector/Matrix Output
 ~~~~~~~~~~~~~~~~~~~~
 
+1. Random number engines
+
 .. _rf-func-ref3:
-.. doxygenfunction:: rf(const ullint_t, const ullint_t, const T1, const T2)
+.. doxygenfunction:: rf(const ullint_t, const ullint_t, const T1, const T2, rand_engine_t&)
+   :project: statslib
+
+2. Seed values
+
+.. _rf-func-ref4:
+.. doxygenfunction:: rf(const ullint_t, const ullint_t, const T1, const T2, const ullint_t)
    :project: statslib

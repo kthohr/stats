@@ -53,8 +53,8 @@ qunif(const T1 p, const T2 a_par, const T3 b_par) noexcept;
  * @brief Quantile function of the Uniform distribution
  *
  * @param x a standard vector.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  *
  * @return a vector of quantile values corresponding to the elements of \c x.
  * 
@@ -76,8 +76,8 @@ qunif(const std::vector<eT>& x, const T1 a_par, const T2 b_par);
  * @brief Quantile function of the Uniform distribution
  *
  * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  *
  * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
@@ -99,8 +99,8 @@ qunif(const ArmaMat<eT>& X, const T1 a_par, const T2 b_par);
  * @brief Quantile function of the Uniform distribution
  *
  * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  *
  * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
@@ -122,8 +122,8 @@ qunif(const ArmaGen<mT,tT>& X, const T1 a_par, const T2 b_par);
  * @brief Quantile function of the Uniform distribution
  *
  * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  *
  * @return a matrix of quantile values corresponding to the elements of \c X.
  * 
@@ -144,8 +144,8 @@ qunif(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par);
  * @brief Quantile function of the Uniform distribution
  *
  * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  *
  * @return a matrix of quantile values corresponding to the elements of \c X.
  * 

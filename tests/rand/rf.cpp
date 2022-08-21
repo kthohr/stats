@@ -47,6 +47,15 @@ int main()
 
     std::cout << "stdvec: F rv mean: " << stats::mat_ops::mean(F_stdvec) << ". Should be close to: " << F_mean << std::endl;
     std::cout << "stdvec: F rv variance: " << stats::mat_ops::var(F_stdvec) << ". Should be close to: " << F_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    F_stdvec = stats::rf<std::vector<double>>(n_sample,1,a_par,b_par,engine_s);
+
+    std::cout << "stdvec (with random engine): F rv mean: " << stats::mat_ops::mean(F_stdvec) << ". Should be close to: " << F_mean << std::endl;
+    std::cout << "stdvec (with random engine): F rv variance: " << stats::mat_ops::var(F_stdvec) << ". Should be close to: " << F_var << std::endl;
 #endif
 
     //
@@ -57,6 +66,15 @@ int main()
 
     std::cout << "Matrix: F rv mean: " << stats::mat_ops::mean(F_vec) << ". Should be close to: " << F_mean << std::endl;
     std::cout << "Matrix: F rv variance: " << stats::mat_ops::var(F_vec) << ". Should be close to: " << F_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    F_vec = stats::rf<mat_obj>(n_sample,1,a_par,b_par,engine_m);
+
+    std::cout << "Matrix (with random engine): F rv mean: " << stats::mat_ops::mean(F_vec) << ". Should be close to: " << F_mean << std::endl;
+    std::cout << "Matrix (with random engine): F rv variance: " << stats::mat_ops::var(F_vec) << ". Should be close to: " << F_var << std::endl;
 #endif
     
     //

@@ -47,6 +47,15 @@ int main()
 
     std::cout << "stdvec: laplace rv mean: " << stats::mat_ops::mean(laplace_stdvec) << ". Should be close to: " << laplace_mean << std::endl;
     std::cout << "stdvec: laplace rv variance: " << stats::mat_ops::var(laplace_stdvec) << ". Should be close to: " << laplace_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    laplace_stdvec = stats::rlaplace<std::vector<double>>(n_sample,1,mu,sigma,engine_s);
+
+    std::cout << "stdvec (with random engine): laplace rv mean: " << stats::mat_ops::mean(laplace_stdvec) << ". Should be close to: " << laplace_mean << std::endl;
+    std::cout << "stdvec (with random engine): laplace rv variance: " << stats::mat_ops::var(laplace_stdvec) << ". Should be close to: " << laplace_var << std::endl;
 #endif
 
     //
@@ -57,6 +66,15 @@ int main()
 
     std::cout << "Matrix: laplace rv mean: " << stats::mat_ops::mean(laplace_vec) << ". Should be close to: " << laplace_mean << std::endl;
     std::cout << "Matrix: laplace rv variance: " << stats::mat_ops::var(laplace_vec) << ". Should be close to: " << laplace_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    laplace_vec = stats::rlaplace<mat_obj>(n_sample,1,mu,sigma,engine_m);
+
+    std::cout << "Matrix (with random engine): laplace rv mean: " << stats::mat_ops::mean(laplace_vec) << ". Should be close to: " << laplace_mean << std::endl;
+    std::cout << "Matrix (with random engine): laplace rv variance: " << stats::mat_ops::var(laplace_vec) << ". Should be close to: " << laplace_var << std::endl;
 #endif
 
     //

@@ -54,8 +54,8 @@ punif(const T1 x, const T2 a_par, const T3 b_par, const bool log_form = false) n
  * @brief Distribution function of the Uniform distribution
  *
  * @param x a standard vector.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  * @param log_form return the log-probability or the true form.
  *
  * @return a vector of CDF values corresponding to the elements of \c x.
@@ -78,8 +78,8 @@ punif(const std::vector<eT>& x, const T1 a_par, const T2 b_par, const bool log_f
  * @brief Distribution function of the Uniform distribution
  *
  * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  * @param log_form return the log-probability or the true form.
  *
  * @return a matrix of CDF values corresponding to the elements of \c X.
@@ -102,8 +102,8 @@ punif(const ArmaMat<eT>& X, const T1 a_par, const T2 b_par, const bool log_form 
  * @brief Distribution function of the Uniform distribution
  *
  * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  * @param log_form return the log-probability or the true form.
  *
  * @return a matrix of CDF values corresponding to the elements of \c X.
@@ -126,8 +126,8 @@ punif(const ArmaGen<mT,tT>& X, const T1 a_par, const T2 b_par, const bool log_fo
  * @brief Distribution function of the Uniform distribution
  *
  * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  * @param log_form return the log-probability or the true form.
  *
  * @return a matrix of CDF values corresponding to the elements of \c X.
@@ -149,8 +149,8 @@ punif(const BlazeMat<eT,To>& X, const T1 a_par, const T2 b_par, const bool log_f
  * @brief Distribution function of the Uniform distribution
  *
  * @param X a matrix of input values.
- * @param a_par a real-valued shape parameter.
- * @param b_par a real-valued shape parameter.
+ * @param a_par the lower bound parameter, a real-valued input.
+ * @param b_par the upper bound parameter, a real-valued input.
  * @param log_form return the log-probability or the true form.
  *
  * @return a matrix of CDF values corresponding to the elements of \c X.

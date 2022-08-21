@@ -36,5 +36,5 @@ Random Sampling
 Random sampling for the inverse-Wishart distribution is achieved via the method of Feiveson and Odell (1966).
 
 .. _rinvwish-func-ref1:
-.. doxygenfunction:: rinvwish(const mT&, const pT, const bool)
+.. doxygenfunction:: rinvwish(const mT&, const pT, rand_engine_t&, const bool)
    :project: statslib

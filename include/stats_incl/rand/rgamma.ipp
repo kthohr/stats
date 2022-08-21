@@ -19,7 +19,7 @@
   ################################################################################*/
 
 /*
- * Sample from a gamma distribution
+ * Sample from a Gamma distribution
  * using the Marsaglia and Tsang method
  */
 
@@ -42,21 +42,18 @@ rgamma_compute(const T shape_par, const T scale_par, rand_engine_t& engine)
 
     T ret = 0;
 
-    if (shape_par > T(1))
-    {
+    if (shape_par > T(1)) {
         const T d = shape_par - T(1)/T(3);
-        const T c = (T(1) / T(3)) / std::sqrt(d);
+        const T c = (T(1)/T(3)) / std::sqrt(d);
         T V = 1;
 
         bool keep_running = true;
 
-        while (keep_running)
-        {
+        while (keep_running) {
             T Z = rnorm(T(0),T(1),engine);
 
-            if (Z > -T(1)/c)
-            {
-                V = std::pow(T(1) + c*Z,3);
+            if (Z > -T(1)/c) {
+                V = std::pow(T(1) + c*Z, 3);
                 T U = runif(T(0),T(1),engine);
 
                 T check_2 = T(0.5)*Z*Z + d*(T(1) - V + std::log(V));
@@ -68,11 +65,9 @@ rgamma_compute(const T shape_par, const T scale_par, rand_engine_t& engine)
         }
 
         ret = d * V * scale_par;
-    }
-    else
-    {
+    } else {
         const T U = runif(T(0),T(1),engine);
-        ret = rgamma(T(1) + shape_par, scale_par,engine) * std::pow(U,T(1)/shape_par);
+        ret = rgamma(T(1) + shape_par, scale_par,engine) * std::pow(U, T(1)/shape_par);
     }
 
     //
@@ -118,9 +113,10 @@ namespace internal
 template<typename T1, typename T2, typename rT>
 statslib_inline
 void
-rgamma_vec(const T1 shape_par, const T2 scale_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rgamma_vec(const T1 shape_par, const T2 scale_par, rand_engine_t& engine_0, 
+           rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    RAND_DIST_FN_VEC(rgamma,vals_out,num_elem,shape_par,scale_par);
+    RAND_DIST_FN_VEC(rgamma,vals_out,num_elem,engine_0,shape_par,scale_par);
 }
 #endif
 
@@ -128,9 +124,9 @@ rgamma_vec(const T1 shape_par, const T2 scale_par, rT* __stats_pointer_settings_
 template<typename eT, typename T1, typename T2>
 statslib_inline
 void
-rgamma_mat_check(std::vector<eT>& X, const T1 shape_par, const T2 scale_par)
+rgamma_mat_check(std::vector<eT>& X, const T1 shape_par, const T2 scale_par, rand_engine_t& engine_0)
 {
-    STDVEC_RAND_DIST_FN(rgamma,shape_par,scale_par);
+    STDVEC_RAND_DIST_FN(rgamma,shape_par,scale_par,engine_0);
 }
 #endif
 
@@ -138,9 +134,9 @@ rgamma_mat_check(std::vector<eT>& X, const T1 shape_par, const T2 scale_par)
 template<typename mT, typename T1, typename T2>
 statslib_inline
 void
-rgamma_mat_check(mT& X, const T1 shape_par, const T2 scale_par)
+rgamma_mat_check(mT& X, const T1 shape_par, const T2 scale_par, rand_engine_t& engine_0)
 {
-    MAIN_MAT_RAND_DIST_FN(rgamma,shape_par,scale_par);
+    MAIN_MAT_RAND_DIST_FN(rgamma,shape_par,scale_par,engine_0);
 }
 #endif
 
@@ -150,8 +146,17 @@ rgamma_mat_check(mT& X, const T1 shape_par, const T2 scale_par)
 template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rgamma(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 scale_par)
+rgamma(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 scale_par, rand_engine_t& engine)
 {
-    GEN_MAT_RAND_FN(rgamma_mat_check,shape_par,scale_par);
+    GEN_MAT_RAND_FN(rgamma_mat_check,shape_par,scale_par,engine);
+}
+
+template<typename mT, typename T1, typename T2>
+statslib_inline
+mT
+rgamma(const ullint_t n, const ullint_t k, const T1 shape_par, const T2 scale_par, const ullint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    GEN_MAT_RAND_FN(rgamma_mat_check,shape_par,scale_par,engine);
 }
 #endif
