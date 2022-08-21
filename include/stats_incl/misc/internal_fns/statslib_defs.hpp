@@ -73,7 +73,7 @@
 
 //
 
-#define RAND_DIST_FN_VEC(dist_name, vals_out, num_elem,                                 \
+#define RAND_DIST_FN_VEC(dist_name, vals_out, num_elem, engine_0,                       \
                          ...)                                                           \
 {                                                                                       \
     ullint_t n_threads = omp_get_max_threads();                                         \
@@ -88,7 +88,8 @@
                                                                                         \
         for (ullint_t k=ullint_t(0); k < n_threads; ++k)                                \
         {                                                                               \
-            engines.push_back(rand_engine_t(std::random_device{}()));                   \
+            size_t seed_val = generate_seed_value(k, n_threads, engine_0);              \
+            engines.push_back(rand_engine_t(seed_val));                                 \
         }                                                                               \
                                                                                         \
         _Pragma("omp parallel for")                                                     \
@@ -110,10 +111,9 @@
             }                                                                           \
         }                                                                               \
     } else {                                                                            \
-        rand_engine_t engine(std::random_device{}());                                   \
         for (ullint_t i=ullint_t(0); i < num_elem; ++i)                                 \
         {                                                                               \
-            vals_out[i] = dist_name(__VA_ARGS__,engine);                                \
+            vals_out[i] = dist_name(__VA_ARGS__,engine_0);                              \
         }                                                                               \
     }                                                                                   \
 }                                                                                       \
@@ -131,13 +131,12 @@
     }                                                                                   \
 }                                                                                       \
 
-#define RAND_DIST_FN_VEC(dist_name, vals_out, num_elem,                                 \
+#define RAND_DIST_FN_VEC(dist_name, vals_out, num_elem, engine_0,                       \
                          ...)                                                           \
 {                                                                                       \
-    rand_engine_t engine(std::random_device{}());                                       \
     for (ullint_t j=ullint_t(0); j < num_elem; ++j)                                     \
     {                                                                                   \
-        vals_out[j] = dist_name(__VA_ARGS__,engine);                                    \
+        vals_out[j] = dist_name(__VA_ARGS__,engine_0);                                  \
     }                                                                                   \
 }                                                                                       \
 

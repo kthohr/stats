@@ -189,6 +189,14 @@ Scalar Output
 Vector/Matrix Output
 ~~~~~~~~~~~~~~~~~~~~
 
+1. Random number engines
+
 .. _rlogis-func-ref3:
-.. doxygenfunction:: rlogis(const ullint_t, const ullint_t, const T1, const T2)
+.. doxygenfunction:: rlogis(const ullint_t, const ullint_t, const T1, const T2, rand_engine_t&)
+   :project: statslib
+
+2. Seed values
+
+.. _rlogis-func-ref4:
+.. doxygenfunction:: rlogis(const ullint_t, const ullint_t, const T1, const T2, const ullint_t)
    :project: statslib

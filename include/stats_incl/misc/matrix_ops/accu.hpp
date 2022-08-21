@@ -108,6 +108,6 @@ sqaccu(const EigenMat<eT,iTr,iTc>& X)
     //     out_val += vals[j]*vals[j];
     // }
     // return out_val;
-    return (X.pow(2)).sum();
+    return X.array().pow(2).sum();
 }
 #endif

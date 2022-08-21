@@ -34,5 +34,5 @@ Random Sampling
 ---------------
 
 .. _rwish-func-ref1:
-.. doxygenfunction:: rwish(const mT&, const pT, const bool)
+.. doxygenfunction:: rwish(const mT&, const pT, rand_engine_t&, const bool)
    :project: statslib

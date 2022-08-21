@@ -73,9 +73,10 @@ namespace internal
 template<typename T1, typename rT>
 statslib_inline
 void
-rt_vec(const T1 dof_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rt_vec(const T1 dof_par, rand_engine_t& engine_0, 
+       rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    RAND_DIST_FN_VEC(rt,vals_out,num_elem,dof_par);
+    RAND_DIST_FN_VEC(rt,vals_out,num_elem,engine_0,dof_par);
 }
 #endif
 
@@ -83,9 +84,9 @@ rt_vec(const T1 dof_par, rT* __stats_pointer_settings__ vals_out, const ullint_t
 template<typename eT, typename T1>
 statslib_inline
 void
-rt_mat_check(std::vector<eT>& X, const T1 dof_par)
+rt_mat_check(std::vector<eT>& X, const T1 dof_par, rand_engine_t& engine_0)
 {
-    STDVEC_RAND_DIST_FN(rt,dof_par);
+    STDVEC_RAND_DIST_FN(rt,dof_par,engine_0);
 }
 #endif
 
@@ -93,9 +94,9 @@ rt_mat_check(std::vector<eT>& X, const T1 dof_par)
 template<typename mT, typename T1>
 statslib_inline
 void
-rt_mat_check(mT& X, const T1 dof_par)
+rt_mat_check(mT& X, const T1 dof_par, rand_engine_t& engine_0)
 {
-    MAIN_MAT_RAND_DIST_FN(rt,dof_par);
+    MAIN_MAT_RAND_DIST_FN(rt,dof_par,engine_0);
 }
 #endif
 
@@ -105,8 +106,17 @@ rt_mat_check(mT& X, const T1 dof_par)
 template<typename mT, typename T1>
 statslib_inline
 mT
-rt(const ullint_t n, const ullint_t k, const T1 dof_par)
+rt(const ullint_t n, const ullint_t k, const T1 dof_par, rand_engine_t& engine)
 {
-    GEN_MAT_RAND_FN(rt_mat_check,dof_par);
+    GEN_MAT_RAND_FN(rt_mat_check,dof_par,engine);
+}
+
+template<typename mT, typename T1>
+statslib_inline
+mT
+rt(const ullint_t n, const ullint_t k, const T1 dof_par, const ullint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    GEN_MAT_RAND_FN(rt_mat_check,dof_par,engine);
 }
 #endif

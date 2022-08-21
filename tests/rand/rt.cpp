@@ -46,6 +46,15 @@ int main()
 
     std::cout << "stdvec: t rv mean: " << stats::mat_ops::mean(t_stdvec) << ". Should be close to: " << t_mean << std::endl;
     std::cout << "stdvec: t rv variance: " << stats::mat_ops::var(t_stdvec) << ". Should be close to: " << t_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    t_stdvec = stats::rt<std::vector<double>>(n_sample,1,dof_par,engine_s);
+
+    std::cout << "stdvec (with random engine): t rv mean: " << stats::mat_ops::mean(t_stdvec) << ". Should be close to: " << t_mean << std::endl;
+    std::cout << "stdvec (with random engine): t rv variance: " << stats::mat_ops::var(t_stdvec) << ". Should be close to: " << t_var << std::endl;
 #endif
 
     //
@@ -56,6 +65,15 @@ int main()
 
     std::cout << "Matrix: t rv mean: " << stats::mat_ops::mean(t_vec) << ". Should be close to: " << t_mean << std::endl;
     std::cout << "Matrix: t rv variance: " << stats::mat_ops::var(t_vec) << ". Should be close to: " << t_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    t_vec = stats::rt<mat_obj>(n_sample,1,dof_par,engine_m);
+
+    std::cout << "Matrix (with random engine): t rv mean: " << stats::mat_ops::mean(t_vec) << ". Should be close to: " << t_mean << std::endl;
+    std::cout << "Matrix (with random engine): t rv variance: " << stats::mat_ops::var(t_vec) << ". Should be close to: " << t_var << std::endl;
 #endif
 
     //

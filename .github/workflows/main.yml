@@ -54,7 +54,7 @@ jobs:
             cc: "gcc-10",
             cxx: "g++-10",
             cxxstd: "11",
-            linalg: "blaze"
+            linalg: "arma"
           }
         - {
             name: "ubuntu_latest_gcc10_cxx14_blaze",

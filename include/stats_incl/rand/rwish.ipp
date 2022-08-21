@@ -25,7 +25,7 @@
 template<typename mT, typename pT, typename not_arma_mat<mT>::type*>
 statslib_inline
 mT
-rwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
+rwish(const mT& Psi_par, const pT nu_par, rand_engine_t& engine, const bool pre_chol)
 {
     typedef return_t<pT> eT;
     const ullint_t K = mat_ops::n_rows(Psi_par);
@@ -38,8 +38,6 @@ rwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
     }
 
     //
-
-    rand_engine_t engine(std::random_device{}());
 
     mT A;
     mat_ops::zeros(A,K,K);
@@ -65,15 +63,13 @@ rwish(const mT& Psi_par, const pT nu_par, const bool pre_chol)
 template<typename mT, typename eT, typename pT>
 statslib_inline
 mT
-rwish(const ArmaMat<eT>& Psi_par, const pT nu_par, const bool pre_chol)
+rwish(const ArmaMat<eT>& Psi_par, const pT nu_par, rand_engine_t& engine, const bool pre_chol)
 {
     const ullint_t K = Psi_par.n_rows;
     
     ArmaMat<eT> chol_Psi = (pre_chol) ? Psi_par : arma::chol(Psi_par,"lower"); // should be lower-triangular
 
     //
-
-    rand_engine_t engine(std::random_device{}());
 
     ArmaMat<eT> A = arma::zeros(K,K);
 

@@ -25,7 +25,7 @@
 template<typename vT, typename mT, typename not_arma_mat<mT>::type*>
 statslib_inline
 vT
-rmvnorm(const vT& mu_par, const mT& Sigma_par, const bool pre_chol)
+rmvnorm(const vT& mu_par, const mT& Sigma_par, rand_engine_t& engine, const bool pre_chol)
 {
     vT ret;
 
@@ -41,7 +41,7 @@ rmvnorm(const vT& mu_par, const mT& Sigma_par, const bool pre_chol)
 
     const mT A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
 
-    ret = mu_par + A * rnorm<vT>(K,1);
+    ret = mu_par + A * rnorm<vT>(K,1,engine);
 
     //
     
@@ -53,7 +53,7 @@ rmvnorm(const vT& mu_par, const mT& Sigma_par, const bool pre_chol)
 template<typename mT, typename eT>
 statslib_inline
 mT
-rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
+rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, rand_engine_t& engine, const bool pre_chol)
 {
     mT ret;
 
@@ -70,7 +70,7 @@ rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
     const ArmaMat<eT> A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par,"lower"); // should be lower-triangular
 
     // ret = mu_par + A * rnorm<mT>(K,1);
-    ret = mu_par + A * arma::randn<mT>(K,1);
+    ret = mu_par + A * arma::randn<mT>(K,1,engine);
 
     //
     
@@ -84,7 +84,7 @@ rmvnorm(const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
 template<typename vT, typename mT, typename not_arma_mat<mT>::type*>
 statslib_inline
 mT
-rmvnorm(const ullint_t n, const vT& mu_par, const mT& Sigma_par, const bool pre_chol)
+rmvnorm(const ullint_t n, const vT& mu_par, const mT& Sigma_par, rand_engine_t& engine, const bool pre_chol)
 {
     mT ret;
 
@@ -100,7 +100,7 @@ rmvnorm(const ullint_t n, const vT& mu_par, const mT& Sigma_par, const bool pre_
 
     const mT A = (pre_chol) ? Sigma_par : mat_ops::chol(Sigma_par); // should be lower-triangular
 
-    ret = mat_ops::repmat(mat_ops::trans(mu_par),n,1) + rnorm<mT>(n,K) * mat_ops::trans(A);
+    ret = mat_ops::repmat(mat_ops::trans(mu_par),n,1) + rnorm<mT>(n,K,engine) * mat_ops::trans(A);
 
     //
     
@@ -112,7 +112,7 @@ rmvnorm(const ullint_t n, const vT& mu_par, const mT& Sigma_par, const bool pre_
 template<typename mT, typename eT>
 statslib_inline
 ArmaMat<eT>
-rmvnorm(const ullint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const bool pre_chol)
+rmvnorm(const ullint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, rand_engine_t& engine, const bool pre_chol)
 {
     ArmaMat<eT> ret;
 
@@ -129,7 +129,7 @@ rmvnorm(const ullint_t n, const mT& mu_par, const ArmaMat<eT>& Sigma_par, const 
     const ArmaMat<eT> A = (pre_chol) ? Sigma_par : arma::chol(Sigma_par,"lower"); // should be lower-triangular
 
     // ret = arma::repmat(mu_par.t(),n,1) + rnorm<ArmaMat<eT>>(n,K) * A.t();
-    ret = arma::repmat(mu_par.t(),n,1) + arma::randn<ArmaMat<eT>>(n,K) * A.t();
+    ret = arma::repmat(mu_par.t(),n,1) + arma::randn<ArmaMat<eT>>(n,K,engine) * A.t();
 
     //
     

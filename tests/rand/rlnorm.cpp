@@ -47,6 +47,15 @@ int main()
 
     std::cout << "stdvec: lnorm rv mean: " << stats::mat_ops::mean(lnorm_stdvec) << ". Should be close to: " << lnorm_mean << std::endl;
     std::cout << "stdvec: lnorm rv variance: " << stats::mat_ops::var(lnorm_stdvec) << ". Should be close to: " << lnorm_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    lnorm_stdvec = stats::rlnorm<std::vector<double>>(n_sample,1,mu,sigma,engine_s);
+
+    std::cout << "stdvec (with random engine): lnorm rv mean: " << stats::mat_ops::mean(lnorm_stdvec) << ". Should be close to: " << lnorm_mean << std::endl;
+    std::cout << "stdvec (with random engine): lnorm rv variance: " << stats::mat_ops::var(lnorm_stdvec) << ". Should be close to: " << lnorm_var << std::endl;
 #endif
 
     //
@@ -57,6 +66,15 @@ int main()
 
     std::cout << "Matrix: lnorm rv mean: " << stats::mat_ops::mean(lnorm_vec) << ". Should be close to: " << lnorm_mean << std::endl;
     std::cout << "Matrix: lnorm rv variance: " << stats::mat_ops::var(lnorm_vec) << ". Should be close to: " << lnorm_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    lnorm_vec = stats::rlnorm<mat_obj>(n_sample,1,mu,sigma,engine_m);
+
+    std::cout << "Matrix (with random engine): lnorm rv mean: " << stats::mat_ops::mean(lnorm_vec) << ". Should be close to: " << lnorm_mean << std::endl;
+    std::cout << "Matrix (with random engine): lnorm rv variance: " << stats::mat_ops::var(lnorm_vec) << ". Should be close to: " << lnorm_var << std::endl;
 #endif
 
     //

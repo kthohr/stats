@@ -9,19 +9,19 @@ Syntax
 
 Functions are called using an **R**-like syntax. Some general rules:
 
-- density functions: ``stats::d*``. For example, the Normal (Gaussian) density is called using
+- density functions: ``stats::d*``. For example, the Normal (Gaussian) density function is called using:
 
 .. code:: cpp
 
     stats::dnorm(<value>,<mean parameter>,<standard deviation>);
 
-- cumulative distribution functions: ``stats::p*``. For example, the Gamma CDF is called using
+- cumulative distribution functions: ``stats::p*``. For example, the Gamma CDF is called using:
 
 .. code:: cpp
 
     stats::pgamma(<value>,<shape parameter>,<scale parameter>);
 
-- quantile functions: ``stats::q*``. For example, the Beta quantile is called using
+- quantile functions: ``stats::q*``. For example, the Beta quantile function is called using:
 
 .. code:: cpp
 
@@ -48,8 +48,10 @@ All of these functions have matrix-based equivalents using Armadillo, Blaze, and
 
     // Armadillo:
     arma::mat gamma_rvs = stats::rgamma<arma::mat>(100,50,3.0,2.0);
+
     // Blaze:
     blaze::DynamicMatrix<double> gamma_rvs = stats::rgamma<blaze::DynamicMatrix<double>>(100,50,3.0,2.0);
+
     // Eigen:
     Eigen::MatrixXd gamma_rvs = stats::rgamma<Eigen::MatrixXd>(100,50,3.0,2.0);
 

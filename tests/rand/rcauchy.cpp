@@ -44,6 +44,15 @@ int main()
 
     std::cout << "stdvec: cauchy rv mean: " << stats::mat_ops::mean(cauchy_stdvec) << ". Note: not defined." << std::endl; // not defined
     std::cout << "stdvec: cauchy rv variance: " << stats::mat_ops::var(cauchy_stdvec) << ". Note: not defined." << std::endl; // not defined
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    cauchy_stdvec = stats::rcauchy<std::vector<double>>(n_sample,1,mu,sigma,engine_s);
+
+    std::cout << "stdvec (with random engine): cauchy rv mean: " << stats::mat_ops::mean(cauchy_stdvec) << ". Note: not defined." << std::endl; // not defined
+    std::cout << "stdvec (with random engine): cauchy rv variance: " << stats::mat_ops::var(cauchy_stdvec) << ". Note: not defined." << std::endl; // not defined
 #endif
 
     //
@@ -54,6 +63,15 @@ int main()
 
     std::cout << "Matrix: cauchy rv mean: " << stats::mat_ops::mean(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
     std::cout << "Matrix: cauchy rv variance: " << stats::mat_ops::var(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    cauchy_vec = stats::rcauchy<mat_obj>(n_sample,1,mu,sigma,engine_m);
+
+    std::cout << "Matrix (with random engine): cauchy rv mean: " << stats::mat_ops::mean(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
+    std::cout << "Matrix (with random engine): cauchy rv variance: " << stats::mat_ops::var(cauchy_vec) << ". Note: not defined." << std::endl; // not defined
 #endif
 
     //

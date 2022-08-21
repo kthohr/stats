@@ -26,6 +26,7 @@ int main()
 
 #ifdef STATS_TEST_MATRIX_FEATURES
     mat_obj prob_vec(5,1);
+
     prob_vec(0,0) = 0.1;
     prob_vec(1,0) = 0.15;
     prob_vec(2,0) = 0.2;
@@ -36,7 +37,9 @@ int main()
 
     //
 
-    std::cout << "rmultinom draw:\n" << stats::rmultinom(prob_vec) << std::endl;
+    stats::rand_engine_t engine_m(1);
+
+    std::cout << "rmultinom draw:\n" << stats::rmultinom(prob_vec,engine_m) << std::endl;
 
     mat_obj X;
     stats::mat_ops::zeros(X,5,1);
@@ -44,10 +47,11 @@ int main()
     int n = 10000;
 
     for (int i=0; i < n; i++) {
-        X += stats::rmultinom<mat_obj>(prob_vec) / n;
+        X += stats::rmultinom<mat_obj>(prob_vec,engine_m) / n;
     }
 
     std::cout << "sample mean:\n" << X / 5.0 << std::endl;
+    std::cout << "\nshould be close to:\n" << prob_vec << std::endl;
 
     //
 

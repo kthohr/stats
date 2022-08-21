@@ -34,8 +34,9 @@ cumsum(const std::vector<eT>& X)
     std::vector<eT> mat_out = X;
 
     eT* mem_out = mat_out.data();
+    const ullint_t n = X.size();
 
-    for (ullint_t j=ullint_t(1); j < X.rows()*X.columns(); ++j)
+    for (ullint_t j=ullint_t(1); j < n; ++j)
     {
         mem_out[j] += mem_out[j-1];
     }
@@ -63,8 +64,9 @@ cumsum(const BlazeMat<eT,To>& X)
     BlazeMat<eT,To> mat_out = X;
 
     eT* mem_out = mat_out.data();
+    const ullint_t n = X.rows()*X.columns();
 
-    for (ullint_t j=ullint_t(1); j < X.rows()*X.columns(); ++j)
+    for (ullint_t j=ullint_t(1); j < n; ++j)
     {
         mem_out[j] += mem_out[j-1];
     }
@@ -82,8 +84,9 @@ cumsum(const EigenMat<eT,iTr,iTc>& X)
     EigenMat<eT,iTr,iTc> mat_out = X;
 
     eT* mem_out = mat_out.data();
+    const ullint_t n = X.rows()*X.cols();
 
-    for (ullint_t j=ullint_t(1); j < X.rows()*X.cols(); ++j)
+    for (ullint_t j=ullint_t(1); j < n; ++j)
     {
         mem_out[j] += mem_out[j-1];
     }

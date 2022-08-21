@@ -46,6 +46,15 @@ int main()
 
     std::cout << "exp rv mean: " << stats::mat_ops::mean(exp_stdvec) << ". Should be close to: " << exp_mean << std::endl;
     std::cout << "exp rv variance: " << stats::mat_ops::var(exp_stdvec) << ". Should be close to: " << exp_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    exp_stdvec = stats::rexp<std::vector<double>>(n_sample,1,rate_par,engine_s);
+
+    std::cout << "stdvec (with random engine): exp rv mean: " << stats::mat_ops::mean(exp_stdvec) << ". Should be close to: " << exp_mean << std::endl;
+    std::cout << "stdvec (with random engine): exp rv variance: " << stats::mat_ops::var(exp_stdvec) << ". Should be close to: " << exp_var << std::endl;
 #endif
 
     //
@@ -56,6 +65,15 @@ int main()
 
     std::cout << "exp rv mean: " << stats::mat_ops::mean(exp_vec) << ". Should be close to: " << exp_mean << std::endl;
     std::cout << "exp rv variance: " << stats::mat_ops::var(exp_vec) << ". Should be close to: " << exp_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    exp_vec = stats::rexp<mat_obj>(n_sample,1,rate_par,engine_m);
+
+    std::cout << "Matrix (with random engine): exp rv mean: " << stats::mat_ops::mean(exp_vec) << ". Should be close to: " << exp_mean << std::endl;
+    std::cout << "Matrix (with random engine): exp rv variance: " << stats::mat_ops::var(exp_vec) << ". Should be close to: " << exp_var << std::endl;
 #endif
 
     //

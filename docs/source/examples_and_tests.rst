@@ -31,6 +31,7 @@ Examples
 
     // matrix output
     arma::mat beta_rvs = stats::rbeta<arma::mat>(100,100,3.0,2.0);
+    
     // matrix input
     arma::mat beta_cdf_vals = stats::pbeta(beta_rvs,3.0,2.0);
 

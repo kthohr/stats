@@ -34,5 +34,5 @@ Random Sampling
 ---------------
 
 .. _rmvnorm-func-ref1:
-.. doxygenfunction:: rmvnorm(const vT&, const mT&, const bool)
+.. doxygenfunction:: rmvnorm(const vT&, const mT&, rand_engine_t&, const bool)
    :project: statslib

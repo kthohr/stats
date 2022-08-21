@@ -47,6 +47,15 @@ int main()
 
     std::cout << "stdvec: gamma rv mean: " << stats::mat_ops::mean(gamma_stdvec) << ". Should be close to: " << gamma_mean << std::endl;
     std::cout << "stdvec: gamma rv variance: " << stats::mat_ops::var(gamma_stdvec) << ". Should be close to: " << gamma_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    gamma_stdvec = stats::rgamma<std::vector<double>>(n_sample,1,shape,scale,engine_s);
+
+    std::cout << "stdvec (with random engine): gamma rv mean: " << stats::mat_ops::mean(gamma_stdvec) << ". Should be close to: " << gamma_mean << std::endl;
+    std::cout << "stdvec (with random engine): gamma rv variance: " << stats::mat_ops::var(gamma_stdvec) << ". Should be close to: " << gamma_var << std::endl;
 #endif
 
     //
@@ -57,6 +66,15 @@ int main()
 
     std::cout << "Matrix: gamma rv mean: " << stats::mat_ops::mean(gamma_vec) << ". Should be close to: " << gamma_mean << std::endl;
     std::cout << "Matrix: gamma rv variance: " << stats::mat_ops::var(gamma_vec) << ". Should be close to: " << gamma_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    gamma_vec = stats::rgamma<mat_obj>(n_sample,1,shape,scale,engine_m);
+
+    std::cout << "Matrix (with random engine): gamma rv mean: " << stats::mat_ops::mean(gamma_vec) << ". Should be close to: " << gamma_mean << std::endl;
+    std::cout << "Matrix (with random engine): gamma rv variance: " << stats::mat_ops::var(gamma_vec) << ". Should be close to: " << gamma_var << std::endl;
 #endif
 
     //

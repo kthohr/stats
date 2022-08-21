@@ -29,7 +29,7 @@ int main()
     double prob_par = 0.75;
 
     double bern_mean = prob_par;
-    double bern_var = prob_par*(1.0 - prob_par);
+    double bern_var = prob_par * (1.0 - prob_par);
 
     int n_sample = 10000;
 
@@ -46,6 +46,15 @@ int main()
 
     std::cout << "stdvec: bern rv mean: " << stats::mat_ops::mean(bern_stdvec) << ". Should be close to: " << bern_mean << "\n";
     std::cout << "stdvec: bern rv variance: " << stats::mat_ops::var(bern_stdvec) << ". Should be close to: " << bern_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    bern_stdvec = stats::rbern<std::vector<double>>(n_sample,1,prob_par,engine_s);
+
+    std::cout << "stdvec (with random engine): bern rv mean: " << stats::mat_ops::mean(bern_stdvec) << ". Should be close to: " << bern_mean << std::endl;
+    std::cout << "stdvec (with random engine): bern rv variance: " << stats::mat_ops::var(bern_stdvec) << ". Should be close to: " << bern_var << std::endl;
 #endif
 
     //
@@ -56,6 +65,15 @@ int main()
 
     std::cout << "Matrix: bern rv mean: " << stats::mat_ops::mean(bern_vec) << ". Should be close to: " << bern_mean << "\n";
     std::cout << "Matrix: bern rv variance: " << stats::mat_ops::var(bern_vec) << ". Should be close to: " << bern_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    bern_vec = stats::rbern<mat_obj>(n_sample,1,prob_par,engine_m);
+
+    std::cout << "Matrix (with random engine): bern rv mean: " << stats::mat_ops::mean(bern_vec) << ". Should be close to: " << bern_mean << std::endl;
+    std::cout << "Matrix (with random engine): bern rv variance: " << stats::mat_ops::var(bern_vec) << ". Should be close to: " << bern_var << std::endl;
 #endif
 
     //

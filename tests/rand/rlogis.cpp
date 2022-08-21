@@ -47,6 +47,15 @@ int main()
 
     std::cout << "stdvec: logis rv mean: " << stats::mat_ops::mean(logis_stdvec) << ". Should be close to: " << logis_mean << std::endl;
     std::cout << "stdvec: logis rv variance: " << stats::mat_ops::var(logis_stdvec) << ". Should be close to: " << logis_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    logis_stdvec = stats::rlogis<std::vector<double>>(n_sample,1,mu,sigma,engine_s);
+
+    std::cout << "stdvec (with random engine): logis rv mean: " << stats::mat_ops::mean(logis_stdvec) << ". Should be close to: " << logis_mean << std::endl;
+    std::cout << "stdvec (with random engine): logis rv variance: " << stats::mat_ops::var(logis_stdvec) << ". Should be close to: " << logis_var << std::endl;
 #endif
 
     //
@@ -57,6 +66,15 @@ int main()
 
     std::cout << "Matrix: logis rv mean: " << stats::mat_ops::mean(logis_vec) << ". Should be close to: " << logis_mean << std::endl;
     std::cout << "Matrix: logis rv variance: " << stats::mat_ops::var(logis_vec) << ". Should be close to: " << logis_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    logis_vec = stats::rlogis<mat_obj>(n_sample,1,mu,sigma,engine_m);
+
+    std::cout << "Matrix (with random engine): logis rv mean: " << stats::mat_ops::mean(logis_vec) << ". Should be close to: " << logis_mean << std::endl;
+    std::cout << "Matrix (with random engine): logis rv variance: " << stats::mat_ops::var(logis_vec) << ". Should be close to: " << logis_var << std::endl;
 #endif
 
     //

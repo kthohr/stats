@@ -55,9 +55,10 @@ namespace internal
 template<typename T1, typename rT>
 statslib_inline
 void
-rbern_vec(const T1 prob_par, rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+rbern_vec(const T1 prob_par, rand_engine_t& engine_0, 
+          rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    RAND_DIST_FN_VEC(rbern,vals_out,num_elem,prob_par);
+    RAND_DIST_FN_VEC(rbern,vals_out,num_elem,engine_0,prob_par);
 }
 #endif
 
@@ -65,9 +66,9 @@ rbern_vec(const T1 prob_par, rT* __stats_pointer_settings__ vals_out, const ulli
 template<typename eT, typename T1>
 statslib_inline
 void
-rbern_mat_check(std::vector<eT>& X, const T1 prob_par)
+rbern_mat_check(std::vector<eT>& X, const T1 prob_par, rand_engine_t& engine_0)
 {
-    STDVEC_RAND_DIST_FN(rbern,prob_par);
+    STDVEC_RAND_DIST_FN(rbern,prob_par,engine_0);
 }
 #endif
 
@@ -75,9 +76,9 @@ rbern_mat_check(std::vector<eT>& X, const T1 prob_par)
 template<typename mT, typename T1>
 statslib_inline
 void
-rbern_mat_check(mT& X, const T1 prob_par)
+rbern_mat_check(mT& X, const T1 prob_par, rand_engine_t& engine_0)
 {
-    MAIN_MAT_RAND_DIST_FN(rbern,prob_par);
+    MAIN_MAT_RAND_DIST_FN(rbern,prob_par,engine_0);
 }
 #endif
 
@@ -87,8 +88,17 @@ rbern_mat_check(mT& X, const T1 prob_par)
 template<typename mT, typename T1>
 statslib_inline
 mT
-rbern(const ullint_t n, const ullint_t k, const T1 prob_par)
+rbern(const ullint_t n, const ullint_t k, const T1 prob_par, rand_engine_t& engine)
 {
-    GEN_MAT_RAND_FN(rbern_mat_check,prob_par);
+    GEN_MAT_RAND_FN(rbern_mat_check,prob_par,engine);
+}
+
+template<typename mT, typename T1>
+statslib_inline
+mT
+rbern(const ullint_t n, const ullint_t k, const T1 prob_par, const ullint_t seed_val)
+{
+    rand_engine_t engine(seed_val);
+    GEN_MAT_RAND_FN(rbern_mat_check,prob_par,engine);
 }
 #endif

@@ -28,6 +28,8 @@ int main()
     int n_samp = 10000;
     int K = 3;
 
+    stats::rand_engine_t engine_m(1);
+
     std::cout << "\n*** rwish: begin tests. ***\n" << std::endl;
 
     //
@@ -42,15 +44,15 @@ int main()
     stats::mat_ops::zeros(X,K,K);
 
     for (int i=0; i < n_samp; i++) {
-        X += stats::rwish<mat_obj>(Psi,nu) / static_cast<double>(n_samp);
+        X += stats::rwish<mat_obj>(Psi,nu,engine_m) / static_cast<double>(n_samp);
     }
 
-    std::cout << "true mean:\n" << Psi * static_cast<double>(nu) << std::endl;
     std::cout << "sample mean:\n" << X << std::endl;
+    std::cout << "\ntrue mean:\n" << Psi * static_cast<double>(nu) << std::endl;
 
     double dwish_val = stats::dwish(X,Psi,nu,false);
 
-    std::cout << "density value: " << dwish_val << std::endl;
+    std::cout << "\ndensity value: " << dwish_val << std::endl;
 
     //
 

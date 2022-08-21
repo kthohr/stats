@@ -21,3 +21,5 @@ Random number generator seeding is available in two forms: seed values and rando
 
     std::mt19937_64 engine(1776);
     stats::rnorm(1,2,engine);
+
+Note: random number generators should be the preferred option over seed values; passing seed values requires generating a new engine with each function call, which can be computationally intensive if repeated many times.

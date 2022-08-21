@@ -45,8 +45,17 @@ int main()
     std::cout << "\n";
     std::vector<double> weibull_stdvec = stats::rweibull<std::vector<double>>(n_sample,1,shape,scale);
 
-    std::cout << "weibull rv mean: " << stats::mat_ops::mean(weibull_stdvec) << ". Should be close to: " << weibull_mean << std::endl;
-    std::cout << "weibull rv variance: " << stats::mat_ops::var(weibull_stdvec) << ". Should be close to: " << weibull_var << std::endl;
+    std::cout << "stdvec: weibull rv mean: " << stats::mat_ops::mean(weibull_stdvec) << ". Should be close to: " << weibull_mean << std::endl;
+    std::cout << "stdvec: weibull rv variance: " << stats::mat_ops::var(weibull_stdvec) << ". Should be close to: " << weibull_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    weibull_stdvec = stats::rweibull<std::vector<double>>(n_sample,1,shape,scale,engine_s);
+
+    std::cout << "stdvec (with random engine): weibull rv mean: " << stats::mat_ops::mean(weibull_stdvec) << ". Should be close to: " << weibull_mean << std::endl;
+    std::cout << "stdvec (with random engine): weibull rv variance: " << stats::mat_ops::var(weibull_stdvec) << ". Should be close to: " << weibull_var << std::endl;
 #endif
 
     //
@@ -55,8 +64,17 @@ int main()
     std::cout << "\n";
     mat_obj weibull_vec = stats::rweibull<mat_obj>(n_sample,1,shape,scale);
 
-    std::cout << "weibull rv mean: " << stats::mat_ops::mean(weibull_vec) << ". Should be close to: " << weibull_mean << std::endl;
-    std::cout << "weibull rv variance: " << stats::mat_ops::var(weibull_vec) << ". Should be close to: " << weibull_var << std::endl;
+    std::cout << "Matrix: weibull rv mean: " << stats::mat_ops::mean(weibull_vec) << ". Should be close to: " << weibull_mean << std::endl;
+    std::cout << "Matrix: weibull rv variance: " << stats::mat_ops::var(weibull_vec) << ". Should be close to: " << weibull_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    weibull_vec = stats::rweibull<mat_obj>(n_sample,1,shape,scale,engine_m);
+
+    std::cout << "Matrix (with random engine): weibull rv mean: " << stats::mat_ops::mean(weibull_vec) << ". Should be close to: " << weibull_mean << std::endl;
+    std::cout << "Matrix (with random engine): weibull rv variance: " << stats::mat_ops::var(weibull_vec) << ". Should be close to: " << weibull_var << std::endl;
 #endif
 
     //

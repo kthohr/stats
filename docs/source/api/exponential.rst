@@ -189,6 +189,14 @@ Scalar Output
 Vector/Matrix Output
 ~~~~~~~~~~~~~~~~~~~~
 
+1. Random number engines
+
 .. _rexp-func-ref3:
-.. doxygenfunction:: rexp(const ullint_t, const ullint_t, const T1)
+.. doxygenfunction:: rexp(const ullint_t, const ullint_t, const T1, rand_engine_t&)
+   :project: statslib
+
+2. Seed values
+
+.. _rexp-func-ref4:
+.. doxygenfunction:: rexp(const ullint_t, const ullint_t, const T1, const ullint_t)
    :project: statslib

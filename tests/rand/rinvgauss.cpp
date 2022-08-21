@@ -47,6 +47,15 @@ int main()
 
     std::cout << "stdvec: invgauss rv mean: " << stats::mat_ops::mean(invgauss_stdvec) << ". Should be close to: " << invgauss_mean << std::endl;
     std::cout << "stdvec: invgauss rv variance: " << stats::mat_ops::var(invgauss_stdvec) << ". Should be close to: " << invgauss_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    invgauss_stdvec = stats::rinvgauss<std::vector<double>>(n_sample,1,mu,lambda,engine_s);
+
+    std::cout << "stdvec (with random engine): invgauss rv mean: " << stats::mat_ops::mean(invgauss_stdvec) << ". Should be close to: " << invgauss_mean << std::endl;
+    std::cout << "stdvec (with random engine): invgauss rv variance: " << stats::mat_ops::var(invgauss_stdvec) << ". Should be close to: " << invgauss_var << std::endl;
 #endif
 
     //
@@ -57,11 +66,18 @@ int main()
 
     std::cout << "Matrix: invgauss rv mean: " << stats::mat_ops::mean(invgauss_vec) << ". Should be close to: " << invgauss_mean << std::endl;
     std::cout << "Matrix: invgauss rv variance: " << stats::mat_ops::var(invgauss_vec) << ". Should be close to: " << invgauss_var << std::endl;
-#endif
 
     //
 
-    stats::rinvgauss(0.9,2.0); // coverage
+    stats::rand_engine_t engine_m(1);
+
+    invgauss_vec = stats::rinvgauss<mat_obj>(n_sample,1,mu,lambda,engine_m);
+
+    std::cout << "Matrix (with random engine): invgauss rv mean: " << stats::mat_ops::mean(invgauss_vec) << ". Should be close to: " << invgauss_mean << std::endl;
+    std::cout << "Matrix (with random engine): invgauss rv variance: " << stats::mat_ops::var(invgauss_vec) << ". Should be close to: " << invgauss_var << std::endl;
+#endif
+
+    //
 
     std::cout << "\n*** rinvgauss: end tests. ***\n" << std::endl;
 

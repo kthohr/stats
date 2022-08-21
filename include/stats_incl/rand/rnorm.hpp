@@ -87,6 +87,8 @@ T rnorm();
 //
 // vector/matrix output
 
+#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
+
 /**
  * @brief Random matrix sampling function for the Normal distribution
  *
@@ -94,6 +96,39 @@ T rnorm();
  * @param k the number of output columns
  * @param mu_par the mean parameter, a real-valued input.
  * @param sigma_par the standard deviation parameter, a real-valued input.
+ * @param engine a random engine, passed by reference.
+ *
+ * @return a matrix of pseudo-random draws from the Normal distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rand_engine_t engine(1776);
+ * // std::vector
+ * stats::rnorm<std::vector<double>>(5,4,1.0,2.0,engine);
+ * // Armadillo matrix
+ * stats::rnorm<arma::mat>(5,4,1.0,2.0,engine);
+ * // Blaze dynamic matrix
+ * stats::rnorm<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,1.0,2.0,engine);
+ * // Eigen dynamic matrix
+ * stats::rnorm<Eigen::MatrixXd>(5,4,1.0,2.0,engine);
+ * \endcode
+ *
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
+ */
+
+template<typename mT, typename T1 = double, typename T2 = double>
+statslib_inline
+mT
+rnorm(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par, rand_engine_t& engine);
+
+/**
+ * @brief Random matrix sampling function for the Normal distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param mu_par the mean parameter, a real-valued input.
+ * @param sigma_par the standard deviation parameter, a real-valued input.
+ * @param seed_val initialize the random engine with a non-negative integral-valued seed.
  *
  * @return a matrix of pseudo-random draws from the Normal distribution.
  *
@@ -112,11 +147,70 @@ T rnorm();
  * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
  */
 
-#ifdef STATS_ENABLE_INTERNAL_VEC_FEATURES
-template<typename mT, typename T1 = double, typename T2 = double>
+template<typename mT, typename T1, typename T2>
 statslib_inline
 mT
-rnorm(const ullint_t n, const ullint_t k, const T1 mu_par = T1(0), const T2 sigma_par = T2(1));
+rnorm(const ullint_t n, const ullint_t k, const T1 mu_par, const T2 sigma_par, const ullint_t seed_val = std::random_device{}());
+
+/**
+ * @brief Random matrix sampling function for the standard Normal distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param engine a random engine, passed by reference.
+ *
+ * @return a matrix of pseudo-random draws from the Normal distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * stats::rand_engine_t engine(1776);
+ * // std::vector
+ * stats::rnorm<std::vector<double>>(5,4,engine);
+ * // Armadillo matrix
+ * stats::rnorm<arma::mat>(5,4,engine);
+ * // Blaze dynamic matrix
+ * stats::rnorm<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4,engine);
+ * // Eigen dynamic matrix
+ * stats::rnorm<Eigen::MatrixXd>(5,4,engine);
+ * \endcode
+ *
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
+ */
+
+template<typename mT, typename sT = double>
+statslib_inline
+mT
+rnorm(const ullint_t n, const ullint_t k, rand_engine_t& engine);
+
+/**
+ * @brief Random matrix sampling function for the standard Normal distribution
+ *
+ * @param n the number of output rows
+ * @param k the number of output columns
+ * @param seed_val initialize the random engine with a non-negative integral-valued seed.
+ *
+ * @return a matrix of pseudo-random draws from the Normal distribution.
+ *
+ * Example:
+ * \code{.cpp}
+ * // std::vector
+ * stats::rnorm<std::vector<double>>(5,4);
+ * // Armadillo matrix
+ * stats::rnorm<arma::mat>(5,4);
+ * // Blaze dynamic matrix
+ * stats::rnorm<blaze::DynamicMatrix<double,blaze::columnMajor>>(5,4);
+ * // Eigen dynamic matrix
+ * stats::rnorm<Eigen::MatrixXd>(5,4);
+ * \endcode
+ *
+ * @note This function requires template instantiation; acceptable output types include: <tt>std::vector</tt>, with element type \c float, \c double, etc., as well as Armadillo, Blaze, and Eigen dense matrices.
+ */
+
+template<typename mT, typename sT = double>
+statslib_inline
+mT
+rnorm(const ullint_t n, const ullint_t k, const ullint_t seed_val = std::random_device{}());
+
 #endif
 
 //

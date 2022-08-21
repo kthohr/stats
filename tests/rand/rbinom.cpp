@@ -47,6 +47,15 @@ int main()
 
     std::cout << "binom rv mean: " << stats::mat_ops::mean(binom_stdvec) << ". Should be close to: " << binom_mean << std::endl;
     std::cout << "binom rv variance: " << stats::mat_ops::var(binom_stdvec) << ". Should be close to: " << binom_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    binom_stdvec = stats::rbinom<std::vector<double>>(n_sample,1,n_trials,prob_par,engine_s);
+
+    std::cout << "stdvec (with random engine): binom rv mean: " << stats::mat_ops::mean(binom_stdvec) << ". Should be close to: " << binom_mean << std::endl;
+    std::cout << "stdvec (with random engine): binom rv variance: " << stats::mat_ops::var(binom_stdvec) << ". Should be close to: " << binom_var << std::endl;
 #endif
 
     //
@@ -57,6 +66,15 @@ int main()
 
     std::cout << "binom rv mean: " << stats::mat_ops::mean(binom_vec) << ". Should be close to: " << binom_mean << std::endl;
     std::cout << "binom rv variance: " << stats::mat_ops::var(binom_vec) << ". Should be close to: " << binom_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    binom_vec = stats::rbinom<mat_obj>(n_sample,1,n_trials,prob_par,engine_m);
+
+    std::cout << "Matrix (with random engine): binom rv mean: " << stats::mat_ops::mean(binom_vec) << ". Should be close to: " << binom_mean << std::endl;
+    std::cout << "Matrix (with random engine): binom rv variance: " << stats::mat_ops::var(binom_vec) << ". Should be close to: " << binom_var << std::endl;
 #endif
 
     //

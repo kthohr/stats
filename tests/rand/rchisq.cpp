@@ -46,6 +46,15 @@ int main()
 
     std::cout << "stdvec: chisq rv mean: " << stats::mat_ops::mean(chisq_stdvec) << ". Should be close to: " << chisq_mean << std::endl;
     std::cout << "stdvec: chisq rv variance: " << stats::mat_ops::var(chisq_stdvec) << ". Should be close to: " << chisq_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_s(1);
+
+    chisq_stdvec = stats::rchisq<std::vector<double>>(n_sample,1,dof,engine_s);
+
+    std::cout << "stdvec (with random engine): chisq rv mean: " << stats::mat_ops::mean(chisq_stdvec) << ". Should be close to: " << chisq_mean << std::endl;
+    std::cout << "stdvec (with random engine): chisq rv variance: " << stats::mat_ops::var(chisq_stdvec) << ". Should be close to: " << chisq_var << std::endl;
 #endif
 
     //
@@ -56,6 +65,15 @@ int main()
 
     std::cout << "Matrix: chisq rv mean: " << stats::mat_ops::mean(chisq_vec) << ". Should be close to: " << chisq_mean << std::endl;
     std::cout << "Matrix: chisq rv variance: " << stats::mat_ops::var(chisq_vec) << ". Should be close to: " << chisq_var << std::endl;
+
+    //
+
+    stats::rand_engine_t engine_m(1);
+
+    chisq_vec = stats::rchisq<mat_obj>(n_sample,1,dof,engine_m);
+
+    std::cout << "Matrix (with random engine): chisq rv mean: " << stats::mat_ops::mean(chisq_vec) << ". Should be close to: " << chisq_mean << std::endl;
+    std::cout << "Matrix (with random engine): chisq rv variance: " << stats::mat_ops::var(chisq_vec) << ". Should be close to: " << chisq_var << std::endl;
 #endif
 
     //
