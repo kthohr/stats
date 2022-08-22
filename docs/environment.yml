@@ -3,6 +3,7 @@ name: statslib-docs
 
 channels:
   - conda-forge
+  - nodefaults
 
 dependencies:
   - doxygen=1.9.3
