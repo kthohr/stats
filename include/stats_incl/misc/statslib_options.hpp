@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2022 Keith O'Hara
+  ##   Copyright (C) 2011-2023 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -35,10 +35,10 @@
 #endif
 
 #ifndef STATS_VERSION_PATCH
-    #define STATS_VERSION_PATCH 0
+    #define STATS_VERSION_PATCH 1
 #endif
 
-// switch between inline mode vs constexpr
+// switch between inline mode and constexpr mode
 
 #ifndef statslib_inline
     #define statslib_inline inline
@@ -53,7 +53,7 @@
     #define stmath std
 #endif
 
-// RNG engine
+// RNG engine type
 
 #ifndef STATS_RNG_ENGINE_TYPE
     #define STATS_RNG_ENGINE_TYPE std::mt19937_64

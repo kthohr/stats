@@ -1,6 +1,6 @@
 /*################################################################################
   ##
-  ##   Copyright (C) 2011-2022 Keith O'Hara
+  ##   Copyright (C) 2011-2023 Keith O'Hara
   ##
   ##   This file is part of the StatsLib C++ library.
   ##
@@ -229,8 +229,8 @@ define GEN_MAT_RAND_FN(dist_name_vec, ...)                                      
 
 #define MAIN_MAT_RAND_DIST_FN(dist_name, ...)                                           \
 {                                                                                       \
-    X = blaze::map(X,[__VA_ARGS__](double x){ STATS_UNUSED_PAR(x);                      \
-                                              return dist_name(__VA_ARGS__);} );        \
+    X = blaze::map(X,[&](double x){ STATS_UNUSED_PAR(x);                                \
+                                    return dist_name(__VA_ARGS__);} );                  \
 }
 
 #else
@@ -243,13 +243,13 @@ define GEN_MAT_RAND_FN(dist_name_vec, ...)                                      
 
 #endif
 
+/*
 #define BLAZE_RAND_DIST_FN(dist_name, ...)                                              \
 {                                                                                       \
     X = blaze::map(X,[__VA_ARGS__](double x){ STATS_UNUSED_PAR(x);                      \
                                               return dist_name(__VA_ARGS__);} );        \
 }
 
-/*
 #define MAIN_MAT_RAND_DIST_FN(dist_name_vec, ...)                                       \
 {                                                                                       \
     dist_name_vec(__VA_ARGS__, mat_ops::get_mem_ptr(X),                                 \
