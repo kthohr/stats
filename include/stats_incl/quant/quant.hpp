@@ -35,6 +35,7 @@
 #include "qlogis.hpp"
 #include "qnorm.hpp"
 #include "qpois.hpp"
+#include "qradem.hpp"
 #include "qt.hpp"
 #include "qunif.hpp"
 #include "qweibull.hpp"

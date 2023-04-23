@@ -19,17 +19,17 @@
   ################################################################################*/
 
 /*
- * quantile function of the Bernoulli distribution
+ * quantile function of the Rademacher distribution
  */
 
-#ifndef _statslib_qbern_HPP
-#define _statslib_qbern_HPP
+#ifndef _statslib_qradem_HPP
+#define _statslib_qradem_HPP
 
 //
 // scalar input
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Quantile function of the Rademacher distribution
  *
  * @param p a real-valued input.
  * @param prob_par the probability parameter, a real-valued input.
@@ -37,19 +37,19 @@
  * @return the quantile function evaluated at \c p.
  * 
  * Example:
- * \code{.cpp} stats::qbern(0.5,0.4); \endcode
+ * \code{.cpp} stats::qradem(0.5,0.4); \endcode
  */
 
 template<typename T1, typename T2>
 statslib_constexpr
 common_return_t<T1,T2>
-qbern(const T1 p, const T2 prob_par) noexcept;
+qradem(const T1 p, const T2 prob_par) noexcept;
 
 //
 // vector/matrix input
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Quantile function of the Rademacher distribution
  *
  * @param x a standard vector.
  * @param prob_par the probability parameter, a real-valued input.
@@ -59,7 +59,7 @@ qbern(const T1 p, const T2 prob_par) noexcept;
  * Example:
  * \code{.cpp}
  * std::vector<int> x = {0.4, 0.5, 0.9};
- * stats::qbern(x,0.5);
+ * stats::qradem(x,0.5);
  * \endcode
  */
 
@@ -67,11 +67,11 @@ qbern(const T1 p, const T2 prob_par) noexcept;
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 std::vector<rT>
-qbern(const std::vector<eT>& x, const T1 prob_par);
+qradem(const std::vector<eT>& x, const T1 prob_par);
 #endif
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Quantile function of the Rademacher distribution
  *
  * @param X a matrix of input values.
  * @param prob_par the probability parameter, a real-valued input.
@@ -82,7 +82,7 @@ qbern(const std::vector<eT>& x, const T1 prob_par);
  * \code{.cpp}
  * arma::mat X = { {0.4, 0.5, 0.9},
  *                 {0.3, 0.6, 0.7} };
- * stats::qbern(X,0.5);
+ * stats::qradem(X,0.5);
  * \endcode
  */
 
@@ -90,10 +90,10 @@ qbern(const std::vector<eT>& x, const T1 prob_par);
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 ArmaMat<rT>
-qbern(const ArmaMat<eT>& X, const T1 prob_par);
+qradem(const ArmaMat<eT>& X, const T1 prob_par);
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Quantile function of the Rademacher distribution
  *
  * @param X a matrix of input values.
  * @param prob_par the probability parameter, a real-valued input.
@@ -104,18 +104,18 @@ qbern(const ArmaMat<eT>& X, const T1 prob_par);
  * \code{.cpp}
  * arma::mat X = { {0.4, 0.5, 0.9},
  *                 {0.3, 0.6, 0.7} };
- * stats::qbern(X,0.5);
+ * stats::qradem(X,0.5);
  * \endcode
  */
 
 template<typename mT, typename tT, typename T1>
 statslib_inline
 mT 
-qbern(const ArmaGen<mT,tT>& X, const T1 prob_par);
+qradem(const ArmaGen<mT,tT>& X, const T1 prob_par);
 #endif
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Quantile function of the Rademacher distribution
  *
  * @param X a matrix of input values.
  * @param prob_par the probability parameter, a real-valued input.
@@ -124,7 +124,7 @@ qbern(const ArmaGen<mT,tT>& X, const T1 prob_par);
  * 
  * Example:
  * \code{.cpp}
- * stats::qbern(X,0.5);
+ * stats::qradem(X,0.5);
  * \endcode
  */
 
@@ -132,11 +132,11 @@ qbern(const ArmaGen<mT,tT>& X, const T1 prob_par);
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, bool To = blaze::columnMajor>
 statslib_inline
 BlazeMat<rT,To>
-qbern(const BlazeMat<eT,To>& X, const T1 prob_par);
+qradem(const BlazeMat<eT,To>& X, const T1 prob_par);
 #endif
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Quantile function of the Rademacher distribution
  *
  * @param X a matrix of input values.
  * @param prob_par the probability parameter, a real-valued input.
@@ -145,7 +145,7 @@ qbern(const BlazeMat<eT,To>& X, const T1 prob_par);
  * 
  * Example:
  * \code{.cpp}
- * stats::qbern(X,0.5);
+ * stats::qradem(X,0.5);
  * \endcode
  */
 
@@ -153,12 +153,12 @@ qbern(const BlazeMat<eT,To>& X, const T1 prob_par);
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
 EigenMat<rT,iTr,iTc>
-qbern(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par);
+qradem(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par);
 #endif
 
 //
 // include implementation files
 
-#include "qbern.ipp"
+#include "qradem.ipp"
 
 #endif

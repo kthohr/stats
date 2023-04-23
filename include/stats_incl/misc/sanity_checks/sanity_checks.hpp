@@ -40,6 +40,7 @@
 // #include "mvnorm.hpp"
 #include "norm.hpp"
 #include "pois.hpp"
+#include "radem.hpp"
 #include "t.hpp"
 #include "unif.hpp"
 #include "weibull.hpp"

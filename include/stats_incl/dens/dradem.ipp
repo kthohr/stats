@@ -19,7 +19,7 @@
   ################################################################################*/
 
 /*
- * quantile function of the Bernoulli distribution
+ * pdf of the Rademacher distribution
  */
 
 //
@@ -31,38 +31,38 @@ namespace internal
 template<typename T>
 statslib_constexpr
 T
-qbern_compute(const T p, const T prob_par)
+dradem_compute(const llint_t x, const T prob_par)
 noexcept
 {
-    return( !bern_sanity_check(prob_par) ? \
+    return( x == llint_t(1) ? \
+                prob_par :
+            x == llint_t(-1) ? \
+                T(1) - prob_par :
+            //
+                T(0) );
+}
+
+template<typename T>
+statslib_constexpr
+T
+dradem_vals_check(const llint_t x, const T prob_par, const bool log_form)
+noexcept
+{
+    return( !radem_sanity_check(prob_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
-            !prob_val_check(p) ? \
-                STLIM<T>::quiet_NaN() :
-            //
-            p > (T(1) - prob_par) ? \
-                llint_t(1) : 
-                llint_t(0) );
+            log_if(dradem_compute(x,prob_par), log_form) );
 }
 
-template<typename T1, typename T2, typename TC = common_return_t<T1,T2>>
+}
+
+template<typename T>
 statslib_constexpr
-TC
-qbern_type_check(const T1 p, const T2 prob_par)
+return_t<T>
+dradem(const llint_t x, const T prob_par, const bool log_form)
 noexcept
 {
-    return qbern_compute(static_cast<TC>(p),static_cast<TC>(prob_par));
-}
-
-}
-
-template<typename T1, typename T2>
-statslib_constexpr
-common_return_t<T1,T2> // not llint_t so we can return NaN
-qbern(const T1 p, const T2 prob_par)
-noexcept
-{
-    return internal::qbern_type_check(p,prob_par);
+    return internal::dradem_vals_check(x,static_cast<return_t<T>>(prob_par),log_form);
 }
 
 //
@@ -75,10 +75,10 @@ namespace internal
 template<typename eT, typename T1, typename rT>
 statslib_inline
 void
-qbern_vec(const eT* __stats_pointer_settings__ vals_in, const T1 prob_par,
-                rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+dradem_vec(const eT* __stats_pointer_settings__ vals_in, const T1 prob_par, const bool log_form,
+                 rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    EVAL_DIST_FN_VEC(qbern,vals_in,vals_out,num_elem,prob_par);
+    EVAL_DIST_FN_VEC(dradem,vals_in,vals_out,num_elem,prob_par,log_form);
 }
 #endif
 
@@ -88,9 +88,9 @@ qbern_vec(const eT* __stats_pointer_settings__ vals_in, const T1 prob_par,
 template<typename eT, typename T1, typename rT>
 statslib_inline
 std::vector<rT>
-qbern(const std::vector<eT>& x, const T1 prob_par)
+dradem(const std::vector<eT>& x, const T1 prob_par, const bool log_form)
 {
-    STDVEC_DIST_FN(qbern_vec,prob_par);
+    STDVEC_DIST_FN(dradem_vec,prob_par,log_form);
 }
 #endif
 
@@ -98,17 +98,17 @@ qbern(const std::vector<eT>& x, const T1 prob_par)
 template<typename eT, typename T1, typename rT>
 statslib_inline
 ArmaMat<rT>
-qbern(const ArmaMat<eT>& X, const T1 prob_par)
+dradem(const ArmaMat<eT>& X, const T1 prob_par, const bool log_form)
 {
-    ARMA_DIST_FN(qbern_vec,prob_par);
+    ARMA_DIST_FN(dradem_vec,prob_par,log_form);
 }
 
 template<typename mT, typename tT, typename T1>
 statslib_inline
 mT
-qbern(const ArmaGen<mT,tT>& X, const T1 prob_par)
+dradem(const ArmaGen<mT,tT>& X, const T1 prob_par, const bool log_form)
 {
-    return qbern(X.eval(),prob_par);
+    return dradem(X.eval(),prob_par,log_form);
 }
 #endif
 
@@ -116,9 +116,9 @@ qbern(const ArmaGen<mT,tT>& X, const T1 prob_par)
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
-qbern(const BlazeMat<eT,To>& X, const T1 prob_par)
+dradem(const BlazeMat<eT,To>& X, const T1 prob_par, const bool log_form)
 {
-    BLAZE_DIST_FN(qbern_vec,prob_par);
+    BLAZE_DIST_FN(dradem,prob_par,log_form);
 }
 #endif
 
@@ -126,8 +126,8 @@ qbern(const BlazeMat<eT,To>& X, const T1 prob_par)
 template<typename eT, typename T1, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>
-qbern(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par)
+dradem(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par, const bool log_form)
 {
-    EIGEN_DIST_FN(qbern_vec,prob_par);
+    EIGEN_DIST_FN(dradem_vec,prob_par,log_form);
 }
 #endif

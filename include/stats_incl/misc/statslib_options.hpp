@@ -31,11 +31,11 @@
 #endif
 
 #ifndef STATS_VERSION_MINOR
-    #define STATS_VERSION_MINOR 3
+    #define STATS_VERSION_MINOR 4
 #endif
 
 #ifndef STATS_VERSION_PATCH
-    #define STATS_VERSION_PATCH 1
+    #define STATS_VERSION_PATCH 0
 #endif
 
 // switch between inline mode and constexpr mode

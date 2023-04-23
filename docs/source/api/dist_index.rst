@@ -279,6 +279,21 @@ Distributions
 .. toctree::
    :maxdepth: 2
 
+   rademacher
+
++----------------------------------------+--------------------------------------------------------------+
+| :ref:`dradem <dradem-func-ref1>`       | density function of the Rademacher distribution              |
++----------------------------------------+--------------------------------------------------------------+
+| :ref:`pradem <pradem-func-ref1>`       | distribution function of the Rademacher distribution         |
++----------------------------------------+--------------------------------------------------------------+
+| :ref:`qradem <qradem-func-ref1>`       | quantile function of the Rademacher distribution             |
++----------------------------------------+--------------------------------------------------------------+
+| :ref:`rradem <rradem-func-ref1>`       | random sampling function of the Rademacher distribution      |
++----------------------------------------+--------------------------------------------------------------+
+
+.. toctree::
+   :maxdepth: 2
+
    t
 
 +----------------------------------------+--------------------------------------------------------------+

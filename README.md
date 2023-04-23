@@ -44,6 +44,7 @@ Functions to compute the cdf, pdf, quantile, as well as random sampling methods,
 * Log-Normal
 * Normal (Gaussian)
 * Poisson
+* Rademacher
 * Student's t
 * Uniform
 * Weibull

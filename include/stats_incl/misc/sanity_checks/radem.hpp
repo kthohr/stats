@@ -18,32 +18,32 @@
   ##
   ################################################################################*/
 
-#ifndef _statslib_dens_HPP
-#define _statslib_dens_HPP
+/*
+ * Sanity checks for the Rademacher distribution
+ */
 
-#include "dbern.hpp"
-#include "dbeta.hpp"
-#include "dcauchy.hpp"
-#include "dchisq.hpp"
-#include "dexp.hpp"
-#include "dgamma.hpp"
-#include "dinvgamma.hpp"
-#include "dinvgauss.hpp"
-#include "dinvwish.hpp"
-#include "dlaplace.hpp"
-#include "dlogis.hpp"
-#include "dmvnorm.hpp"
-#include "dnorm.hpp"
-#include "dpois.hpp"
-#include "dradem.hpp"
-#include "dt.hpp"
-#include "dunif.hpp"
-#include "dweibull.hpp"
-#include "dwish.hpp"
+namespace internal
+{
 
-// these depend on the above
-#include "dbinom.hpp"
-#include "df.hpp"
-#include "dlnorm.hpp"
+template<typename T>
+statslib_constexpr
+bool
+radem_sanity_check(const T prob_par)
+noexcept
+{
+    return( GCINT::is_nan(prob_par) ? \
+                false :
+            //
+            GCINT::is_inf(prob_par) ? \
+                false :
+            //
+            prob_par < T(0) ? \
+                false :
+            //
+            prob_par > T(1) ? \
+                false :
+            //
+                true );
+}
 
-#endif
+}

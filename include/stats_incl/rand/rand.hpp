@@ -42,6 +42,7 @@
 #include "rmultinom.hpp"
 #include "rmvnorm.hpp"
 #include "rpois.hpp"
+#include "rradem.hpp"
 #include "rt.hpp"
 #include "rweibull.hpp"
 #include "rwish.hpp"

@@ -19,7 +19,7 @@
   ################################################################################*/
 
 /*
- * quantile function of the Bernoulli distribution
+ * quantile function of the Rademacher distribution
  */
 
 //
@@ -31,10 +31,10 @@ namespace internal
 template<typename T>
 statslib_constexpr
 T
-qbern_compute(const T p, const T prob_par)
+qradem_compute(const T p, const T prob_par)
 noexcept
 {
-    return( !bern_sanity_check(prob_par) ? \
+    return( !radem_sanity_check(prob_par) ? \
                 STLIM<T>::quiet_NaN() :
             //
             !prob_val_check(p) ? \
@@ -42,16 +42,16 @@ noexcept
             //
             p > (T(1) - prob_par) ? \
                 llint_t(1) : 
-                llint_t(0) );
+                llint_t(-1) );
 }
 
 template<typename T1, typename T2, typename TC = common_return_t<T1,T2>>
 statslib_constexpr
 TC
-qbern_type_check(const T1 p, const T2 prob_par)
+qradem_type_check(const T1 p, const T2 prob_par)
 noexcept
 {
-    return qbern_compute(static_cast<TC>(p),static_cast<TC>(prob_par));
+    return qradem_compute(static_cast<TC>(p),static_cast<TC>(prob_par));
 }
 
 }
@@ -59,10 +59,10 @@ noexcept
 template<typename T1, typename T2>
 statslib_constexpr
 common_return_t<T1,T2> // not llint_t so we can return NaN
-qbern(const T1 p, const T2 prob_par)
+qradem(const T1 p, const T2 prob_par)
 noexcept
 {
-    return internal::qbern_type_check(p,prob_par);
+    return internal::qradem_type_check(p,prob_par);
 }
 
 //
@@ -75,10 +75,10 @@ namespace internal
 template<typename eT, typename T1, typename rT>
 statslib_inline
 void
-qbern_vec(const eT* __stats_pointer_settings__ vals_in, const T1 prob_par,
-                rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
+qradem_vec(const eT* __stats_pointer_settings__ vals_in, const T1 prob_par,
+                 rT* __stats_pointer_settings__ vals_out, const ullint_t num_elem)
 {
-    EVAL_DIST_FN_VEC(qbern,vals_in,vals_out,num_elem,prob_par);
+    EVAL_DIST_FN_VEC(qradem,vals_in,vals_out,num_elem,prob_par);
 }
 #endif
 
@@ -88,9 +88,9 @@ qbern_vec(const eT* __stats_pointer_settings__ vals_in, const T1 prob_par,
 template<typename eT, typename T1, typename rT>
 statslib_inline
 std::vector<rT>
-qbern(const std::vector<eT>& x, const T1 prob_par)
+qradem(const std::vector<eT>& x, const T1 prob_par)
 {
-    STDVEC_DIST_FN(qbern_vec,prob_par);
+    STDVEC_DIST_FN(qradem_vec,prob_par);
 }
 #endif
 
@@ -98,17 +98,17 @@ qbern(const std::vector<eT>& x, const T1 prob_par)
 template<typename eT, typename T1, typename rT>
 statslib_inline
 ArmaMat<rT>
-qbern(const ArmaMat<eT>& X, const T1 prob_par)
+qradem(const ArmaMat<eT>& X, const T1 prob_par)
 {
-    ARMA_DIST_FN(qbern_vec,prob_par);
+    ARMA_DIST_FN(qradem_vec,prob_par);
 }
 
 template<typename mT, typename tT, typename T1>
 statslib_inline
 mT
-qbern(const ArmaGen<mT,tT>& X, const T1 prob_par)
+qradem(const ArmaGen<mT,tT>& X, const T1 prob_par)
 {
-    return qbern(X.eval(),prob_par);
+    return qradem(X.eval(),prob_par);
 }
 #endif
 
@@ -116,9 +116,9 @@ qbern(const ArmaGen<mT,tT>& X, const T1 prob_par)
 template<typename eT, typename T1, typename rT, bool To>
 statslib_inline
 BlazeMat<rT,To>
-qbern(const BlazeMat<eT,To>& X, const T1 prob_par)
+qradem(const BlazeMat<eT,To>& X, const T1 prob_par)
 {
-    BLAZE_DIST_FN(qbern_vec,prob_par);
+    BLAZE_DIST_FN(qradem_vec,prob_par);
 }
 #endif
 
@@ -126,8 +126,8 @@ qbern(const BlazeMat<eT,To>& X, const T1 prob_par)
 template<typename eT, typename T1, typename rT, int iTr, int iTc>
 statslib_inline
 EigenMat<rT,iTr,iTc>
-qbern(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par)
+qradem(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par)
 {
-    EIGEN_DIST_FN(qbern_vec,prob_par);
+    EIGEN_DIST_FN(qradem_vec,prob_par);
 }
 #endif

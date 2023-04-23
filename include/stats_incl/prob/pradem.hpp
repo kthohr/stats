@@ -19,47 +19,49 @@
   ################################################################################*/
 
 /*
- * quantile function of the Bernoulli distribution
+ * cdf of the Rademacher distribution
  */
 
-#ifndef _statslib_qbern_HPP
-#define _statslib_qbern_HPP
+#ifndef _statslib_pradem_HPP
+#define _statslib_pradem_HPP
 
 //
 // scalar input
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Distribution function of the Rademacher distribution
  *
- * @param p a real-valued input.
+ * @param x a value equal to 0 or 1.
  * @param prob_par the probability parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
  *
- * @return the quantile function evaluated at \c p.
+ * @return the cumulative distribution function evaluated at \c x.
  * 
  * Example:
- * \code{.cpp} stats::qbern(0.5,0.4); \endcode
+ * \code{.cpp} stats::pradem(1,0.6,false); \endcode
  */
 
-template<typename T1, typename T2>
+template<typename T>
 statslib_constexpr
-common_return_t<T1,T2>
-qbern(const T1 p, const T2 prob_par) noexcept;
+return_t<T>
+pradem(const llint_t x, const T prob_par, const bool log_form = false) noexcept;
 
 //
 // vector/matrix input
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Density function of the Rademacher distribution
  *
  * @param x a standard vector.
  * @param prob_par the probability parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
  *
- * @return a vector of quantile values corresponding to the elements of \c x.
+ * @return a vector of CDF values corresponding to the elements of \c x.
  * 
  * Example:
  * \code{.cpp}
- * std::vector<int> x = {0.4, 0.5, 0.9};
- * stats::qbern(x,0.5);
+ * std::vector<int> x = {0, 1, 0};
+ * stats::pradem(x,0.5,false);
  * \endcode
  */
 
@@ -67,22 +69,23 @@ qbern(const T1 p, const T2 prob_par) noexcept;
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 std::vector<rT>
-qbern(const std::vector<eT>& x, const T1 prob_par);
+pradem(const std::vector<eT>& x, const T1 prob_par, const bool log_form = false);
 #endif
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Density function of the Rademacher distribution
  *
  * @param X a matrix of input values.
  * @param prob_par the probability parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
  *
- * @return a matrix of quantile values corresponding to the elements of \c X.
+ * @return a matrix of CDF values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
- * arma::mat X = { {0.4, 0.5, 0.9},
- *                 {0.3, 0.6, 0.7} };
- * stats::qbern(X,0.5);
+ * arma::mat X = { {1, 0, 1},
+ *                 {0, 1, 0} };
+ * stats::pradem(X,0.5,false);
  * \endcode
  */
 
@@ -90,41 +93,43 @@ qbern(const std::vector<eT>& x, const T1 prob_par);
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>>
 statslib_inline
 ArmaMat<rT>
-qbern(const ArmaMat<eT>& X, const T1 prob_par);
+pradem(const ArmaMat<eT>& X, const T1 prob_par, const bool log_form = false);
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Density function of the Rademacher distribution
  *
  * @param X a matrix of input values.
  * @param prob_par the probability parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
  *
- * @return a matrix of quantile values corresponding to the elements of \c X.
+ * @return a matrix of CDF values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
- * arma::mat X = { {0.4, 0.5, 0.9},
- *                 {0.3, 0.6, 0.7} };
- * stats::qbern(X,0.5);
+ * arma::mat X = { {1, 0, 1},
+ *                 {0, 1, 0} };
+ * stats::pradem(X,0.5,false);
  * \endcode
  */
 
 template<typename mT, typename tT, typename T1>
 statslib_inline
 mT 
-qbern(const ArmaGen<mT,tT>& X, const T1 prob_par);
+pradem(const ArmaGen<mT,tT>& X, const T1 prob_par, const bool log_form = false);
 #endif
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Density function of the Rademacher distribution
  *
  * @param X a matrix of input values.
  * @param prob_par the probability parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
  *
- * @return a matrix of quantile values corresponding to the elements of \c X.
+ * @return a matrix of CDF values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
- * stats::qbern(X,0.5);
+ * stats::pradem(X,0.5,false);
  * \endcode
  */
 
@@ -132,20 +137,21 @@ qbern(const ArmaGen<mT,tT>& X, const T1 prob_par);
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, bool To = blaze::columnMajor>
 statslib_inline
 BlazeMat<rT,To>
-qbern(const BlazeMat<eT,To>& X, const T1 prob_par);
+pradem(const BlazeMat<eT,To>& X, const T1 prob_par, const bool log_form = false);
 #endif
 
 /**
- * @brief Quantile function of the Bernoulli distribution
+ * @brief Density function of the Rademacher distribution
  *
  * @param X a matrix of input values.
  * @param prob_par the probability parameter, a real-valued input.
+ * @param log_form return the log-probability or the true form.
  *
- * @return a matrix of quantile values corresponding to the elements of \c X.
+ * @return a matrix of CDF values corresponding to the elements of \c X.
  * 
  * Example:
  * \code{.cpp}
- * stats::qbern(X,0.5);
+ * stats::pradem(X,0.5,false);
  * \endcode
  */
 
@@ -153,12 +159,12 @@ qbern(const BlazeMat<eT,To>& X, const T1 prob_par);
 template<typename eT, typename T1, typename rT = common_return_t<eT,T1>, int iTr = Eigen::Dynamic, int iTc = Eigen::Dynamic>
 statslib_inline
 EigenMat<rT,iTr,iTc>
-qbern(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par);
+pradem(const EigenMat<eT,iTr,iTc>& X, const T1 prob_par, const bool log_form = false);
 #endif
 
 //
 // include implementation files
 
-#include "qbern.ipp"
+#include "pradem.ipp"
 
 #endif
